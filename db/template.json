@@ -1,0 +1,52 @@
+{
+  "nation": {
+    "RW5nbGFuZA": {
+      "id": "RW5nbGFuZA",
+      "name": "England",
+      "buildings": [],
+      "ships": [],
+      "technologies": []
+    },
+    "U3BhaW4": {
+      "id": "U3BhaW4",
+      "name": "Spain",
+      "buildings": [],
+      "ships": [],
+      "technologies": []
+    },
+    "RnJlbmNo": {
+      "id": "RnJlbmNo",
+      "name": "French",
+      "buildings": [],
+      "ships": [],
+      "technologies": []
+    },
+    "SG9sbGFuZA": {
+      "id": "SG9sbGFuZA",
+      "name": "Holland",
+      "buildings": [],
+      "ships": [],
+      "technologies": []
+    }
+  },
+  "building": {},
+  "ships": {},
+  "resource": {
+    "V29vZA": {
+      "id": "V29vZA",
+      "name": "Wood"
+    },
+    "SXJvbg": {
+      "id": "SXJvbg",
+      "name": "Iron"
+    },
+    "U3VwcGxpZXM": {
+      "id": "U3VwcGxpZXM",
+      "name": "Supplies"
+    },
+    "Q29pbnM": {
+      "id": "Q29pbnM",
+      "name": "Coins"
+    }
+  }
+}

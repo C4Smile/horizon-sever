@@ -1,19 +1,16 @@
 const express = require("express");
-const path = require("path");
 
 const { error, log, info, good } = require("../utils/chalk");
 
 // locals
 const {
   login,
-  saveUser,
+  logOut,
   register,
   loadUsers,
   loadUser,
-  deleteUser,
-  deleteUsers,
   getUserNotifications,
-} = require("../controller/user");
+} = require("../services/user");
 
 // auth
 const { verifyBearer } = require("../utils/secure");
@@ -44,25 +41,48 @@ router.post("/validate", async (req, res) => {
   res.send({ status: 200, data: { error: "unauthorized" } });
 });
 
+router.post("/logout", async (req, res) => {
+  log(info("Logging out user"));
+  load.start();
+  try {
+    const { user } = req.body;
+    const result = await logOut(user);
+    switch (result.status) {
+      case 200:
+        log(good(`${user} logged out successful`));
+        res.send(result).status(200);
+        break;
+      default:
+        log(error(result.error));
+        res.send({ error: result.error }).status(result.status);
+        break;
+    }
+  } catch (err) {
+    log(error(err));
+    res.sendStatus(500);
+  }
+  load.stop();
+});
+
 router.post("/login", async (req, res) => {
   log(info("Logging user"));
   load.start();
   try {
     const { user, password } = req.body;
-    const result = await login(user, password);
-    load.stop();
-    if (result.status === 200) {
-      log(good(`${user} logged successful`));
-      res.send(result);
-    } else if (result.status === 422) {
-      log(error(`${user} ${result.error}`));
-      res.send(result);
-    } else {
-      log(error(result.error));
-      res.send({ error: result.error });
+    const parsedUser = user.split("@")[0];
+    const result = await login(parsedUser, password);
+    switch (result.status) {
+      case 200: {
+        log(good(`${user} logged successful`));
+        res.send(result).status(200);
+        break;
+      }
+      default:
+        log(error(result.error));
+        res.send({ error: result.error }).status(result.status);
+        break;
     }
   } catch (err) {
-    load.stop();
     log(error(err));
     res.sendStatus(500);
   }
@@ -114,8 +134,8 @@ router.get("/get", async (req, res) => {
 router.post("/register", async (req, res) => {
   load.start();
   try {
-    const user = req.body.user;
-    const result = await register(user);
+    const { user, password } = req.body;
+    const result = await register(user, password);
     if (result.error == undefined) res.send(result);
     else res.send(result.error);
   } catch (err) {
@@ -123,111 +143,6 @@ router.post("/register", async (req, res) => {
     res.sendStatus(500);
   }
   load.stop();
-});
-
-router.post("/save", async (req, res) => {
-  if (req.headers.authorization) {
-    if (req.headers.authorization.indexOf("Bearer ") === 0) {
-      const verified = verifyBearer(req.headers.authorization);
-      if (verified) {
-        log(info("Saving profile"));
-        load.start();
-        try {
-          const { user, create } = req.body;
-          const result = await saveUser(user, create);
-          load.stop();
-          if (result.status === 200) {
-            log(good(`${user.user} saved successful`));
-            res.send(result);
-          } else if (result.status === 422) {
-            log(error(`${user.user} ${result.error}`));
-            res.send(result);
-          } else {
-            log(error(result.error));
-            res.send({ error: result.error });
-          }
-          return;
-        } catch (err) {
-          load.stop();
-          log(error(err));
-          res.sendStatus(500);
-          return;
-        }
-      }
-    }
-  }
-  res.status(404);
-  res.sendFile(path.join(__dirname, "views", "404.html"));
-});
-
-router.post("/delete", async (req, res) => {
-  if (req.headers.authorization) {
-    if (req.headers.authorization.indexOf("Bearer ") === 0) {
-      const verified = verifyBearer(req.headers.authorization);
-      if (verified) {
-        log(info("Deleting user"));
-        load.start();
-        try {
-          const { user } = req.body;
-          const result = await deleteUser(user);
-          load.stop();
-          if (result.status === 200) {
-            log(good(`${user} deleted successful`));
-            res.send(result);
-          } else if (result.status === 422) {
-            log(error(`${user} ${result.error}`));
-            res.send(result);
-          } else {
-            log(error(result.error));
-            res.send({ error: result.error });
-          }
-          return;
-        } catch (err) {
-          load.stop();
-          log(error(err));
-          res.sendStatus(500);
-          return;
-        }
-      }
-    }
-  }
-  res.status(404);
-  res.sendFile(path.join(__dirname, "views", "404.html"));
-});
-
-router.post("/delete-many", async (req, res) => {
-  if (req.headers.authorization) {
-    if (req.headers.authorization.indexOf("Bearer ") === 0) {
-      const verified = verifyBearer(req.headers.authorization);
-      if (verified) {
-        log(info("Deleting users"));
-        load.start();
-        try {
-          const { users } = req.body;
-          const result = await deleteUsers(users);
-          load.stop();
-          if (result.status === 200) {
-            log(good(`${users.length} deleted successful`));
-            res.send(result);
-          } else if (result.status === 422) {
-            log(error(`${users.length} ${result.error}`));
-            res.send(result);
-          } else {
-            log(error(result.error));
-            res.send({ error: result.error });
-          }
-          return;
-        } catch (err) {
-          load.stop();
-          log(error(err));
-          res.sendStatus(500);
-          return;
-        }
-      }
-    }
-  }
-  res.status(404);
-  res.sendFile(path.join(__dirname, "views", "404.html"));
 });
 
 module.exports = router;

@@ -37,16 +37,15 @@ const mLimiter = rateLimit({
     "Too many accounts created from this IP, please try again after a minute",
 });
 
-// cors white list
-const blacklist = ["http//localhost:8000"];
-
 // favicon
 // const fav = favicon(path.join(__dirname, "../public", "favicon.ico"));
+
+const whitelist = ["http://localhost:3000", "http://192.168.1.100:3000"];
 
 module.exports = {
   morgan: { assignId, structure, dev },
   helmet: helmet(),
-  cors: cors(),
+  cors: cors({ origin: whitelist }),
   limiter: mLimiter,
   // favicon: fav,
 };

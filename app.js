@@ -31,9 +31,15 @@ app.use(helmet);
 // cors
 app.use(cors);
 
-//users
+// users
 const user = require("./routes/user");
 app.use("/api/user/", user);
+// production
+const production = require("./routes/production");
+app.use("/api/production/", production);
+// admin
+const admin = require("./routes/admin");
+app.use("/api/admin/", admin);
 
 // Handle 404 - Keep this as a last route
 app.use(function (req, res) {
