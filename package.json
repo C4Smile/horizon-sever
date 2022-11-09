@@ -1,0 +1,52 @@
+{
+  "name": "beyond-the-world-server",
+  "version": "0.1.2",
+  "description": "Beyond the world server",
+  "main": "app.js",
+  "scripts": {
+    "start": "npm run serve",
+    "serve": "node ./bin/app.js",
+    "dev": "nodemon ./bin/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://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@github.com/SitoNumbis/Beyond-the-World-server.git"
+  },
+  "keywords": [
+    "game",
+    "nosql",
+    "browser-game",
+    "node",
+    "expressjs",
+    "chalk"
+  ],
+  "author": "Sito",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/SitoNumbis/Beyond-the-World-server/issues"
+  },
+  "homepage": "https://github.com/SitoNumbis/Beyond-the-World-server#readme",
+  "dependencies": {
+    "body-parser": "^1.20.1",
+    "chalk": "^4.1.2",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "crypto": "^1.0.1",
+    "debug": "^4.3.4",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "express-rate-limit": "^6.6.0",
+    "helmet": "^6.0.0",
+    "http-errors": "^2.0.0",
+    "http-proxy-middleware": "^2.0.6",
+    "json-manager": "^1.0.2",
+    "loading-cli": "^1.1.0",
+    "morgan": "^1.10.0",
+    "node-cron": "^3.0.2",
+    "node-uuid": "^1.4.8",
+    "nodemon": "^2.0.20",
+    "serve": "^14.0.1",
+    "serve-favicon": "^2.5.0",
+    "socket.io": "^4.5.3"
+  }
+}
