@@ -24,15 +24,15 @@ const addBuildings = async (buildings) => {
 
 /**
  *
- * @param {array} units
+ * @param {array} ships
  */
-const addUnits = async (units) => {
+const addShips = async (ships) => {
   try {
-    log(info(`adding new units`));
-    for (const item of units) {
-      log(info(`saving unit ${item.name}`));
+    log(info(`adding new ships`));
+    for (const item of ships) {
+      log(info(`saving ship ${item.name}`));
       const id = Buffer.from(item.name).toString("base64");
-      await insert("unit", id, { ...item, id });
+      await insert("ship", id, { ...item, id });
     }
   } catch (err) {
     log(error(err));
@@ -75,7 +75,7 @@ const addHeros = async (heros) => {
 
 module.exports = {
   addBuildings,
-  addUnits,
+  addShips,
   addTechnologies,
   addHeros,
 };

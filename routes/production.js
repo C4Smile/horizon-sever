@@ -5,15 +5,13 @@ const { usersOnline } = require("../chronons/resourcesChronons");
 // controller
 const {
   getBuildingsFromNation,
-  getUnitsFromNation,
+  getShipsFromNation,
   getTechnologiesFromNation,
-  getHerosFromNation,
 } = require("../controller/nation");
 const {
-  getHeros,
   getBuildings,
   getTechnologies,
-  getUnits,
+  getShips,
 } = require("../controller/technologies");
 
 // auth
@@ -34,12 +32,12 @@ router.get("/fetch-all-tech", async (req, res) => {
           let nation = req.query.nation;
           if (user && !nation) nation = usersOnline[user].nation;
           const buildings = getBuildingsFromNation(nation, forList);
-          const units = getUnitsFromNation(nation, forList);
+          const ships = getShipsFromNation(nation, forList);
           const technologies = getTechnologiesFromNation(nation, forList);
           const heros = getHerosFromNation(nation, forList);
           res.send({
             status: 200,
-            data: { buildings, units, technologies, heros },
+            data: { buildings, ships, technologies, heros },
           });
           load.stop();
           return;
@@ -111,7 +109,7 @@ router.get("/fetch-technologies", async (req, res) => {
   load.stop();
 });
 
-router.get("/fetch-units", async (req, res) => {
+router.get("/fetch-ships", async (req, res) => {
   load.start();
   try {
     if (req.headers.authorization) {
@@ -127,26 +125,6 @@ router.get("/fetch-units", async (req, res) => {
     res.send({ status: 403, data: { error: "unauthorized" } });
   } catch (err) {
     res.send({ err }).status();
-  }
-  load.stop();
-});
-
-router.get("/fetch-heros", async (req, res) => {
-  load.start();
-  try {
-    if (req.headers.authorization) {
-      if (req.headers.authorization.indexOf("Bearer ") === 0) {
-        const verified = verifyBearer(req.headers.authorization);
-        if (verified) {
-          const { nation } = req.query;
-          load.stop();
-          return;
-        }
-      }
-    }
-    res.send({ status: 403, data: { error: "unauthorized" } });
-  } catch (err) {
-    res.send({ err }).status(500);
   }
   load.stop();
 });

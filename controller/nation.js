@@ -61,23 +61,23 @@ const getBuildingsFromNation = async (nation, forList) => {
  * @param {string} nation
  * @param {boolean} forList
  */
-const getUnitsFromNation = async (nation, forList) => {
+const getShipsFromNation = async (nation, forList) => {
   try {
-    log(info(`fetching units of nation ${nation}`));
+    log(info(`fetching ships of nation ${nation}`));
     const nationData = await getValue("nation", nation);
     if (nationData) {
-      const parsedUnits = [];
-      for (const item of nationData.units) {
-        const unit = await getValue("unit", item);
+      const parsedShips = [];
+      for (const item of nationData.ships) {
+        const ship = await getValue("ship", item);
         if (forList)
-          parsedUnits.push({
-            id: unit.id,
-            name: unit.name,
+          parsedShips.push({
+            id: ship.id,
+            name: ship.name,
           });
-        else parsedUnits.push(unit);
+        else parsedShips.push(ship);
       }
-      log(good("fetching units successfully"));
-      return parsedUnits;
+      log(good("fetching ships successfully"));
+      return parsedShips;
     }
     return undefined;
   } catch (err) {
@@ -144,7 +144,7 @@ const getHerosFromNation = async (nation, forList) => {
 module.exports = {
   getNations,
   getBuildingsFromNation,
-  getUnitsFromNation,
+  getShipsFromNation,
   getTechnologiesFromNation,
   getHerosFromNation,
 };

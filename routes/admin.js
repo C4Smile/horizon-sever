@@ -2,10 +2,9 @@ const express = require("express");
 
 // controller
 const {
-  addHeros,
   addBuildings,
   addTechnologies,
-  addUnits,
+  addShips,
 } = require("../controller/technologies");
 
 // auth
@@ -36,15 +35,15 @@ router.post("/add-buildings", async (req, res) => {
   load.stop();
 });
 
-router.post("/add-units", async (req, res) => {
+router.post("/add-ships", async (req, res) => {
   load.start();
   try {
     if (req.headers.authorization) {
       if (req.headers.authorization.indexOf("Bearer ") === 0) {
         const verified = verifyBearer(req.headers.authorization);
         if (verified) {
-          const { units } = req.body;
-          await addUnits(units);
+          const { ships } = req.body;
+          await addShips(ships);
           load.stop();
           return;
         }
@@ -66,27 +65,6 @@ router.post("/add-technologies", async (req, res) => {
         if (verified) {
           const { technologies } = req.body;
           await addTechnologies(technologies);
-          load.stop();
-          return;
-        }
-      }
-    }
-    res.send({ status: 403, data: { error: "unauthorized" } });
-  } catch (err) {
-    res.send({ err }).status(500);
-  }
-  load.stop();
-});
-
-router.post("/add-heros", async (req, res) => {
-  load.start();
-  try {
-    if (req.headers.authorization) {
-      if (req.headers.authorization.indexOf("Bearer ") === 0) {
-        const verified = verifyBearer(req.headers.authorization);
-        if (verified) {
-          const { heros } = req.body;
-          await addHeros(heros);
           load.stop();
           return;
         }
