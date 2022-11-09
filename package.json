@@ -1,7 +1,7 @@
 {
   "name": "horizon-server",
   "version": "0.2.2",
-  "description": "Beyond the world server",
+  "description": "The Horizon Browser game's server",
   "main": "app.js",
   "scripts": {
     "start": "npm run serve",
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://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@github.com/SitoNumbis/Beyond-the-World-server.git"
+    "url": "git+https://github.com/SitoNumbis/horizon-sever.git"
   },
   "keywords": [
     "game",
@@ -23,9 +23,9 @@
   "author": "Sito",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/SitoNumbis/Beyond-the-World-server/issues"
+    "url": "https://github.com/SitoNumbis/horizon-sever.git/issues"
   },
-  "homepage": "https://github.com/SitoNumbis/Beyond-the-World-server#readme",
+  "homepage": "https://github.com/SitoNumbis/horizon-sever.git#readme",
   "dependencies": {
     "body-parser": "^1.20.1",
     "chalk": "^4.1.2",
