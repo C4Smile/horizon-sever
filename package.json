@@ -1,6 +1,6 @@
 {
-  "name": "beyond-the-world-server",
-  "version": "0.1.2",
+  "name": "horizon-server",
+  "version": "0.2.2",
   "description": "Beyond the world server",
   "main": "app.js",
   "scripts": {
