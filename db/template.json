@@ -29,16 +29,217 @@
       "technologies": []
     }
   },
-  "building": {},
-  "ships": {},
-  "resource": {
-    "V29vZA": {
-      "id": "V29vZA",
-      "name": "Wood"
+  "guns": {
+    "OCBQb3VuZCBHdW4": {
+      "id": "OCBQb3VuZCBHdW4",
+      "name": "8 Pound Gun",
+      "description": "The 8-pounder cannon was an artillery piece that fired 8-pound (3.91 kg) cast-iron balls. It was light artillery and was used by the French and Spanish navies during the era known as the age of sailing. They were mainly used on light ships of the early 19th century and on large ships of the line installed on the quarterdeck or forecastle.",
+      "damage": 8,
+      "price": { "V29vZA": 100, "SXJvbg": 80 },
+      "req": ["RnVybmFjZQ"]
     },
-    "SXJvbg": {
-      "id": "SXJvbg",
-      "name": "Iron"
+    "MTIgUG91bmQgR3Vu": {
+      "id": "MTIgUG91bmQgR3Vu",
+      "name": "12 Pound Gun",
+      "description": "The 12-pounder was an intermediate artillery piece that fired 12-pound (5.43 kg) cast-iron balls. It was widely used by most of the great naval powers during the 17th to 19th centuries and also as field and siege artillery.",
+      "damage": 12,
+      "price": { "V29vZA": 140, "SXJvbg": 120 },
+      "req": ["RnVybmFjZQ"]
+    },
+    "MTggUG91bmQgR3Vu": {
+      "id": "MTggUG91bmQgR3Vu",
+      "name": "18 Pound Gun",
+      "description": "The 18-pounder was an intermediate caliber naval artillery piece mounted on warships during the period known as the Age of Sailing. 18-pounders were used as main artillery on classic Frigates of the early 19th century, second-battery artillery on third-class ships of the line, and even on the upper deck of large first-class tri-deck ships.",
+      "damage": 18,
+      "price": { "V29vZA": 200, "SXJvbg": 180 },
+      "req": ["RnVybmFjZQ"]
+    },
+    "MjQgUG91bmQgR3Vu": {
+      "id": "MjQgUG91bmQgR3Vu",
+      "name": "24 Pound Gun",
+      "description": "The 24-pounder was a large caliber naval artillery piece mounted on most warships during the period known as the Age of Sailing. 24-pounder guns were used extensively by the Spanish, French, British, US, Dutch, Swedish, and Polish Navies. 24-pounder guns were the main armament on larger ships during the 19th century and were also used for coastal defenses and as siege artillery.",
+      "damage": 24,
+      "price": { "V29vZA": 260, "SXJvbg": 240 },
+      "req": ["RnVybmFjZQ"]
+    },
+    "MzIgUG91bmQgR3Vu": {
+      "id": "MzIgUG91bmQgR3Vu",
+      "name": "32 Pound Gun",
+      "description": "The 32-pounder was a mid-size cannon type, similar to but slightly larger than a culverin. It was smaller than the typical 42-pounder gun developed in the early 17th century,1 which was considered the full gun, so the 32-pounder was sometimes referred to as a \"demicanon\" or semi-gun. It was the lowest caliber used for naval artillery in the English 17th century English navy. Other navies standardized on different calibers, such as the French Navy's 36-pounder.",
+      "damage": 32,
+      "price": { "V29vZA": 340, "SXJvbg": 320 },
+      "req": ["RnVybmFjZQ"]
+    },
+    "MzYgUG91bmQgR3Vu": {
+      "id": "MzYgUG91bmQgR3Vu",
+      "name": "36 Pound Gun",
+      "description": "The 36-pounder was the largest piece of naval artillery to be mounted on French warships during the period known as the Age of Sailing. This gun vastly outclassed the heaviest guns used by fleets up to that time, the 24-pounder. Its fire weight was 36 French pounds (17.62 kg). This cannon was also used in coastal defenses.",
+      "damage": 36,
+      "price": { "V29vZA": 360, "SXJvbg": 360 },
+      "req": ["RnVybmFjZQ"]
+    }
+  },
+  "building": {
+    "SW5kdXN0cmllcw": {
+      "id": "SW5kdXN0cmllcw",
+      "name": "Industries",
+      "description": "The industry is an activity whose purpose is to transform raw materials into finished, semi-finished, or super-finished products.",
+      "creationTime": "formula:var>level*number>10",
+      "price": {
+        "V29vZA": 100,
+        "SXJvbg": 10
+      },
+      "buildingType": {},
+      "production": {
+        "TWF0ZXJpYWxz": "formula:var>level*number>10"
+      },
+      "req": []
+    },
+    "RmFybQ": {
+      "id": "RmFybQ",
+      "name": "Farms",
+      "description": "A farm is an area of land that is devoted primarily to agricultural processes with the primary objective of producing food and other crops",
+      "price": {
+        "V29vZA": 100,
+        "SXJvbg": 10
+      },
+      "buildingType": {},
+      "production": {
+        "TWV0YWxz": "formula:var>level*number>10"
+      },
+      "req": []
+    },
+    "RnVybmFjZQ": {
+      "id": "RnVybmFjZQ",
+      "name": "Furnaces",
+      "description": "A blast furnace is a type of metallurgical furnace used for smelting to produce industrial metals, generally pig iron, but also others such as lead or copper. Blast refers to the combustion air being \"forced\" or supplied above atmospheric pressure.",
+      "price": {
+        "V29vZA": 100,
+        "SXJvbg": 10
+      },
+      "buildingType": {},
+      "production": {
+        "U3VwcGxpZXM": "formula:var>level*number>10"
+      },
+      "req": []
+    },
+    "U2hpcHlhcmQ": {
+      "id": "U2hpcHlhcmQ",
+      "name": "Shipyard",
+      "description": "The shipyard is an industrial facility where ships are built and repaired.",
+      "price": {
+        "V29vZA": 100,
+        "SXJvbg": 10
+      }
+    },
+    "VW5pdmVyc2l0eQ": {
+      "id": "VW5pdmVyc2l0eQ",
+      "name": "University",
+      "description": "A university is an academic institution of higher learning and research",
+      "price": {
+        "V29vZA": 100,
+        "SXJvbg": 10
+      }
+    }
+  },
+  "ships": {
+    "U2xvb3A": {
+      "id": "U2xvb3A",
+      "name": "Sloop",
+      "description": "A selection of small combat ships with great maneuverability and a small but useful variety of guns. They are capable of maneuvering and boarding larger boats, and are also fast enough to catch small boats. Exceptionally easy to use, they are obviously a favorite with many players.",
+      "cargo": 9,
+      "speed": 4,
+      "crew": 12,
+      "durability": 150,
+      "price": {},
+      "req": ["U2hpcHlhcmQ"]
+    },
+    "U2Nob29uZXI": {
+      "id": "U2Nob29uZXI",
+      "name": "Schooner",
+      "description": "It was a small but fast sailing ship during the Hanseatic time in the North- and East-Sea of the 14th century. Its design allowed its use on high sea as well as in rivers. The model is partially rigged. The sole part that is not are the tackles that follow the boom and the gaff.",
+      "cargo": 11,
+      "speed": 6,
+      "crew": 25,
+      "durability": 200,
+      "price": {},
+      "req": ["U2hpcHlhcmQ"]
+    },
+    "Q3JheWVy": {
+      "id": "Q3JheWVy",
+      "name": "Caravel",
+      "description": "The caravel is a small maneuverable sailing ship developed in the 15th century to explore. The lateen sails gave it speed and the capacity for sailing windward (beating).",
+      "cargo": 16,
+      "speed": 8,
+      "crew": 35,
+      "durability": 300,
+      "price": {},
+      "req": ["U2hpcHlhcmQ"]
+    }
+  },
+  "technology": {
+    "Q290dG9uIFNhaWxz": {
+      "id": "Q290dG9uIFNhaWxz",
+      "name": "Cotton Sails",
+      "description": "Increases the ship's overall speed.",
+      "speed": "formula:var>speed*number>0.25+var>speed",
+      "price": {
+        "V29vZA": "formula:var>currentLevel*25"
+      },
+      "req": ["U2hpcHlhcmQ", "VW5pdmVyc2l0eQ"]
+    },
+    "VHJpcGxlIEhhbW1vY2tz": {
+      "id": "VHJpcGxlIEhhbW1vY2tz",
+      "name": "Triple Hammocks",
+      "description": "Increases the ship's maximum crew capacity.",
+      "crew": "formula:var>crew*number>0.2+var>crew",
+      "price": {
+        "V29vZA": "formula:var>currentLevel*10"
+      },
+      "req": ["VW5pdmVyc2l0eQ"]
+    },
+    "UmVmaW5lZCBIdWxs": {
+      "id": "UmVmaW5lZCBIdWxs",
+      "name": "Refined Hull",
+      "description": "Increases the ship's Durability.",
+      "durability": 0,
+      "price": {
+        "V29vZA": "formula:var>currentLevel*40",
+        "SXJvbg": "formula:var>currentLevel*10"
+      },
+      "req": ["RnVybmFjZQ"]
+    },
+    "Q2hhaW4tU2hvdA": {
+      "id": "Q2hhaW4tU2hvdA",
+      "name": "Chain-Shot",
+      "description": "Enables the ship to fire Chain-Shot during combat.",
+      "enables": "chainShot",
+      "price": {
+        "Q29pbnM": 400,
+        "SXJvbg": "formula:var>cargo*1.5"
+      },
+      "req": ["RnVybmFjZQ", "VW5pdmVyc2l0eQ"]
+    },
+    "R3JhcGUtU2hvdA": {
+      "id": "R3JhcGUtU2hvdA",
+      "name": "Grape-Shot",
+      "description": "Enables the ship to fire Grape-Shot during combat.",
+      "enables": "grapeShot",
+      "price": {
+        "Q29pbnM": 500,
+        "SXJvbg": "formula:var>cargo*2"
+      },
+      "req": ["RnVybmFjZQ", "VW5pdmVyc2l0eQ"]
+    }
+  },
+  "resource": {
+    "TWF0ZXJpYWxz": {
+      "id": "TWF0ZXJpYWxz",
+      "name": "Materials"
+    },
+    "TWV0YWxz": {
+      "id": "TWV0YWxz",
+      "name": "Metals"
     },
     "U3VwcGxpZXM": {
       "id": "U3VwcGxpZXM",
