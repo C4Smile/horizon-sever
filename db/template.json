@@ -127,6 +127,30 @@
       "id": "U2hpcHlhcmQ",
       "name": "Shipyard",
       "description": "The shipyard is an industrial facility where ships are built and repaired.",
+      "buildingType": {},
+      "price": {
+        "V29vZA": 100,
+        "SXJvbg": 10
+      },
+      "production": {},
+      "req": []
+    },
+    "QXJzZW5hbA": {
+      "id": "QXJzZW5hbA",
+      "name": "Arsenal",
+      "description": "An arsenal is a building intended for the construction, repair, storage, and distribution of weapons and ammunition.",
+      "buildingType": {},
+      "price": {
+        "V29vZA": 100,
+        "SXJvbg": 10
+      },
+      "production": {},
+      "req": []
+    },
+    "QWNhZGVteQ": {
+      "id": "QWNhZGVteQ",
+      "name": "Academy",
+      "description": "The scientific, literary, or artistic society established with public authority and as a public or private educational establishment of a professional, artistic and technical nature.",
       "price": {
         "V29vZA": 100,
         "SXJvbg": 10
@@ -186,7 +210,7 @@
       "price": {
         "V29vZA": "formula:var>currentLevel*25"
       },
-      "req": ["U2hpcHlhcmQ", "VW5pdmVyc2l0eQ"]
+      "req": ["U2hpcHlhcmQ", "QWNhZGVteQ"]
     },
     "VHJpcGxlIEhhbW1vY2tz": {
       "id": "VHJpcGxlIEhhbW1vY2tz",
@@ -196,7 +220,7 @@
       "price": {
         "V29vZA": "formula:var>currentLevel*10"
       },
-      "req": ["VW5pdmVyc2l0eQ"]
+      "req": ["QWNhZGVteQ"]
     },
     "UmVmaW5lZCBIdWxs": {
       "id": "UmVmaW5lZCBIdWxs",
@@ -207,7 +231,7 @@
         "V29vZA": "formula:var>currentLevel*40",
         "SXJvbg": "formula:var>currentLevel*10"
       },
-      "req": ["RnVybmFjZQ"]
+      "req": ["RnVybmFjZQ", "QWNhZGVteQ"]
     },
     "Q2hhaW4tU2hvdA": {
       "id": "Q2hhaW4tU2hvdA",
@@ -218,7 +242,7 @@
         "Q29pbnM": 400,
         "SXJvbg": "formula:var>cargo*1.5"
       },
-      "req": ["RnVybmFjZQ", "VW5pdmVyc2l0eQ"]
+      "req": ["RnVybmFjZQ", "QWNhZGVteQ"]
     },
     "R3JhcGUtU2hvdA": {
       "id": "R3JhcGUtU2hvdA",
@@ -229,7 +253,69 @@
         "Q29pbnM": 500,
         "SXJvbg": "formula:var>cargo*2"
       },
-      "req": ["RnVybmFjZQ", "VW5pdmVyc2l0eQ"]
+      "req": ["RnVybmFjZQ", "QWNhZGVteQ"]
+    }
+  },
+  "defense": {
+    "QXJzZW5hbA": {
+      "id": "QXJzZW5hbA",
+      "name": "Trench",
+      "description": "In military engineering, a trench is called a defensive ditch that allows shooting under cover from the enemy.",
+      "damage": 8,
+      "durability": 150,
+      "price": {
+        "V29vZA": 100,
+        "SXJvbg": 10
+      },
+      "req": ["U2hpcHlhcmQ"]
+    },
+    "V2F0Y2ggVG93ZXI": {
+      "id": "V2F0Y2ggVG93ZXI",
+      "name": "Watch Tower",
+      "description": "Its main objective is to provide a high and safe place from which to carry out surveillance and military observations.",
+      "damage": 6,
+      "durability": 100,
+      "price": {
+        "V29vZA": 100,
+        "SXJvbg": 10
+      },
+      "req": ["U2hpcHlhcmQ"]
+    },
+    "S2VlcA": {
+      "id": "S2VlcA",
+      "name": "Keep",
+      "description": "Part of the defensive system of the city to protect it and avoid enemy ships",
+      "damage": 32,
+      "durability": 250,
+      "price": {
+        "V29vZA": 100,
+        "SXJvbg": 10
+      },
+      "req": ["U2hpcHlhcmQ"]
+    },
+    "Rm9ydA": {
+      "id": "Rm9ydA",
+      "name": "Fort",
+      "description": "Fort is any fortification work that defends a pass or is part of a large defensive system",
+      "damage": 36,
+      "durability": 350,
+      "price": {
+        "V29vZA": 100,
+        "SXJvbg": 10
+      },
+      "req": ["U2hpcHlhcmQ"]
+    },
+    "Rm9ydHJlc3M": {
+      "id": "Rm9ydHJlc3M",
+      "name": "Fortress",
+      "description": "Renaissance military fortification with the aim of protecting the city against a naval attack.",
+      "damage": 48,
+      "durability": 450,
+      "price": {
+        "V29vZA": 100,
+        "SXJvbg": 10
+      },
+      "req": ["U2hpcHlhcmQ"]
     }
   },
   "resource": {
