@@ -36,7 +36,7 @@
       "description": "The 8-pounder cannon was an artillery piece that fired 8-pound (3.91 kg) cast-iron balls. It was light artillery and was used by the French and Spanish navies during the era known as the age of sailing. They were mainly used on light ships of the early 19th century and on large ships of the line installed on the quarterdeck or forecastle.",
       "damage": 8,
       "price": { "V29vZA": 100, "SXJvbg": 80 },
-      "req": ["RnVybmFjZQ"]
+      "req": ["RnVybmFjZQ", "QXJzZW5hbA"]
     },
     "MTIgUG91bmQgR3Vu": {
       "id": "MTIgUG91bmQgR3Vu",
@@ -44,7 +44,7 @@
       "description": "The 12-pounder was an intermediate artillery piece that fired 12-pound (5.43 kg) cast-iron balls. It was widely used by most of the great naval powers during the 17th to 19th centuries and also as field and siege artillery.",
       "damage": 12,
       "price": { "V29vZA": 140, "SXJvbg": 120 },
-      "req": ["RnVybmFjZQ"]
+      "req": ["RnVybmFjZQ", "QXJzZW5hbA"]
     },
     "MTggUG91bmQgR3Vu": {
       "id": "MTggUG91bmQgR3Vu",
@@ -52,7 +52,7 @@
       "description": "The 18-pounder was an intermediate caliber naval artillery piece mounted on warships during the period known as the Age of Sailing. 18-pounders were used as main artillery on classic Frigates of the early 19th century, second-battery artillery on third-class ships of the line, and even on the upper deck of large first-class tri-deck ships.",
       "damage": 18,
       "price": { "V29vZA": 200, "SXJvbg": 180 },
-      "req": ["RnVybmFjZQ"]
+      "req": ["RnVybmFjZQ", "QXJzZW5hbA"]
     },
     "MjQgUG91bmQgR3Vu": {
       "id": "MjQgUG91bmQgR3Vu",
@@ -60,7 +60,7 @@
       "description": "The 24-pounder was a large caliber naval artillery piece mounted on most warships during the period known as the Age of Sailing. 24-pounder guns were used extensively by the Spanish, French, British, US, Dutch, Swedish, and Polish Navies. 24-pounder guns were the main armament on larger ships during the 19th century and were also used for coastal defenses and as siege artillery.",
       "damage": 24,
       "price": { "V29vZA": 260, "SXJvbg": 240 },
-      "req": ["RnVybmFjZQ"]
+      "req": ["RnVybmFjZQ", "QXJzZW5hbA"]
     },
     "MzIgUG91bmQgR3Vu": {
       "id": "MzIgUG91bmQgR3Vu",
@@ -68,7 +68,7 @@
       "description": "The 32-pounder was a mid-size cannon type, similar to but slightly larger than a culverin. It was smaller than the typical 42-pounder gun developed in the early 17th century,1 which was considered the full gun, so the 32-pounder was sometimes referred to as a \"demicanon\" or semi-gun. It was the lowest caliber used for naval artillery in the English 17th century English navy. Other navies standardized on different calibers, such as the French Navy's 36-pounder.",
       "damage": 32,
       "price": { "V29vZA": 340, "SXJvbg": 320 },
-      "req": ["RnVybmFjZQ"]
+      "req": ["RnVybmFjZQ", "QXJzZW5hbA"]
     },
     "MzYgUG91bmQgR3Vu": {
       "id": "MzYgUG91bmQgR3Vu",
@@ -76,7 +76,7 @@
       "description": "The 36-pounder was the largest piece of naval artillery to be mounted on French warships during the period known as the Age of Sailing. This gun vastly outclassed the heaviest guns used by fleets up to that time, the 24-pounder. Its fire weight was 36 French pounds (17.62 kg). This cannon was also used in coastal defenses.",
       "damage": 36,
       "price": { "V29vZA": 360, "SXJvbg": 360 },
-      "req": ["RnVybmFjZQ"]
+      "req": ["RnVybmFjZQ", "QXJzZW5hbA"]
     }
   },
   "building": {
@@ -174,7 +174,7 @@
       "cargo": 9,
       "speed": 4,
       "crew": 12,
-      "durability": 150,
+      "durability": 200,
       "price": {},
       "req": ["U2hpcHlhcmQ"]
     },
@@ -185,7 +185,7 @@
       "cargo": 11,
       "speed": 6,
       "crew": 25,
-      "durability": 200,
+      "durability": 250,
       "price": {},
       "req": ["U2hpcHlhcmQ"]
     },
@@ -196,7 +196,40 @@
       "cargo": 16,
       "speed": 8,
       "crew": 35,
-      "durability": 300,
+      "durability": 350,
+      "price": {},
+      "req": ["U2hpcHlhcmQ"]
+    },
+    "Q29n": {
+      "id": "Q29n",
+      "name": "Cog",
+      "description": "A cog is a type of ship that first appeared in the 10th century, and was widely used from around the 12th century on. Cogs were clinker-built, generally of oak. These vessels were fitted with a single mast and a square-rigged single sail. They were mostly associated with seagoing trade in north-west medieval Europe, especially the Hanseatic League.",
+      "cargo": 22,
+      "speed": 5,
+      "crew": 55,
+      "durability": 550,
+      "price": {},
+      "req": ["U2hpcHlhcmQ"]
+    },
+    "R2FsbGVvbg": {
+      "id": "R2FsbGVvbg",
+      "name": "Galleon",
+      "description": "Galleons were large, multi-decked sailing ships first used as armed cargo carriers by European states from the 16th to 18th centuries during the age of sail and were the principal vessels drafted for use as warships until the Anglo-Dutch Wars of the mid-1600s.",
+      "cargo": 36,
+      "speed": 5,
+      "crew": 70,
+      "durability": 700,
+      "price": {},
+      "req": ["U2hpcHlhcmQ"]
+    },
+    "RnJpZ2F0ZQ": {
+      "id": "RnJpZ2F0ZQ",
+      "name": "Frigate",
+      "description": "A frigate is a type of warship. In different eras, the roles and capabilities of ships classified as frigates have varied somewhat. Was given to any full-rigged ship built for speed and maneuverability, intended to be used in scouting, escort and patrol roles.",
+      "cargo": 40,
+      "speed": 12,
+      "crew": 120,
+      "durability": 600,
       "price": {},
       "req": ["U2hpcHlhcmQ"]
     }
