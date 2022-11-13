@@ -15,7 +15,7 @@ const { UserStatusEnum, User } = require("../models/User");
 
 const giveToken = () => {
   const date = new Date();
-  date.setHours(date.getHours() + 1);
+  date.setHours(date.getMinutes() + 20);
   const stringDate = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
   return { string: stringDate, number: date.getTime() };
 };

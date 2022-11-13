@@ -1,5 +1,5 @@
 // @ts-check
-const Building = require("./Building");
+const { Building } = require("./Building");
 const Technology = require("./Technology");
 const Ship = require("./Ships");
 
@@ -59,4 +59,4 @@ class Nation {
   }
 }
 
-export default Nation;
+module.exports = Nation;
