@@ -18,6 +18,7 @@ const {
 const { verifyBearer } = require("../utils/secure");
 
 const load = require("../utils/loading");
+const { userSelectNation } = require("../controller/user");
 
 const router = express.Router();
 
@@ -145,6 +146,29 @@ router.post("/user-make", async (req, res) => {
             if (usersOnline[user].canMake())
               res.send({ user, techId, noCost, count }).status(200);
           }
+          load.stop();
+          return;
+        }
+      }
+    }
+    res.send({ status: 403, data: { error: "unauthorized" } });
+  } catch (err) {
+    res.send({ err }).status(500);
+  }
+  load.stop();
+});
+
+router.post("/select-nation", async (req, res) => {
+  load.start();
+  try {
+    if (req.headers.authorization) {
+      if (req.headers.authorization.indexOf("Bearer ") === 0) {
+        const verified = verifyBearer(req.headers.authorization);
+        if (verified) {
+          const { user, nation } = req.body;
+          const result = await userSelectNation(user, nation);
+          if (result) res.send({ status: 200, data: { nation } });
+          else res.send({ status: 403, data: { error: "unauthorized" } });
           load.stop();
           return;
         }

@@ -36,6 +36,25 @@ const getUserByUser = async (user) => {
 
 /**
  *
+ * @param {string} user
+ * @param {string} nation
+ */
+const userSelectNation = async (user, nation) => {
+  try {
+    const data = await getUser(user);
+    if (data) {
+      data.nation = nation;
+      await update("user", user, data);
+      return 200;
+    } else return undefined;
+  } catch (err) {
+    console.log(err);
+    return err;
+  }
+};
+
+/**
+ *
  * @param {object} remoteData
  */
 const updateUser = async (remoteData) => {
@@ -117,4 +136,5 @@ module.exports = {
   getUserByUser,
   updateUser,
   getUsers,
+  userSelectNation,
 };
