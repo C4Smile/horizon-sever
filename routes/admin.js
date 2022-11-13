@@ -1,3 +1,6 @@
+// @ts-check
+const { log, error } = require("../utils/chalk");
+
 const express = require("express");
 
 // controller
@@ -5,7 +8,7 @@ const {
   addBuildings,
   addTechnologies,
   addShips,
-} = require("../controller/technologies");
+} = require("../controller/admin");
 
 // auth
 const { verifyBearer } = require("../utils/secure");
@@ -23,20 +26,19 @@ router.post("/add-buildings", async (req, res) => {
         if (verified) {
           const { buildings } = req.body;
           await addBuildings(buildings);
-          res
-            .send({
-              status: 200,
-              data: { buildings },
-            })
-            .status(200);
+          res.status(200).send({
+            data: { buildings },
+          });
           load.stop();
           return;
         }
       }
     }
-    res.send({ status: 403, data: { error: "unauthorized" } }).status(403);
+    log(error("request of add-buildings unauthorized"));
+    res.status(401).send({ error: "unauthorized" });
   } catch (err) {
-    res.send({ err }).status(500);
+    log(error(err));
+    res.status(500).send({ error: "SomeWrong" });
   }
   load.stop();
 });
@@ -50,20 +52,19 @@ router.post("/add-ships", async (req, res) => {
         if (verified) {
           const { ships } = req.body;
           await addShips(ships);
-          res
-            .send({
-              status: 200,
-              data: { ships },
-            })
-            .status(200);
+          res.status(200).send({
+            data: { ships },
+          });
           load.stop();
           return;
         }
       }
     }
-    res.send({ status: 403, data: { error: "unauthorized" } }).status(200);
+    log(error("request of add-buildings unauthorized"));
+    res.status(401).send({ error: "unauthorized" });
   } catch (err) {
-    res.send({ err }).status(500);
+    log(error(err));
+    res.status(500).send({ error: "SomeWrong" });
   }
   load.stop();
 });
@@ -77,20 +78,19 @@ router.post("/add-technologies", async (req, res) => {
         if (verified) {
           const { technologies } = req.body;
           await addTechnologies(technologies);
-          res
-            .send({
-              status: 200,
-              data: { technologies },
-            })
-            .status(200);
+          res.status(200).send({
+            data: { technologies },
+          });
           load.stop();
           return;
         }
       }
     }
-    res.send({ status: 403, data: { error: "unauthorized" } }).status(200);
+    log(error("request of add-buildings unauthorized"));
+    res.status(401).send({ error: "unauthorized" });
   } catch (err) {
-    res.send({ err }).status(500);
+    log(error(err));
+    res.status(500).send({ error: "SomeWrong" });
   }
   load.stop();
 });

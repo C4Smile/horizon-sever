@@ -27,20 +27,18 @@ router.post("/validate", async (req, res) => {
         load.start();
         try {
           load.stop();
-          res
-            .send({ status: 200, data: { message: "authorized" } })
-            .status(200);
+          res.status(200).send({ data: { message: "authorized" } });
           return;
         } catch (err) {
           load.stop();
           log(error(err));
-          res.sendStatus(500);
+          res.status(500).send({ error: "SomeWrong" });
           return;
         }
       }
     }
   }
-  res.send({ status: 200, data: { error: "unauthorized" } });
+  res.status(401).send({ error: "NeedRestart" });
 });
 
 router.post("/logout", async (req, res) => {
@@ -57,10 +55,10 @@ router.post("/logout", async (req, res) => {
         log(error(result.error));
         break;
     }
-    res.send(result).status(result.status);
+    res.status(result.status).send(result);
   } catch (err) {
     log(error(err));
-    res.sendStatus(500);
+    res.status(500).send({ error: "SomeWrong" });
   }
   load.stop();
 });
@@ -81,10 +79,10 @@ router.post("/login", async (req, res) => {
         log(error(result.error));
         break;
     }
-    res.send(result).status(result.status);
+    res.status(result.status).send(result);
   } catch (err) {
     log(error(err));
-    res.sendStatus(500);
+    res.status(500).send({ error: "SomeWrong" });
   }
   load.stop();
 });
@@ -93,12 +91,12 @@ router.get("/list", async (req, res) => {
   try {
     load.start();
     const result = await loadUsers();
-    res.send(result).status(result.status);
+    res.status(result.status).send(result);
     load.stop();
   } catch (err) {
     load.stop();
     log(error(err));
-    res.sendStatus(500);
+    res.status(500).send({ error: "SomeWrong" });
   }
 });
 
@@ -107,12 +105,12 @@ router.get("/notifications", async (req, res) => {
     load.start();
     const user = req.query.user;
     const result = await getUserNotifications(user);
-    res.send(result).status(result.status);
+    res.status(result.status).send(result);
     load.stop();
   } catch (err) {
     load.stop();
     log(error(err));
-    res.sendStatus(500);
+    res.status(500).send({ error: "SomeWrong" });
   }
 });
 
@@ -121,12 +119,12 @@ router.get("/get", async (req, res) => {
     load.start();
     const option = req.query.id;
     const result = await loadUser(option);
-    res.send(result).status(result.status);
+    res.status(result.status).send(result);
     load.stop();
   } catch (err) {
     load.stop();
     log(error(err));
-    res.sendStatus(500);
+    res.status(500).send({ error: "SomeWrong" });
   }
 });
 
@@ -135,10 +133,10 @@ router.post("/register", async (req, res) => {
   try {
     const { user, password } = req.body;
     const result = await register(user, password);
-    res.send(result).status(result.status);
+    res.status(result.status).send(result);
   } catch (err) {
     log(error(err));
-    res.sendStatus(500);
+    res.status(500).send({ error: "SomeWrong" });
   }
   load.stop();
 });

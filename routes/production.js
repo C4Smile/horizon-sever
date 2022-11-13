@@ -1,6 +1,10 @@
+// @ts-check
+
 const express = require("express");
 
 const { usersOnline } = require("../chronons/resourcesChronons");
+
+const { log, error } = require("../utils/chalk");
 
 // controller
 const {
@@ -31,21 +35,21 @@ router.get("/fetch-nations", async (req, res) => {
         const verified = verifyBearer(req.headers.authorization);
         if (verified) {
           const { nation, forList } = req.query;
+          // @ts-ignore
           const nations = await getNations(nation, forList);
-          res
-            .send({
-              status: 200,
-              data: { nations },
-            })
-            .status(200);
+          res.status(200).send({
+            data: { nations },
+          });
           load.stop();
           return;
         }
       }
     }
-    res.send({ status: 403, data: { error: "unauthorized" } }).status(403);
+    log(error("request of nation unauthorized"));
+    res.status(401).send({ error: "unauthorized" });
   } catch (err) {
-    res.send({ err }).status(500);
+    log(error(err));
+    res.status(500).send({ error: "SomeWrong" });
   }
   load.stop();
 });
@@ -60,24 +64,25 @@ router.get("/fetch-all-tech", async (req, res) => {
           const { user, forList } = req.query;
           let nation = req.query.nation;
           if (user && !nation) nation = usersOnline[user].nation;
+          // @ts-ignore
           const buildings = getBuildingsFromNation(nation, forList);
+          // @ts-ignore
           const ships = getShipsFromNation(nation, forList);
+          // @ts-ignore
           const technologies = getTechnologiesFromNation(nation, forList);
-          const heros = getHerosFromNation(nation, forList);
-          res
-            .send({
-              status: 200,
-              data: { buildings, ships, technologies, heros },
-            })
-            .status(200);
+          res.status(200).send({
+            data: { buildings, ships, technologies },
+          });
           load.stop();
           return;
         }
       }
     }
-    res.send({ status: 403, error: "unauthorized" });
+    log(error("request of all tech unauthorized"));
+    res.status(401).send({ error: "unauthorized" });
   } catch (err) {
-    res.send({ err }).status(500);
+    log(error(err));
+    res.status(500).send({ error: "SomeWrong" });
   }
   load.stop();
 });
@@ -92,21 +97,21 @@ router.get("/fetch-buildings", async (req, res) => {
           const { user, forList } = req.query;
           let nation = req.query.nation;
           if (user && !nation) nation = usersOnline[user].nation;
+          // @ts-ignore
           const buildings = getBuildingsFromNation(nation, forList);
-          res
-            .send({
-              status: 200,
-              data: { buildings },
-            })
-            .status(200);
+          res.send({
+            data: { buildings },
+          });
           load.stop();
           return;
         }
       }
     }
-    res.send({ status: 403, data: { error: "unauthorized" } }).status(403);
+    log(error("request of building unauthorized"));
+    res.status(401).send({ error: "unauthorized" });
   } catch (err) {
-    res.send({ err }).status(500);
+    log(error(err));
+    res.status(500).send({ error: "SomeWrong" });
   }
   load.stop();
 });
@@ -121,21 +126,21 @@ router.get("/fetch-technologies", async (req, res) => {
           const { user, forList } = req.query;
           let nation = req.query.nation;
           if (user && !nation) nation = usersOnline[user].nation;
+          // @ts-ignore
           const technologies = getTechnologiesFromNation(nation, forList);
-          res
-            .send({
-              status: 200,
-              data: { technologies },
-            })
-            .status(200);
+          res.send({
+            data: { technologies },
+          });
           load.stop();
           return;
         }
       }
     }
-    res.send({ status: 403, data: { error: "unauthorized" } }).status(403);
+    log(error("request of technologies unauthorized"));
+    res.status(401).send({ error: "unauthorized" });
   } catch (err) {
-    res.send({ err }).status(500);
+    log(error(err));
+    res.status(500).send({ error: "SomeWrong" });
   }
   load.stop();
 });
@@ -147,15 +152,24 @@ router.get("/fetch-ships", async (req, res) => {
       if (req.headers.authorization.indexOf("Bearer ") === 0) {
         const verified = verifyBearer(req.headers.authorization);
         if (verified) {
-          const { nation } = req.query;
+          const { user, forList } = req.query;
+          let nation = req.query.nation;
+          if (user && !nation) nation = usersOnline[user].nation;
+          // @ts-ignore
+          const ships = getShipsFromNation(nation, forList);
+          res.send({
+            data: { ships },
+          });
           load.stop();
           return;
         }
       }
     }
-    res.send({ status: 403, data: { error: "unauthorized" } }).status(403);
+    log(error("request of ships unauthorized"));
+    res.status(401).send({ error: "unauthorized" });
   } catch (err) {
-    res.send({ err }).status();
+    log(error(err));
+    res.status(500).send({ error: "SomeWrong" });
   }
   load.stop();
 });
@@ -182,9 +196,11 @@ router.post("/user-make", async (req, res) => {
         }
       }
     }
-    res.send({ status: 403, data: { error: "unauthorized" } }).status(403);
+    log(error("request of user-make unauthorized"));
+    res.status(401).send({ error: "unauthorized" });
   } catch (err) {
-    res.send({ err }).status(500);
+    log(error(err));
+    res.status(500).send({ error: "SomeWrong" });
   }
   load.stop();
 });
@@ -198,19 +214,18 @@ router.post("/select-nation", async (req, res) => {
         if (verified) {
           const { user, nation } = req.body;
           const result = await userSelectNation(user, nation);
-          if (result) res.send({ status: 200, data: { nation } }).status(200);
-          else
-            res
-              .send({ status: 403, data: { error: "unauthorized" } })
-              .status(403);
+          if (result) res.status(200).send({ data: { nation } });
+          else res.status(500).send({ data: { error: "SomeWrong" } });
           load.stop();
           return;
         }
       }
     }
-    res.send({ status: 403, data: { error: "unauthorized" } }).status(403);
+    log(error("request of select-nation unauthorized"));
+    res.status(401).send({ error: "unauthorized" });
   } catch (err) {
-    res.send({ err }).status(500);
+    log(error(err));
+    res.status(500).send({ error: "SomeWrong" });
   }
   load.stop();
 });
