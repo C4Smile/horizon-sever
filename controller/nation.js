@@ -17,9 +17,10 @@ const getNations = async (nation, forList) => {
     return nationData;
   } else {
     log(info("fetching information of nations"));
-    const nations = await getTable("nation");
+    const nations = Object.values(await getTable("nation"));
+    console.log(nations);
     if (nations) {
-      log(good(`${nation.length} nations fetched successfully`));
+      log(good(`${nations.length} nations fetched successfully`));
       return forList
         ? nations.map((item) => ({ id: item.id, name: item.name }))
         : nations;

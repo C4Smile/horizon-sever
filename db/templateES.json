@@ -1,0 +1,384 @@
+{
+  "nation": {
+    "RW5nbGFuZA": {
+      "id": "RW5nbGFuZA",
+      "name": "Inglaterra",
+      "advantages": [
+        "Aumente la producción de suministros en 20%",
+        "Construir granjas cuesta un 50% menos de materiales",
+        "El Astillero y el Mercado cuesta un 25% más barato",
+        "La Universidad aumenta la velocidad de investigación en un 10% más",
+        "Aumenta en un 25% el botín al ganar contra piratas",
+        "La Torre Blanca reemplaza al Torreón, con más durabilidad y potencia de ataque en un 50%",
+        "Reemplaza Fragata por Fragata Speaker, aumenta capacidad de carga en 6, cantidad de tripulación en 60 y  durabilidad en 50"
+      ],
+      "buildings": [],
+      "ships": [],
+      "technologies": []
+    },
+    "U3BhaW4": {
+      "id": "U3BhaW4",
+      "name": "España",
+      "advantages": [],
+      "buildings": [],
+      "ships": [],
+      "technologies": []
+    },
+    "RnJlbmNo": {
+      "id": "RnJlbmNo",
+      "name": "Francia",
+      "advantages": [],
+      "buildings": [],
+      "ships": [],
+      "technologies": []
+    },
+    "SG9sbGFuZA": {
+      "id": "SG9sbGFuZA",
+      "name": "Holanda",
+      "advantages": [],
+      "buildings": [],
+      "ships": [],
+      "technologies": []
+    }
+  },
+  "guns": {
+    "OCBQb3VuZCBHdW4": {
+      "id": "OCBQb3VuZCBHdW4",
+      "name": "Cañón de 8 libras",
+      "description": "El cañón de 8 libras era una pieza de artillería que disparaba bolas de hierro fundido de 8 libras (3,91 kg). Era artillería ligera y fue utilizado por las armadas francesa y española durante la era conocida como la era de la navegación a vela. Se utilizaron principalmente en barcos ligeros de principios del siglo XIX y en grandes barcos de línea instalados en el alcázar o castillo de proa.",
+      "damage": 8,
+      "price": { "V29vZA": 100, "SXJvbg": 80 },
+      "req": ["RnVybmFjZQ", "QXJzZW5hbA"]
+    },
+    "MTIgUG91bmQgR3Vu": {
+      "id": "MTIgUG91bmQgR3Vu",
+      "name": "Cañón de 12 libras",
+      "description": "El cañón de 12 libras era una pieza de artillería intermedia que disparaba bolas de hierro fundido de 5,43 kg (12 libras). Fue ampliamente utilizado por la mayoría de las grandes potencias navales durante los siglos XVII al XIX y también como artillería de campaña y de asedio.",
+      "damage": 12,
+      "price": { "V29vZA": 140, "SXJvbg": 120 },
+      "req": ["RnVybmFjZQ", "QXJzZW5hbA"]
+    },
+    "MTggUG91bmQgR3Vu": {
+      "id": "MTggUG91bmQgR3Vu",
+      "name": "Cañón de 18 libras",
+      "description": "El cañón de 18 libras era una pieza de artillería naval de calibre intermedio montada en buques de guerra durante el período conocido como la Era de la Navegación. Los cañones de 18 libras se utilizaron como artillería principal en fragatas clásicas de principios del siglo XIX, artillería de segunda batería en navíos de línea de tercera clase e incluso en la cubierta superior de grandes navíos de tres cubiertas de primera clase.",
+      "damage": 18,
+      "price": { "V29vZA": 200, "SXJvbg": 180 },
+      "req": ["RnVybmFjZQ", "QXJzZW5hbA"]
+    },
+    "MjQgUG91bmQgR3Vu": {
+      "id": "MjQgUG91bmQgR3Vu",
+      "name": "Cañón de 24 libras",
+      "description": "El cañón de 24 libras era una pieza de artillería naval de gran calibre montada en la mayoría de los buques de guerra durante el período conocido como la Era de la Navegación. Los cañones de 24 libras fueron utilizados ampliamente por las armadas española, francesa, británica, estadounidense, holandesa, sueca y polaca. Los cañones de 24 libras fueron el armamento principal de los barcos más grandes durante el siglo XIX y también se utilizaron para defensas costeras y como artillería de asedio.",
+      "damage": 24,
+      "price": { "V29vZA": 260, "SXJvbg": 240 },
+      "req": ["RnVybmFjZQ", "QXJzZW5hbA"]
+    },
+    "MzIgUG91bmQgR3Vu": {
+      "id": "MzIgUG91bmQgR3Vu",
+      "name": "Cañón de 32 libras",
+      "description": "El de 32 libras era un tipo de cañón de tamaño medio, similar pero un poco más grande que una cuverina. Era más pequeño que el típico cañón de 42 libras desarrollado a principios del siglo XVII,1 que se consideraba el cañón completo, por lo que el cañón de 32 libras a veces se denominaba \"demicanon\" o semi-cañón. Fue el calibre más bajo utilizado para la artillería naval en la armada inglesa del siglo XVII. Otras armadas estandarizadas en diferentes calibres, como el 36 libras de la Armada francesa.",
+      "damage": 32,
+      "price": { "V29vZA": 340, "SXJvbg": 320 },
+      "req": ["RnVybmFjZQ", "QXJzZW5hbA"]
+    },
+    "MzYgUG91bmQgR3Vu": {
+      "id": "MzYgUG91bmQgR3Vu",
+      "name": "Cañón de 36 libras",
+      "description": "El cañón de 36 libras fue la pieza de artillería naval más grande que se montó en los buques de guerra franceses durante el período conocido como la Era de la Navegación. Este cañón superó con creces a los cañones más pesados utilizados por las flotas hasta ese momento, el de 24 libras. Su peso al fuego era de 36 libras francesas (17,62 kg). Este cañón también se utilizó en las defensas costeras.",
+      "damage": 36,
+      "price": { "V29vZA": 360, "SXJvbg": 360 },
+      "req": ["RnVybmFjZQ", "QXJzZW5hbA"]
+    }
+  },
+  "building": {
+    "SW5kdXN0cmllcw": {
+      "id": "SW5kdXN0cmllcw",
+      "name": "Industrias",
+      "description": "La industria es una actividad cuyo objeto es transformar materias primas en productos terminados, semielaborados o súper terminados.",
+      "creationTime": "formula:var>level*number>10",
+      "price": {
+        "V29vZA": 100,
+        "SXJvbg": 10
+      },
+      "buildingType": {},
+      "production": {
+        "TWF0ZXJpYWxz": "formula:var>level*number>10"
+      },
+      "req": []
+    },
+    "RmFybQ": {
+      "id": "RmFybQ",
+      "name": "Granjas",
+      "description": "Una granja es un área de tierra que se dedica principalmente a procesos agrícolas con el objetivo principal de producir alimentos y otros cultivos.",
+      "price": {
+        "V29vZA": 100,
+        "SXJvbg": 10
+      },
+      "buildingType": {},
+      "production": {
+        "TWV0YWxz": "formula:var>level*number>10"
+      },
+      "req": []
+    },
+    "RnVybmFjZQ": {
+      "id": "RnVybmFjZQ",
+      "name": "Fundiciones",
+      "description": "Un alto horno es un tipo de horno metalúrgico utilizado en la fundición para producir metales industriales, generalmente arrabio, pero también otros como el plomo o el cobre. Explosión se refiere al aire de combustión que se \"forza\" o se suministra por encima de la presión atmosférica.",
+      "price": {
+        "V29vZA": 100,
+        "SXJvbg": 10
+      },
+      "buildingType": {},
+      "production": {
+        "U3VwcGxpZXM": "formula:var>level*number>10"
+      },
+      "req": []
+    },
+    "U2hpcHlhcmQ": {
+      "id": "U2hpcHlhcmQ",
+      "name": "Astillero",
+      "description": "El astillero es una instalación industrial donde se construyen y reparan barcos.",
+      "buildingType": {},
+      "price": {
+        "V29vZA": 100,
+        "SXJvbg": 10
+      },
+      "production": {},
+      "req": []
+    },
+    "QXJzZW5hbA": {
+      "id": "QXJzZW5hbA",
+      "name": "Arsenal",
+      "description": "Un arsenal es un edificio destinado a la construcción, reparación, almacenamiento y distribución de armas y municiones.",
+      "buildingType": {},
+      "price": {
+        "V29vZA": 100,
+        "SXJvbg": 10
+      },
+      "production": {},
+      "req": []
+    },
+    "QWNhZGVteQ": {
+      "id": "QWNhZGVteQ",
+      "name": "Academia",
+      "description": "La sociedad científica, literaria o artística constituida con autoridad pública y como establecimiento educativo público o privado de carácter profesional, artístico y técnico.",
+      "price": {
+        "V29vZA": 100,
+        "SXJvbg": 10
+      }
+    },
+    "VW5pdmVyc2l0eQ": {
+      "id": "VW5pdmVyc2l0eQ",
+      "name": "Universidad",
+      "description": "Una universidad es una institución académica de educación superior e investigación.",
+      "price": {
+        "V29vZA": 100,
+        "SXJvbg": 10
+      }
+    }
+  },
+  "ships": {
+    "U2xvb3A": {
+      "id": "U2xvb3A",
+      "name": "Balandro",
+      "description": "Pequeña nave de combate con gran maniobrabilidad y una pequeña pero útil variedad de armas. Son capaces de maniobrar y abordar botes más grandes, y también son lo suficientemente rápidos para atrapar botes pequeños. Excepcionalmente fáciles de usar, obviamente son los favoritos de muchos jugadores.",
+      "cargo": 9,
+      "speed": 4,
+      "crew": 12,
+      "durability": 200,
+      "price": {},
+      "req": ["U2hpcHlhcmQ"]
+    },
+    "U2Nob29uZXI": {
+      "id": "U2Nob29uZXI",
+      "name": "Goleta",
+      "description": "Era un velero pequeño pero rápido durante la época hanseática en el Mar del Norte y del Este del siglo XIV. Su diseño permitía su uso tanto en alta mar como en ríos. El modelo está parcialmente amañado. La única parte que no lo es son los aparejos que siguen a la botavara y al garfio.",
+      "cargo": 11,
+      "speed": 6,
+      "crew": 25,
+      "durability": 250,
+      "price": {},
+      "req": ["U2hpcHlhcmQ"]
+    },
+    "Q3JheWVy": {
+      "id": "Q3JheWVy",
+      "name": "Caravela",
+      "description": "La carabela es un pequeño velero maniobrable desarrollado en el siglo XV para explorar. Las velas latinas le daban velocidad y capacidad para navegar a barlovento (ceñida).",
+      "cargo": 16,
+      "speed": 8,
+      "crew": 35,
+      "durability": 350,
+      "price": {},
+      "req": ["U2hpcHlhcmQ"]
+    },
+    "Q29n": {
+      "id": "Q29n",
+      "name": "Nao",
+      "description": "Un nao es un tipo de barco que apareció por primera vez en el siglo X y fue ampliamente utilizado desde alrededor del siglo XII en adelante. Los engranajes se construyeron con clinker, generalmente de roble. Estos barcos estaban equipados con un solo mástil y una sola vela de aparejo cuadrado. Se asociaron principalmente con el comercio marítimo en el noroeste de Europa medieval, especialmente la Liga Hanseática.",
+      "cargo": 22,
+      "speed": 5,
+      "crew": 55,
+      "durability": 550,
+      "price": {},
+      "req": ["U2hpcHlhcmQ"]
+    },
+    "R2FsbGVvbg": {
+      "id": "R2FsbGVvbg",
+      "name": "Galeón",
+      "description": "Los galeones eran grandes veleros de varias cubiertas que los estados europeos utilizaron por primera vez como transportes de carga armados entre los siglos XVI y XVIII durante la era de la navegación a vela y fueron las principales embarcaciones diseñadas para su uso como buques de guerra hasta las guerras angloholandesas de mediados del siglo XVII. .",
+      "cargo": 36,
+      "speed": 5,
+      "crew": 70,
+      "durability": 700,
+      "price": {},
+      "req": ["U2hpcHlhcmQ"]
+    },
+    "RnJpZ2F0ZQ": {
+      "id": "RnJpZ2F0ZQ",
+      "name": "Fragata",
+      "description": "Una fragata es un tipo de buque de guerra. En diferentes épocas, las funciones y capacidades de los barcos clasificados como fragatas han variado un poco. Se le dio a cualquier barco con aparejo completo construido para velocidad y maniobrabilidad, destinado a ser utilizado en funciones de exploración, escolta y patrulla.",
+      "cargo": 40,
+      "speed": 12,
+      "crew": 120,
+      "durability": 600,
+      "price": {},
+      "req": ["U2hpcHlhcmQ"]
+    }
+  },
+  "technology": {
+    "Q290dG9uIFNhaWxz": {
+      "id": "Q290dG9uIFNhaWxz",
+      "name": "Velas de algodón",
+      "description": "Aumenta la velocidad general del barco.",
+      "speed": "formula:var>speed*number>0.25+var>speed",
+      "price": {
+        "V29vZA": "formula:var>currentLevel*25"
+      },
+      "req": ["U2hpcHlhcmQ", "QWNhZGVteQ"]
+    },
+    "VHJpcGxlIEhhbW1vY2tz": {
+      "id": "VHJpcGxlIEhhbW1vY2tz",
+      "name": "Triple hamacas",
+      "description": "Aumenta la capacidad máxima de tripulación del barco.",
+      "crew": "formula:var>crew*number>0.2+var>crew",
+      "price": {
+        "V29vZA": "formula:var>currentLevel*10"
+      },
+      "req": ["QWNhZGVteQ"]
+    },
+    "UmVmaW5lZCBIdWxs": {
+      "id": "UmVmaW5lZCBIdWxs",
+      "name": "Casco refinado",
+      "description": "Aumenta la durabilidad de la nave.",
+      "durability": 0,
+      "price": {
+        "V29vZA": "formula:var>currentLevel*40",
+        "SXJvbg": "formula:var>currentLevel*10"
+      },
+      "req": ["RnVybmFjZQ", "QWNhZGVteQ"]
+    },
+    "Q2hhaW4tU2hvdA": {
+      "id": "Q2hhaW4tU2hvdA",
+      "name": "Disparo de cadenas",
+      "description": "Permite que la nave dispare Disparos en cadena durante el combate.",
+      "enables": "chainShot",
+      "price": {
+        "Q29pbnM": 400,
+        "SXJvbg": "formula:var>cargo*1.5"
+      },
+      "req": ["RnVybmFjZQ", "QWNhZGVteQ"]
+    },
+    "R3JhcGUtU2hvdA": {
+      "id": "R3JhcGUtU2hvdA",
+      "name": "Disparo de metrallas",
+      "description": "Permite que la nave dispare metrallas durante el combate.",
+      "enables": "grapeShot",
+      "price": {
+        "Q29pbnM": 500,
+        "SXJvbg": "formula:var>cargo*2"
+      },
+      "req": ["RnVybmFjZQ", "QWNhZGVteQ"]
+    }
+  },
+  "defense": {
+    "QXJzZW5hbA": {
+      "id": "QXJzZW5hbA",
+      "name": "Trinchera",
+      "description": "En ingeniería militar, una trinchera es una zanja defensiva que permite disparar al amparo del enemigo.",
+      "damage": 8,
+      "durability": 150,
+      "price": {
+        "V29vZA": 100,
+        "SXJvbg": 10
+      },
+      "req": ["U2hpcHlhcmQ"]
+    },
+    "V2F0Y2ggVG93ZXI": {
+      "id": "V2F0Y2ggVG93ZXI",
+      "name": "Torre vigía",
+      "description": "Su objetivo principal es proporcionar un lugar alto y seguro desde el cual realizar vigilancia y observaciones militares.",
+      "damage": 6,
+      "durability": 100,
+      "price": {
+        "V29vZA": 100,
+        "SXJvbg": 10
+      },
+      "req": ["U2hpcHlhcmQ"]
+    },
+    "S2VlcA": {
+      "id": "S2VlcA",
+      "name": "Torreón",
+      "description": "Parte del sistema defensivo de la ciudad para protegerla y evitar las naves enemigas.",
+      "damage": 32,
+      "durability": 250,
+      "price": {
+        "V29vZA": 100,
+        "SXJvbg": 10
+      },
+      "req": ["U2hpcHlhcmQ"]
+    },
+    "Rm9ydA": {
+      "id": "Rm9ydA",
+      "name": "Fuerte",
+      "description": "Fuerte es toda obra de fortificación que defiende un paso o forma parte de un gran sistema defensivo.",
+      "damage": 36,
+      "durability": 350,
+      "price": {
+        "V29vZA": 100,
+        "SXJvbg": 10
+      },
+      "req": ["U2hpcHlhcmQ"]
+    },
+    "Rm9ydHJlc3M": {
+      "id": "Rm9ydHJlc3M",
+      "name": "Fortaleza",
+      "description": "Fortificación militar renacentista con el objetivo de proteger la ciudad frente a un ataque naval.",
+      "damage": 48,
+      "durability": 450,
+      "price": {
+        "V29vZA": 100,
+        "SXJvbg": 10
+      },
+      "req": ["U2hpcHlhcmQ"]
+    }
+  },
+  "resource": {
+    "TWF0ZXJpYWxz": {
+      "id": "TWF0ZXJpYWxz",
+      "name": "Materiales"
+    },
+    "TWV0YWxz": {
+      "id": "TWV0YWxz",
+      "name": "Metales"
+    },
+    "U3VwcGxpZXM": {
+      "id": "U3VwcGxpZXM",
+      "name": "Suministros"
+    },
+    "Q29pbnM": {
+      "id": "Q29pbnM",
+      "name": "Riqueza"
+    }
+  }
+}

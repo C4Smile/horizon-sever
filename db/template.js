@@ -2,7 +2,7 @@
 var JSONMGR = require("json-manager");
 var json = new JSONMGR({
   dir: "./db",
-  target: "template.json",
+  target: "templateES.json",
   watch: true,
   autoSave: true,
 });
