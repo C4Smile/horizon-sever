@@ -114,15 +114,15 @@ router.get("/notifications", async (req, res) => {
   }
 });
 
-router.get("/get", async (req, res) => {
+router.post("/get", async (req, res) => {
   load.start();
   try {
     if (req.headers.authorization) {
       if (req.headers.authorization.indexOf("Bearer ") === 0) {
         const verified = verifyBearer(req.headers.authorization);
         if (verified) {
-          const option = req.query.id;
-          const result = await loadUser(option);
+          const { id, attributes } = req.body;
+          const result = await loadUser(id, attributes);
           res.status(result.status).send(result);
           load.stop();
           return;

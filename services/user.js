@@ -135,35 +135,19 @@ const loadUsers = async () => {
 /**
  *
  * @param {string} id
+ * @param {string[]} attributes
  * @returns
  */
-const loadUser = async (id) => {
+const loadUser = async (id, attributes = ["id"]) => {
   const data = await getUser(id);
   if (data) {
-    const {
-      id,
-      email,
-      lastOnline,
-      nick,
-      nation,
-      resources,
-      ships,
-      technologies,
-      user,
-    } = data;
+    const parsedData = {};
+    attributes.forEach((item) => {
+      parsedData[item] = data[item];
+    });
     return {
       status: 200,
-      data: {
-        id,
-        email,
-        lastOnline,
-        nick,
-        nation,
-        resources,
-        ships,
-        technologies,
-        user,
-      },
+      data: { ...parsedData },
     };
   }
   return { status: 422, error: "SomeWrong" };
