@@ -134,6 +134,43 @@ const loadUsers = async () => {
 
 /**
  *
+ * @param {string} id
+ * @returns
+ */
+const loadUser = async (id) => {
+  const data = await getUser(id);
+  if (data) {
+    const {
+      id,
+      email,
+      lastOnline,
+      nick,
+      nation,
+      resources,
+      ships,
+      technologies,
+      user,
+    } = data;
+    return {
+      status: 200,
+      data: {
+        id,
+        email,
+        lastOnline,
+        nick,
+        nation,
+        resources,
+        ships,
+        technologies,
+        user,
+      },
+    };
+  }
+  return { status: 422, error: "SomeWrong" };
+};
+
+/**
+ *
  * @param {string} user
  * @param {string} password
  * @returns user data
@@ -165,4 +202,5 @@ module.exports = {
   addNotification,
   register,
   loadUsers,
+  loadUser,
 };

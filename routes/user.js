@@ -115,12 +115,22 @@ router.get("/notifications", async (req, res) => {
 });
 
 router.get("/get", async (req, res) => {
+  load.start();
   try {
-    load.start();
-    const option = req.query.id;
-    const result = await loadUser(option);
-    res.status(result.status).send(result);
-    load.stop();
+    if (req.headers.authorization) {
+      if (req.headers.authorization.indexOf("Bearer ") === 0) {
+        const verified = verifyBearer(req.headers.authorization);
+        if (verified) {
+          const option = req.query.id;
+          const result = await loadUser(option);
+          res.status(result.status).send(result);
+          load.stop();
+          return;
+        }
+      }
+    }
+    log(error("request of nation unauthorized"));
+    res.status(401).send({ error: "unauthorized" });
   } catch (err) {
     load.stop();
     log(error(err));
