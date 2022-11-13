@@ -19,7 +19,15 @@
     "U3BhaW4": {
       "id": "U3BhaW4",
       "name": "España",
-      "advantages": [],
+      "advantages": [
+        "Galeones españoles: Barcos especializados en la transportación de grandes cantidades de materiales, llegando a cargar 69 toneladas",
+        "Los constructores trabajan un 30% más rápido",
+        "Las fundiciones producen un 15% más de metales",
+        "Aumenta el daño de todos los cañones en un 25%",
+        "Los barcos españoles se mueven un 60% más rápido",
+        "Los barcos españoles son un 20% más baratos",
+        "Los barcos españoles tienen un 25% más de durabilidad"
+      ],
       "buildings": [],
       "ships": [],
       "technologies": []
@@ -27,7 +35,15 @@
     "RnJlbmNo": {
       "id": "RnJlbmNo",
       "name": "Francia",
-      "advantages": [],
+      "advantages": [
+        "Las defensas son un 25% más baratas",
+        "Los leñadores son un 25% más rápidos aumentando la producción de materiales",
+        "Reemplaza la Academia por la Academia Real, las tecnologías son un 25% más baratas",
+        "Salón del gremio: Permite seleccionar un recurso y producirlo al pasar del tiempo",
+        "El Palacio Rojo reemplaza al Torreón, con más durabilidad y potencia de ataque",
+        "Reemplaza Arsenal por Colegio de la Artillería, haciendo que los cañones provoquen un 20% más de daño",
+        "La Cámara del Comercio reemplaza al Mercado, haciendo que al comerciar ganes el 30% del recurso en riquezas"
+      ],
       "buildings": [],
       "ships": [],
       "technologies": []
@@ -35,7 +51,15 @@
     "SG9sbGFuZA": {
       "id": "SG9sbGFuZA",
       "name": "Holanda",
-      "advantages": [],
+      "advantages": [
+        "Fluyt (Filibote): Barcos especializados en la transportación de grandes cantidades de materiales. Puede camuflar su cargamento, es más rápido que un galeón",
+        "Las granjas producen riquezas",
+        "Bancos: Edificio permite salvar riquezas de los saqueos a la ciudad",
+        "Oficina de Comercio: Puede ser construida en una ciudad aliada para producir riquezas al gobernador de la ciudad",
+        "Los saqueos de ciudades pueden obtener riquezas",
+        "Las expediciones y saqueos de piratería recaudan más riquezas",
+        "La Capitanes cuestan un 25% menos de riqueza"
+      ],
       "buildings": [],
       "ships": [],
       "technologies": []
