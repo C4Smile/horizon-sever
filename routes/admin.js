@@ -23,12 +23,18 @@ router.post("/add-buildings", async (req, res) => {
         if (verified) {
           const { buildings } = req.body;
           await addBuildings(buildings);
+          res
+            .send({
+              status: 200,
+              data: { buildings },
+            })
+            .status(200);
           load.stop();
           return;
         }
       }
     }
-    res.send({ status: 403, data: { error: "unauthorized" } });
+    res.send({ status: 403, data: { error: "unauthorized" } }).status(403);
   } catch (err) {
     res.send({ err }).status(500);
   }
@@ -44,12 +50,18 @@ router.post("/add-ships", async (req, res) => {
         if (verified) {
           const { ships } = req.body;
           await addShips(ships);
+          res
+            .send({
+              status: 200,
+              data: { ships },
+            })
+            .status(200);
           load.stop();
           return;
         }
       }
     }
-    res.send({ status: 403, data: { error: "unauthorized" } });
+    res.send({ status: 403, data: { error: "unauthorized" } }).status(200);
   } catch (err) {
     res.send({ err }).status(500);
   }
@@ -65,12 +77,18 @@ router.post("/add-technologies", async (req, res) => {
         if (verified) {
           const { technologies } = req.body;
           await addTechnologies(technologies);
+          res
+            .send({
+              status: 200,
+              data: { technologies },
+            })
+            .status(200);
           load.stop();
           return;
         }
       }
     }
-    res.send({ status: 403, data: { error: "unauthorized" } });
+    res.send({ status: 403, data: { error: "unauthorized" } }).status(200);
   } catch (err) {
     res.send({ err }).status(500);
   }

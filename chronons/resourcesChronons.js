@@ -1,11 +1,16 @@
 const cron = require("node-cron");
 
-const { error, log, info, good } = require("../../Beyond-the-World-server/utils/chalk");
+const {
+  error,
+  log,
+  info,
+  good,
+} = require("../utils/chalk");
 
-const { keys } = require("../../Beyond-the-World-server/utils/secure");
-const { UserStatusEnum } = require("../../Beyond-the-World-server/models/User");
+const { keys } = require("../utils/secure");
+const { UserStatusEnum } = require("../models/User");
 
-const { updateUser } = require("../../Beyond-the-World-server/controller/user");
+const { updateUser } = require("../controller/user");
 
 const usersOnline = {};
 

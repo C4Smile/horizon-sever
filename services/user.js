@@ -15,8 +15,7 @@ const { UserStatusEnum, User } = require("../models/User");
 
 const giveToken = () => {
   const date = new Date();
-  // date.setHours(date.getHours() + 1);
-  date.setSeconds(date.getSeconds() + 20);
+  date.setHours(date.getHours() + 1);
   const stringDate = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
   return { string: stringDate, number: date.getTime() };
 };
@@ -57,12 +56,13 @@ const login = async (user, pPassword) => {
       const { id, password } = data;
       if (pPassword.toLowerCase() === password.toLowerCase()) {
         await updateUser({ ...data, state: UserStatusEnum.Online });
-        usersOnline[data.id] = new User();
-        usersOnline[data.id].createUser({ ...data });
+        usersOnline[id] = new User();
+        usersOnline[id].createUser({ ...data });
         const token = uuid.v4();
         const expiration = giveToken();
         // @ts-ignore
         keys[id] = { token, time: expiration.number };
+        console.log(keys, id);
         return {
           status: 200,
           data: {

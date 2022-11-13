@@ -27,7 +27,9 @@ router.post("/validate", async (req, res) => {
         load.start();
         try {
           load.stop();
-          res.send({ status: 200, data: { message: "authorized" } });
+          res
+            .send({ status: 200, data: { message: "authorized" } })
+            .status(200);
           return;
         } catch (err) {
           load.stop();
@@ -50,13 +52,12 @@ router.post("/logout", async (req, res) => {
     switch (result.status) {
       case 200:
         log(good(`${user} logged out successful`));
-        res.send(result).status(200);
         break;
       default:
         log(error(result.error));
-        res.send({ error: result.error }).status(result.status);
         break;
     }
+    res.send(result).status(result.status);
   } catch (err) {
     log(error(err));
     res.sendStatus(500);
@@ -74,14 +75,13 @@ router.post("/login", async (req, res) => {
     switch (result.status) {
       case 200: {
         log(good(`${user} logged successful`));
-        res.send(result).status(200);
         break;
       }
       default:
         log(error(result.error));
-        res.send({ error: result.error }).status(result.status);
         break;
     }
+    res.send(result).status(result.status);
   } catch (err) {
     log(error(err));
     res.sendStatus(500);
@@ -121,8 +121,7 @@ router.get("/get", async (req, res) => {
     load.start();
     const option = req.query.id;
     const result = await loadUser(option);
-    if (result.error == undefined) res.json(result);
-    else res.json(result.error);
+    res.send(result).status(result.status);
     load.stop();
   } catch (err) {
     load.stop();
@@ -136,8 +135,7 @@ router.post("/register", async (req, res) => {
   try {
     const { user, password } = req.body;
     const result = await register(user, password);
-    if (result.error == undefined) res.send(result);
-    else res.send(result.error);
+    res.send(result).status(result.status);
   } catch (err) {
     log(error(err));
     res.sendStatus(500);
