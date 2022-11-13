@@ -3,23 +3,20 @@
 // driver
 const { insert } = require("../db/template");
 
-const { error, log, info } = require("../utils/chalk");
+const { log, info, good } = require("../utils/chalk");
 
 /**
  *
  * @param {array} buildings
  */
 const addBuildings = async (buildings) => {
-  try {
-    log(info(`adding new buildings`));
-    for (const item of buildings) {
-      log(info(`saving building ${item.name}`));
-      const id = Buffer.from(item.name).toString("base64");
-      await insert("building", id, { ...item, id });
-    }
-  } catch (err) {
-    log(error(err));
+  log(info(`adding ${buildings.length} new buildings`));
+  for (const item of buildings) {
+    log(info(`saving building ${item.name}`));
+    const id = Buffer.from(item.name).toString("base64");
+    await insert("building", id, { ...item, id });
   }
+  log(good(`added ${buildings.length} new buildings successfully`));
 };
 
 /**
@@ -27,16 +24,13 @@ const addBuildings = async (buildings) => {
  * @param {array} ships
  */
 const addShips = async (ships) => {
-  try {
-    log(info(`adding new ships`));
-    for (const item of ships) {
-      log(info(`saving ship ${item.name}`));
-      const id = Buffer.from(item.name).toString("base64");
-      await insert("ship", id, { ...item, id });
-    }
-  } catch (err) {
-    log(error(err));
+  log(info(`adding ${ships} new ships`));
+  for (const item of ships) {
+    log(info(`saving ship ${item.name}`));
+    const id = Buffer.from(item.name).toString("base64");
+    await insert("ship", id, { ...item, id });
   }
+  log(good(`added ${ships.length} new buildings successfully`));
 };
 
 /**
@@ -44,38 +38,17 @@ const addShips = async (ships) => {
  * @param {array} technologies
  */
 const addTechnologies = async (technologies) => {
-  try {
-    log(info(`adding new technologies`));
-    for (const item of technologies) {
-      log(info(`saving technology ${item.name}`));
-      const id = Buffer.from(item.name).toString("base64");
-      await insert("technology", id, { ...item, id });
-    }
-  } catch (err) {
-    log(error(err));
+  log(info(`adding ${technologies.length} new technologies`));
+  for (const item of technologies) {
+    log(info(`saving technology ${item.name}`));
+    const id = Buffer.from(item.name).toString("base64");
+    await insert("technology", id, { ...item, id });
   }
-};
-
-/**
- *
- * @param {array} heros
- */
-const addHeros = async (heros) => {
-  try {
-    log(info(`adding new heros`));
-    for (const item of heros) {
-      log(info(`saving hero ${item.name}`));
-      const id = Buffer.from(item.name).toString("base64");
-      await insert("hero", id, { ...item, id });
-    }
-  } catch (err) {
-    log(error(err));
-  }
+  log(good(`added ${technologies.length} new buildings successfully`));
 };
 
 module.exports = {
   addBuildings,
   addShips,
   addTechnologies,
-  addHeros,
 };

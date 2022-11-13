@@ -8,13 +8,9 @@ const { insert, getValue, update, getTable } = require("../db/local");
  * @returns
  */
 const getUser = async (id) => {
-  try {
-    const data = await getValue("user", id);
-    if (data) return data;
-    return undefined;
-  } catch (err) {
-    return err;
-  }
+  const data = await getValue("user", id);
+  if (data) return data;
+  return undefined;
 };
 
 /**
