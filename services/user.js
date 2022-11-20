@@ -57,7 +57,6 @@ const login = async (user, pPassword) => {
       const expiration = giveToken();
       // @ts-ignore
       keys[id] = { token, time: expiration.number };
-      console.log(keys, id);
       return {
         status: 200,
         data: {

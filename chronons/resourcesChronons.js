@@ -1,11 +1,6 @@
 const cron = require("node-cron");
 
-const {
-  error,
-  log,
-  info,
-  good,
-} = require("../utils/chalk");
+const { error, log, info, good } = require("../utils/chalk");
 
 const { keys } = require("../utils/secure");
 const { UserStatusEnum } = require("../models/User");

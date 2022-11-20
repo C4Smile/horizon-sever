@@ -14,6 +14,7 @@ const {
 const app = require("../app");
 const debug = require("debug")("btw:server");
 const http = require("http");
+const { log, info } = require("../utils/chalk");
 
 /**
  * Get port from environment and store in Express.
@@ -34,11 +35,17 @@ const io = require("socket.io")(server, {
   },
 });
 
+const connections = {};
 io.on("connection", (socket) => {
-  socket.emit("connected", { message: "a new client connected" });
+  log(info("user connected"));
+  socket.on("user_connecting", (who) => {
+    log(info(`user ${who} authenticated`));
+    connections[who] = { user: who };
+  });
 
-  socket.on("disconnect", function () {
-    console.log("user disconnected");
+  socket.on("user_disconnecting", (who) => {
+    log(info(`user ${who} disconnected`));
+    delete connections[who];
   });
 });
 

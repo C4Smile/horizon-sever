@@ -277,7 +277,7 @@
       "description": "Aumenta la velocidad general del barco.",
       "speed": "formula:var>speed*number>0.25+var>speed",
       "price": {
-        "V29vZA": "formula:var>currentLevel*25"
+        "V29vZA": "formula:var>currentLevel*number>25"
       },
       "req": ["U2hpcHlhcmQ", "QWNhZGVteQ"]
     },
@@ -287,7 +287,7 @@
       "description": "Aumenta la capacidad máxima de tripulación del barco.",
       "crew": "formula:var>crew*number>0.2+var>crew",
       "price": {
-        "V29vZA": "formula:var>currentLevel*10"
+        "V29vZA": "formula:var>currentLevel*number>10"
       },
       "req": ["QWNhZGVteQ"]
     },
@@ -297,8 +297,8 @@
       "description": "Aumenta la durabilidad de la nave.",
       "durability": 0,
       "price": {
-        "V29vZA": "formula:var>currentLevel*40",
-        "SXJvbg": "formula:var>currentLevel*10"
+        "V29vZA": "formula:var>currentLevel*number>40",
+        "SXJvbg": "formula:var>currentLevel*number>10"
       },
       "req": ["RnVybmFjZQ", "QWNhZGVteQ"]
     },
@@ -309,7 +309,7 @@
       "enables": "chainShot",
       "price": {
         "Q29pbnM": 400,
-        "SXJvbg": "formula:var>cargo*1.5"
+        "SXJvbg": "formula:var>cargo*number>1.5"
       },
       "req": ["RnVybmFjZQ", "QWNhZGVteQ"]
     },
@@ -320,7 +320,7 @@
       "enables": "grapeShot",
       "price": {
         "Q29pbnM": 500,
-        "SXJvbg": "formula:var>cargo*2"
+        "SXJvbg": "formula:var>cargo*number>2"
       },
       "req": ["RnVybmFjZQ", "QWNhZGVteQ"]
     }
