@@ -1,3 +1,5 @@
+// @ts-check
+
 const express = require("express");
 
 const { error, log, info, good } = require("../utils/chalk");
@@ -12,12 +14,97 @@ const {
   getUserNotifications,
 } = require("../services/user");
 
+const { loadChat, loadChatsByReceiver } = require("../services/chat");
+
 // auth
 const { verifyBearer } = require("../utils/secure");
 
 const load = require("../utils/loading");
 
 const router = express.Router();
+
+router.get("/list", async (req, res) => {
+  try {
+    load.start();
+    const result = await loadUsers();
+    res.status(result.status).send(result);
+    load.stop();
+  } catch (err) {
+    load.stop();
+    log(error(err));
+    res.status(500).send({ error: "SomeWrong" });
+  }
+});
+
+router.get("/notifications", async (req, res) => {
+  try {
+    load.start();
+    const user = req.query.user;
+    const result = await getUserNotifications(String(user));
+    res.status(result.status).send(result);
+    load.stop();
+  } catch (err) {
+    load.stop();
+    log(error(err));
+    res.status(500).send({ error: "SomeWrong" });
+  }
+});
+
+router.get("/chat-list", async (req, res) => {
+  load.start();
+  try {
+    if (req.headers.authorization) {
+      if (req.headers.authorization.indexOf("Bearer ") === 0) {
+        const verified = verifyBearer(req.headers.authorization);
+        if (verified) {
+          const { id, page, count } = req.query;
+          const result = await loadChatsByReceiver(
+            String(id),
+            Number(page) <= 0 ? 1 : Number(page),
+            Number(count) < -1 ? 10 : Number(count)
+          );
+          res.status(result.status).send(result);
+          load.stop();
+          return;
+        }
+      }
+    }
+    log(error("request of nation unauthorized"));
+    res.status(401).send({ error: "unauthorized" });
+  } catch (err) {
+    load.stop();
+    log(error(err));
+    res.status(500).send({ error: "SomeWrong" });
+  }
+});
+
+router.get("/get-chat", async (req, res) => {
+  /*load.start();
+  try {
+    if (req.headers.authorization) {
+      if (req.headers.authorization.indexOf("Bearer ") === 0) {
+        const verified = verifyBearer(req.headers.authorization);
+        if (verified) {*/
+  const { receiver, peer, page, count } = req.query;
+  const result = await loadChat(
+    `${receiver}[!]${peer}`,
+    Number(page) <= 0 ? 1 : Number(page),
+    Number(count) < -1 ? 10 : Number(count)
+  );
+  res.status(result.status).send(result);
+  load.stop();
+  return;
+  /*  }
+      }
+    }
+    log(error("request of nation unauthorized"));
+    res.status(401).send({ error: "unauthorized" });
+  } catch (err) {
+    load.stop();
+    log(error(err));
+    res.status(500).send({ error: "SomeWrong" });
+  }*/
+});
 
 router.post("/validate", async (req, res) => {
   if (req.headers.authorization) {
@@ -87,33 +174,6 @@ router.post("/login", async (req, res) => {
   load.stop();
 });
 
-router.get("/list", async (req, res) => {
-  try {
-    load.start();
-    const result = await loadUsers();
-    res.status(result.status).send(result);
-    load.stop();
-  } catch (err) {
-    load.stop();
-    log(error(err));
-    res.status(500).send({ error: "SomeWrong" });
-  }
-});
-
-router.get("/notifications", async (req, res) => {
-  try {
-    load.start();
-    const user = req.query.user;
-    const result = await getUserNotifications(user);
-    res.status(result.status).send(result);
-    load.stop();
-  } catch (err) {
-    load.stop();
-    log(error(err));
-    res.status(500).send({ error: "SomeWrong" });
-  }
-});
-
 router.post("/get", async (req, res) => {
   load.start();
   try {
@@ -150,5 +210,7 @@ router.post("/register", async (req, res) => {
   }
   load.stop();
 });
+
+router.post("/send-message");
 
 module.exports = router;

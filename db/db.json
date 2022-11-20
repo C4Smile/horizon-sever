@@ -9,6 +9,7 @@
       "password": "25d55ad283aa400af464c76d713c07ad",
       "state": 1,
       "lastOnline": 1668949960406,
+      "chatList": ["c2l0bzg5NDM[!]ZG9vbUBnbWFpbC5jb20="],
       "resources": {
         "UGVzb3M": 0,
         "Rm9vZA": 0,
@@ -27,5 +28,23 @@
       "lastOnline": 0,
       "password": "a1f5d5daab4e1fba1b28d3b55e124089"
     }
+  },
+  "chat": {
+    "c2l0bzg5NDM[!]ZG9vbUBnbWFpbC5jb20=": [
+      {
+        "id": "aG9sYQ",
+        "sender": "c2l0bzg5NDM",
+        "message": "Hola",
+        "date": 1668949960406,
+        "read": true
+      },
+      {
+        "id": "aG9sYQ",
+        "sender": "c2l0bzg5NDM",
+        "message": "Hola otra vez",
+        "date": 1668949960406,
+        "read": false
+      }
+    ]
   }
 }

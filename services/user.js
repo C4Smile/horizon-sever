@@ -12,6 +12,7 @@ const {
 
 const { keys } = require("../utils/secure");
 const { UserStatusEnum, User } = require("../models/User");
+const { getChats } = require("../controller/chat");
 
 const giveToken = () => {
   const date = new Date();

@@ -19,15 +19,10 @@ const getUser = async (id) => {
  * @returns
  */
 const getUserByUser = async (user) => {
-  try {
-    const data = await getTable("user");
-    if (data)
-      for (const item of Object.values(data))
-        if (item.user === user) return item;
-    return undefined;
-  } catch (err) {
-    return err;
-  }
+  const data = await getTable("user");
+  if (data)
+    for (const item of Object.values(data)) if (item.user === user) return item;
+  return undefined;
 };
 
 /**
@@ -36,17 +31,12 @@ const getUserByUser = async (user) => {
  * @param {string} nation
  */
 const userSelectNation = async (user, nation) => {
-  try {
-    const data = await getUser(user);
-    if (data) {
-      data.nation = nation;
-      await update("user", user, data);
-      return 200;
-    } else return undefined;
-  } catch (err) {
-    console.log(err);
-    return err;
-  }
+  const data = await getUser(user);
+  if (data) {
+    data.nation = nation;
+    await update("user", user, data);
+    return 200;
+  } else return undefined;
 };
 
 /**
@@ -54,16 +44,11 @@ const userSelectNation = async (user, nation) => {
  * @param {object} remoteData
  */
 const updateUser = async (remoteData) => {
-  try {
-    const data = await update("user", remoteData.id, remoteData);
-    if (data) return "exist";
-    else {
-      await insert("user", remoteData.id, remoteData);
-      return data;
-    }
-  } catch (err) {
-    console.log(err);
-    return err;
+  const data = await update("user", remoteData.id, remoteData);
+  if (data) return "exist";
+  else {
+    await insert("user", remoteData.id, remoteData);
+    return data;
   }
 };
 
@@ -74,30 +59,27 @@ const updateUser = async (remoteData) => {
  * @return
  */
 const getUsers = async (condition = {}, toFetch = {}) => {
-  try {
-    const data = await getTable("user");
-    if (data) {
-      const toReturn = [];
-      Object.values(data).forEach((item) => {
-        let itsOk = true;
-        for (const jtem of Object.keys(condition))
-          if (item[jtem] !== condition[jtem]) {
-            itsOk = false;
-            break;
-          }
-        if (itsOk) {
-          const parsedItem = {};
-          Object.keys(toFetch).forEach((jtem) => {
-            parsedItem[jtem] = item[jtem];
-          });
-          toReturn.push(parsedItem);
+  const data = await getTable("user");
+  if (data) {
+    const toReturn = [];
+    Object.values(data).forEach((item) => {
+      let itsOk = true;
+      for (const jtem of Object.keys(condition))
+        if (item[jtem] !== condition[jtem]) {
+          itsOk = false;
+          break;
         }
-      });
-    }
-    return undefined;
-  } catch (err) {
-    return err;
+      if (itsOk) {
+        const parsedItem = {};
+        Object.keys(toFetch).forEach((jtem) => {
+          parsedItem[jtem] = item[jtem];
+        });
+        toReturn.push(parsedItem);
+      }
+    });
+    return toReturn;
   }
+  return undefined;
 };
 
 /**
@@ -106,23 +88,19 @@ const getUsers = async (condition = {}, toFetch = {}) => {
  * @param {string} password
  */
 const createUser = async (user, password) => {
-  try {
-    const data = await getUserByUser(user);
-    if (data) return "exist";
-    else {
-      const id = Buffer.from(user).toString("base64");
-      await insert("user", id, {
-        id,
-        user: user.split("@")[0],
-        email: user,
-        state: 1,
-        lastOnline: 0,
-        password,
-      });
-      return data;
-    }
-  } catch (err) {
-    return err;
+  const data = await getUserByUser(user);
+  if (data) return "exist";
+  else {
+    const id = Buffer.from(user).toString("base64");
+    await insert("user", id, {
+      id,
+      user: user.split("@")[0],
+      email: user,
+      state: 1,
+      lastOnline: 0,
+      password,
+    });
+    return data;
   }
 };
 
