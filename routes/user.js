@@ -79,22 +79,22 @@ router.get("/chat-list", async (req, res) => {
 });
 
 router.get("/get-chat", async (req, res) => {
-  /*load.start();
+  load.start();
   try {
     if (req.headers.authorization) {
       if (req.headers.authorization.indexOf("Bearer ") === 0) {
         const verified = verifyBearer(req.headers.authorization);
-        if (verified) {*/
-  const { receiver, peer, page, count } = req.query;
-  const result = await loadChat(
-    `${receiver}[!]${peer}`,
-    Number(page) <= 0 ? 1 : Number(page),
-    Number(count) < -1 ? 10 : Number(count)
-  );
-  res.status(result.status).send(result);
-  load.stop();
-  return;
-  /*  }
+        if (verified) {
+          const { receiver, peer, page, count } = req.query;
+          const result = await loadChat(
+            `${receiver}[!]${peer}`,
+            Number(page) <= 0 ? 1 : Number(page),
+            Number(count) < -1 ? 10 : Number(count)
+          );
+          res.status(result.status).send(result);
+          load.stop();
+          return;
+        }
       }
     }
     log(error("request of nation unauthorized"));
@@ -103,7 +103,7 @@ router.get("/get-chat", async (req, res) => {
     load.stop();
     log(error(err));
     res.status(500).send({ error: "SomeWrong" });
-  }*/
+  }
 });
 
 router.post("/validate", async (req, res) => {
@@ -211,6 +211,8 @@ router.post("/register", async (req, res) => {
   load.stop();
 });
 
-router.post("/send-message");
+router.post("/send-message", async (req, res) => {
+  
+});
 
 module.exports = router;

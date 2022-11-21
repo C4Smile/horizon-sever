@@ -10,7 +10,8 @@ const { insert, getValue, update, getTable } = require("../db/local");
 const getChat = async (id) => {
   const data = await getValue("chat", id);
   if (data) return data;
-  return undefined;
+  await insert("chat", id, []);
+  return [];
 };
 
 /**
