@@ -71,6 +71,8 @@
       "name": "Cañón de 8 libras",
       "description": "El cañón de 8 libras era una pieza de artillería que disparaba bolas de hierro fundido de 8 libras (3,91 kg). Era artillería ligera y fue utilizado por las armadas francesa y española durante la era conocida como la era de la navegación a vela. Se utilizaron principalmente en barcos ligeros de principios del siglo XIX y en grandes barcos de línea instalados en el alcázar o castillo de proa.",
       "damage": 8,
+      "weight": 8,
+      "creationTime": 0,
       "price": { "V29vZA": 100, "SXJvbg": 80 },
       "req": ["RnVybmFjZQ", "QXJzZW5hbA"]
     },
@@ -79,6 +81,8 @@
       "name": "Cañón de 12 libras",
       "description": "El cañón de 12 libras era una pieza de artillería intermedia que disparaba bolas de hierro fundido de 5,43 kg (12 libras). Fue ampliamente utilizado por la mayoría de las grandes potencias navales durante los siglos XVII al XIX y también como artillería de campaña y de asedio.",
       "damage": 12,
+      "weight": 12,
+      "creationTime": 0,
       "price": { "V29vZA": 140, "SXJvbg": 120 },
       "req": ["RnVybmFjZQ", "QXJzZW5hbA"]
     },
@@ -87,6 +91,8 @@
       "name": "Cañón de 18 libras",
       "description": "El cañón de 18 libras era una pieza de artillería naval de calibre intermedio montada en buques de guerra durante el período conocido como la Era de la Navegación. Los cañones de 18 libras se utilizaron como artillería principal en fragatas clásicas de principios del siglo XIX, artillería de segunda batería en navíos de línea de tercera clase e incluso en la cubierta superior de grandes navíos de tres cubiertas de primera clase.",
       "damage": 18,
+      "weight": 18,
+      "creationTime": 0,
       "price": { "V29vZA": 200, "SXJvbg": 180 },
       "req": ["RnVybmFjZQ", "QXJzZW5hbA"]
     },
@@ -95,6 +101,8 @@
       "name": "Cañón de 24 libras",
       "description": "El cañón de 24 libras era una pieza de artillería naval de gran calibre montada en la mayoría de los buques de guerra durante el período conocido como la Era de la Navegación. Los cañones de 24 libras fueron utilizados ampliamente por las armadas española, francesa, británica, estadounidense, holandesa, sueca y polaca. Los cañones de 24 libras fueron el armamento principal de los barcos más grandes durante el siglo XIX y también se utilizaron para defensas costeras y como artillería de asedio.",
       "damage": 24,
+      "weight": 24,
+      "creationTime": 0,
       "price": { "V29vZA": 260, "SXJvbg": 240 },
       "req": ["RnVybmFjZQ", "QXJzZW5hbA"]
     },
@@ -103,6 +111,8 @@
       "name": "Cañón de 32 libras",
       "description": "El de 32 libras era un tipo de cañón de tamaño medio, similar pero un poco más grande que una cuverina. Era más pequeño que el típico cañón de 42 libras desarrollado a principios del siglo XVII,1 que se consideraba el cañón completo, por lo que el cañón de 32 libras a veces se denominaba \"demicanon\" o semi-cañón. Fue el calibre más bajo utilizado para la artillería naval en la armada inglesa del siglo XVII. Otras armadas estandarizadas en diferentes calibres, como el 36 libras de la Armada francesa.",
       "damage": 32,
+      "weight": 32,
+      "creationTime": 0,
       "price": { "V29vZA": 340, "SXJvbg": 320 },
       "req": ["RnVybmFjZQ", "QXJzZW5hbA"]
     },
@@ -111,6 +121,8 @@
       "name": "Cañón de 36 libras",
       "description": "El cañón de 36 libras fue la pieza de artillería naval más grande que se montó en los buques de guerra franceses durante el período conocido como la Era de la Navegación. Este cañón superó con creces a los cañones más pesados utilizados por las flotas hasta ese momento, el de 24 libras. Su peso al fuego era de 36 libras francesas (17,62 kg). Este cañón también se utilizó en las defensas costeras.",
       "damage": 36,
+      "weight": 36,
+      "creationTime": 0,
       "price": { "V29vZA": 360, "SXJvbg": 360 },
       "req": ["RnVybmFjZQ", "QXJzZW5hbA"]
     }
@@ -212,6 +224,7 @@
       "crew": 12,
       "durability": 200,
       "price": {},
+      "creationTime": 0,
       "req": ["U2hpcHlhcmQ"]
     },
     "U2Nob29uZXI": {
@@ -223,17 +236,19 @@
       "crew": 25,
       "durability": 250,
       "price": {},
+      "creationTime": 0,
       "req": ["U2hpcHlhcmQ"]
     },
     "Q3JheWVy": {
       "id": "Q3JheWVy",
-      "name": "Caravela",
+      "name": "Carabela",
       "description": "La carabela es un pequeño velero maniobrable desarrollado en el siglo XV para explorar. Las velas latinas le daban velocidad y capacidad para navegar a barlovento (ceñida).",
       "cargo": 16,
       "speed": 8,
       "crew": 35,
       "durability": 350,
       "price": {},
+      "creationTime": 0,
       "req": ["U2hpcHlhcmQ"]
     },
     "Q29n": {
@@ -245,6 +260,7 @@
       "crew": 55,
       "durability": 550,
       "price": {},
+      "creationTime": 0,
       "req": ["U2hpcHlhcmQ"]
     },
     "R2FsbGVvbg": {
@@ -256,6 +272,7 @@
       "crew": 70,
       "durability": 700,
       "price": {},
+      "creationTime": 0,
       "req": ["U2hpcHlhcmQ"]
     },
     "RnJpZ2F0ZQ": {
@@ -267,6 +284,7 @@
       "crew": 120,
       "durability": 600,
       "price": {},
+      "creationTime": 0,
       "req": ["U2hpcHlhcmQ"]
     }
   },

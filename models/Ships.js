@@ -1,6 +1,6 @@
 // @ts-check
 const { Entity } = require("./Entity");
-const { Guns } = require("./Guns");
+const { Gun } = require("./Gun");
 
 class Ship extends Entity {
   /**
@@ -12,21 +12,21 @@ class Ship extends Entity {
    * @param {number} speed
    * @param {number} crew
    * @param {number} cargo
-   * @param {Guns[]} guns
+   * @param {object} guns
    * @param {number} creationTime
    * @param {string[]} req
    */
   constructor(
-    id,
-    name,
-    price,
-    durability,
-    speed,
-    crew,
-    cargo,
-    creationTime,
-    guns,
-    req
+    id = "",
+    name = "",
+    price = {},
+    durability = 0,
+    speed = 0,
+    crew = 0,
+    cargo = 0,
+    creationTime = 0,
+    guns = {},
+    req = []
   ) {
     super(id, name, price, creationTime, req);
     this.currentPrice = { ...price };
@@ -52,7 +52,7 @@ class Ship extends Entity {
       speed: 0,
       crew: 0,
       cargo: 0,
-      guns: [],
+      guns: {},
       type: "",
       creationTime: 0,
       req: [],
@@ -100,16 +100,26 @@ class Ship extends Entity {
     this.currentPrice = newPrice;
   }
 
-  get Life() {
+  get Durability() {
     return this.durability;
   }
 
-  get CurrentLife() {
+  get CurrentDurability() {
     return this.currentDurability;
   }
 
-  set CurrentLife(newLife) {
-    this.currentDurability = newLife;
+  set CurrentDurability(newDurability) {
+    this.currentDurability = newDurability;
+  }
+
+  /**
+   *
+   * @param {number} damage
+   * @returns
+   */
+  doDamage(damage) {
+    const result = (this.currentDurability -= damage);
+    return result;
   }
 
   get Speed() {
@@ -146,6 +156,16 @@ class Ship extends Entity {
 
   set CurrentCargo(newCargo) {
     this.currentCargo = newCargo;
+  }
+
+  /**
+   *
+   * @param {Gun} gun
+   * @param {number} count
+   */
+  addGuns(gun, count) {
+    if (!this.guns) this.guns = {};
+    this.guns[gun.Id] = { gun, count };
   }
 
   get Guns() {
