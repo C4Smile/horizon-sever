@@ -4,27 +4,6 @@ const Ship = require("../models/Ships");
 const { ships, guns } = require("../db/templateES.json");
 const { Gun } = require("../models/Gun");
 
-// test
-const myShips = new Ship();
-const enemyShip = new Ship();
-const pound18 = new Gun();
-const pound36 = new Gun();
-const pound12 = new Gun();
-// @ts-ignore
-pound36.createGun({ ...guns.MzYgUG91bmQgR3Vu });
-// @ts-ignore
-pound18.createGun({ ...guns.MTggUG91bmQgR3Vu });
-// @ts-ignore
-pound12.createGun({ ...guns.MTIgUG91bmQgR3Vu });
-// @ts-ignore
-myShips.createShip({ ...ships.R2FsbGVvbg });
-myShips.addGuns(pound36, 10);
-myShips.Name = "Seeker";
-// @ts-ignore
-enemyShip.createShip({ ...ships.U2Nob29uZXI });
-enemyShip.addGuns(pound12, 8);
-myShips.Name = "Goleta";
-
 /**
  *
  * @param {Ship} ship
@@ -124,7 +103,9 @@ const battleOfShips = (team1, team2) => {
     // @ts-ignore
     generalLog.logs.push(log);
   }
-  console.log(generalLog);
+  return generalLog;
 };
 
-battleOfShips([myShips], [enemyShip]);
+module.exports = {
+  battleOfShips,
+};
