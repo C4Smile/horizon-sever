@@ -138,10 +138,11 @@ const loadUsers = async () => {
  * @param {string[]} attributes
  * @returns
  */
-const loadUser = async (id, attributes = ["id"]) => {
+const loadUser = async (id, attributes = []) => {
   const data = await getUser(id);
   if (data) {
-    const parsedData = {};
+    console.log(data, attributes);
+    const parsedData = !attributes.length ? data : {};
     attributes.forEach((item) => {
       parsedData[item] = data[item];
     });

@@ -41,6 +41,34 @@ const userSelectNation = async (user, nation) => {
 
 /**
  *
+ * @param {string} user
+ * @param {string} nick
+ */
+const userSelectNick = async (user, nick) => {
+  const data = await getUser(user);
+  if (data) {
+    data.nick = nick;
+    await update("user", user, data);
+    return 200;
+  } else return undefined;
+};
+
+/**
+ *
+ * @param {string} user
+ * @param {string} email
+ */
+const userSelectEmail = async (user, email) => {
+  const data = await getUser(user);
+  if (data) {
+    data.email = email;
+    await update("user", user, email);
+    return 200;
+  } else return undefined;
+};
+
+/**
+ *
  * @param {object} remoteData
  */
 const updateUser = async (remoteData) => {
@@ -111,4 +139,6 @@ module.exports = {
   updateUser,
   getUsers,
   userSelectNation,
+  userSelectNick,
+  userSelectEmail,
 };

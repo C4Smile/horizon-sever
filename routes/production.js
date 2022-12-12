@@ -23,7 +23,11 @@ const {
 const { verifyBearer } = require("../utils/secure");
 
 const load = require("../utils/loading");
-const { userSelectNation } = require("../controller/user");
+const {
+  userSelectNation,
+  userSelectEmail,
+  userSelectNick,
+} = require("../controller/user");
 
 const router = express.Router();
 
@@ -222,6 +226,56 @@ router.post("/select-nation", async (req, res) => {
       }
     }
     log(error("request of select-nation unauthorized"));
+    res.status(401).send({ error: "unauthorized" });
+  } catch (err) {
+    log(error(err));
+    res.status(500).send({ error: "SomeWrong" });
+  }
+  load.stop();
+});
+
+router.post("/set-nick", async (req, res) => {
+  load.start();
+  try {
+    if (req.headers.authorization) {
+      if (req.headers.authorization.indexOf("Bearer ") === 0) {
+        const verified = verifyBearer(req.headers.authorization);
+        if (verified) {
+          const { user, nick } = req.body;
+          const result = await userSelectNick(user, nick);
+          if (result) res.status(200).send({ data: { nick } });
+          else res.status(500).send({ data: { error: "SomeWrong" } });
+          load.stop();
+          return;
+        }
+      }
+    }
+    log(error("request of set-nick unauthorized"));
+    res.status(401).send({ error: "unauthorized" });
+  } catch (err) {
+    log(error(err));
+    res.status(500).send({ error: "SomeWrong" });
+  }
+  load.stop();
+});
+
+router.post("/set-email", async (req, res) => {
+  load.start();
+  try {
+    if (req.headers.authorization) {
+      if (req.headers.authorization.indexOf("Bearer ") === 0) {
+        const verified = verifyBearer(req.headers.authorization);
+        if (verified) {
+          const { user, email } = req.body;
+          const result = await userSelectEmail(user, email);
+          if (result) res.status(200).send({ data: { email } });
+          else res.status(500).send({ data: { error: "SomeWrong" } });
+          load.stop();
+          return;
+        }
+      }
+    }
+    log(error("request of set-email unauthorized"));
     res.status(401).send({ error: "unauthorized" });
   } catch (err) {
     log(error(err));
