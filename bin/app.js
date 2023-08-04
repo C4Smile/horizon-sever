@@ -21,6 +21,8 @@ const debug = require("debug")("btw:server");
 const port = config.port;
 app.set("port", port);
 
+const { Server } = require("socket.io");
+
 /**
  * Create HTTP server.
  */
@@ -38,10 +40,9 @@ const io = new Server(server, {
   },
 });
 
-
 const { v4 } = require("uuid");
 const cron = require("node-cron");
-const { playerCounter } = require("../chronons/users");
+
 const userSocketsConnections = {};
 
 io.on("connection", (socket) => {

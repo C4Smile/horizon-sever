@@ -37,6 +37,7 @@
     "morgan": "~1.9.1",
     "mysql2": "^3.3.4",
     "node-cron": "^3.0.2",
+    "performance": "^1.4.0",
     "serve-favicon": "^2.5.0",
     "sito-node-mysql": "^1.9.9",
     "socket.io": "^4.6.1",

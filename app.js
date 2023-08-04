@@ -4,7 +4,6 @@ const path = require("path");
 
 const authRouter = require("./routes/auth");
 const usersRouter = require("./routes/users");
-// const usersClientRouter = require("./routes/client/users");
 
 const app = express();
 

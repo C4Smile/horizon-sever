@@ -1,11 +1,11 @@
-const cron = require("node-cron");
+// @ts-check
 
-const { error, log, info, good } = require("../utils/chalk");
+const cron = require("node-cron");
 
 const { keys } = require("../utils/secure");
 const { UserStatusEnum } = require("../models/User");
 
-const { updateUser } = require("../controllers/user");
+const { update } = require("sito-node-mysql");
 
 const usersOnline = {};
 
@@ -39,15 +39,16 @@ const playerCounter = () => {
         delete usersOnline[item];
       });
       if (namesToDelete.length)
-        log(
+        console.info(
           `${namesToDelete
             .toString()
+            // @ts-ignore
             .replaceAll(",", ", ")} have been logged due inactivity`
         );
       const users = Object.values(usersOnline);
       if (users.length) {
-        log(`${users.length} players online`);
-      } else log(info("Zzz No users online Zzz"));
+        console.info(`${users.length} players online`);
+      } else console.info("Zzz No users online Zzz");
     } catch (err) {
       console.log(err);
     }

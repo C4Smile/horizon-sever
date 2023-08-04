@@ -434,6 +434,11 @@ lodash@^3.10.0:
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-3.10.1.tgz#5bf45e8e49ba4189e17d482789dfd15bd140b7b6"
   integrity sha512-9mDDwqVIma6OZX79ZlDACZl8sBm0TEnkf99zV3iMA4GzkIT/9hiqP5mY0HoT1iNLCrKc/R1HByV+yJfRWVJryQ==
 
+log@1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/log/-/log-1.4.0.tgz#4ba1d890fde249b031dca03bc37eaaf325656f1c"
+  integrity sha512-NnLhcxIAbhdhuMU0jDG83YjAH8JQj8tXUTy54Ib+4owuXwerrYFI8+OsnK1Ez/cig8O859QK6u6g0aYph/X/zQ==
+
 long@^5.2.1:
   version "5.2.3"
   resolved "https://registry.yarnpkg.com/long/-/long-5.2.3.tgz#a3ba97f3877cf1d778eccbcb048525ebb77499e1"
@@ -606,6 +611,14 @@ path-to-regexp@0.1.7:
   version "0.1.7"
   resolved "https://registry.yarnpkg.com/path-to-regexp/-/path-to-regexp-0.1.7.tgz#df604178005f522f15eb4490e7247a1bfaa67f8c"
   integrity sha512-5DFkuoqlv1uYQKxy8omFBeJPQcdoE07Kv2sferDCrAq1ohOU+MSDswDIbnx3YAM60qIOnYa53wBhXW0EbMonrQ==
+
+performance@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/performance/-/performance-1.4.0.tgz#895fd61a19e337005aa6a6f8c5ca5aec8fb01cc6"
+  integrity sha512-0e98N5lSIe7Nuts/4MW/6D1q+c5qT74yEv/t/TneeFeGl5wgoaiDzQPSvNL/Qe5vFFRvQsqHCrv83Y4GB33Xnw==
+  dependencies:
+    stdio "*"
+    testing "*"
 
 picomatch@^2.0.4, picomatch@^2.2.1:
   version "2.3.1"
@@ -785,6 +798,11 @@ statuses@~1.4.0:
   resolved "https://registry.yarnpkg.com/statuses/-/statuses-1.4.0.tgz#bb73d446da2796106efcc1b601a253d6c46bd087"
   integrity sha512-zhSCtt8v2NDrRlPQpCNtw/heZLtfUDqxBM1udqikb/Hbk52LK4nQSwr10u77iopCW5LsyHpuXS0GnEc48mLeew==
 
+stdio@*:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/stdio/-/stdio-2.1.1.tgz#10e488439610383615505c336e4cd9f9c75eafe6"
+  integrity sha512-ZHO7SD10nZnc2pMN85MPPTCKutXPKH+7Z50B7zt/JRNAHXLbI3BidMc9HFD/j2VupZ8lQdSVJB0ebZSVXC6uXw==
+
 string-similarity@^4.0.4:
   version "4.0.4"
   resolved "https://registry.yarnpkg.com/string-similarity/-/string-similarity-4.0.4.tgz#42d01ab0b34660ea8a018da8f56a3309bb8b2a5b"
@@ -796,6 +814,13 @@ supports-color@^5.5.0:
   integrity sha512-QjVjwdXIt408MIiAqCX4oUKsgU2EqAGzs2Ppkm4aQYbjm+ZEWEcW4SfFNTr4uMNZma0ey4f5lgLrkB0aX0QMow==
   dependencies:
     has-flag "^3.0.0"
+
+testing@*:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/testing/-/testing-2.0.1.tgz#50fd76afe0280a3af36282e0838e8cc8c0c48111"
+  integrity sha512-2zQ08tZ0fm7ziEsST6DIzIear/sz7AntmxlGsBm+1OPY1ymVzc9HGcLqLuJhwON1npQW/M2eRsukPliSSma+1Q==
+  dependencies:
+    log "1.4.0"
 
 to-regex-range@^5.0.1:
   version "5.0.1"
