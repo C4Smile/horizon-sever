@@ -5,7 +5,7 @@ const { error, log, info, good } = require("../utils/chalk");
 const { keys } = require("../utils/secure");
 const { UserStatusEnum } = require("../models/User");
 
-const { updateUser } = require("../controller/user");
+const { updateUser } = require("../controllers/user");
 
 const usersOnline = {};
 

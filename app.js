@@ -1,27 +1,31 @@
+// @ts-check
 const express = require("express");
 const path = require("path");
-const cookieParser = require("cookie-parser");
-const favicon = require("serve-favicon");
+
+const authRouter = require("./routes/auth");
+const usersRouter = require("./routes/users");
+// const usersClientRouter = require("./routes/client/users");
 
 const app = express();
-
-app.set("etag", "strong"); //browser caching of static assets should work properly
-
-app.use(express.json({ limit: 1048576 }));
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, "public")));
-app.use(favicon(path.join(__dirname, "public", "favicon.ico")));
 
 const {
   helmet,
   cors,
   limiter,
-  // favicon,
+  favicon,
   morgan,
+  cookieParser,
 } = require("./utils/middlewares");
 
+app.set("etag", "strong"); //browser caching of static assets should work properly
+
+app.use(express.json({ limit: 1048576 }));
+app.use(express.urlencoded({ extended: false }));
+app.use(express.static(path.join(__dirname, "public")));
+app.use(favicon(path.join(__dirname, "public", "favicon.ico")));
+
 // middle wares
+app.use(limiter);
 // morgan
 app.use(morgan.assignId);
 app.use(morgan.structure);
@@ -31,20 +35,39 @@ app.use(helmet);
 // cors
 app.use(cors);
 
-// users
-const user = require("./routes/user");
-app.use("/api/user/", user);
-// production
-const production = require("./routes/production");
-app.use("/api/production/", production);
-// admin
-const admin = require("./routes/admin");
-app.use("/api/admin/", admin);
+app.use(cookieParser());
 
-// Handle 404 - Keep this as a last route
-app.use(function (req, res) {
-  res.status(404);
-  res.sendFile(path.join(__dirname, "views", "404.html"));
+const config = require("./config");
+const { connection } = require("sito-node-mysql/connection");
+
+connection.init(config);
+const { insert } = require("sito-node-mysql");
+const processRouter = require("./routes/processes").router;
+const initiativeRouter = require("./routes/initiatives").router;
+
+app.use("/api/auth", authRouter);
+app.use("/api/processes", processRouter);
+app.use("/api/initiatives", initiativeRouter);
+app.use("/api-client/auth", authRouter);
+app.use("/api/users", usersRouter);
+app.use("/api-client/users", usersRouter);
+app.use("/api-client/process", processRouter);
+app.use("/api-client/initiatives", initiativeRouter);
+
+// errors logs
+app.post("/error/logs", async (req, res) => {
+  const { error, user } = req.body;
+  try {
+    await insert("errors", ["id", "error", "idUser", "date"], {
+      error: String(error),
+      idUser: user,
+      date: new Date().getTime(),
+    });
+    res.send("ok");
+  } catch (err) {
+    console.error(err);
+    res.status(500).send(err);
+  }
 });
 
 module.exports = app;

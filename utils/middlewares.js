@@ -1,17 +1,11 @@
-// middle wares
-const morgan = require("morgan");
-const helmet = require("helmet");
-const cors = require("cors");
-const rateLimit = require("express-rate-limit");
-const favicon = require("serve-favicon");
-
 // path
 const path = require("path");
 
 // uuid
-const uuid = require("node-uuid");
+const uuid = require("uuid");
 
 // morgan
+const morgan = require("morgan");
 morgan.token("id", function getId(req) {
   return req.id;
 });
@@ -30,9 +24,11 @@ const assignId = (req, res, next) => {
 };
 
 // limiter
+const rateLimit = require("express-rate-limit");
+
 const mLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100, // limit each IP to 100 requests per windowMs
+  max: 500, // limit each IP to 100 requests per windowMs
   message:
     "Too many accounts created from this IP, please try again after a minute",
 });
@@ -40,12 +36,24 @@ const mLimiter = rateLimit({
 // favicon
 // const fav = favicon(path.join(__dirname, "../public", "favicon.ico"));
 
-const whitelist = ["http://localhost:3000", "http://192.168.1.100:3000"];
+const cors = require("cors");
+
+const whitelist = [
+  "http://127.0.0.1:5173",
+  "http://localhost:5173",
+  "http://192.168.88.245:5173",
+  "http://192.168.13.133:5173",
+];
+
+const helmet = require("helmet");
+const favicon = require("serve-favicon");
+const cookieParser = require("cookie-parser");
 
 module.exports = {
   morgan: { assignId, structure, dev },
   helmet: helmet(),
   cors: cors({ origin: whitelist }),
   limiter: mLimiter,
-  // favicon: fav,
+  favicon,
+  cookieParser,
 };
