@@ -17,14 +17,18 @@ userRouter.addRoute("/save", "POST", [], async (req, res) => {
     const existedCI = await select(
       "users",
       ["id"],
-      [{ attribute: "ci", value: data.ci, operator: "=" }]
+      [
+        { attribute: "user", value: user.ci, operator: "=" },
+        { attribute: "email", value: user.email, operator: "=" },
+        { attribute: "nick", value: user.nick, operator: "=" },
+      ]
     );
     if (existedCI.rows.length) {
       res.status(200).send({ message: "exist" });
     } else {
       const result = await insert(
         "users",
-        ["id", "user", "email", "name", "pw", "ci", "fvCI", "date"],
+        ["id", "user", "nick", "nation", "email", "pw", "date"],
         { ...data, date: new Date().getTime() }
       );
       console.info(`user created successfully`);

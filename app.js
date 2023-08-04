@@ -42,17 +42,11 @@ const { connection } = require("sito-node-mysql/connection");
 
 connection.init(config);
 const { insert } = require("sito-node-mysql");
-const processRouter = require("./routes/processes").router;
-const initiativeRouter = require("./routes/initiatives").router;
 
 app.use("/api/auth", authRouter);
-app.use("/api/processes", processRouter);
-app.use("/api/initiatives", initiativeRouter);
 app.use("/api-client/auth", authRouter);
 app.use("/api/users", usersRouter);
 app.use("/api-client/users", usersRouter);
-app.use("/api-client/process", processRouter);
-app.use("/api-client/initiatives", initiativeRouter);
 
 // errors logs
 app.post("/error/logs", async (req, res) => {
