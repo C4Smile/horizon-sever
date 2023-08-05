@@ -16,20 +16,23 @@ userRouter.addRoute("/save", "POST", [], async (req, res) => {
     // validating user
     const existedCI = await select(
       "users",
-      ["id"],
+      ["id", "user", "email"],
       [
-        { attribute: "user", value: user.ci, operator: "=" },
-        { attribute: "email", value: user.email, operator: "=" },
-        { attribute: "nick", value: user.nick, operator: "=" },
+        { attribute: "user", value: data.user, operator: "=" },
+        { attribute: "email", value: data.email, operator: "=", logic: "OR" },
       ]
     );
     if (existedCI.rows.length) {
-      res.status(200).send({ message: "exist" });
+      if (existedCI.rows[0].email === data.email)
+        res.status(200).send({ message: "email" });
+      else if (existedCI.rows[0].user === data.user)
+        res.status(200).send({ message: "user" });
     } else {
+      console.log(data);
       const result = await insert(
         "users",
         ["id", "user", "nick", "nation", "email", "pw", "date"],
-        { ...data, date: new Date().getTime() }
+        { ...data, date: new Date().getTime(), nick: data.user }
       );
       console.info(`user created successfully`);
       res.status(200).send({ ...result });
