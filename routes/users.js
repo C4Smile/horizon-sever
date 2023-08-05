@@ -1,3 +1,6 @@
+// @ts-check
+var CryptoJS = require("crypto-js");
+
 const Router = require("./router");
 
 // mysql
@@ -10,6 +13,7 @@ const userRouter = new Router("users", [validator]);
 
 userRouter.addRoute("/save", "POST", [], async (req, res) => {
   console.info(`saving users`);
+  const ip = req.socket?.remoteAddress;
   const { data } = req.body;
 
   try {
@@ -28,14 +32,31 @@ userRouter.addRoute("/save", "POST", [], async (req, res) => {
       else if (existedCI.rows[0].user === data.user)
         res.status(200).send({ message: "user" });
     } else {
-      console.log(data);
       const result = await insert(
         "users",
-        ["id", "user", "nick", "nation", "email", "pw", "date"],
+        ["id", "user", "nick", "email", "pw", "date"],
         { ...data, date: new Date().getTime(), nick: data.user }
       );
       console.info(`user created successfully`);
-      res.status(200).send({ ...result });
+      const expiration = 1;
+      const token =
+        /* It's encrypting the token */
+        CryptoJS.AES.encrypt(
+          `${data.user}[!]${data.id}[!]${ip}`,
+          "app.elbule.com"
+        ).toString();
+      const startDate = new Date();
+      const endDate = startDate;
+      endDate.setDate(startDate.getDate() + expiration);
+      await insert("tokens", ["id", "idUser", "start", "end", "token"], {
+        idUser: result,
+        start: startDate.getTime(),
+        end: Number(data.mmr) >= 0 ? "" : endDate.getTime(),
+        token,
+      });
+      console.info(`user logged successfully`);
+      // @ts-ignore
+      res.status(200).send({ id: result, user: data.user, token, expiration });
     }
   } catch (err) {
     console.error(err);
