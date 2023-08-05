@@ -1,6 +1,6 @@
 {
   "name": "horizon-server",
-  "version": "0.5.10",
+  "version": "0.6.4",
   "description": "The Horizon Browser game's server",
   "main": "app.js",
   "scripts": {
