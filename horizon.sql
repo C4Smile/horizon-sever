@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 04, 2023 at 11:47 PM
+-- Generation Time: Aug 05, 2023 at 12:20 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.0.28
 
@@ -96,8 +96,8 @@ CREATE TABLE `logs` (
 CREATE TABLE `nations` (
   `id` varchar(36) NOT NULL,
   `name` text NOT NULL,
-  `photo` text NOT NULL,
-  `banner` text NOT NULL,
+  `photo` text NOT NULL DEFAULT '',
+  `banner` text NOT NULL DEFAULT '',
   `date` bigint(16) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -143,7 +143,9 @@ CREATE TABLE `users` (
   `pw` varchar(25) NOT NULL,
   `state` tinyint(1) NOT NULL DEFAULT 1,
   `lastOnline` bigint(16) NOT NULL DEFAULT 0,
-  `date` bigint(16) NOT NULL
+  `date` bigint(16) NOT NULL,
+  `photo` text NOT NULL DEFAULT '',
+  `banner` text NOT NULL DEFAULT ''
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --

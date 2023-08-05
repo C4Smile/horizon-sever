@@ -29,15 +29,16 @@ const playerCounter = () => {
           toDelete.push(item.id);
           namesToDelete.push(usersOnline[item.id].User);
         }
-      toDelete.forEach((item) => {
-        updateUser({
-          ...usersOnline[item].toBd(),
-          state: UserStatusEnum.Offline,
-          lastOnline: new Date().getTime(),
-        });
+      for (const item of toDelete) {
+        await update(
+          "users",
+          ["state", "lastOnline"],
+          { state: 0, lastOnline: new Date().getTime() },
+          [{ attribute: "id", operator: "=", value: item }]
+        );
         delete keys[item];
         delete usersOnline[item];
-      });
+      }
       if (namesToDelete.length)
         console.info(
           `${namesToDelete
