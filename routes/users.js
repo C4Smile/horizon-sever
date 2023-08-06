@@ -69,12 +69,40 @@ userRouter.addRoute("/select-nation", "POST", [], async (req, res) => {
   const { user, nation } = req.body;
 
   try {
-    const response = await update(
+    await update(
       "users",
       ["nation"],
       { nation },
       { attribute: "user", operator: "=", value: user }
     );
+    res.status(200).send({ message: "ok" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send({ message: String(err) });
+  }
+});
+
+userRouter.addRoute("/set-nick", "POST", [], async (req, res) => {
+  console.info(`user selects nation`);
+  const { user, nick, photo } = req.body;
+  // validating if exists
+  const result = await select(["users"], ["id"], {
+    attribute: "nick",
+    operator: "=",
+    value: nick,
+  });
+  if (result.rows.length) {
+    res.status(200).send({ message: "exist" });
+    return;
+  }
+  try {
+    await update(
+      "users",
+      ["nick", "photo"],
+      { nick, photo },
+      { attribute: "user", operator: "=", value: user }
+    );
+    res.status(200).send({ message: "ok" });
   } catch (err) {
     console.error(err);
     res.status(500).send({ message: String(err) });
