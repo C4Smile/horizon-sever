@@ -4,7 +4,7 @@ var CryptoJS = require("crypto-js");
 const Router = require("./router");
 
 // mysql
-const { insert, select } = require("sito-node-mysql");
+const { insert, select, update } = require("sito-node-mysql");
 
 // auth
 const { validator } = require("../utils/secure");
@@ -58,6 +58,23 @@ userRouter.addRoute("/save", "POST", [], async (req, res) => {
       // @ts-ignore
       res.status(200).send({ id: result, user: data.user, token, expiration });
     }
+  } catch (err) {
+    console.error(err);
+    res.status(500).send({ message: String(err) });
+  }
+});
+
+userRouter.addRoute("/select-nation", "POST", [], async (req, res) => {
+  console.info(`user selects nation`);
+  const { user, nation } = req.body;
+
+  try {
+    const response = await update(
+      "users",
+      ["nation"],
+      { nation },
+      { attribute: "user", operator: "=", value: user }
+    );
   } catch (err) {
     console.error(err);
     res.status(500).send({ message: String(err) });

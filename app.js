@@ -4,6 +4,7 @@ const path = require("path");
 
 const authRouter = require("./routes/auth");
 const usersRouter = require("./routes/users");
+const nationRouter = require("./routes/nations");
 
 const app = express();
 
@@ -46,6 +47,7 @@ app.use("/api/auth", authRouter);
 app.use("/api-client/auth", authRouter);
 app.use("/api/users", usersRouter);
 app.use("/api-client/users", usersRouter);
+app.use("/api/nations", nationRouter);
 
 // errors logs
 app.post("/error/logs", async (req, res) => {

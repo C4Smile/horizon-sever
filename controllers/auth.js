@@ -68,7 +68,7 @@ const signOut = async (user, ip) => {
 const login = async (user, password, remember, ip) => {
   const { rows } = await select(
     "users",
-    [],
+    ["id", "user", "nick", "nation", "photo"],
     [
       { attribute: "user", operator: "=", value: user },
       { attribute: "email", operator: "=", value: user, logic: "OR" },
@@ -120,11 +120,15 @@ const login = async (user, password, remember, ip) => {
         end: Number(data.mmr) >= 0 ? "" : endDate.getTime(),
         token,
       });
+      const { id, nick, nation, photo } = data;
       return {
         status: 200,
         data: {
-          id: data.id,
+          id,
           user: data.user,
+          nick,
+          nation,
+          photo,
           token,
           expiration,
         },

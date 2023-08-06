@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 05, 2023 at 12:20 AM
+-- Generation Time: Aug 06, 2023 at 12:44 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.0.28
 
@@ -87,6 +87,15 @@ CREATE TABLE `logs` (
   `observation` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `logs`
+--
+
+INSERT INTO `logs` (`id`, `idUser`, `operation`, `date`, `observation`) VALUES
+('70633215-403a-4eb1-bbd4-0dd19320523c', '704a8407-33dc-11ee-9a78-6c02e0b9ae9e', 'sign-out', 1691273578704, 'sign out'),
+('d8557492-016c-4b78-a835-2a1043365162', '704a8407-33dc-11ee-9a78-6c02e0b9ae9e', 'sign-in', 1691273576395, 'sign out'),
+('f74d6d4a-198b-4a0d-9f43-a5fdf8a483fe', 'b038f215-8cec-475f-9b82-d69d679fe39f', 'sign-out', 1691275251114, 'sign out');
+
 -- --------------------------------------------------------
 
 --
@@ -100,6 +109,13 @@ CREATE TABLE `nations` (
   `banner` text NOT NULL DEFAULT '',
   `date` bigint(16) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `nations`
+--
+
+INSERT INTO `nations` (`id`, `name`, `photo`, `banner`, `date`) VALUES
+('44ba3532-33dc-11ee-9a78-6c02e0b9ae9e', 'España', '', '', 1691273106802);
 
 -- --------------------------------------------------------
 
@@ -138,15 +154,24 @@ CREATE TABLE `users` (
   `id` varchar(36) NOT NULL,
   `user` text NOT NULL,
   `nick` text NOT NULL,
-  `nation` varchar(36) NOT NULL,
+  `nation` varchar(36) NOT NULL DEFAULT '44ba3532-33dc-11ee-9a78-6c02e0b9ae9e',
   `email` text NOT NULL,
-  `pw` varchar(25) NOT NULL,
-  `state` tinyint(1) NOT NULL DEFAULT 1,
+  `pw` text NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 1,
+  `state` tinyint(4) NOT NULL DEFAULT 0,
   `lastOnline` bigint(16) NOT NULL DEFAULT 0,
   `date` bigint(16) NOT NULL,
   `photo` text NOT NULL DEFAULT '',
   `banner` text NOT NULL DEFAULT ''
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `user`, `nick`, `nation`, `email`, `pw`, `status`, `state`, `lastOnline`, `date`, `photo`, `banner`) VALUES
+('704a8407-33dc-11ee-9a78-6c02e0b9ae9e', 'sito8943', 'Sito Numbis', '44ba3532-33dc-11ee-9a78-6c02e0b9ae9e', 'sito8943@gmail.com', '25d55ad283aa400af464c76d713c07ad', 0, 0, 0, 1691273106802, '', ''),
+('b038f215-8cec-475f-9b82-d69d679fe39f', 'visir2021', 'visir2021', '44ba3532-33dc-11ee-9a78-6c02e0b9ae9e', 'visir2021@gmail.com', '25d55ad283aa400af464c76d713c07ad', 0, 0, 0, 1691275249403, '', '');
 
 --
 -- Indexes for dumped tables

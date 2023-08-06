@@ -33,7 +33,7 @@ class Router {
   constructor(
     collection,
     middleware,
-    initials = ["insert", "update", "list", "delete"],
+    initials = ["insert", "update", "delete"],
     noDate = false,
     remote = "",
     remoteParams = {}
@@ -101,10 +101,10 @@ class Router {
       this.list = this.controller.list;
       this.router.get("/list", async (req, res) => {
         console.info(`listing ${collection}`);
-        const { query, page, count, orderBy } = req.body;
+        const { lang } = req.body;
         try {
           const result = await this.controller.list(
-            ["id", "title", "subtitle", "link", "owner", "active"],
+            ["id", "name", "description", "photo"],
             query,
             page,
             count,
