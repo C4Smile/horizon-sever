@@ -1,6 +1,6 @@
 // @ts-check
 var CryptoJS = require("crypto-js");
-
+const fs = require("fs");
 const Router = require("./router");
 
 // mysql
@@ -95,11 +95,27 @@ userRouter.addRoute("/set-nick", "POST", [], async (req, res) => {
     res.status(200).send({ message: "exist" });
     return;
   }
+  // saving file
+  let parsedPhoto = "";
+  if (photo.length) {
+    try {
+      const encoded = Buffer.from(
+        photo.replace(/^data:image\/\w+;base64,/, ""),
+        "base64"
+      );
+      const extension = photo.split(";")[0].split("/")[1];
+      console.log(`./public/images/users/${user}.${extension}`);
+      fs.writeFileSync(`./public/images/users/${user}.${extension}`, encoded);
+      parsedPhoto = `./public/images/users/${user}.${extension}`
+    } catch (err) {
+      console.error(err);
+    }
+  }
   try {
     await update(
       "users",
       ["nick", "photo"],
-      { nick, photo },
+      { nick, photo: photo.length ? parsedPhoto : "/images/no-photo.webp" },
       { attribute: "user", operator: "=", value: user }
     );
     res.status(200).send({ message: "ok" });
