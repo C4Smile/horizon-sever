@@ -114,8 +114,8 @@ userRouter.addRoute("/set-nick", "POST", [], async (req, res) => {
   try {
     await update(
       "users",
-      ["nick", "photo"],
-      { nick, photo: photo.length ? parsedPhoto : "/images/no-photo.webp" },
+      ["nick", "photo", "state"],
+      { nick, photo: photo.length ? parsedPhoto : "/images/no-photo.webp", state: 0 },
       { attribute: "user", operator: "=", value: user }
     );
     res.status(200).send({ message: "ok" });
