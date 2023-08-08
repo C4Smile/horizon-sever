@@ -42,7 +42,7 @@ userRouter.addRoute("/save", "POST", [], async (req, res) => {
       const token =
         /* It's encrypting the token */
         CryptoJS.AES.encrypt(
-          `${data.user}[!]${data.id}[!]${ip}`,
+          `${data.user}[!]${result}[!]${ip}`,
           "app.elbule.com"
         ).toString();
       const startDate = new Date();
