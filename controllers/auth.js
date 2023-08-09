@@ -68,7 +68,7 @@ const signOut = async (user, ip) => {
 const login = async (user, password, remember, ip) => {
   const { rows } = await select(
     "users",
-    ["id", "user", "nick", "nation", "photo", "state"],
+    ["id", "pw", "user", "nick", "nation", "photo", "state"],
     [
       { attribute: "user", operator: "=", value: user },
       { attribute: "email", operator: "=", value: user, logic: "OR" },
