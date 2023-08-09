@@ -71,8 +71,8 @@ userRouter.addRoute("/select-nation", "POST", [], async (req, res) => {
   try {
     await update(
       "users",
-      ["nation"],
-      { nation },
+      ["nation", "state"],
+      { nation, state: -1 },
       { attribute: "user", operator: "=", value: user }
     );
     res.status(200).send({ message: "ok" });
