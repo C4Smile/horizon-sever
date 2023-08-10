@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 10, 2023 at 03:02 PM
+-- Generation Time: Aug 10, 2023 at 03:20 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.0.28
 
@@ -48,6 +48,14 @@ CREATE TABLE `buildingcosts` (
   `cost` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `buildingcosts`
+--
+
+INSERT INTO `buildingcosts` (`id`, `idBuilding`, `idResource`, `date`, `cost`) VALUES
+('b4b00bf5-377f-11ee-b6ba-6c02e0b9ae9e', 'fb876e3b-377e-11ee-b6ba-6c02e0b9ae9e', '728abbb1-377f-11ee-b6ba-6c02e0b9ae9e', 1691673090154, 100),
+('b4b0184f-377f-11ee-b6ba-6c02e0b9ae9e', 'fb876e3b-377e-11ee-b6ba-6c02e0b9ae9e', '728ac9f3-377f-11ee-b6ba-6c02e0b9ae9e', 1691673090154, 10);
+
 -- --------------------------------------------------------
 
 --
@@ -62,6 +70,13 @@ CREATE TABLE `buildingresources` (
   `multiplier` float NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `buildingresources`
+--
+
+INSERT INTO `buildingresources` (`id`, `idBuilding`, `idResource`, `date`, `multiplier`) VALUES
+('ec69cb54-377f-11ee-b6ba-6c02e0b9ae9e', 'fb876e3b-377e-11ee-b6ba-6c02e0b9ae9e', '728abbb1-377f-11ee-b6ba-6c02e0b9ae9e', 1691673090154, 10);
+
 -- --------------------------------------------------------
 
 --
@@ -74,8 +89,16 @@ CREATE TABLE `buildings` (
   `description` text NOT NULL DEFAULT '',
   `photo` text NOT NULL DEFAULT '',
   `banner` text NOT NULL DEFAULT '',
+  `creation` int(11) NOT NULL DEFAULT 0,
   `date` bigint(16) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `buildings`
+--
+
+INSERT INTO `buildings` (`id`, `name`, `description`, `photo`, `banner`, `creation`, `date`) VALUES
+('fb876e3b-377e-11ee-b6ba-6c02e0b9ae9e', 'Industrias', 'La industria es una actividad cuyo objeto es transformar materias primas en productos terminados, semielaborados o súper terminados.', '/images/users/industries.jpg', '', 10, 1691672893193);
 
 -- --------------------------------------------------------
 
@@ -197,6 +220,16 @@ CREATE TABLE `resources` (
   `multiplier` float NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `resources`
+--
+
+INSERT INTO `resources` (`id`, `name`, `description`, `photo`, `banner`, `date`, `multiplier`) VALUES
+('728abbb1-377f-11ee-b6ba-6c02e0b9ae9e', 'Materiales', '', '', '', 1691673090154, 0),
+('728ac9f3-377f-11ee-b6ba-6c02e0b9ae9e', 'Metales', '', '', '', 1691673090154, 0),
+('7a3afaa3-377f-11ee-b6ba-6c02e0b9ae9e', 'Suministros', '', '', '', 1691673090154, 0),
+('7a3b0763-377f-11ee-b6ba-6c02e0b9ae9e', 'Riqueza', '', '', '', 1691673090154, 0);
+
 -- --------------------------------------------------------
 
 --
@@ -259,7 +292,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `user`, `nick`, `nation`, `email`, `pw`, `status`, `state`, `lastOnline`, `date`, `photo`, `banner`) VALUES
 ('0eb99680-8d9f-448c-9c7d-fe0c3e8e1f53', 'visir2021', 'Sito', '58641f90-3458-11ee-9ca4-6c02e0b9ae9e', 'visir2021@gmail.com', '25d55ad283aa400af464c76d713c07ad', 0, 0, 0, 1691494008382, '/images/no-photo.webp', ''),
-('704a8407-33dc-11ee-9a78-6c02e0b9ae9e', 'sito8943', 'SitoNumbis', '58641f90-3458-11ee-9ca4-6c02e0b9ae9e', 'sito8943@gmail.com', '25d55ad283aa400af464c76d713c07ad', 1, 0, 0, 1691273106802, './public/images/users/sito8943.png', '');
+('704a8407-33dc-11ee-9a78-6c02e0b9ae9e', 'sito8943', 'SitoNumbis', '58641f90-3458-11ee-9ca4-6c02e0b9ae9e', 'sito8943@gmail.com', '25d55ad283aa400af464c76d713c07ad', 1, 0, 0, 1691273106802, '/images/users/sito8943.png', '');
 
 --
 -- Indexes for dumped tables
