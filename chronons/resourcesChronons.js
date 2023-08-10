@@ -3,20 +3,10 @@
 const cron = require("node-cron");
 
 const { keys } = require("../utils/secure");
-const { UserStatusEnum } = require("../models/User");
 
 const { update } = require("sito-node-mysql");
 
 const usersOnline = {};
-
-const resourcesChronons = () => {
-  cron.schedule("* * * * * *", async () => {
-    const length = Object.keys(usersOnline).length;
-    console.log("length", length);
-    if (length) {
-    }
-  });
-};
 
 const playerCounter = () => {
   cron.schedule("* * * * *", async () => {
@@ -52,9 +42,9 @@ const playerCounter = () => {
         console.info(`${users.length} players online`);
       } else console.info("Zzz No users online Zzz");
     } catch (err) {
-      console.log(err);
+      console.info(err);
     }
   });
 };
 
-module.exports = { resourcesChronons, playerCounter, usersOnline };
+module.exports = { playerCounter, usersOnline };

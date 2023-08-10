@@ -29,7 +29,7 @@ router.post("/login", async (req, res) => {
     const result = await login(user, password, remember, ip || "");
     if (result.status === 200) console.info(`${user} logged successful`);
     else if (result.status === 422) console.error(`${user} ${result.error}`);
-    else console.error(result.error);
+    else console.error(result.data.error);
     res.status(result.status).send({ ...result });
   } catch (err) {
     console.error(err);

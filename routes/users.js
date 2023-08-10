@@ -105,7 +105,7 @@ userRouter.addRoute("/set-nick", "POST", [], async (req, res) => {
       );
       const extension = photo.split(";")[0].split("/")[1];
       fs.writeFileSync(`./public/images/users/${user}.${extension}`, encoded);
-      parsedPhoto = `/images/users/${user}.${extension}`
+      parsedPhoto = `/images/users/${user}.${extension}`;
     } catch (err) {
       console.error(err);
     }
@@ -114,9 +114,30 @@ userRouter.addRoute("/set-nick", "POST", [], async (req, res) => {
     await update(
       "users",
       ["nick", "photo", "state"],
-      { nick, photo: photo.length ? parsedPhoto : "/images/no-photo.webp", state: 0 },
+      {
+        nick,
+        photo: photo.length ? parsedPhoto : "/images/no-photo.webp",
+        state: 0,
+      },
       { attribute: "user", operator: "=", value: user }
     );
+    // creation of resources relations
+    const userData = await select(["users"], ["id"], {
+      attribute: "user",
+      operator: "=",
+      value: user,
+    });
+    const idUser = userData.rows[0].id;
+    const resources = await select(["resources"], ["id"], []);
+    const resourceRows = resources.rows;
+    for (const item of resourceRows) {
+      console.info("creating", item.name);
+      await insert("userresources", ["id", "idUser", "idResource", "date"], {
+        date: new Date().getTime(),
+        idUser,
+        idResource: item.id,
+      });
+    }
     res.status(200).send({ message: "ok" });
   } catch (err) {
     console.error(err);

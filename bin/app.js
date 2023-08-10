@@ -2,10 +2,7 @@
 
 const config = require("../config");
 
-const {
-  resourcesChronons,
-  playerCounter,
-} = require("../chronons/resourcesChronons");
+const { update } = require("sito-node-mysql");
 
 /**
  * Module dependencies.
@@ -82,13 +79,19 @@ async function checkForUpdateState(array) {
       console.info("idle socket found", array[i], "disconnecting");
 
       // @ts-ignore
-      /*  await update("users", ["user", "equal", array[i]], {
-        just: ["state", "lastDate"],
-        value: ["disconnected", new Date().getTime()],
-      }); */
+      await update(
+        "users",
+        ["state", "lastOnline"],
+        { state: 0, lastOnline: new Date().getTime() },
+        [{ attribute: "user", operator: "=", value: array[i] }]
+      );
       io.emit("user-update-state", { user: array[i], to: "disconnected" });
+    } else {
+      // not online calculates resources
     }
   }
+  if (!array.length) console.info("Zzz No users online Zzz");
+  else console.info(`${array.length} players online`);
 }
 
 /**
@@ -99,13 +102,13 @@ cron.schedule("* * * * *", async () => {
     console.log("update date");
     io.emit("plus-minute", new Date().getTime());
     const keys = Object.keys(userSocketsConnections);
-    if (keys.length < 600000) checkForUpdateState(keys);
+    if (keys.length < 600000) {
+      checkForUpdateState(keys);
+    }
   } catch (err) {
     console.error(err);
   }
 });
-
-playerCounter();
 
 /**
  * Listen on provided port, on all network interfaces.

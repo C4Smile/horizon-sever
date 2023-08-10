@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 10, 2023 at 03:20 PM
+-- Generation Time: Aug 10, 2023 at 05:27 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.0.28
 
@@ -158,12 +158,28 @@ CREATE TABLE `logs` (
 --
 
 INSERT INTO `logs` (`id`, `idUser`, `operation`, `date`, `observation`) VALUES
+('01357919-d39e-4be8-9750-39ca1d351870', '704a8407-33dc-11ee-9a78-6c02e0b9ae9e', 'sign-in', 1691680198320, 'sign out'),
+('0ada1538-ffc2-4e2b-ba25-5e7bd5be152d', '704a8407-33dc-11ee-9a78-6c02e0b9ae9e', 'sign-in', 1691675595409, 'sign out'),
 ('27916a86-717f-4336-ae9b-6bb7ddc7a988', '704a8407-33dc-11ee-9a78-6c02e0b9ae9e', 'sign-out', 1691615916276, 'sign out'),
 ('4a9ed9f4-d349-495a-895d-d0c89e1048d4', '704a8407-33dc-11ee-9a78-6c02e0b9ae9e', 'sign-in', 1691615924272, 'sign out'),
+('547afa1b-e016-43b4-8441-228bd77681ca', '704a8407-33dc-11ee-9a78-6c02e0b9ae9e', 'sign-in', 1691676156079, 'sign out'),
+('5a4f3e75-7623-4283-900c-d436abf98018', '704a8407-33dc-11ee-9a78-6c02e0b9ae9e', 'sign-in', 1691680437757, 'sign out'),
+('65321b40-9cc7-4298-b523-12f39d3393b2', '704a8407-33dc-11ee-9a78-6c02e0b9ae9e', 'sign-in', 1691680398632, 'sign out'),
+('6abc0d8d-d746-443b-a72f-fa39a4636c98', '704a8407-33dc-11ee-9a78-6c02e0b9ae9e', 'sign-in', 1691680532935, 'sign out'),
 ('70633215-403a-4eb1-bbd4-0dd19320523c', '704a8407-33dc-11ee-9a78-6c02e0b9ae9e', 'sign-out', 1691273578704, 'sign out'),
+('7907ec08-80ba-49e8-bc41-4c4939f687f6', '704a8407-33dc-11ee-9a78-6c02e0b9ae9e', 'sign-in', 1691676361988, 'sign out'),
+('7be66b22-d83b-4e92-a54a-d193bc1fb97a', '704a8407-33dc-11ee-9a78-6c02e0b9ae9e', 'sign-in', 1691676010215, 'sign out'),
+('80eefdf8-7877-4c9f-a252-64f3cffc99b5', '704a8407-33dc-11ee-9a78-6c02e0b9ae9e', 'sign-in', 1691680156164, 'sign out'),
 ('891529ea-1ab5-457f-857e-4401220ed795', '704a8407-33dc-11ee-9a78-6c02e0b9ae9e', 'sign-in', 1691615060826, 'sign out'),
+('8e4a70e1-2a11-4294-9ea6-04410e316cfc', '704a8407-33dc-11ee-9a78-6c02e0b9ae9e', 'sign-out', 1691680622173, 'sign out'),
+('8f18fd0d-7e8e-402b-94f6-3e672d2b070f', '704a8407-33dc-11ee-9a78-6c02e0b9ae9e', 'sign-in', 1691676251414, 'sign out'),
+('a758ea0b-00d7-4a83-a31f-50585490d6ee', '704a8407-33dc-11ee-9a78-6c02e0b9ae9e', 'sign-in', 1691680474176, 'sign out'),
+('c2a7facd-ac20-4d6e-9ed2-2d5565b3ada9', '704a8407-33dc-11ee-9a78-6c02e0b9ae9e', 'sign-in', 1691676530968, 'sign out'),
+('ca94414e-5ef2-45c8-b720-9db9930be402', '704a8407-33dc-11ee-9a78-6c02e0b9ae9e', 'sign-in', 1691676446841, 'sign out'),
 ('cbebd543-803f-4dc9-b2b7-14c4c0249acf', '0eb99680-8d9f-448c-9c7d-fe0c3e8e1f53', 'sign-out', 1691494121633, 'sign out'),
-('d8557492-016c-4b78-a835-2a1043365162', '704a8407-33dc-11ee-9a78-6c02e0b9ae9e', 'sign-in', 1691273576395, 'sign out');
+('d8557492-016c-4b78-a835-2a1043365162', '704a8407-33dc-11ee-9a78-6c02e0b9ae9e', 'sign-in', 1691273576395, 'sign out'),
+('e3bbe41b-a182-4813-bde6-337d2c98a836', '704a8407-33dc-11ee-9a78-6c02e0b9ae9e', 'sign-in', 1691675782993, 'sign out'),
+('ee996138-4696-4522-8408-e786eddf20bf', '704a8407-33dc-11ee-9a78-6c02e0b9ae9e', 'sign-in', 1691680754516, 'sign out');
 
 -- --------------------------------------------------------
 
@@ -249,7 +265,7 @@ CREATE TABLE `tokens` (
 --
 
 INSERT INTO `tokens` (`id`, `idUser`, `start`, `end`, `token`) VALUES
-('93ad39fb-8e5f-4f2b-af92-e9146333164f', '704a8407-33dc-11ee-9a78-6c02e0b9ae9e', 1691702324274, 1691702324274, 'U2FsdGVkX1+rZrpamfyYzyxxZ26oGCOsFyEbHyFDkerZ9Cg3AJwyaKAiBzbH9peyBIiccsCD8mlSfAM4SSY4HtaMJ7nHwHX+r39Tf/iFmT3UYM1X4pyZ2fc/NaIvgecC');
+('1ad58906-f283-4022-908f-08a962429b44', '704a8407-33dc-11ee-9a78-6c02e0b9ae9e', 1691767154520, 1691767154520, 'U2FsdGVkX19EF7FSB6GllwyglRX/mFXztf1ecrB2mlRofUj5tLn47L1BonuiZWFq+Y8d7M4jMZS6TQvRqi9QfutdGo8+QideQeWySnQyyHcma1iBtRVu98z4BMswVPXs');
 
 -- --------------------------------------------------------
 
@@ -263,6 +279,20 @@ CREATE TABLE `userbuildings` (
   `idBuilding` varchar(36) NOT NULL,
   `date` bigint(16) NOT NULL,
   `level` int(11) NOT NULL DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `userresources`
+--
+
+CREATE TABLE `userresources` (
+  `id` varchar(36) NOT NULL,
+  `idUser` varchar(36) NOT NULL,
+  `idResource` varchar(36) NOT NULL,
+  `count` float NOT NULL,
+  `date` bigint(16) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -393,6 +423,14 @@ ALTER TABLE `userbuildings`
   ADD KEY `idBuildingUser` (`idBuilding`);
 
 --
+-- Indexes for table `userresources`
+--
+ALTER TABLE `userresources`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `idUserResource` (`idUser`),
+  ADD KEY `idResourceUser` (`idResource`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -468,6 +506,13 @@ ALTER TABLE `tokens`
 ALTER TABLE `userbuildings`
   ADD CONSTRAINT `idBuildingUser` FOREIGN KEY (`idBuilding`) REFERENCES `buildings` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `idUserBuilding` FOREIGN KEY (`idUser`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `userresources`
+--
+ALTER TABLE `userresources`
+  ADD CONSTRAINT `idResourceUser` FOREIGN KEY (`idResource`) REFERENCES `resources` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `idUserResource` FOREIGN KEY (`idUser`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `users`
