@@ -12,6 +12,7 @@ const usersOnline = {};
 const resourcesChronons = () => {
   cron.schedule("* * * * * *", async () => {
     const length = Object.keys(usersOnline).length;
+    console.log("length", length);
     if (length) {
     }
   });
