@@ -104,9 +104,8 @@ userRouter.addRoute("/set-nick", "POST", [], async (req, res) => {
         "base64"
       );
       const extension = photo.split(";")[0].split("/")[1];
-      console.log(`./public/images/users/${user}.${extension}`);
       fs.writeFileSync(`./public/images/users/${user}.${extension}`, encoded);
-      parsedPhoto = `./public/images/users/${user}.${extension}`
+      parsedPhoto = `/images/users/${user}.${extension}`
     } catch (err) {
       console.error(err);
     }
