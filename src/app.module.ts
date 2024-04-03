@@ -13,6 +13,8 @@ import { TypeOrmModule } from "@nestjs/typeorm";
       host: "localhost",
       port: 3306,
       database: "museo",
+      entities: [__dirname + "/**/*.entity.ts"],
+      synchronize: true,
     }),
     UsersModule,
   ],
