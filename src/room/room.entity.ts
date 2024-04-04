@@ -1,5 +1,5 @@
 import { Model } from "src/models/model";
-import { Column } from "typeorm";
+import { Column, Entity } from "typeorm";
 
 export enum RoomStatus {
   operational = "operational",
@@ -10,6 +10,7 @@ export enum RoomStatus {
  * @class Room
  * @description Represents a room
  */
+@Entity({ name: "rooms" })
 export class Room extends Model {
   @Column({ unique: true })
   number: string = "";
@@ -17,7 +18,7 @@ export class Room extends Model {
   @Column({ unique: true })
   name: string = "";
 
-  @Column()
+  @Column({ type: "string", default: () => RoomStatus.operational })
   status: RoomStatus = RoomStatus.operational;
 
   /**
