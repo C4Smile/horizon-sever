@@ -29,10 +29,10 @@ export class Reservation extends Model {
   @Column({ type: "datetime" })
   checkOutDate: Date;
 
-  @Column({ type: "string", default: () => ReservationStatus.pending })
+  @Column()
   status: ReservationStatus = ReservationStatus.pending;
 
-  @Column({ type: "string", unique: true })
+  @Column({ unique: true })
   ticket: string = "";
 
   @OneToMany(() => Invoice, (invoice) => invoice.Reservation)
