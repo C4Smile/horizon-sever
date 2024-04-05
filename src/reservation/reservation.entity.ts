@@ -3,6 +3,7 @@ import { Column, Entity, ManyToOne } from "typeorm";
 // entities
 import { Model } from "src/models/model";
 import { Customer } from "src/customer/customer.entity";
+import { Invoice } from "src/invoice/invoice.entity";
 
 export enum ReservationStatus {
   pending = "pending",
@@ -30,6 +31,9 @@ export class Reservation extends Model {
 
   @Column({ type: "string", unique: true })
   ticket: string = "";
+
+  @ManyToOne(() => Invoice, (invoice) => invoice.Reservation)
+  invoices: Invoice[];
 
   /**
    * @param {number} id - Reservation id
@@ -95,5 +99,12 @@ export class Reservation extends Model {
    */
   get Ticket() {
     return this.ticket;
+  }
+
+  /**
+   * @returns Invoices
+   */
+  get Invoices() {
+    return this.invoices;
   }
 }

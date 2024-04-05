@@ -4,6 +4,7 @@ import { Column, ManyToOne } from "typeorm";
 import { Model } from "src/models/model";
 import { Country } from "src/country/country.entity";
 import { Reservation } from "src/reservation/reservation.entity";
+import { Invoice } from "src/invoice/invoice.entity";
 
 /**
  * @class Customer
@@ -30,6 +31,9 @@ export class Customer extends Model {
 
   @ManyToOne(() => Reservation, (reservation) => reservation.Customer)
   reservations: Reservation[];
+
+  @ManyToOne(() => Invoice, (invoice) => invoice.Customer)
+  invoices: Invoice[];
 
   /**
    * @param {number} id - Customer id
@@ -111,5 +115,12 @@ export class Customer extends Model {
    */
   get Reservations() {
     return this.reservations;
+  }
+
+  /**
+   * @returns Invoices
+   */
+  get Invoices() {
+    return this.invoices;
   }
 }

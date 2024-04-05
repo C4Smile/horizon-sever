@@ -1,5 +1,8 @@
+import { Column, Entity, ManyToOne } from "typeorm";
+
+// entities
 import { Model } from "src/models/model";
-import { Column, Entity } from "typeorm";
+import { Invoice } from "src/invoice/invoice.entity";
 
 /**
  * @class Currency
@@ -12,6 +15,9 @@ export class Currency extends Model {
 
   @Column({ unique: true })
   reduction: string = "";
+
+  @ManyToOne(() => Invoice, (invoice) => invoice.Currency)
+  invoices: Invoice[];
 
   /**
    * @param {number} id - Currency id
@@ -47,5 +53,12 @@ export class Currency extends Model {
    */
   get Reduction() {
     return this.reduction;
+  }
+
+  /**
+   * @returns Invoices
+   */
+  get Invoices() {
+    return this.Invoices;
   }
 }
