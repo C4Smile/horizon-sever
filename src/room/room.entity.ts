@@ -20,7 +20,7 @@ export class Room extends Model {
   @Column({ unique: true })
   name: string = "";
 
-  @Column({ type: "string", default: () => RoomStatus.operational })
+  @Column()
   status: RoomStatus = RoomStatus.operational;
 
   /**
