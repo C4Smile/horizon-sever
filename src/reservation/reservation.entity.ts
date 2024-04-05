@@ -1,6 +1,8 @@
-import { Customer } from "src/customer/customer.entity";
-import { Model } from "src/models/model";
 import { Column, Entity, ManyToOne } from "typeorm";
+
+// entities
+import { Model } from "src/models/model";
+import { Customer } from "src/customer/customer.entity";
 
 export enum ReservationStatus {
   pending = "pending",
