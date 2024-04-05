@@ -24,27 +24,6 @@ export class Country extends Model {
   provinces: Province[];
 
   /**
-   * @param {number} id - Country id
-   * @param {string} name - Country name
-   * @param {string} iso - Country iso
-   * @param {Date} dateOfCreation - Country date of creation
-   * @param {Date} lastUpdate - Country last update
-   * @param {boolean} deleted - Country deleted
-   */
-  constructor(
-    id: number,
-    name: string,
-    iso: string,
-    dateOfCreation: Date = null,
-    lastUpdate: Date = null,
-    deleted: boolean = false,
-  ) {
-    super(id, dateOfCreation, lastUpdate, deleted);
-    this.name = name;
-    this.iso = iso;
-  }
-
-  /**
    * @returns Name
    */
   get Name() {

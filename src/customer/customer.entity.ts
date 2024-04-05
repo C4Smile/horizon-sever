@@ -1,4 +1,4 @@
-import { Column, ManyToOne } from "typeorm";
+import { Column, ManyToOne, OneToMany } from "typeorm";
 
 // entities
 import { Model } from "src/models/model";
@@ -26,47 +26,17 @@ export class Customer extends Model {
   @Column({ unique: true })
   identification: string = "";
 
+  @Column()
+  countryId: number;
+
   @ManyToOne(() => Country, (country) => country.Customers)
   country: Country;
 
-  @ManyToOne(() => Reservation, (reservation) => reservation.Customer)
+  @OneToMany(() => Reservation, (reservation) => reservation.Customer)
   reservations: Reservation[];
 
-  @ManyToOne(() => Invoice, (invoice) => invoice.Customer)
+  @OneToMany(() => Invoice, (invoice) => invoice.Customer)
   invoices: Invoice[];
-
-  /**
-   * @param {number} id - Customer id
-   * @param {string} name - Customer name
-   * @param {string} email - Customer email
-   * @param {string} phone - Customer phone
-   * @param {string} address - Customer address
-   * @param {string} identification - Customer identification
-   * @param {Country} country - Customer country
-   * @param {Date} dateOfCreation - Customer date of creation
-   * @param {Date} lastUpdate - Customer last update
-   * @param {boolean} deleted - Customer deleted
-   */
-  constructor(
-    id: number,
-    name: string,
-    email: string,
-    phone: string,
-    address: string,
-    identification: string,
-    country: Country,
-    dateOfCreation: Date = null,
-    lastUpdate: Date = null,
-    deleted: boolean = false,
-  ) {
-    super(id, dateOfCreation, lastUpdate, deleted);
-    this.country = country;
-    this.name = name;
-    this.email = email;
-    this.phone = phone;
-    this.address = address;
-    this.identification = identification;
-  }
 
   /**
    * @returns Name

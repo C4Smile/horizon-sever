@@ -13,29 +13,11 @@ export class Province extends Model {
   @Column({ unique: true })
   name: string = "";
 
+  @Column()
+  countryId: number;
+
   @ManyToOne(() => Country, (country) => country.Provinces)
   country: Country;
-
-  /**
-   * @param {number} id - Province id
-   * @param {string} name - Province name
-   * @param {Country} country - Province country
-   * @param {Date} dateOfCreation - Province date of creation
-   * @param {Date} lastUpdate - Province last update
-   * @param {boolean} deleted - Province deleted
-   */
-  constructor(
-    id: number,
-    name: string,
-    country: Country,
-    dateOfCreation: Date = null,
-    lastUpdate: Date = null,
-    deleted: boolean = false,
-  ) {
-    super(id, dateOfCreation, lastUpdate, deleted);
-    this.name = name;
-    this.country = country;
-  }
 
   /**
    * @returns Name

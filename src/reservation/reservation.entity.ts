@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToOne } from "typeorm";
+import { Column, Entity, ManyToOne, OneToMany } from "typeorm";
 
 // entities
 import { Model } from "src/models/model";
@@ -17,6 +17,9 @@ export enum ReservationStatus {
  */
 @Entity({ name: "reservations" })
 export class Reservation extends Model {
+  @Column()
+  customerId: number;
+
   @ManyToOne(() => Customer, (customer) => customer.Reservations)
   customer: Customer;
 
@@ -32,7 +35,7 @@ export class Reservation extends Model {
   @Column({ type: "string", unique: true })
   ticket: string = "";
 
-  @ManyToOne(() => Invoice, (invoice) => invoice.Reservation)
+  @OneToMany(() => Invoice, (invoice) => invoice.Reservation)
   invoices: Invoice[];
 
   /**

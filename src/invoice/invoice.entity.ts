@@ -1,4 +1,4 @@
-import { Column, Entity, OneToMany } from "typeorm";
+import { Column, Entity, ManyToOne } from "typeorm";
 
 // entities
 import { Model } from "src/models/model";
@@ -19,50 +19,29 @@ export class Invoice extends Model {
   @Column()
   totalAmount: number = 0;
 
-  @OneToMany(() => Reservation, (reservation) => reservation.Invoices)
-  reservation = null;
+  @Column()
+  reservationId: number;
 
-  @OneToMany(() => Customer, (customer) => customer.Invoices)
-  customer = null;
+  @ManyToOne(() => Reservation, (reservation) => reservation.Invoices)
+  reservation: Reservation;
 
-  @OneToMany(() => Currency, (currency) => currency.Invoices)
-  currency = null;
+  @Column()
+  customerId: number;
 
-  @OneToMany(() => PaymentMethod, (paymentMethod) => paymentMethod.Invoices)
-  paymentMethod = null;
+  @ManyToOne(() => Customer, (customer) => customer.Invoices)
+  customer: Customer;
 
-  /**
-   * @param {number} id - Invoice id
-   * @param {Reservation} reservation - Invoice reservation
-   * @param {Customer} customer - Invoice customer
-   * @param {Currency} currency - Invoice currency
-   * @param {PaymentMethod} paymentMethod - Invoice payment method
-   * @param {Date} dateIssued - Invoice date issued
-   * @param {number} totalAmount - Invoice total amount
-   * @param {Date} dateOfCreation - Invoice date of creation
-   * @param {Date} lastUpdate - Invoice last update
-   * @param {boolean} deleted - Invoice deleted
-   */
-  constructor(
-    id: number,
-    reservation: Reservation,
-    customer: Customer,
-    currency: Currency,
-    paymentMethod: PaymentMethod,
-    totalAmount: number,
-    dateIssued: Date = null,
-    dateOfCreation: Date = null,
-    lastUpdate: Date = null,
-    deleted: boolean = false,
-  ) {
-    super(id, dateOfCreation, lastUpdate, deleted);
-    this.reservation = reservation;
-    this.customer = customer;
-    this.currency = currency;
-    this.paymentMethod = paymentMethod;
-    this.dateIssued = dateIssued;
-    this.totalAmount = totalAmount;
-  }
+  @Column()
+  currencyId: number;
+
+  @ManyToOne(() => Currency, (currency) => currency.Invoices)
+  currency: Currency;
+
+  @Column()
+  paymentMethodId: number;
+
+  @ManyToOne(() => PaymentMethod, (paymentMethod) => paymentMethod.Invoices)
+  paymentMethod: PaymentMethod;
 
   /**
    * @returns Reservation
