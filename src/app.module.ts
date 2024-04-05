@@ -7,7 +7,7 @@ import { CountryModule } from './country/country.module';
 import { CustomerModule } from './customer/customer.module';
 import { CurrencyModule } from './currency/currency.module';
 import { InvoiceModule } from './invoice/invoice.module';
-import { PaymentmethodModule } from './paymentmethod/paymentmethod.module';
+import { PaymentMethodModule } from './paymentmethod/paymentmethod.module';
 import { ProvinceModule } from './province/province.module';
 import { ReservationModule } from './reservation/reservation.module';
 import { RoomModule } from './room/room.module';
@@ -29,7 +29,7 @@ import { RoomModule } from './room/room.module';
     CustomerModule,
     CurrencyModule,
     InvoiceModule,
-    PaymentmethodModule,
+    PaymentMethodModule,
     ProvinceModule,
     ReservationModule,
     RoomModule,
