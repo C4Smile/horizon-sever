@@ -3,6 +3,7 @@ import { Column, Entity, OneToMany } from "typeorm";
 // entities
 import { Model } from "src/models/model";
 import { Customer } from "src/customer/customer.entity";
+import { Province } from "src/province/province.entity";
 
 /**
  * @class Country
@@ -18,6 +19,9 @@ export class Country extends Model {
 
   @OneToMany(() => Customer, (customer) => customer.Country)
   customers: Customer[];
+
+  @OneToMany(() => Province, (province) => province.Country)
+  provinces: Province[];
 
   /**
    * @param {number} id - Country id
@@ -59,5 +63,12 @@ export class Country extends Model {
    */
   get Customers() {
     return this.customers;
+  }
+
+  /**
+   * @returns Provinces
+   */
+  get Provinces() {
+    return this.provinces;
   }
 }
