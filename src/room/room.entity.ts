@@ -1,5 +1,7 @@
-import { Model } from "src/models/model";
 import { Column, Entity } from "typeorm";
+
+// entities
+import { Model } from "src/models/model";
 
 export enum RoomStatus {
   operational = "operational",
@@ -36,8 +38,8 @@ export class Room extends Model {
     number: string,
     name: string,
     status: RoomStatus = RoomStatus.operational,
-    dateOfCreation: Date,
-    lastUpdate: Date,
+    dateOfCreation: Date = null,
+    lastUpdate: Date = null,
     deleted: boolean = false,
   ) {
     super(id, dateOfCreation, lastUpdate, deleted);
