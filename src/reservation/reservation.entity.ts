@@ -1,5 +1,6 @@
+import { Customer } from "src/customer/customer.entity";
 import { Model } from "src/models/model";
-import { Column, Entity } from "typeorm";
+import { Column, Entity, ManyToOne } from "typeorm";
 
 export enum ReservationStatus {
   pending = "pending",
@@ -13,8 +14,8 @@ export enum ReservationStatus {
  */
 @Entity({ name: "reservations" })
 export class Reservation extends Model {
-  @Column()
-  customerId: number;
+  @ManyToOne(() => Customer, (customer) => customer.Reservations)
+  customer: Customer;
 
   @Column({ type: "datetime" })
   checkInDate: Date;
@@ -42,7 +43,7 @@ export class Reservation extends Model {
    */
   constructor(
     id: number,
-    customerId: number,
+    customer: Customer,
     checkInDate: Date,
     checkOutDate: Date,
     status: ReservationStatus,
@@ -52,7 +53,7 @@ export class Reservation extends Model {
     deleted: boolean = false,
   ) {
     super(id, dateOfCreation, lastUpdate, deleted);
-    this.customerId = customerId;
+    this.customer = customer;
     this.checkInDate = checkInDate;
     this.checkOutDate = checkOutDate;
     this.status = status;
@@ -62,8 +63,8 @@ export class Reservation extends Model {
   /**
    * @returns Customer
    */
-  get CustomerId() {
-    return this.customerId;
+  get Customer() {
+    return this.customer;
   }
 
   /**
