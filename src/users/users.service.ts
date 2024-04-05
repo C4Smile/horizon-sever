@@ -16,11 +16,28 @@ export class UsersService {
 
   async create(user: AddUserDto) {
     const userFound = await this.userService.findOne({
-      where: [{ username: user.username }, { identification: user.identification }],
+      where: { username: user.username },
     });
 
     if (userFound) {
       return new HttpException("User already exists", HttpStatus.CONFLICT);
+    }
+
+    const phoneFound = await this.userService.findOne({ where: { phone: user.phone } });
+    if (phoneFound) {
+      return new HttpException("Phone is being used", HttpStatus.CONFLICT);
+    }
+
+    const emailFound = await this.userService.findOne({ where: { email: user.email } });
+    if (emailFound) {
+      return new HttpException("Email is being used", HttpStatus.CONFLICT);
+    }
+
+    const identificationFound = await this.userService.findOne({
+      where: { identification: user.identification },
+    });
+    if (identificationFound) {
+      return new HttpException("Identification is being used", HttpStatus.CONFLICT);
     }
 
     const newUser = this.userService.create(user);
@@ -63,6 +80,23 @@ export class UsersService {
 
     if (!userFound) {
       return new HttpException("User not Found", HttpStatus.NOT_FOUND);
+    }
+
+    const phoneFound = await this.userService.findOne({ where: { phone: data.phone } });
+    if (phoneFound) {
+      return new HttpException("Phone is being used", HttpStatus.CONFLICT);
+    }
+
+    const emailFound = await this.userService.findOne({ where: { email: data.email } });
+    if (emailFound) {
+      return new HttpException("Email is being used", HttpStatus.CONFLICT);
+    }
+
+    const identificationFound = await this.userService.findOne({
+      where: { identification: data.identification },
+    });
+    if (identificationFound) {
+      return new HttpException("Identification is being used", HttpStatus.CONFLICT);
     }
 
     const updatedUser = Object.assign(userFound, data);
