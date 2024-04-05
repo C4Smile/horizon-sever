@@ -1,4 +1,4 @@
-import { Column, ManyToOne, OneToMany } from "typeorm";
+import { Column, Entity, ManyToOne, OneToMany } from "typeorm";
 
 // entities
 import { Model } from "src/models/model";
@@ -10,6 +10,7 @@ import { Invoice } from "src/invoice/invoice.entity";
  * @class Customer
  * @description Represents a customer
  */
+@Entity({ name: "customer" })
 export class Customer extends Model {
   @Column()
   name: string = "";
