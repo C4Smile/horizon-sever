@@ -17,5 +17,6 @@ import { Province } from "./province.entity";
   imports: [TypeOrmModule.forFeature([Province]), CountryModule],
   controllers: [ProvinceController],
   providers: [ProvinceService],
+  exports: [ProvinceService],
 })
 export class ProvinceModule {}

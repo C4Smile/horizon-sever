@@ -13,6 +13,9 @@ import { PaymentMethod } from "src/paymentmethod/paymentmethod.entity";
  */
 @Entity({ name: "invoices" })
 export class Invoice extends Model {
+  @Column({ unique: true })
+  ticket: string;
+
   @Column({ nullable: true, type: "datetime", default: () => "CURRENT_TIMESTAMP" })
   dateIssued: Date = null;
 
@@ -42,6 +45,13 @@ export class Invoice extends Model {
 
   @ManyToOne(() => PaymentMethod, (paymentMethod) => paymentMethod.Invoices)
   paymentMethod: PaymentMethod;
+
+  /**
+   * @returns Ticket
+   */
+  get Ticket() {
+    return this.ticket;
+  }
 
   /**
    * @returns Reservation

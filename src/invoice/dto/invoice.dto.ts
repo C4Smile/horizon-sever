@@ -6,6 +6,7 @@ import { PaymentMethodDto } from "src/paymentmethod/dto/paymentmethod.dto";
 import { ReservationDto } from "src/reservation/dto/reservation.dto";
 
 export interface InvoiceDto extends ModelDto {
+  ticket: string;
   dateIssued: Date;
   totalAmount: number;
   reservation: ReservationDto;

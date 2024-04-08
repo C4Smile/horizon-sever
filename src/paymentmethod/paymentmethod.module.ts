@@ -14,5 +14,6 @@ import { PaymentMethod } from "./paymentmethod.entity";
   imports: [TypeOrmModule.forFeature([PaymentMethod])],
   controllers: [PaymentMethodController],
   providers: [PaymentMethodService],
+  exports: [PaymentMethodService],
 })
 export class PaymentMethodModule {}
