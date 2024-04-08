@@ -36,7 +36,6 @@ export class CountryService {
       where: {
         id,
       },
-      relations: ["provinces"],
     });
 
     if (!countryFound) {

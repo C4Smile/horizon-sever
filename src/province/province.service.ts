@@ -3,13 +3,15 @@ import { InjectRepository } from "@nestjs/typeorm";
 
 import { Repository } from "typeorm";
 
+// service
+import { CountryService } from "src/country/country.service";
+
 // entity
 import { Province } from "./province.entity";
 
 // dto
 import { AddProvinceDto } from "./dto/add-province.dto";
 import { UpdateProvinceDto } from "./dto/update-province.dto";
-import { CountryService } from "src/country/country.service";
 
 @Injectable()
 export class ProvinceService {
