@@ -21,10 +21,10 @@ export class ReservationService {
   ) {}
 
   async create(reservation: AddReservationDto) {
-    const countryFound = await this.customersService.getById(reservation.customerId);
+    const customerFound = await this.customersService.getById(reservation.customerId);
 
-    if (!countryFound) {
-      return new HttpException("Country not Found", HttpStatus.NOT_FOUND);
+    if (!customerFound) {
+      return new HttpException("Customer not Found", HttpStatus.NOT_FOUND);
     }
 
     const newReservation = this.reservationService.create(reservation);
