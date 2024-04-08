@@ -4,7 +4,7 @@ import { TypeOrmModule } from "@nestjs/typeorm";
 // module
 import { CustomerModule } from "src/customer/customer.module";
 import { CurrencyModule } from "src/currency/currency.module";
-import { ReservationService } from "src/reservation/reservation.service";
+import { ReservationModule } from "src/reservation/reservation.module";
 import { PaymentMethodModule } from "src/paymentmethod/paymentmethod.module";
 
 // controller
@@ -16,10 +16,11 @@ import { InvoiceService } from "./invoice.service";
 // entity
 import { Invoice } from "./invoice.entity";
 
+
 @Module({
   imports: [
     TypeOrmModule.forFeature([Invoice]),
-    ReservationService,
+    ReservationModule,
     CustomerModule,
     CurrencyModule,
     PaymentMethodModule,

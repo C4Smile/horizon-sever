@@ -5,6 +5,7 @@ import { Repository } from "typeorm";
 
 // service
 import { CurrencyService } from "src/currency/currency.service";
+import { CustomerService } from "src/customer/customer.service";
 import { ReservationService } from "src/reservation/reservation.service";
 import { PaymentMethodService } from "src/paymentmethod/paymentMethod.service";
 
@@ -19,12 +20,19 @@ import { UpdateInvoiceDto } from "./dto/update-invoice.dto";
 export class InvoiceService {
   constructor(
     @InjectRepository(Invoice) private invoiceService: Repository<Invoice>,
+    private customersService: CustomerService,
     private reservationsService: ReservationService,
     private currenciesService: CurrencyService,
     private paymentMethodsService: PaymentMethodService,
   ) {}
 
   async create(invoice: AddInvoiceDto) {
+    const customerFound = await this.customersService.getById(invoice.customerId);
+
+    if (!customerFound) {
+      return new HttpException("Customer not Found", HttpStatus.NOT_FOUND);
+    }
+
     const reservationFound = await this.reservationsService.getById(invoice.reservationId);
 
     if (!reservationFound) {
@@ -34,13 +42,13 @@ export class InvoiceService {
     const currencyFound = await this.currenciesService.getById(invoice.currencyId);
 
     if (!currencyFound) {
-      return new HttpException("Country not Found", HttpStatus.NOT_FOUND);
+      return new HttpException("Currency not Found", HttpStatus.NOT_FOUND);
     }
 
     const paymentMethodFound = await this.paymentMethodsService.getById(invoice.paymentMethodId);
 
     if (!paymentMethodFound) {
-      return new HttpException("Country not Found", HttpStatus.NOT_FOUND);
+      return new HttpException("Payment method not Found", HttpStatus.NOT_FOUND);
     }
 
     const newInvoice = this.invoiceService.create(invoice);
