@@ -9,12 +9,22 @@ import { Province } from "./province.entity";
 // dto
 import { AddProvinceDto } from "./dto/add-province.dto";
 import { UpdateProvinceDto } from "./dto/update-province.dto";
+import { CountryService } from "src/country/country.service";
 
 @Injectable()
 export class ProvinceService {
-  constructor(@InjectRepository(Province) private provinceService: Repository<Province>) {}
+  constructor(
+    @InjectRepository(Province) private provinceService: Repository<Province>,
+    private countriesService: CountryService,
+  ) {}
 
   async create(province: AddProvinceDto) {
+    const countryFound = await this.countriesService.getById(province.countryId);
+
+    if (!countryFound) {
+      return new HttpException("Country not Found", HttpStatus.NOT_FOUND);
+    }
+
     const provinceFound = await this.provinceService.findOne({
       where: { name: province.name },
     });
@@ -28,7 +38,9 @@ export class ProvinceService {
   }
 
   get() {
-    return this.provinceService.find();
+    return this.provinceService.find({
+      relations: ["country"],
+    });
   }
 
   async getById(id: number) {

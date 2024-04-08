@@ -1,6 +1,9 @@
 import { Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
 
+// module
+import { CountryModule } from "src/country/country.module";
+
 // controller
 import { ProvinceController } from "./province.controller";
 
@@ -11,7 +14,7 @@ import { ProvinceService } from "./province.service";
 import { Province } from "./province.entity";
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Province])],
+  imports: [TypeOrmModule.forFeature([Province]), CountryModule],
   controllers: [ProvinceController],
   providers: [ProvinceService],
 })
