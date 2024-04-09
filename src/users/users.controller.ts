@@ -31,21 +31,25 @@ export class UsersController {
     return this.usersService.get();
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get(":id")
   getById(@Param("id", ParseIntPipe) id: number) {
     return this.usersService.getById(id);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Post()
   create(@Body() newUser: AddUserDto) {
     return this.usersService.create(newUser);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Delete(":id")
   remove(@Param("id", ParseIntPipe) id: number) {
     return this.usersService.remove(id);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Patch(":id")
   update(@Param("id", ParseIntPipe) id: number, @Body() data: UpdateUserDto) {
     return this.update(id, data);
