@@ -1,5 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
+import { JwtService } from "@nestjs/jwt";
 import { Repository } from "typeorm";
 import { hash, compare } from "bcrypt";
 
@@ -10,10 +11,14 @@ import { User } from "src/users/user.entity";
 import { LoginUserDto } from "./dto/login-user.dto";
 import { AddUserDto } from "src/users/dto/add-user.dto";
 import { UserDto } from "src/users/dto/user.dto";
+import { LoggedUserDto } from "./dto/logged-user.dt";
 
 @Injectable()
 export class AuthService {
-  constructor(@InjectRepository(User) private userService: Repository<User>) {}
+  constructor(
+    @InjectRepository(User) private userService: Repository<User>,
+    private jwtAuthService: JwtService,
+  ) {}
 
   async login(loginUserDto: LoginUserDto) {
     const userFound = await this.userService.findOne({
@@ -29,7 +34,14 @@ export class AuthService {
     if (!isPasswordMatched)
       return new HttpException("Wrong username or password", HttpStatus.FORBIDDEN);
 
-    return loginUserDto;
+    const loggedUser = {
+      id: userFound.id,
+      token: "",
+    };
+
+    loggedUser.token = this.jwtAuthService.sign({ id: userFound.id, username: loginUserDto.username });
+
+    return loggedUser as LoggedUserDto;
   }
 
   async register(user: AddUserDto) {
