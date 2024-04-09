@@ -4,11 +4,11 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 
 // entity
-import { PaymentMethod } from "./paymentMethod.entity";
+import { PaymentMethod } from "./payment-method.entity";
 
 // dto
-import { AddPaymentMethodDto } from "./dto/add-paymentMethod.dto";
-import { UpdatePaymentMethodDto } from "./dto/update-paymentMethod.dto";
+import { AddPaymentMethodDto } from "./dto/add-payment-method.dto";
+import { UpdatePaymentMethodDto } from "./dto/update-payment-method.dto";
 
 @Injectable()
 export class PaymentMethodService {

@@ -11,12 +11,12 @@ import {
 } from "@nestjs/common";
 
 // dto
-import { PaymentMethodDto } from "./dto/paymentMethod.dto";
-import { AddPaymentMethodDto } from "./dto/add-paymentMethod.dto";
+import { PaymentMethodDto } from "./dto/payment-method.dto";
+import { AddPaymentMethodDto } from "./dto/add-payment-method.dto";
 
 // services
-import { PaymentMethodService } from "./paymentMethod.service";
-import { UpdatePaymentMethodDto } from "./dto/update-paymentMethod.dto";
+import { PaymentMethodService } from "./payment-method.service";
+import { UpdatePaymentMethodDto } from "./dto/update-payment-method.dto";
 
 // guard
 import { JwtAuthGuard } from "src/auth/jwt-auth.guard";

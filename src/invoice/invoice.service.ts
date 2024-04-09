@@ -7,7 +7,7 @@ import { Repository } from "typeorm";
 import { CurrencyService } from "src/currency/currency.service";
 import { CustomerService } from "src/customer/customer.service";
 import { ReservationService } from "src/reservation/reservation.service";
-import { PaymentMethodService } from "src/paymentmethod/paymentMethod.service";
+import { PaymentMethodService } from "src/payment-method/payment-method.service";
 
 // entity
 import { Invoice } from "./invoice.entity";

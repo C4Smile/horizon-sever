@@ -8,7 +8,7 @@ import { Invoice } from "src/invoice/invoice.entity";
  * @class PaymentMethod
  * @description Represents a paymentMethod
  */
-@Entity({ name: "paymentmethods" })
+@Entity({ name: "payment-methods" })
 export class PaymentMethod extends Model {
   @Column({ unique: true })
   name: string = "";

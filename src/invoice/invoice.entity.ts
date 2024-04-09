@@ -5,7 +5,7 @@ import { Model } from "src/models/model";
 import { Currency } from "src/currency/currency.entity";
 import { Customer } from "src/customer/customer.entity";
 import { Reservation } from "src/reservation/reservation.entity";
-import { PaymentMethod } from "src/paymentmethod/paymentmethod.entity";
+import { PaymentMethod } from "src/payment-method/payment-method.entity";
 
 /**
  * @class Invoice
