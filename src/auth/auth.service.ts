@@ -22,7 +22,7 @@ export class AuthService {
       },
     });
 
-    if (!userFound) return new HttpException("Wrong username or password", HttpStatus.NOT_FOUND);
+    if (!userFound) return new HttpException("User not found", HttpStatus.NOT_FOUND);
 
     const isPasswordMatched = await compare(loginUserDto.password, userFound.password);
 
