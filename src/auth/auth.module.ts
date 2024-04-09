@@ -12,9 +12,14 @@ import { AuthController } from "./auth.controller";
 
 // service
 import { AuthService } from "./auth.service";
+import { JwtModule } from "@nestjs/jwt";
 
 @Module({
-  imports: [TypeOrmModule.forFeature([User]), UsersModule],
+  imports: [
+    TypeOrmModule.forFeature([User]),
+    UsersModule,
+    JwtModule.register({ secret: "2174876", signOptions: { expiresIn: "60s" } }),
+  ],
   controllers: [AuthController],
   providers: [AuthService],
 })
