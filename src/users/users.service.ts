@@ -1,5 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
+import { hash } from "bcrypt";
 
 import { Repository } from "typeorm";
 
@@ -7,6 +8,7 @@ import { Repository } from "typeorm";
 import { User } from "./user.entity";
 
 // dto
+import { UserDto } from "./dto/user.dto";
 import { AddUserDto } from "./dto/add-user.dto";
 import { UpdateUserDto } from "./dto/update-user.dto";
 
@@ -40,8 +42,11 @@ export class UsersService {
       return new HttpException("Identification is being used", HttpStatus.CONFLICT);
     }
 
-    const newUser = this.userService.create(user);
-    return this.userService.save(newUser);
+    const hashedPassword = await hash(user.password, 10);
+
+    const newUser = this.userService.create({ ...user, password: hashedPassword });
+    const resultUser = await this.userService.save(newUser);
+    return resultUser as UserDto;
   }
 
   get() {
@@ -78,29 +83,25 @@ export class UsersService {
       },
     });
 
-    if (!userFound) {
-      return new HttpException("User not Found", HttpStatus.NOT_FOUND);
-    }
+    if (!userFound) return new HttpException("User not Found", HttpStatus.NOT_FOUND);
 
     const phoneFound = await this.userService.findOne({ where: { phone: data.phone } });
-    if (phoneFound) {
-      return new HttpException("Phone is being used", HttpStatus.CONFLICT);
-    }
+    if (phoneFound) return new HttpException("Phone is being used", HttpStatus.CONFLICT);
 
     const emailFound = await this.userService.findOne({ where: { email: data.email } });
-    if (emailFound) {
-      return new HttpException("Email is being used", HttpStatus.CONFLICT);
-    }
+    if (emailFound) return new HttpException("Email is being used", HttpStatus.CONFLICT);
 
     const identificationFound = await this.userService.findOne({
       where: { identification: data.identification },
     });
-    if (identificationFound) {
+    if (identificationFound)
       return new HttpException("Identification is being used", HttpStatus.CONFLICT);
-    }
+
+    if (data.password) data.password = await hash(data.password, 10);
 
     const updatedUser = Object.assign(userFound, data);
 
-    return this.userService.save(updatedUser);
+    const resultUser = await this.userService.save(updatedUser);
+    return resultUser as UserDto;
   }
 }
