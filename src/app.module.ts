@@ -11,6 +11,7 @@ import { PaymentMethodModule } from './paymentmethod/paymentmethod.module';
 import { ProvinceModule } from './province/province.module';
 import { ReservationModule } from './reservation/reservation.module';
 import { RoomModule } from './room/room.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -33,6 +34,7 @@ import { RoomModule } from './room/room.module';
     ProvinceModule,
     ReservationModule,
     RoomModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
