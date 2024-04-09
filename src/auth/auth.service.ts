@@ -9,13 +9,14 @@ import { User } from "src/users/user.entity";
 // dto
 import { LoginUserDto } from "./dto/login-user.dto";
 import { AddUserDto } from "src/users/dto/add-user.dto";
+import { UserDto } from "src/users/dto/user.dto";
 
 @Injectable()
 export class AuthService {
   constructor(@InjectRepository(User) private userService: Repository<User>) {}
 
   async login(loginUserDto: LoginUserDto) {
-    const hashedPassword = hash(loginUserDto.password, 10);
+    const hashedPassword = await hash(loginUserDto.password, 10);
     const userFound = await this.userService.findOne({
       where: {
         username: loginUserDto.username,
@@ -56,9 +57,10 @@ export class AuthService {
       return new HttpException("Identification is being used", HttpStatus.CONFLICT);
     }
 
-    const hashedPassword = hash(user.password, 10);
+    const hashedPassword = await hash(user.password, 10);
 
     const newUser = this.userService.create({ ...user, password: hashedPassword });
-    return this.userService.save(newUser);
+    const resultUser = await this.userService.save(newUser);
+    return resultUser as UserDto;
   }
 }
