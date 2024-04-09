@@ -23,9 +23,7 @@ export class ReservationService {
   async create(reservation: AddReservationDto) {
     const customerFound = await this.customersService.getById(reservation.customerId);
 
-    if (!customerFound) {
-      return new HttpException("Customer not Found", HttpStatus.NOT_FOUND);
-    }
+    if (!customerFound) return new HttpException("Customer not Found", HttpStatus.NOT_FOUND);
 
     const newReservation = this.reservationService.create(reservation);
     return this.reservationService.save(newReservation);
@@ -42,18 +40,14 @@ export class ReservationService {
       },
     });
 
-    if (!reservationFound) {
-      return new HttpException("Reservation not Found", HttpStatus.NOT_FOUND);
-    }
+    if (!reservationFound) return new HttpException("Reservation not Found", HttpStatus.NOT_FOUND);
 
     return reservationFound;
   }
 
   async remove(id: number) {
     const result = await this.reservationService.delete({ id });
-    if (result.affected === 0) {
-      return;
-    }
+    if (result.affected === 0) return new HttpException("Reservation not Found", HttpStatus.NOT_FOUND);
 
     return result;
   }
@@ -65,9 +59,7 @@ export class ReservationService {
       },
     });
 
-    if (!reservationFound) {
-      return new HttpException("Reservation not Found", HttpStatus.NOT_FOUND);
-    }
+    if (!reservationFound) return new HttpException("Reservation not Found", HttpStatus.NOT_FOUND);
 
     const updatedReservation = Object.assign(reservationFound, data);
 

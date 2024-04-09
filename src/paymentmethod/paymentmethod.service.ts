@@ -21,9 +21,8 @@ export class PaymentMethodService {
       where: { name: paymentMethod.name },
     });
 
-    if (paymentMethodFound) {
+    if (paymentMethodFound)
       return new HttpException("PaymentMethod already exists", HttpStatus.CONFLICT);
-    }
 
     const newPaymentMethod = this.paymentMethodService.create(paymentMethod);
     return this.paymentMethodService.save(newPaymentMethod);
@@ -40,18 +39,15 @@ export class PaymentMethodService {
       },
     });
 
-    if (!paymentMethodFound) {
-      return new HttpException("PaymentMethod not Found", HttpStatus.NOT_FOUND);
-    }
+    if (!paymentMethodFound) return new HttpException("PaymentMethod not Found", HttpStatus.NOT_FOUND);
 
     return paymentMethodFound;
   }
 
   async remove(id: number) {
     const result = await this.paymentMethodService.delete({ id });
-    if (result.affected === 0) {
-      return;
-    }
+    if (result.affected === 0)
+      return new HttpException("PaymentMethod not Found", HttpStatus.NOT_FOUND);
 
     return result;
   }
@@ -63,9 +59,7 @@ export class PaymentMethodService {
       },
     });
 
-    if (!paymentMethodFound) {
-      return new HttpException("PaymentMethod not Found", HttpStatus.NOT_FOUND);
-    }
+    if (!paymentMethodFound) return new HttpException("PaymentMethod not Found", HttpStatus.NOT_FOUND);
 
     const updatedPaymentMethod = Object.assign(paymentMethodFound, data);
 

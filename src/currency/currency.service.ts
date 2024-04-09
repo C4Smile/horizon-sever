@@ -19,9 +19,7 @@ export class CurrencyService {
       where: { name: currency.name },
     });
 
-    if (currencyFound) {
-      return new HttpException("Currency already exists", HttpStatus.CONFLICT);
-    }
+    if (currencyFound) return new HttpException("Currency already exists", HttpStatus.CONFLICT);
 
     const newCurrency = this.currencyService.create(currency);
     return this.currencyService.save(newCurrency);
@@ -38,18 +36,14 @@ export class CurrencyService {
       },
     });
 
-    if (!currencyFound) {
-      return new HttpException("Currency not Found", HttpStatus.NOT_FOUND);
-    }
+    if (!currencyFound) return new HttpException("Currency not Found", HttpStatus.NOT_FOUND);
 
     return currencyFound;
   }
 
   async remove(id: number) {
     const result = await this.currencyService.delete({ id });
-    if (result.affected === 0) {
-      return;
-    }
+    if (result.affected === 0) return new HttpException("Currency not Found", HttpStatus.NOT_FOUND);
 
     return result;
   }
@@ -61,9 +55,7 @@ export class CurrencyService {
       },
     });
 
-    if (!currencyFound) {
-      return new HttpException("Currency not Found", HttpStatus.NOT_FOUND);
-    }
+    if (!currencyFound) return new HttpException("Currency not Found", HttpStatus.NOT_FOUND);
 
     const updatedCurrency = Object.assign(currencyFound, data);
 

@@ -23,17 +23,13 @@ export class ProvinceService {
   async create(province: AddProvinceDto) {
     const countryFound = await this.countriesService.getById(province.countryId);
 
-    if (!countryFound) {
-      return new HttpException("Country not Found", HttpStatus.NOT_FOUND);
-    }
+    if (!countryFound) return new HttpException("Country not Found", HttpStatus.NOT_FOUND);
 
     const provinceFound = await this.provinceService.findOne({
       where: { name: province.name },
     });
 
-    if (provinceFound) {
-      return new HttpException("Province already exists", HttpStatus.CONFLICT);
-    }
+    if (provinceFound) return new HttpException("Province already exists", HttpStatus.CONFLICT);
 
     const newProvince = this.provinceService.create(province);
     return this.provinceService.save(newProvince);
@@ -52,18 +48,14 @@ export class ProvinceService {
       },
     });
 
-    if (!provinceFound) {
-      return new HttpException("Province not Found", HttpStatus.NOT_FOUND);
-    }
+    if (!provinceFound) return new HttpException("Province not Found", HttpStatus.NOT_FOUND);
 
     return provinceFound;
   }
 
   async remove(id: number) {
     const result = await this.provinceService.delete({ id });
-    if (result.affected === 0) {
-      return;
-    }
+    if (result.affected === 0) return new HttpException("Province not Found", HttpStatus.NOT_FOUND);
 
     return result;
   }
@@ -75,9 +67,7 @@ export class ProvinceService {
       },
     });
 
-    if (!provinceFound) {
-      return new HttpException("Province not Found", HttpStatus.NOT_FOUND);
-    }
+    if (!provinceFound) return new HttpException("Province not Found", HttpStatus.NOT_FOUND);
 
     const updatedProvince = Object.assign(provinceFound, data);
 
