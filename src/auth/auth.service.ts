@@ -32,7 +32,7 @@ export class AuthService {
     const isPasswordMatched = await compare(loginUserDto.password, userFound.password);
 
     if (!isPasswordMatched)
-      return new HttpException("Wrong username or password", HttpStatus.FORBIDDEN);
+      return new HttpException("Wrong username or password", HttpStatus.UNAUTHORIZED);
 
     const loggedUser = {
       id: userFound.id,
