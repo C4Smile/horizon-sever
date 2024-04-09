@@ -14,6 +14,9 @@ import { AuthController } from "./auth.controller";
 // service
 import { AuthService } from "./auth.service";
 
+// strategy
+import { JwtStrategy } from "./jwt.strategy";
+
 // constants
 import { jwtConstant } from "./dto/jwtConstant";
 
@@ -24,6 +27,6 @@ import { jwtConstant } from "./dto/jwtConstant";
     JwtModule.register({ secret: jwtConstant.secret, signOptions: { expiresIn: "24h" } }),
   ],
   controllers: [AuthController],
-  providers: [AuthService],
+  providers: [AuthService, JwtStrategy],
 })
 export class AuthModule {}
