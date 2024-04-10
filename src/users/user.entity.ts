@@ -10,7 +10,7 @@ export class User extends Model {
   @Column({ unique: true })
   username: string;
 
-  @Column()
+  @Column({ type: "text" })
   password: string = "";
 
   @Column()
