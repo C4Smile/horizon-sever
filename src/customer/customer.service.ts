@@ -17,11 +17,11 @@ import { UpdateCustomerDto } from "./dto/update-customer.dto";
 export class CustomerService {
   constructor(
     @InjectRepository(Customer) private customerService: Repository<Customer>,
-    private customersService: CountryService,
+    private countriesService: CountryService,
   ) {}
 
   async create(customer: AddCustomerDto) {
-    const countryFound = await this.customersService.getById(customer.countryId);
+    const countryFound = await this.countriesService.getById(customer.countryId);
 
     if (!countryFound) throw new HttpException("Country not Found", HttpStatus.NOT_FOUND);
 
@@ -30,6 +30,19 @@ export class CustomerService {
     });
 
     if (customerFound) throw new HttpException("Customer already exists", HttpStatus.CONFLICT);
+
+    const phoneFound = await this.customerService.findOne({ where: { phone: customer.phone } });
+    if (phoneFound) throw new HttpException("Phone is being used", HttpStatus.CONFLICT);
+
+    const emailFound = await this.customerService.findOne({ where: { email: customer.email } });
+    if (emailFound) throw new HttpException("Email is being used", HttpStatus.CONFLICT);
+
+    const identificationFound = await this.customerService.findOne({
+      where: { identification: customer.identification },
+    });
+
+    if (identificationFound)
+      throw new HttpException("Identification is being used", HttpStatus.CONFLICT);
 
     const newCustomer = this.customerService.create(customer);
     return this.customerService.save(newCustomer);
@@ -70,9 +83,20 @@ export class CustomerService {
     if (!customerFound) throw new HttpException("Customer not Found", HttpStatus.NOT_FOUND);
 
     const conflict = await this.customerService.findOne({
-      where: {
-        name: data.name,
-      },
+      where: [
+        {
+          name: data.name,
+        },
+        {
+          phone: data.phone,
+        },
+        {
+          identification: data.identification,
+        },
+        {
+          email: data.email,
+        },
+      ],
     });
 
     if (conflict && conflict.id !== id)

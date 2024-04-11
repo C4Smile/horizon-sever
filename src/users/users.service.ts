@@ -32,6 +32,7 @@ export class UsersService {
     const identificationFound = await this.userService.findOne({
       where: { identification: user.identification },
     });
+
     if (identificationFound)
       throw new HttpException("Identification is being used", HttpStatus.CONFLICT);
 
