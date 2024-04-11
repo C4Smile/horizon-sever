@@ -50,6 +50,6 @@ export class RoomController {
   @UseGuards(JwtAuthGuard)
   @Patch(":id")
   update(@Param("id", ParseIntPipe) id: number, @Body() data: UpdateRoomDto) {
-    return this.update(id, data);
+    return this.roomService.update(id, data);
   }
 }

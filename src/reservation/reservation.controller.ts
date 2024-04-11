@@ -50,6 +50,6 @@ export class ReservationController {
   @UseGuards(JwtAuthGuard)
   @Patch(":id")
   update(@Param("id", ParseIntPipe) id: number, @Body() data: UpdateReservationDto) {
-    return this.update(id, data);
+    return this.reservationService.update(id, data);
   }
 }

@@ -52,6 +52,6 @@ export class CountryController {
   @UseGuards(JwtAuthGuard)
   @Patch(":id")
   update(@Param("id", ParseIntPipe) id: number, @Body() data: UpdateCountryDto) {
-    return this.update(id, data);
+    return this.countryService.update(id, data);
   }
 }

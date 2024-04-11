@@ -52,6 +52,6 @@ export class PaymentMethodController {
   @UseGuards(JwtAuthGuard)
   @Patch(":id")
   update(@Param("id", ParseIntPipe) id: number, @Body() data: UpdatePaymentMethodDto) {
-    return this.update(id, data);
+    return this.paymentMethodService.update(id, data);
   }
 }

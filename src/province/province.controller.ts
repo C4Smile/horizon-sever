@@ -52,6 +52,6 @@ export class ProvinceController {
   @UseGuards(JwtAuthGuard)
   @Patch(":id")
   update(@Param("id", ParseIntPipe) id: number, @Body() data: UpdateProvinceDto) {
-    return this.update(id, data);
+    return this.provinceService.update(id, data);
   }
 }

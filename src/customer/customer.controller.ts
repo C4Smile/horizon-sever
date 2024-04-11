@@ -52,6 +52,6 @@ export class CustomerController {
   @UseGuards(JwtAuthGuard)
   @Patch(":id")
   update(@Param("id", ParseIntPipe) id: number, @Body() data: UpdateCustomerDto) {
-    return this.update(id, data);
+    return this.customerService.update(id, data);
   }
 }

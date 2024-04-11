@@ -52,6 +52,6 @@ export class InvoiceController {
   @UseGuards(JwtAuthGuard)
   @Patch(":id")
   update(@Param("id", ParseIntPipe) id: number, @Body() data: UpdateInvoiceDto) {
-    return this.update(id, data);
+    return this.invoiceService.update(id, data);
   }
 }

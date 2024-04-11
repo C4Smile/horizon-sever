@@ -52,6 +52,6 @@ export class CurrencyController {
   @UseGuards(JwtAuthGuard)
   @Patch(":id")
   update(@Param("id", ParseIntPipe) id: number, @Body() data: UpdateCurrencyDto) {
-    return this.update(id, data);
+    return this.currencyService.update(id, data);
   }
 }
