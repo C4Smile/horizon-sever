@@ -19,7 +19,7 @@ export class RoomService {
       where: { name: room.name },
     });
 
-    if (roomFound) return new HttpException("Room already exists", HttpStatus.CONFLICT);
+    if (roomFound) throw new HttpException("Room already exists", HttpStatus.CONFLICT);
 
     const newRoom = this.roomService.create(room);
     return this.roomService.save(newRoom);
@@ -36,14 +36,14 @@ export class RoomService {
       },
     });
 
-    if (!roomFound) return new HttpException("Room not Found", HttpStatus.NOT_FOUND);
+    if (!roomFound) throw new HttpException("Room not Found", HttpStatus.NOT_FOUND);
 
     return roomFound;
   }
 
   async remove(id: number) {
     const result = await this.roomService.delete({ id });
-    if (result.affected === 0) return new HttpException("Room not Found", HttpStatus.NOT_FOUND);
+    if (result.affected === 0) throw new HttpException("Room not Found", HttpStatus.NOT_FOUND);
 
     return result;
   }
@@ -55,7 +55,7 @@ export class RoomService {
       },
     });
 
-    if (!roomFound) return new HttpException("Room not Found", HttpStatus.NOT_FOUND);
+    if (!roomFound) throw new HttpException("Room not Found", HttpStatus.NOT_FOUND);
 
     const updatedRoom = Object.assign(roomFound, data);
 

@@ -25,12 +25,7 @@ export class Model {
    * @param {boolean} deleted - Entity deleted
    * @returns Entity instance
    */
-  constructor(
-    id: number,
-    dateOfCreation: Date = null,
-    lastUpdate: Date = null,
-    deleted: boolean = false,
-  ) {
+  constructor(id: number, dateOfCreation: Date, lastUpdate: Date, deleted: boolean = false) {
     this.id = id;
     this.dateOfCreation = dateOfCreation;
     this.lastUpdate = lastUpdate;

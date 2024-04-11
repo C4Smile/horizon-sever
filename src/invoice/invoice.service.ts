@@ -29,19 +29,19 @@ export class InvoiceService {
   async create(invoice: AddInvoiceDto) {
     const customerFound = await this.customersService.getById(invoice.customerId);
 
-    if (!customerFound) return new HttpException("Customer not Found", HttpStatus.NOT_FOUND);
+    if (!customerFound) throw new HttpException("Customer not Found", HttpStatus.NOT_FOUND);
 
     const reservationFound = await this.reservationsService.getById(invoice.reservationId);
 
-    if (!reservationFound) return new HttpException("Reservation not Found", HttpStatus.NOT_FOUND);
+    if (!reservationFound) throw new HttpException("Reservation not Found", HttpStatus.NOT_FOUND);
 
     const currencyFound = await this.currenciesService.getById(invoice.currencyId);
 
-    if (!currencyFound) return new HttpException("Currency not Found", HttpStatus.NOT_FOUND);
+    if (!currencyFound) throw new HttpException("Currency not Found", HttpStatus.NOT_FOUND);
 
     const paymentMethodFound = await this.paymentMethodsService.getById(invoice.paymentMethodId);
 
-    if (!paymentMethodFound) return new HttpException("Payment method not Found", HttpStatus.NOT_FOUND);
+    if (!paymentMethodFound) throw new HttpException("Payment method not Found", HttpStatus.NOT_FOUND);
 
     const newInvoice = this.invoiceService.create(invoice);
     return this.invoiceService.save(newInvoice);
@@ -58,14 +58,14 @@ export class InvoiceService {
       },
     });
 
-    if (!invoiceFound) return new HttpException("Invoice not Found", HttpStatus.NOT_FOUND);
+    if (!invoiceFound) throw new HttpException("Invoice not Found", HttpStatus.NOT_FOUND);
 
     return invoiceFound;
   }
 
   async remove(id: number) {
     const result = await this.invoiceService.delete({ id });
-    if (result.affected === 0) return new HttpException("Invoice not Found", HttpStatus.NOT_FOUND);
+    if (result.affected === 0) throw new HttpException("Invoice not Found", HttpStatus.NOT_FOUND);
 
     return result;
   }
@@ -77,7 +77,7 @@ export class InvoiceService {
       },
     });
 
-    if (!invoiceFound) return new HttpException("Invoice not Found", HttpStatus.NOT_FOUND);
+    if (!invoiceFound) throw new HttpException("Invoice not Found", HttpStatus.NOT_FOUND);
 
     const updatedInvoice = Object.assign(invoiceFound, data);
 

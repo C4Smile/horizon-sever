@@ -19,7 +19,7 @@ export class CountryService {
       where: { name: country.name },
     });
 
-    if (countryFound) return new HttpException("Country already exists", HttpStatus.CONFLICT);
+    if (countryFound) throw new HttpException("Country already exists", HttpStatus.CONFLICT);
 
     const newCountry = this.countryService.create(country);
     return this.countryService.save(newCountry);
@@ -36,14 +36,14 @@ export class CountryService {
       },
     });
 
-    if (!countryFound) return new HttpException("Country not Found", HttpStatus.NOT_FOUND);
+    if (!countryFound) throw new HttpException("Country not Found", HttpStatus.NOT_FOUND);
 
     return countryFound;
   }
 
   async remove(id: number) {
     const result = await this.countryService.delete({ id });
-    if (result.affected === 0) return new HttpException("Country not Found", HttpStatus.NOT_FOUND);
+    if (result.affected === 0) throw new HttpException("Country not Found", HttpStatus.NOT_FOUND);
 
     return result;
   }
@@ -55,7 +55,7 @@ export class CountryService {
       },
     });
 
-    if (!countryFound) return new HttpException("Country not Found", HttpStatus.NOT_FOUND);
+    if (!countryFound) throw new HttpException("Country not Found", HttpStatus.NOT_FOUND);
 
     const updatedCountry = Object.assign(countryFound, data);
 

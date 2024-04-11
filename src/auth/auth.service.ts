@@ -27,12 +27,12 @@ export class AuthService {
       },
     });
 
-    if (!userFound) return new HttpException("User not found", HttpStatus.NOT_FOUND);
+    if (!userFound) throw new HttpException("User not found", HttpStatus.NOT_FOUND);
 
     const isPasswordMatched = await compare(loginUserDto.password, userFound.password);
 
     if (!isPasswordMatched)
-      return new HttpException("Wrong username or password", HttpStatus.UNAUTHORIZED);
+      throw new HttpException("Wrong username or password", HttpStatus.UNAUTHORIZED);
 
     const loggedUser = {
       id: userFound.id,
@@ -49,22 +49,22 @@ export class AuthService {
       where: { username: user.username },
     });
 
-    if (userFound) return new HttpException("User already exists", HttpStatus.CONFLICT);
+    if (userFound) throw new HttpException("User already exists", HttpStatus.CONFLICT);
 
     const phoneFound = await this.userService.findOne({ where: { phone: user.phone } });
 
-    if (phoneFound) return new HttpException("Phone is being used", HttpStatus.CONFLICT);
+    if (phoneFound) throw new HttpException("Phone is being used", HttpStatus.CONFLICT);
 
     const emailFound = await this.userService.findOne({ where: { email: user.email } });
 
-    if (emailFound) return new HttpException("Email is being used", HttpStatus.CONFLICT);
+    if (emailFound) throw new HttpException("Email is being used", HttpStatus.CONFLICT);
 
     const identificationFound = await this.userService.findOne({
       where: { identification: user.identification },
     });
 
     if (identificationFound)
-      return new HttpException("Identification is being used", HttpStatus.CONFLICT);
+      throw new HttpException("Identification is being used", HttpStatus.CONFLICT);
 
     const hashedPassword = await hash(user.password, 10);
 

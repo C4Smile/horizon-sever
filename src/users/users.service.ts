@@ -21,19 +21,19 @@ export class UsersService {
       where: { username: user.username },
     });
 
-    if (userFound) return new HttpException("User already exists", HttpStatus.CONFLICT);
+    if (userFound) throw new HttpException("User already exists", HttpStatus.CONFLICT);
 
     const phoneFound = await this.userService.findOne({ where: { phone: user.phone } });
-    if (phoneFound) return new HttpException("Phone is being used", HttpStatus.CONFLICT);
+    if (phoneFound) throw new HttpException("Phone is being used", HttpStatus.CONFLICT);
 
     const emailFound = await this.userService.findOne({ where: { email: user.email } });
-    if (emailFound) return new HttpException("Email is being used", HttpStatus.CONFLICT);
+    if (emailFound) throw new HttpException("Email is being used", HttpStatus.CONFLICT);
 
     const identificationFound = await this.userService.findOne({
       where: { identification: user.identification },
     });
     if (identificationFound)
-      return new HttpException("Identification is being used", HttpStatus.CONFLICT);
+      throw new HttpException("Identification is being used", HttpStatus.CONFLICT);
 
     const hashedPassword = await hash(user.password, 10);
 
@@ -53,14 +53,14 @@ export class UsersService {
       },
     });
 
-    if (!userFound) return new HttpException("User not Found", HttpStatus.NOT_FOUND);
+    if (!userFound) throw new HttpException("User not Found", HttpStatus.NOT_FOUND);
 
     return userFound;
   }
 
   async remove(id: number) {
     const result = await this.userService.delete({ id });
-    if (result.affected === 0) return new HttpException("User not Found", HttpStatus.NOT_FOUND);
+    if (result.affected === 0) throw new HttpException("User not Found", HttpStatus.NOT_FOUND);
 
     return result;
   }
@@ -72,19 +72,19 @@ export class UsersService {
       },
     });
 
-    if (!userFound) return new HttpException("User not Found", HttpStatus.NOT_FOUND);
+    if (!userFound) throw new HttpException("User not Found", HttpStatus.NOT_FOUND);
 
     const phoneFound = await this.userService.findOne({ where: { phone: data.phone } });
-    if (phoneFound) return new HttpException("Phone is being used", HttpStatus.CONFLICT);
+    if (phoneFound) throw new HttpException("Phone is being used", HttpStatus.CONFLICT);
 
     const emailFound = await this.userService.findOne({ where: { email: data.email } });
-    if (emailFound) return new HttpException("Email is being used", HttpStatus.CONFLICT);
+    if (emailFound) throw new HttpException("Email is being used", HttpStatus.CONFLICT);
 
     const identificationFound = await this.userService.findOne({
       where: { identification: data.identification },
     });
     if (identificationFound)
-      return new HttpException("Identification is being used", HttpStatus.CONFLICT);
+      throw new HttpException("Identification is being used", HttpStatus.CONFLICT);
 
     if (data.password) data.password = await hash(data.password, 10);
 

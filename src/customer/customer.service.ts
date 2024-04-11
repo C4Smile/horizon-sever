@@ -23,13 +23,13 @@ export class CustomerService {
   async create(customer: AddCustomerDto) {
     const countryFound = await this.countriesService.getById(customer.countryId);
 
-    if (!countryFound) return new HttpException("Country not Found", HttpStatus.NOT_FOUND);
+    if (!countryFound) throw new HttpException("Country not Found", HttpStatus.NOT_FOUND);
 
     const customerFound = await this.customerService.findOne({
       where: { name: customer.name },
     });
 
-    if (customerFound) return new HttpException("Customer already exists", HttpStatus.CONFLICT);
+    if (customerFound) throw new HttpException("Customer already exists", HttpStatus.CONFLICT);
 
     const newCustomer = this.customerService.create(customer);
     return this.customerService.save(newCustomer);
@@ -48,14 +48,14 @@ export class CustomerService {
       },
     });
 
-    if (!customerFound) return new HttpException("Customer not Found", HttpStatus.NOT_FOUND);
+    if (!customerFound) throw new HttpException("Customer not Found", HttpStatus.NOT_FOUND);
 
     return customerFound;
   }
 
   async remove(id: number) {
     const result = await this.customerService.delete({ id });
-    if (result.affected === 0) return new HttpException("Customer not Found", HttpStatus.NOT_FOUND);
+    if (result.affected === 0) throw new HttpException("Customer not Found", HttpStatus.NOT_FOUND);
 
     return result;
   }
@@ -67,7 +67,7 @@ export class CustomerService {
       },
     });
 
-    if (!customerFound) return new HttpException("Customer not Found", HttpStatus.NOT_FOUND);
+    if (!customerFound) throw new HttpException("Customer not Found", HttpStatus.NOT_FOUND);
 
     const updatedCustomer = Object.assign(customerFound, data);
 
