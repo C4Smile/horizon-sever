@@ -44,7 +44,6 @@ export class CountryService {
   async remove(id: number) {
     const result = await this.countryService.delete({ id });
     if (result.affected === 0) throw new HttpException("Country not Found", HttpStatus.NOT_FOUND);
-
     return result;
   }
 
@@ -56,6 +55,15 @@ export class CountryService {
     });
 
     if (!countryFound) throw new HttpException("Country not Found", HttpStatus.NOT_FOUND);
+
+    const conflict = await this.countryService.findOne({
+      where: {
+        name: data.name,
+      },
+    });
+
+    if (conflict && conflict.id !== id)
+      throw new HttpException("Country already exists", HttpStatus.CONFLICT);
 
     const updatedCountry = Object.assign(countryFound, data);
 

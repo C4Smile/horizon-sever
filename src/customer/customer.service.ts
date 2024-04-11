@@ -17,11 +17,11 @@ import { UpdateCustomerDto } from "./dto/update-customer.dto";
 export class CustomerService {
   constructor(
     @InjectRepository(Customer) private customerService: Repository<Customer>,
-    private countriesService: CountryService,
+    private customersService: CountryService,
   ) {}
 
   async create(customer: AddCustomerDto) {
-    const countryFound = await this.countriesService.getById(customer.countryId);
+    const countryFound = await this.customersService.getById(customer.countryId);
 
     if (!countryFound) throw new HttpException("Country not Found", HttpStatus.NOT_FOUND);
 
@@ -68,6 +68,15 @@ export class CustomerService {
     });
 
     if (!customerFound) throw new HttpException("Customer not Found", HttpStatus.NOT_FOUND);
+
+    const conflict = await this.customerService.findOne({
+      where: {
+        name: data.name,
+      },
+    });
+
+    if (conflict && conflict.id !== id)
+      throw new HttpException("Customer already exists", HttpStatus.CONFLICT);
 
     const updatedCustomer = Object.assign(customerFound, data);
 
