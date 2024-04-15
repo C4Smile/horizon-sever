@@ -20,6 +20,10 @@ export class AuthService {
     private jwtAuthService: JwtService,
   ) {}
 
+  async validate() {
+    return;
+  }
+
   async login(loginUserDto: LoginUserDto) {
     const userFound = await this.userService.findOne({
       where: {
