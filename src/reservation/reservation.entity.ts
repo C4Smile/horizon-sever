@@ -39,37 +39,6 @@ export class Reservation extends Model {
   invoices: Invoice[];
 
   /**
-   * @param {number} id - Reservation id
-   * @param {Customer} customer - Reservation customer
-   * @param {Date} checkInDate - Reservation check-in date
-   * @param {Date} checkOutDate - Reservation check-out date
-   * @param {ReservationStatus} status - Reservation status
-   * @param {string} ticket - Reservation ticket
-   * @param {Date} dateOfCreation - Reservation date of creation
-   * @param {Date} lastUpdate - Reservation last update
-   * @param {boolean} deleted - Reservation deleted
-   * @returns Reservation instance
-   */
-  constructor(
-    id: number,
-    customer: Customer,
-    checkInDate: Date,
-    checkOutDate: Date,
-    status: ReservationStatus,
-    ticket: string,
-    dateOfCreation: Date = null,
-    lastUpdate: Date = null,
-    deleted: boolean = false,
-  ) {
-    super(id, dateOfCreation, lastUpdate, deleted);
-    this.customer = customer;
-    this.checkInDate = checkInDate;
-    this.checkOutDate = checkOutDate;
-    this.status = status;
-    this.ticket = ticket;
-  }
-
-  /**
    * @returns Customer
    */
   get Customer() {

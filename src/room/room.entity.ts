@@ -20,33 +20,11 @@ export class Room extends Model {
   @Column({ unique: true })
   name: string = "";
 
+  @Column({ type: "text" })
+  description: string = "";
+
   @Column()
   status: RoomStatus = RoomStatus.operational;
-
-  /**
-   * @param {number} id - Room id
-   * @param {string} number - Room number
-   * @param {string} name - Room name
-   * @param {RoomStatus} status - Room status
-   * @param {Date} dateOfCreation - Room date of creation
-   * @param {Date} lastUpdate - Room last update
-   * @param {boolean} deleted - Room deleted
-   * @returns Room instance
-   */
-  constructor(
-    id: number,
-    number: string,
-    name: string,
-    status: RoomStatus = RoomStatus.operational,
-    dateOfCreation: Date = null,
-    lastUpdate: Date = null,
-    deleted: boolean = false,
-  ) {
-    super(id, dateOfCreation, lastUpdate, deleted);
-    this.number = number;
-    this.name = name;
-    this.status = status;
-  }
 
   /**
    * @returns Number
@@ -60,6 +38,13 @@ export class Room extends Model {
    */
   get Name() {
     return this.name;
+  }
+
+  /**
+   * @returns Description
+   */
+  get Description() {
+    return this.description;
   }
 
   /**
