@@ -1,7 +1,7 @@
 import { Module } from "@nestjs/common";
 import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
-import { UsersModule } from "./users/users.module";
+import { UserModule } from "./user/user.module";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { CountryModule } from "./country/country.module";
 import { CustomerModule } from "./customer/customer.module";
@@ -25,7 +25,7 @@ import { PaymentMethodModule } from "./payment-method/payment-method.module";
       entities: [__dirname + "/**/*.entity{.ts,.js}"],
       synchronize: true,
     }),
-    UsersModule,
+    UserModule,
     CountryModule,
     CustomerModule,
     CurrencyModule,

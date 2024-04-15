@@ -5,12 +5,12 @@ import { Repository } from "typeorm";
 import { hash, compare } from "bcrypt";
 
 // service
-import { User } from "src/users/user.entity";
+import { User } from "src/user/user.entity";
 
 // dto
 import { LoginUserDto } from "./dto/login-user.dto";
-import { AddUserDto } from "src/users/dto/add-user.dto";
-import { UserDto } from "src/users/dto/user.dto";
+import { AddUserDto } from "src/user/dto/add-user.dto";
+import { UserDto } from "src/user/dto/user.dto";
 import { LoggedUserDto } from "./dto/logged-user.dt";
 
 @Injectable()

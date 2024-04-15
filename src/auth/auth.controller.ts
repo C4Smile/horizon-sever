@@ -8,7 +8,7 @@ import { AuthService } from "./auth.service";
 
 // dto
 import { LoginUserDto } from "./dto/login-user.dto";
-import { AddUserDto } from "src/users/dto/add-user.dto";
+import { AddUserDto } from "src/user/dto/add-user.dto";
 
 @Controller("auth")
 export class AuthController {

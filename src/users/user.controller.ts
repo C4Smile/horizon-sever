@@ -18,40 +18,40 @@ import { UserDto } from "./dto/user.dto";
 import { AddUserDto } from "./dto/add-user.dto";
 
 // services
-import { UsersService } from "./users.service";
+import { UserService } from "./user.service";
 import { UpdateUserDto } from "./dto/update-user.dto";
 
-@Controller("users")
-export class UsersController {
-  constructor(private usersService: UsersService) {}
+@Controller("user")
+export class UserController {
+  constructor(private userService: UserService) {}
 
   @UseGuards(JwtAuthGuard)
   @Get()
   get(): Promise<UserDto[]> {
-    return this.usersService.get();
+    return this.userService.get();
   }
 
   @UseGuards(JwtAuthGuard)
   @Get(":id")
   getById(@Param("id", ParseIntPipe) id: number) {
-    return this.usersService.getById(id);
+    return this.userService.getById(id);
   }
 
   @UseGuards(JwtAuthGuard)
   @Post()
   create(@Body() newUser: AddUserDto) {
-    return this.usersService.create(newUser);
+    return this.userService.create(newUser);
   }
 
   @UseGuards(JwtAuthGuard)
   @Delete(":id")
   remove(@Param("id", ParseIntPipe) id: number) {
-    return this.usersService.remove(id);
+    return this.userService.remove(id);
   }
 
   @UseGuards(JwtAuthGuard)
   @Patch(":id")
   update(@Param("id", ParseIntPipe) id: number, @Body() data: UpdateUserDto) {
-    return this.usersService.update(id, data);
+    return this.userService.update(id, data);
   }
 }

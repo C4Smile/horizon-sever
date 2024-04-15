@@ -13,7 +13,7 @@ import { AddUserDto } from "./dto/add-user.dto";
 import { UpdateUserDto } from "./dto/update-user.dto";
 
 @Injectable()
-export class UsersService {
+export class UserService {
   constructor(@InjectRepository(User) private userService: Repository<User>) {}
 
   async create(user: AddUserDto) {
