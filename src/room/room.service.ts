@@ -1,18 +1,27 @@
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 
-import { Repository } from "typeorm";
+import { ILike, Repository } from "typeorm";
 
 // entity
 import { Room } from "./room.entity";
 
+// models
+import { GenericFilter } from "src/models/generic-filter";
+
+// services
+import { PageService } from "src/models/page-size";
+
 // dto
+import { RoomDto } from "./dto/room.dto";
 import { AddRoomDto } from "./dto/add-room.dto";
 import { UpdateRoomDto } from "./dto/update-room.dto";
 
 @Injectable()
-export class RoomService {
-  constructor(@InjectRepository(Room) private roomService: Repository<Room>) {}
+export class RoomService extends PageService {
+  constructor(@InjectRepository(Room) private roomService: Repository<Room>) {
+    super();
+  }
 
   async create(room: AddRoomDto) {
     const roomFound = await this.roomService.findOne({
@@ -33,7 +42,9 @@ export class RoomService {
     return this.roomService.save(newRoom);
   }
 
-  get() {
+  get(filter: GenericFilter & RoomDto) {
+    const { ...params } = filter;
+    this.paginate(this.roomService, filter, this.createWhereQuery(params));
     return this.roomService.find();
   }
 
@@ -68,5 +79,27 @@ export class RoomService {
     const updatedRoom = Object.assign(roomFound, data);
 
     return this.roomService.save(updatedRoom);
+  }
+
+  private createWhereQuery(params: RoomDto) {
+    const where: any = {};
+
+    if (params.name) {
+      where.name = ILike(`%${params.name}%`);
+    }
+
+    if (params.description) {
+      where.description = ILike(`%${params.description}%`);
+    }
+
+    if (params.number) {
+      where.number = params.number;
+    }
+
+    if (params.status) {
+      where.status = params.status;
+    }
+
+    return where;
   }
 }

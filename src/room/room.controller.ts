@@ -7,6 +7,7 @@ import {
   ParseIntPipe,
   Patch,
   Post,
+  Query,
   UseGuards,
 } from "@nestjs/common";
 
@@ -18,6 +19,7 @@ import { AddRoomDto } from "./dto/add-room.dto";
 import { RoomService } from "./room.service";
 import { UpdateRoomDto } from "./dto/update-room.dto";
 import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
+import { GenericFilter } from "src/models/generic-filter";
 
 @Controller("room")
 export class RoomController {
@@ -25,8 +27,8 @@ export class RoomController {
 
   @UseGuards(JwtAuthGuard)
   @Get()
-  get(): Promise<RoomDto[]> {
-    return this.roomService.get();
+  get(@Query() filter: GenericFilter & RoomDto): Promise<RoomDto[]> {
+    return this.roomService.get(filter);
   }
 
   @UseGuards(JwtAuthGuard)

@@ -5,5 +5,6 @@ import { RoomStatus } from "../room.entity";
 export interface RoomDto extends ModelDto {
   number: string;
   name: string;
+  description: string;
   status: RoomStatus;
 }
