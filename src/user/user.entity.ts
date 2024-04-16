@@ -5,7 +5,7 @@ import { Model } from "src/models/model";
  * @class User
  * @description Represents an user
  */
-@Entity({ name: "user" })
+@Entity({ name: "users" })
 export class User extends Model {
   @Column({ unique: true })
   username: string;
