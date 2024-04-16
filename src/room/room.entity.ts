@@ -14,7 +14,6 @@ export enum RoomStatus {
  */
 @Entity({ name: "rooms" })
 export class Room extends Model {
-  @Column({ unique: true })
   number: string = "";
 
   @Column({ unique: true })

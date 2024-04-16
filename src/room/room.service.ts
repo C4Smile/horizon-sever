@@ -21,6 +21,14 @@ export class RoomService {
 
     if (roomFound) throw new HttpException("Room already exists", HttpStatus.CONFLICT);
 
+    if (room.number && room.number.length) {
+      const roomFound = await this.roomService.findOne({
+        where: { number: room.number },
+      });
+
+      if (roomFound) throw new HttpException("Number already in use", HttpStatus.CONFLICT);
+    }
+
     const newRoom = this.roomService.create(room);
     return this.roomService.save(newRoom);
   }
