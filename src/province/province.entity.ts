@@ -42,6 +42,13 @@ export class Province extends Model {
   }
 
   /**
+   * @returns Events
+   */
+  get Events() {
+    return this.events;
+  }
+
+  /**
    * @returns News
    */
   get News() {
