@@ -9,9 +9,11 @@ import { NewsService } from "./news.service";
 
 // entities
 import { News } from "./news.entity";
+import { ProvinceModule } from "src/province/province.module";
+import { NewsTagModule } from "src/news-tag/news-tag.module";
 
 @Module({
-  imports: [TypeOrmModule.forFeature([News])],
+  imports: [TypeOrmModule.forFeature([News]), ProvinceModule, NewsTagModule],
   controllers: [NewsController],
   providers: [NewsService],
   exports: [NewsService],
