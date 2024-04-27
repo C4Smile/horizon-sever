@@ -1,8 +1,9 @@
-import { Column, Entity, ManyToOne } from "typeorm";
+import { Column, Entity, ManyToMany, ManyToOne } from "typeorm";
 
 // entities
 import { Model } from "src/models/model";
 import { Province } from "src/province/province.entity";
+import { EventTag } from "src/events-tag/event-tag.entity";
 
 /**
  * @class Event
@@ -19,6 +20,9 @@ export class Event extends Model {
   @ManyToOne(() => Province, (province) => province.Events)
   province: Province;
 
+  @ManyToMany(() => EventTag, (eventTag) => eventTag.Events)
+  eventTags: EventTag[];
+
   /**
    * @returns Title
    */
@@ -31,5 +35,12 @@ export class Event extends Model {
    */
   get Province() {
     return this.province;
+  }
+
+  /**
+   * @returns EventTags
+   */
+  get EventTags() {
+    return this.eventTags;
   }
 }
