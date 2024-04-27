@@ -9,10 +9,9 @@ import { EventTagService } from "./event-tag.service";
 
 // entities
 import { EventTag } from "./event-tag.entity";
-import { EventModule } from "src/event/event.module";
 
 @Module({
-  imports: [TypeOrmModule.forFeature([EventTag]), EventModule],
+  imports: [TypeOrmModule.forFeature([EventTag])],
   controllers: [EventTagController],
   providers: [EventTagService],
   exports: [EventTagService],

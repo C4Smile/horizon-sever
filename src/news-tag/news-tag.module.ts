@@ -11,7 +11,7 @@ import { NewsTagService } from "./news-tag.service";
 import { NewsTag } from "./news-tag.entity";
 
 @Module({
-  imports: [TypeOrmModule.forFeature([NewsTag]), NewsTagModule],
+  imports: [TypeOrmModule.forFeature([NewsTag])],
   controllers: [NewsTagController],
   providers: [NewsTagService],
   exports: [NewsTagService],
