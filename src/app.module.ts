@@ -12,6 +12,10 @@ import { ReservationModule } from "./reservation/reservation.module";
 import { RoomModule } from "./room/room.module";
 import { AuthModule } from "./auth/auth.module";
 import { PaymentMethodModule } from "./payment-method/payment-method.module";
+import { EventModule } from "./event/event.module";
+import { EventTagModule } from "./events-tag/event-tag.module";
+import { NewsTagModule } from "./news-tag/news-tag.module";
+import { NewsModule } from "./news/news.module";
 
 @Module({
   imports: [
@@ -35,6 +39,10 @@ import { PaymentMethodModule } from "./payment-method/payment-method.module";
     ReservationModule,
     RoomModule,
     AuthModule,
+    EventModule,
+    EventTagModule,
+    NewsModule,
+    NewsTagModule,
   ],
   controllers: [AppController],
   providers: [AppService],
