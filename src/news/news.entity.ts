@@ -1,6 +1,7 @@
 import { Column, Entity, ManyToMany, ManyToOne } from "typeorm";
 
 // entities
+import { Image } from "src/image/image.entity";
 import { Model } from "src/models/model";
 import { Province } from "src/province/province.entity";
 import { NewsTag } from "src/news-tag/news-tag.entity";
@@ -15,10 +16,16 @@ export class News extends Model {
   title: string = "";
 
   @Column()
+  description: string = "";
+
+  @Column()
   provinceId: number;
 
   @ManyToOne(() => Province, (province) => province.News)
   province: Province;
+
+  @ManyToOne(() => Image, (image) => image.News)
+  photo: Image;
 
   @ManyToMany(() => NewsTag, (newsTag) => newsTag.News)
   newsTags: NewsTag[];
@@ -28,6 +35,13 @@ export class News extends Model {
    */
   get Title() {
     return this.title;
+  }
+
+  /**
+   * @returns Description
+   */
+  get Description() {
+    return this.description;
   }
 
   /**
@@ -42,5 +56,12 @@ export class News extends Model {
    */
   get NewsTags() {
     return this.newsTags;
+  }
+
+  /**
+   * @returns Photo
+   */
+  get Photo() {
+    return this.photo;
   }
 }

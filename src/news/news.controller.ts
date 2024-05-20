@@ -7,6 +7,7 @@ import {
   ParseIntPipe,
   Patch,
   Post,
+  Query,
   UseGuards,
 } from "@nestjs/common";
 
@@ -29,6 +30,12 @@ export class NewsController {
   @Get()
   get(): Promise<NewsDto[]> {
     return this.newsService.get();
+  }
+
+  @Get("small-news")
+  getSmallNews(@Query() query) {
+    const { count } = query;
+    return this.newsService.getSmallNews(Number(count));
   }
 
   @UseGuards(JwtAuthGuard)

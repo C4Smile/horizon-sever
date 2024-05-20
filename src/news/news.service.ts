@@ -69,4 +69,15 @@ export class NewsService {
 
     return this.newsService.save(updatedNews);
   }
+
+  async getSmallNews(count: number) {
+    const queryBuilder = this.newsService.createQueryBuilder("news");
+    queryBuilder.orderBy("lastUpdate").where({ deleted: false }).skip(0).take(count);
+    const list = await queryBuilder.getRawAndEntities();
+    const parsed = list.entities.map((item) => {
+      const { title, description, photo } = item;
+      return { title, description, photo };
+    });
+    return { data: parsed };
+  }
 }
