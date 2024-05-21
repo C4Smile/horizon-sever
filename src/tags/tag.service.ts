@@ -12,51 +12,58 @@ import { UpdateTagDto } from "./dto/update-tag.dto";
 
 @Injectable()
 export class TagService {
-  constructor(@InjectRepository(Tag) private countryService: Repository<Tag>) {}
+  constructor(@InjectRepository(Tag) private tagService: Repository<Tag>) {}
 
-  async create(country: AddTagDto) {
-    const countryFound = await this.countryService.findOne({
-      where: { name: country.name },
+  async create(tag: AddTagDto) {
+    const tagFound = await this.tagService.findOne({
+      where: { name: tag.name },
     });
 
-    if (countryFound) throw new HttpException("Tag already exists", HttpStatus.CONFLICT);
+    if (tagFound) throw new HttpException("Tag already exists", HttpStatus.CONFLICT);
 
-    const newTag = this.countryService.create(country);
-    return this.countryService.save(newTag);
+    const newTag = this.tagService.create(tag);
+    return this.tagService.save(newTag);
   }
 
-  get() {
-    return this.countryService.find();
+  async get({ order, page, count }) {
+    const queryBuilder = this.tagService.createQueryBuilder("tags");
+    queryBuilder
+      .orderBy(order)
+      .where({ deleted: false })
+      .skip(page * count)
+      .take((page + 1) * count);
+    const list = await queryBuilder.getRawAndEntities();
+    return list.entities;
   }
 
   async getById(id: number) {
-    const countryFound = await this.countryService.findOne({
+    const tagFound = await this.tagService.findOne({
       where: {
         id,
       },
     });
 
-    if (!countryFound) throw new HttpException("Tag not Found", HttpStatus.NOT_FOUND);
+    if (!tagFound) throw new HttpException("Tag not Found", HttpStatus.NOT_FOUND);
 
-    return countryFound;
+    return tagFound;
   }
 
   async remove(id: number) {
-    const result = await this.countryService.delete({ id });
+    const result = await this.tagService.delete({ id });
     if (result.affected === 0) throw new HttpException("Tag not Found", HttpStatus.NOT_FOUND);
     return result;
   }
 
   async update(id: number, data: UpdateTagDto) {
-    const countryFound = await this.countryService.findOne({
+    const tagFound = await this.tagService.findOne({
       where: {
         id,
       },
     });
 
-    if (!countryFound) throw new HttpException("Tag not Found", HttpStatus.NOT_FOUND);
+    if (!tagFound) throw new HttpException("Tag not Found", HttpStatus.NOT_FOUND);
 
-    const conflict = await this.countryService.findOne({
+    const conflict = await this.tagService.findOne({
       where: {
         name: data.name,
       },
@@ -65,8 +72,8 @@ export class TagService {
     if (conflict && conflict.id !== id)
       throw new HttpException("Tag already exists", HttpStatus.CONFLICT);
 
-    const updatedTag = Object.assign(countryFound, data);
+    const updatedTag = Object.assign(tagFound, data);
 
-    return this.countryService.save(updatedTag);
+    return this.tagService.save(updatedTag);
   }
 }

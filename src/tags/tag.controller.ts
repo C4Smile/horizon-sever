@@ -7,6 +7,7 @@ import {
   ParseIntPipe,
   Patch,
   Post,
+  Query,
   UseGuards,
 } from "@nestjs/common";
 
@@ -25,10 +26,10 @@ import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
 export class TagController {
   constructor(private newsTagService: TagService) {}
 
-  @UseGuards(JwtAuthGuard)
   @Get()
-  get(): Promise<TagDto[]> {
-    return this.newsTagService.get();
+  get(@Query() query): Promise<TagDto[]> {
+    const { order = "lastUpdate", page = 0, count = 20 } = query;
+    return this.newsTagService.get({ order, page, count });
   }
 
   @UseGuards(JwtAuthGuard)
