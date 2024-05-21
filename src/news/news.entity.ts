@@ -28,7 +28,7 @@ export class News extends Model {
   photo: Image;
 
   @ManyToMany(() => NewsTag, (newsTag) => newsTag.News)
-  newsTags: NewsTag[];
+  tags: NewsTag[];
 
   /**
    * @returns Title
@@ -54,8 +54,8 @@ export class News extends Model {
   /**
    * @returns NewsTags
    */
-  get NewsTags() {
-    return this.newsTags;
+  get Tags() {
+    return this.tags;
   }
 
   /**
