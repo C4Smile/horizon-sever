@@ -13,7 +13,7 @@ export class NewsTag extends Model {
   @Column({ unique: true })
   name: string = "";
 
-  @ManyToMany(() => News, (news) => news.NewsTags)
+  @ManyToMany(() => News, (news) => news.Tags)
   news: News[];
 
   /**
