@@ -7,6 +7,7 @@ import {
   ParseIntPipe,
   Patch,
   Post,
+  Query,
   UseGuards,
 } from "@nestjs/common";
 
@@ -25,10 +26,10 @@ import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
 export class PaymentMethodController {
   constructor(private paymentMethodService: PaymentMethodService) {}
 
-  @UseGuards(JwtAuthGuard)
   @Get()
-  get(): Promise<PaymentMethodDto[]> {
-    return this.paymentMethodService.get();
+  get(@Query() query): Promise<PaymentMethodDto[]> {
+    const { order = "lastUpdate", page = 0, count = 20 } = query;
+    return this.paymentMethodService.get({ order, page, count });
   }
 
   @UseGuards(JwtAuthGuard)

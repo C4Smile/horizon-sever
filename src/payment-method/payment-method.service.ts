@@ -28,8 +28,15 @@ export class PaymentMethodService {
     return this.paymentMethodService.save(newPaymentMethod);
   }
 
-  get() {
-    return this.paymentMethodService.find();
+  async get({ order, page, count }) {
+    const queryBuilder = this.paymentMethodService.createQueryBuilder("payment-methods");
+    queryBuilder
+      .orderBy(order)
+      .where({ deleted: false })
+      .skip(page * count)
+      .take((page + 1) * count);
+    const list = await queryBuilder.getRawAndEntities();
+    return list.entities;
   }
 
   async getById(id: number) {
@@ -46,8 +53,7 @@ export class PaymentMethodService {
 
   async remove(id: number) {
     const result = await this.paymentMethodService.delete({ id });
-    if (result.affected === 0)
-      throw new HttpException("PaymentMethod not Found", HttpStatus.NOT_FOUND);
+    if (result.affected === 0) throw new HttpException("PaymentMethod not Found", HttpStatus.NOT_FOUND);
 
     return result;
   }
