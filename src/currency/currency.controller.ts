@@ -7,6 +7,7 @@ import {
   ParseIntPipe,
   Patch,
   Post,
+  Query,
   UseGuards,
 } from "@nestjs/common";
 
@@ -25,10 +26,10 @@ import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
 export class CurrencyController {
   constructor(private currencyService: CurrencyService) {}
 
-  @UseGuards(JwtAuthGuard)
   @Get()
-  get(): Promise<CurrencyDto[]> {
-    return this.currencyService.get();
+  get(@Query() query): Promise<CurrencyDto[]> {
+    const { order = "lastUpdate", page = 0, count = 20 } = query;
+    return this.currencyService.get({ order, page, count });
   }
 
   @UseGuards(JwtAuthGuard)

@@ -25,8 +25,15 @@ export class CurrencyService {
     return this.currencyService.save(newCurrency);
   }
 
-  get() {
-    return this.currencyService.find();
+  async get({ order, page, count }) {
+    const queryBuilder = this.currencyService.createQueryBuilder("currencies");
+    queryBuilder
+      .orderBy(order)
+      .where({ deleted: false })
+      .skip(page * count)
+      .take((page + 1) * count);
+    const list = await queryBuilder.getRawAndEntities();
+    return list.entities;
   }
 
   async getById(id: number) {
