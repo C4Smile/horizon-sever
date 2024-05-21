@@ -9,7 +9,7 @@ import { News } from "src/news/news.entity";
  * @description Represents a country
  */
 @Entity({ name: "countries" })
-export class NewsTag extends Model {
+export class Tag extends Model {
   @Column({ unique: true })
   name: string = "";
 

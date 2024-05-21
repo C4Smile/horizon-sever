@@ -4,7 +4,7 @@ import { Column, Entity, ManyToMany, ManyToOne } from "typeorm";
 import { Image } from "src/image/image.entity";
 import { Model } from "src/models/model";
 import { Province } from "src/province/province.entity";
-import { NewsTag } from "src/news-tag/news-tag.entity";
+import { NewsTag } from "src/tags/tag.entity";
 
 /**
  * @class News

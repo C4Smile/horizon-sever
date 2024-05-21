@@ -11,23 +11,23 @@ import {
 } from "@nestjs/common";
 
 // dto
-import { NewsTagDto } from "./dto/news-tag.dto";
-import { AddNewsTagDto } from "./dto/add-news-tag.dto";
+import { TagDto } from "./dto/tag.dto";
+import { AddTagDto } from "./dto/add-tag.dto";
 
 // services
-import { NewsTagService } from "./news-tag.service";
-import { UpdateNewsTagDto } from "./dto/update-news-tag.dto";
+import { TagService } from "./tag.service";
+import { UpdateTagDto } from "./dto/update-tag.dto";
 
 // guard
 import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
 
-@Controller("news-tag")
-export class NewsTagController {
-  constructor(private newsTagService: NewsTagService) {}
+@Controller("tags")
+export class TagController {
+  constructor(private newsTagService: TagService) {}
 
   @UseGuards(JwtAuthGuard)
   @Get()
-  get(): Promise<NewsTagDto[]> {
+  get(): Promise<TagDto[]> {
     return this.newsTagService.get();
   }
 
@@ -39,8 +39,8 @@ export class NewsTagController {
 
   @UseGuards(JwtAuthGuard)
   @Post()
-  create(@Body() newNewsTag: AddNewsTagDto) {
-    return this.newsTagService.create(newNewsTag);
+  create(@Body() newTag: AddTagDto) {
+    return this.newsTagService.create(newTag);
   }
 
   @UseGuards(JwtAuthGuard)
@@ -51,7 +51,7 @@ export class NewsTagController {
 
   @UseGuards(JwtAuthGuard)
   @Patch(":id")
-  update(@Param("id", ParseIntPipe) id: number, @Body() data: UpdateNewsTagDto) {
+  update(@Param("id", ParseIntPipe) id: number, @Body() data: UpdateTagDto) {
     return this.newsTagService.update(id, data);
   }
 }

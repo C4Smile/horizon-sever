@@ -14,7 +14,7 @@ import { AuthModule } from "./auth/auth.module";
 import { PaymentMethodModule } from "./payment-method/payment-method.module";
 import { EventModule } from "./event/event.module";
 import { EventTagModule } from "./events-tag/event-tag.module";
-import { NewsTagModule } from "./news-tag/news-tag.module";
+import { TagModule } from "./tags/tag.module";
 import { NewsModule } from "./news/news.module";
 import { ServeStaticModule } from "@nestjs/serve-static";
 import { join } from "path";
@@ -48,7 +48,7 @@ import { join } from "path";
     EventModule,
     EventTagModule,
     NewsModule,
-    NewsTagModule,
+    TagModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -1,6 +1,6 @@
 // dto
 import { UpdateModelDto } from "src/models/update-model.dto";
 
-export interface UpdateNewsTagDto extends UpdateModelDto {
+export interface UpdateTagDto extends UpdateModelDto {
   name?: string;
 }
