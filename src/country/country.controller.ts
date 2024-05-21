@@ -7,6 +7,7 @@ import {
   ParseIntPipe,
   Patch,
   Post,
+  Query,
   UseGuards,
 } from "@nestjs/common";
 
@@ -25,10 +26,10 @@ import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
 export class CountryController {
   constructor(private countryService: CountryService) {}
 
-  @UseGuards(JwtAuthGuard)
   @Get()
-  get(): Promise<CountryDto[]> {
-    return this.countryService.get();
+  get(@Query() query): Promise<CountryDto[]> {
+    const { order = "lastUpdate", page = 0, count = 20 } = query;
+    return this.countryService.get({ order, page, count });
   }
 
   @UseGuards(JwtAuthGuard)

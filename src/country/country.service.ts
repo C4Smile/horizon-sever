@@ -25,8 +25,15 @@ export class CountryService {
     return this.countryService.save(newCountry);
   }
 
-  get() {
-    return this.countryService.find();
+  async get({ order, page, count }) {
+    const queryBuilder = this.countryService.createQueryBuilder("countries");
+    queryBuilder
+      .orderBy(order)
+      .where({ deleted: false })
+      .skip(page * count)
+      .take((page + 1) * count);
+    const list = await queryBuilder.getRawAndEntities();
+    return list.entities;
   }
 
   async getById(id: number) {
