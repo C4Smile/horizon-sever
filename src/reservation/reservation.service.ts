@@ -29,8 +29,15 @@ export class ReservationService {
     return this.reservationService.save(newReservation);
   }
 
-  get() {
-    return this.reservationService.find({ relations: ["customer"] });
+  async get({ order, page, count }) {
+    const queryBuilder = this.reservationService.createQueryBuilder("reservations");
+    queryBuilder
+      .orderBy(order)
+      .where({ deleted: false })
+      .skip(page * count)
+      .take((page + 1) * count);
+    const list = await queryBuilder.getRawAndEntities();
+    return list.entities;
   }
 
   async getById(id: number) {

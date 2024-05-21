@@ -7,6 +7,7 @@ import {
   ParseIntPipe,
   Patch,
   Post,
+  Query,
   UseGuards,
 } from "@nestjs/common";
 
@@ -23,10 +24,10 @@ import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
 export class ReservationController {
   constructor(private reservationService: ReservationService) {}
 
-  @UseGuards(JwtAuthGuard)
   @Get()
-  get(): Promise<ReservationDto[]> {
-    return this.reservationService.get();
+  get(@Query() query): Promise<ReservationDto[]> {
+    const { order = "lastUpdate", page = 0, count = 20 } = query;
+    return this.reservationService.get({ order, page, count });
   }
 
   @UseGuards(JwtAuthGuard)
