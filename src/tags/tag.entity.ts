@@ -3,6 +3,7 @@ import { Column, Entity, ManyToMany } from "typeorm";
 // entities
 import { Model } from "src/models/model";
 import { News } from "src/news/news.entity";
+import { Event } from "src/event/event.entity";
 
 /**
  * @class Tag
@@ -16,6 +17,9 @@ export class Tag extends Model {
   @ManyToMany(() => News, (news) => news.Tags)
   news: News[];
 
+  @ManyToMany(() => Event, (event) => event.Tags)
+  events: Event[];
+
   /**
    * @returns Name
    */
@@ -28,5 +32,12 @@ export class Tag extends Model {
    */
   get News() {
     return this.news;
+  }
+
+  /**
+   * @returns Events
+   */
+  get Events() {
+    return this.events;
   }
 }

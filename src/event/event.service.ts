@@ -25,8 +25,15 @@ export class EventService {
     return this.eventService.save(newEvent);
   }
 
-  get() {
-    return this.eventService.find();
+  async get({ order, page, count }) {
+    const queryBuilder = this.eventService.createQueryBuilder("events");
+    queryBuilder
+      .orderBy(order)
+      .where({ deleted: false })
+      .skip(page * count)
+      .take((page + 1) * count);
+    const list = await queryBuilder.getRawAndEntities();
+    return list.entities;
   }
 
   async getById(id: number) {

@@ -7,13 +7,15 @@ import { EventController } from "./event.controller";
 // service
 import { EventService } from "./event.service";
 
+// module
+import { ProvinceModule } from "src/province/province.module";
+import { TagModule } from "src/tags/tag.module";
+
 // entities
 import { Event } from "./event.entity";
-import { ProvinceModule } from "src/province/province.module";
-import { EventTagModule } from "src/events-tag/event-tag.module";
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Event]), ProvinceModule, EventTagModule],
+  imports: [TypeOrmModule.forFeature([Event]), ProvinceModule, TagModule],
   controllers: [EventController],
   providers: [EventService],
   exports: [EventService],
