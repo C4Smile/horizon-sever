@@ -19,16 +19,15 @@ import { AddRoomDto } from "./dto/add-room.dto";
 import { RoomService } from "./room.service";
 import { UpdateRoomDto } from "./dto/update-room.dto";
 import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
-import { GenericFilter } from "src/models/generic-filter";
 
 @Controller("room")
 export class RoomController {
   constructor(private roomService: RoomService) {}
 
-  @UseGuards(JwtAuthGuard)
   @Get()
-  get(@Query() filter: GenericFilter & RoomDto): Promise<RoomDto[]> {
-    return this.roomService.get(filter);
+  get(@Query() query): Promise<RoomDto[]> {
+    const { order = "lastUpdate", page = 0, count = 20 } = query;
+    return this.roomService.get({ order, page, count });
   }
 
   @UseGuards(JwtAuthGuard)

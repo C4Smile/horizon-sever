@@ -6,9 +6,6 @@ import { ILike, Repository } from "typeorm";
 // entity
 import { Room } from "./room.entity";
 
-// models
-import { GenericFilter } from "src/models/generic-filter";
-
 // services
 import { PageService } from "src/models/page-size";
 
@@ -42,10 +39,15 @@ export class RoomService extends PageService {
     return this.roomService.save(newRoom);
   }
 
-  get(filter: GenericFilter & RoomDto) {
-    const { ...params } = filter;
-    this.paginate(this.roomService, filter, this.createWhereQuery(params));
-    return this.roomService.find();
+  async get({ order, page, count }) {
+    const queryBuilder = this.roomService.createQueryBuilder("rooms");
+    queryBuilder
+      .orderBy(order)
+      .where({ deleted: false })
+      .skip(page * count)
+      .take((page + 1) * count);
+    const list = await queryBuilder.getRawAndEntities();
+    return list.entities;
   }
 
   async getById(id: number) {
