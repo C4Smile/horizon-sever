@@ -5,10 +5,10 @@ import { Model } from "src/models/model";
 import { News } from "src/news/news.entity";
 
 /**
- * @class NewsTag
+ * @class Tag
  * @description Represents a country
  */
-@Entity({ name: "countries" })
+@Entity({ name: "tags" })
 export class Tag extends Model {
   @Column({ unique: true })
   name: string = "";
