@@ -48,10 +48,15 @@ export class CustomerService {
     return this.customerService.save(newCustomer);
   }
 
-  get() {
-    return this.customerService.find({
-      relations: ["country"],
-    });
+  async get({ order, page, count }) {
+    const queryBuilder = this.customerService.createQueryBuilder("customers");
+    queryBuilder
+      .orderBy(order)
+      .where({ deleted: false })
+      .skip(page * count)
+      .take((page + 1) * count);
+    const list = await queryBuilder.getRawAndEntities();
+    return list.entities;
   }
 
   async getById(id: number) {
