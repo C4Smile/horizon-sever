@@ -4,7 +4,7 @@ import { Column, Entity, ManyToMany, ManyToOne } from "typeorm";
 import { Image } from "src/image/image.entity";
 import { Model } from "src/models/model";
 import { Province } from "src/province/province.entity";
-import { NewsTag } from "src/tags/tag.entity";
+import { Tag } from "src/tags/tag.entity";
 
 /**
  * @class News
@@ -27,8 +27,8 @@ export class News extends Model {
   @ManyToOne(() => Image, (image) => image.News)
   photo: Image;
 
-  @ManyToMany(() => NewsTag, (newsTag) => newsTag.News)
-  tags: NewsTag[];
+  @ManyToMany(() => Tag, (newsTag) => newsTag.News)
+  tags: Tag[];
 
   /**
    * @returns Title
