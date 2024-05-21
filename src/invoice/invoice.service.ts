@@ -47,8 +47,15 @@ export class InvoiceService {
     return this.invoiceService.save(newInvoice);
   }
 
-  get() {
-    return this.invoiceService.find({ relations: ["reservation", "currency", "paymentMethod"] });
+  async get({ order, page, count }) {
+    const queryBuilder = this.invoiceService.createQueryBuilder("invoices");
+    queryBuilder
+      .orderBy(order)
+      .where({ deleted: false })
+      .skip(page * count)
+      .take((page + 1) * count);
+    const list = await queryBuilder.getRawAndEntities();
+    return list.entities;
   }
 
   async getById(id: number) {

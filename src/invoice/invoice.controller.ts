@@ -7,6 +7,7 @@ import {
   ParseIntPipe,
   Patch,
   Post,
+  Query,
   UseGuards,
 } from "@nestjs/common";
 
@@ -25,10 +26,10 @@ import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
 export class InvoiceController {
   constructor(private invoiceService: InvoiceService) {}
 
-  @UseGuards(JwtAuthGuard)
   @Get()
-  get(): Promise<InvoiceDto[]> {
-    return this.invoiceService.get();
+  get(@Query() query): Promise<InvoiceDto[]> {
+    const { order = "lastUpdate", page = 0, count = 20 } = query;
+    return this.invoiceService.get({ order, page, count });
   }
 
   @UseGuards(JwtAuthGuard)
