@@ -25,8 +25,15 @@ export class NewsService {
     return this.newsService.save(newNews);
   }
 
-  get() {
-    return this.newsService.find();
+  async get({ order, page, count }) {
+    const queryBuilder = this.newsService.createQueryBuilder("news");
+    queryBuilder
+      .orderBy(order)
+      .where({ deleted: false })
+      .skip(page * count)
+      .take((page + 1) * count);
+    const list = await queryBuilder.getRawAndEntities();
+    return list.entities;
   }
 
   async getById(id: number) {

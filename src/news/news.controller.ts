@@ -26,10 +26,10 @@ import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
 export class NewsController {
   constructor(private newsService: NewsService) {}
 
-  @UseGuards(JwtAuthGuard)
   @Get()
-  get(): Promise<NewsDto[]> {
-    return this.newsService.get();
+  get(@Query() query): Promise<NewsDto[]> {
+    const { order = "lastUpdate", page = 0, count = 20 } = query;
+    return this.newsService.get({ order, page, count });
   }
 
   @Get("small-news")
