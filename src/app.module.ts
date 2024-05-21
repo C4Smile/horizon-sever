@@ -16,9 +16,15 @@ import { EventModule } from "./event/event.module";
 import { EventTagModule } from "./events-tag/event-tag.module";
 import { NewsTagModule } from "./news-tag/news-tag.module";
 import { NewsModule } from "./news/news.module";
+import { ServeStaticModule } from "@nestjs/serve-static";
+import { join } from "path";
 
 @Module({
   imports: [
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, "..", "public"),
+    }),
+
     TypeOrmModule.forRoot({
       type: "mysql",
       username: "root",
