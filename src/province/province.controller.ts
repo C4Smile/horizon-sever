@@ -7,6 +7,7 @@ import {
   ParseIntPipe,
   Patch,
   Post,
+  Query,
   UseGuards,
 } from "@nestjs/common";
 
@@ -25,10 +26,10 @@ import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
 export class ProvinceController {
   constructor(private provinceService: ProvinceService) {}
 
-  @UseGuards(JwtAuthGuard)
   @Get()
-  get(): Promise<ProvinceDto[]> {
-    return this.provinceService.get();
+  get(@Query() query): Promise<ProvinceDto[]> {
+    const { order = "lastUpdate", page = 0, count = 20 } = query;
+    return this.provinceService.get({ order, page, count });
   }
 
   @UseGuards(JwtAuthGuard)

@@ -35,10 +35,15 @@ export class ProvinceService {
     return this.provinceService.save(newProvince);
   }
 
-  get() {
-    return this.provinceService.find({
-      relations: ["country"],
-    });
+  async get({ order, page, count }) {
+    const queryBuilder = this.provinceService.createQueryBuilder("provinces");
+    queryBuilder
+      .orderBy(order)
+      .where({ deleted: false })
+      .skip(page * count)
+      .take((page + 1) * count);
+    const list = await queryBuilder.getRawAndEntities();
+    return list.entities;
   }
 
   async getById(id: number) {
