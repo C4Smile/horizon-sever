@@ -15,6 +15,7 @@ export class NewsService {
   constructor(@InjectRepository(News) private newsService: Repository<News>) {}
 
   async create(news: AddNewsDto) {
+    console.log(news)
     const newsFound = await this.newsService.findOne({
       where: { title: news.title },
     });
