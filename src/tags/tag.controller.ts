@@ -22,7 +22,7 @@ import { UpdateTagDto } from "./dto/update-tag.dto";
 // guard
 import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
 
-@Controller("tags")
+@Controller("tag")
 export class TagController {
   constructor(private newsTagService: TagService) {}
 
