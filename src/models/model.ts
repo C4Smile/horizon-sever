@@ -12,10 +12,15 @@ export class Model {
   @Column({ nullable: true, type: "datetime", default: () => "CURRENT_TIMESTAMP" })
   dateOfCreation: Date = null;
 
-  @Column({ nullable: true, type: "datetime", default: () => "CURRENT_TIMESTAMP",  onUpdate: 'CURRENT_TIMESTAMP', })
+  @Column({
+    nullable: true,
+    type: "datetime",
+    default: () => "CURRENT_TIMESTAMP",
+    onUpdate: "CURRENT_TIMESTAMP",
+  })
   lastUpdate: Date = null;
 
-  @Column({ nullable: true })
+  @Column({ nullable: true, default: () => false })
   deleted: boolean = false;
 
   /**
@@ -25,7 +30,12 @@ export class Model {
    * @param {boolean} deleted - Entity deleted
    * @returns Entity instance
    */
-  constructor(id: number, dateOfCreation: Date, lastUpdate: Date, deleted: boolean = false) {
+  constructor(
+    id: number,
+    dateOfCreation: Date = new Date(),
+    lastUpdate: Date = new Date(),
+    deleted: boolean = false,
+  ) {
     this.id = id;
     this.dateOfCreation = dateOfCreation;
     this.lastUpdate = lastUpdate;
