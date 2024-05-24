@@ -40,14 +40,15 @@ export class RoomService extends PageService {
   }
 
   async get({ order, page, count }) {
-    const queryBuilder = this.roomService.createQueryBuilder("rooms");
-    queryBuilder
-      .orderBy(order)
-      .where({ deleted: false })
-      .skip(page * count)
-      .take((page + 1) * count);
-    const list = await queryBuilder.getRawAndEntities();
-    return list.entities;
+    const list = await this.roomService.find({
+      skip: page * count,
+      take: (page + 1) * count,
+      order: {
+        [order]: "ASC",
+      },
+    });
+
+    return list;
   }
 
   async getById(id: number) {
