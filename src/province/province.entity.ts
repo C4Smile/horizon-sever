@@ -18,7 +18,7 @@ export class Province extends Model {
   @Column()
   countryId: number;
 
-  @ManyToOne(() => Country, (country) => country.Provinces)
+  @ManyToOne(() => Country, (country) => country.Provinces, { cascade: true })
   country: Country;
 
   @OneToMany(() => Event, (event) => event.Province)

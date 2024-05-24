@@ -42,6 +42,7 @@ export class ProvinceService {
       .where({ deleted: false })
       .skip(page * count)
       .take((page + 1) * count);
+
     const list = await queryBuilder.getRawAndEntities();
     return list.entities;
   }
