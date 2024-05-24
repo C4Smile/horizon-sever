@@ -9,13 +9,14 @@ import { News } from "./news.entity";
 // dto
 import { AddNewsDto } from "./dto/add-news.dto";
 import { UpdateNewsDto } from "./dto/update-news.dto";
+// import { Tag } from "src/tags/tag.entity";
 
 @Injectable()
 export class NewsService {
   constructor(@InjectRepository(News) private newsService: Repository<News>) {}
 
   async create(news: AddNewsDto) {
-    console.log(news)
+    console.log(news);
     const newsFound = await this.newsService.findOne({
       where: { title: news.title },
     });
@@ -23,18 +24,23 @@ export class NewsService {
     if (newsFound) throw new HttpException("News already exists", HttpStatus.CONFLICT);
 
     const newNews = this.newsService.create(news);
+
+    // newNews.tags = news.tagsId.map((id) => ({ ...new Tag(id), id }));
+
     return this.newsService.save(newNews);
   }
 
   async get({ order, page, count }) {
-    const queryBuilder = this.newsService.createQueryBuilder("news");
-    queryBuilder
-      .orderBy(order)
-      .where({ deleted: false })
-      .skip(page * count)
-      .take((page + 1) * count);
-    const list = await queryBuilder.getRawAndEntities();
-    return list.entities;
+    const list = await this.newsService.find({
+      skip: page * count,
+      take: (page + 1) * count,
+      relations: ["province", "tags", "photo"],
+      order: {
+        [order]: "ASC",
+      },
+    });
+
+    return list;
   }
 
   async getById(id: number) {
@@ -79,10 +85,15 @@ export class NewsService {
   }
 
   async getSmallNews(count: number) {
-    const queryBuilder = this.newsService.createQueryBuilder("news");
-    queryBuilder.orderBy("lastUpdate").where({ deleted: false }).skip(0).take(count);
-    const list = await queryBuilder.getRawAndEntities();
-    const parsed = list.entities.map((item) => {
+    const list = await this.newsService.find({
+      take: count,
+      relations: ["province", "tags", "photo"],
+      order: {
+        lastUpdate: "ASC",
+      },
+    });
+
+    const parsed = list.map((item) => {
       const { title, description, photo } = item;
       return { title, description, photo };
     });
