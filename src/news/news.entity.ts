@@ -24,13 +24,13 @@ export class News extends Model {
   @Column()
   photoId: number;
 
-  @ManyToOne(() => Province, (province) => province.News)
+  @ManyToOne(() => Province, (province) => province.News, { cascade: true })
   province: Province;
 
   @ManyToOne(() => Image, (image) => image.News)
   photo: Image;
 
-  @ManyToMany(() => Tag, (newsTag) => newsTag.News)
+  @ManyToMany(() => Tag, (newsTag) => newsTag.News, { cascade: true })
   @JoinTable({
     name: "news-tag",
     joinColumn: {
