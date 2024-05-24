@@ -1,5 +1,8 @@
-import { Entity, Column } from "typeorm";
+import { Entity, Column, ManyToOne } from "typeorm";
 import { Model } from "src/models/model";
+
+// entity
+import { Image } from "src/image/image.entity";
 
 /**
  * @class User
@@ -27,6 +30,12 @@ export class User extends Model {
 
   @Column({ unique: true })
   identification: string;
+
+  @Column()
+  photoId: number;
+
+  @ManyToOne(() => Image, (image) => image.Users)
+  photo: Image;
 
   /**
    * @returns Name
@@ -75,5 +84,19 @@ export class User extends Model {
    */
   get Identification() {
     return this.identification;
+  }
+
+  /**
+   * @returns PhotoId
+   */
+  get PhotoId() {
+    return this.photoId;
+  }
+
+  /**
+   * @returns Photo
+   */
+  get Photo() {
+    return this.photo;
   }
 }
