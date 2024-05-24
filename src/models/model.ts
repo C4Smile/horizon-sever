@@ -6,13 +6,13 @@ import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
  */
 @Entity()
 export class Model {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn("increment")
   id: number = 0;
 
   @Column({ nullable: true, type: "datetime", default: () => "CURRENT_TIMESTAMP" })
   dateOfCreation: Date = null;
 
-  @Column({ nullable: true, type: "datetime", default: () => "CURRENT_TIMESTAMP" })
+  @Column({ nullable: true, type: "datetime", default: () => "CURRENT_TIMESTAMP",  onUpdate: 'CURRENT_TIMESTAMP', })
   lastUpdate: Date = null;
 
   @Column({ nullable: true })

@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToMany, ManyToOne } from "typeorm";
+import { Column, Entity, JoinTable, ManyToMany, ManyToOne } from "typeorm";
 
 // entities
 import { Image } from "src/image/image.entity";
@@ -28,6 +28,19 @@ export class News extends Model {
   photo: Image;
 
   @ManyToMany(() => Tag, (newsTag) => newsTag.News)
+  @JoinTable({
+    name: "news-tag",
+    joinColumn: {
+      name: "newsId",
+      referencedColumnName: "id",
+      foreignKeyConstraintName: "newsTagsNewsId",
+    },
+    inverseJoinColumn: {
+      name: "tagId",
+      referencedColumnName: "id",
+      foreignKeyConstraintName: "newsTagsTagId",
+    },
+  })
   tags: Tag[];
 
   /**
