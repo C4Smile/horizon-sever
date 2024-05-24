@@ -26,14 +26,16 @@ export class EventService {
   }
 
   async get({ order, page, count }) {
-    const queryBuilder = this.eventService.createQueryBuilder("events");
-    queryBuilder
-      .orderBy(order)
-      .where({ deleted: false })
-      .skip(page * count)
-      .take((page + 1) * count);
-    const list = await queryBuilder.getRawAndEntities();
-    return list.entities;
+    const list = await this.eventService.find({
+      skip: page * count,
+      take: (page + 1) * count,
+      relations: ["province", "tags"],
+      order: {
+        [order]: "ASC",
+      },
+    });
+
+    return list;
   }
 
   async getById(id: number) {

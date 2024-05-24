@@ -48,14 +48,15 @@ export class InvoiceService {
   }
 
   async get({ order, page, count }) {
-    const queryBuilder = this.invoiceService.createQueryBuilder("invoices");
-    queryBuilder
-      .orderBy(order)
-      .where({ deleted: false })
-      .skip(page * count)
-      .take((page + 1) * count);
-    const list = await queryBuilder.getRawAndEntities();
-    return list.entities;
+    const list = await this.invoiceService.find({
+      skip: page * count,
+      take: (page + 1) * count,
+      order: {
+        [order]: "ASC",
+      },
+    });
+
+    return list;
   }
 
   async getById(id: number) {
