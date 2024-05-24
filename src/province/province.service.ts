@@ -36,15 +36,16 @@ export class ProvinceService {
   }
 
   async get({ order, page, count }) {
-    const queryBuilder = this.provinceService.createQueryBuilder("provinces");
-    queryBuilder
-      .orderBy(order)
-      .where({ deleted: false })
-      .skip(page * count)
-      .take((page + 1) * count);
+    const list = await this.provinceService.find({
+      skip: page * count,
+      take: (page + 1) * count,
+      relations: ["country"],
+      order: {
+        [order]: "ASC",
+      },
+    });
 
-    const list = await queryBuilder.getRawAndEntities();
-    return list.entities;
+    return list;
   }
 
   async getById(id: number) {
