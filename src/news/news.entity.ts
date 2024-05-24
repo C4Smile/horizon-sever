@@ -21,6 +21,9 @@ export class News extends Model {
   @Column()
   provinceId: number;
 
+  @Column()
+  photoId: number;
+
   @ManyToOne(() => Province, (province) => province.News)
   province: Province;
 
@@ -69,6 +72,13 @@ export class News extends Model {
    */
   get Tags() {
     return this.tags;
+  }
+
+  /**
+   * @returns PhotoId
+   */
+  get PhotoId() {
+    return this.photoId;
   }
 
   /**
