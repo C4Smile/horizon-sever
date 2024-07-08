@@ -1,59 +1,27 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  Param,
-  ParseIntPipe,
-  Patch,
-  Post,
-  Query,
-  UseGuards,
-} from "@nestjs/common";
+import { Body, Controller, Delete, Param, ParseIntPipe, Post, UseGuards } from "@nestjs/common";
 
 // dto
-import { EventDto } from "./dto/event-has-image.dto";
-import { AddEventHasImageDto} from "./dto/add-event-has-image.dto";
+import { AddEventHasImageDto } from "./dto/add-event-has-image.dto";
 
 // services
-import { EventService } from "./event-has-image.service";
-import { UpdateEventDto } from "./dto/update-event.dto";
+import { EventHasImageService } from "./event-has-image.service";
 
 // guard
 import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
 
-@Controller("event")
-export class EventController {
-  constructor(private eventService: EventService) {}
-
-
-  @Get()
-  get(@Query() query): Promise<EventDto[]> {
-    const { order = "lastUpdate", page = 0, count = 20 } = query;
-    return this.eventService.get({ order, page, count });
-  }
-
-  @UseGuards(JwtAuthGuard)
-  @Get(":id")
-  getById(@Param("id", ParseIntPipe) id: number) {
-    return this.eventService.getById(id);
-  }
+@Controller("eventHasImage")
+export class EventHasImageController {
+  constructor(private eventHasImageService: EventHasImageService) {}
 
   @UseGuards(JwtAuthGuard)
   @Post()
-  create(@Body() newEvent: AddEventDto) {
-    return this.eventService.create(newEvent);
+  create(@Body() newEvent: AddEventHasImageDto) {
+    return this.eventHasImageService.create(newEvent);
   }
 
   @UseGuards(JwtAuthGuard)
   @Delete(":id")
   remove(@Param("id", ParseIntPipe) id: number) {
-    return this.eventService.remove(id);
-  }
-
-  @UseGuards(JwtAuthGuard)
-  @Patch(":id")
-  update(@Param("id", ParseIntPipe) id: number, @Body() data: UpdateEventDto) {
-    return this.eventService.update(id, data);
+    return this.eventHasImageService.remove(id);
   }
 }

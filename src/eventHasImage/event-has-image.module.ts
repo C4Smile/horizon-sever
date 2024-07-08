@@ -2,18 +2,18 @@ import { Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
 
 // controller
-import { EventController } from "./event-has-image.controller";
+import { EventHasImageController } from "./event-has-image.controller";
 
 // service
-import { EventService } from "./event-has-image.service";
+import { EventHasImageService } from "./event-has-image.service";
 
 // entities
-import { Event } from "./event-has-image.entity";
+import { EventHasImage } from "./event-has-image.entity";
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Event])],
-  controllers: [EventController],
-  providers: [EventService],
-  exports: [EventService],
+  imports: [TypeOrmModule.forFeature([EventHasImage])],
+  controllers: [EventHasImageController],
+  providers: [EventHasImageService],
+  exports: [EventHasImageService],
 })
-export class EventModule {}
+export class EventHasImageModule {}

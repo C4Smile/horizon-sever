@@ -18,9 +18,10 @@ export class EventHasImageService {
     return this.eventHasImageService.save(newEvent);
   }
 
-  async remove(id: number) {
-    const result = await this.eventHasImageService.save({ id, deleted: true });
-    if (result.affected === 0) throw new HttpException("Event Has Image not Found", HttpStatus.NOT_FOUND);
+  async remove(imageId: number) {
+    const result = await this.eventHasImageService.delete({ imageId });
+    if (result.affected === 0)
+      throw new HttpException("Event has image not Found", HttpStatus.NOT_FOUND);
     return result;
   }
 }
