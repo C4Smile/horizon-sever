@@ -4,6 +4,7 @@ import { Column, Entity, ManyToMany } from "typeorm";
 import { Model } from "src/models/model";
 import { Event } from "src/event/event.entity";
 import { News } from "src/news/news.entity";
+import { Room } from "src/room/room.entity";
 
 @Entity({ name: "images" })
 export class Photo extends Model {
@@ -19,8 +20,8 @@ export class Photo extends Model {
   @ManyToMany(() => Event, (events) => events.eventHasImage, { cascade: true })
   events: Event[];
 
-  @ManyToMany(() => Rooms, (rooms) => rooms.eventHasImage, { cascade: true })
-  rooms: Rooms[];
+  @ManyToMany(() => Room, (rooms) => rooms.eventHasImage, { cascade: true })
+  rooms: Room[];
 
   /**
    * @returns News
