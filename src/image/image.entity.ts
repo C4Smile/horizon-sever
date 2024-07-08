@@ -1,35 +1,26 @@
+import { Column, Entity, ManyToMany } from "typeorm";
+
+// entities
 import { Model } from "src/models/model";
+import { Event } from "src/event/event.entity";
 import { News } from "src/news/news.entity";
-import { User } from "src/user/user.entity";
-import { Column, Entity, OneToMany } from "typeorm";
 
 @Entity({ name: "images" })
-export class Image extends Model {
+export class Photo extends Model {
   @Column({ unique: true })
   fileName: string;
 
   @Column({ unique: true })
   url: string;
 
-  @OneToMany(() => News, (news) => news.photo)
+  @ManyToMany(() => News, (news) => news.newsHasImage, { cascade: true })
   news: News[];
 
-  @OneToMany(() => User, (user) => user.photo)
-  users: User[];
+  @ManyToMany(() => Event, (events) => events.eventHasImage, { cascade: true })
+  events: Event[];
 
-  /**
-   * @returns FileName
-   */
-  get FileName() {
-    return this.fileName;
-  }
-
-  /**
-   * @returns Url
-   */
-  get Url() {
-    return this.url;
-  }
+  @ManyToMany(() => Rooms, (rooms) => rooms.eventHasImage, { cascade: true })
+  rooms: Rooms[];
 
   /**
    * @returns News
@@ -39,9 +30,16 @@ export class Image extends Model {
   }
 
   /**
-   * @returns Users
+   * @returns Events
    */
-  get Users() {
-    return this.users;
+  get Events() {
+    return this.events;
+  }
+
+  /**
+   * @returns Roms
+   */
+  get Roms() {
+    return this.rooms;
   }
 }

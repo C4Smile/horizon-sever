@@ -1,9 +1,8 @@
-import { Column, Entity, JoinTable, ManyToMany, ManyToOne } from "typeorm";
+import { Column, Entity, JoinTable, ManyToMany } from "typeorm";
 
 // entities
-import { Image } from "src/image/image.entity";
+import { Photo } from "src/image/image.entity";
 import { Model } from "src/models/model";
-import { Province } from "src/province/province.entity";
 import { Tag } from "src/tags/tag.entity";
 
 /**
@@ -15,20 +14,17 @@ export class News extends Model {
   @Column({ unique: true })
   title: string = "";
 
+  @Column({ unique: true })
+  urlName: string = "";
+
   @Column()
   description: string = "";
 
   @Column()
-  provinceId: number;
+  content: string = "";
 
   @Column()
-  photoId: number;
-
-  @ManyToOne(() => Province, (province) => province.News, { cascade: true })
-  province: Province;
-
-  @ManyToOne(() => Image, (image) => image.News)
-  photo: Image;
+  subtitle: string = "";
 
   @ManyToMany(() => Tag, (newsTag) => newsTag.News, { cascade: true })
   @JoinTable({
@@ -44,47 +40,21 @@ export class News extends Model {
       foreignKeyConstraintName: "newsTagsTagId",
     },
   })
-  tags: Tag[];
+  newsHasTag: Tag[];
 
-  /**
-   * @returns Title
-   */
-  get Title() {
-    return this.title;
-  }
-
-  /**
-   * @returns Description
-   */
-  get Description() {
-    return this.description;
-  }
-
-  /**
-   * @returns Province
-   */
-  get Province() {
-    return this.province;
-  }
-
-  /**
-   * @returns NewsTags
-   */
-  get Tags() {
-    return this.tags;
-  }
-
-  /**
-   * @returns PhotoId
-   */
-  get PhotoId() {
-    return this.photoId;
-  }
-
-  /**
-   * @returns Photo
-   */
-  get Photo() {
-    return this.photo;
-  }
+  @ManyToMany(() => Photo, (image) => image.News)
+  @JoinTable({
+    name: "news-image",
+    joinColumn: {
+      name: "newsId",
+      referencedColumnName: "id",
+      foreignKeyConstraintName: "newsImagesNewsId",
+    },
+    inverseJoinColumn: {
+      name: "imageId",
+      referencedColumnName: "id",
+      foreignKeyConstraintName: "newsImagesImageId",
+    },
+  })
+  newsHasImage: Photo[];
 }

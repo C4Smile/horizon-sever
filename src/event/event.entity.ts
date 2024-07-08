@@ -1,9 +1,9 @@
-import { Column, Entity, ManyToMany, ManyToOne } from "typeorm";
+import { Column, Entity, ManyToMany } from "typeorm";
 
 // entities
 import { Model } from "src/models/model";
-import { Province } from "src/province/province.entity";
 import { Tag } from "src/tags/tag.entity";
+import { Photo } from "src/image/image.entity";
 
 /**
  * @class Event
@@ -14,33 +14,76 @@ export class Event extends Model {
   @Column({ unique: true })
   title: string = "";
 
+  @Column({ unique: true })
+  urlName: string = "";
+
   @Column()
-  provinceId: number;
+  description: string = "";
 
-  @ManyToOne(() => Province, (province) => province.Events)
-  province: Province;
+  @Column()
+  content: string = "";
 
-  @ManyToMany(() => Tag, (tag) => tag.Events)
-  tags: Tag[];
+  @Column()
+  subtitle: string = "";
 
-  /**
-   * @returns Title
-   */
-  get Title() {
-    return this.title;
-  }
+  @Column()
+  address: string = "";
 
-  /**
-   * @returns Province
-   */
-  get Province() {
-    return this.province;
-  }
+  @Column()
+  location: string = "";
 
-  /**
-   * @returns EventTags
-   */
-  get Tags() {
-    return this.tags;
-  }
+  //#region Relationships
+
+  @ManyToMany(() => Tag, (tag) => tag.Events, { cascade: true })
+  @JoinTable({
+    name: "event-tags",
+    joinColumn: {
+      name: "eventId",
+      referencedColumnName: "id",
+      foreignKeyConstraintName: "eventTagsEventId",
+    },
+    inverseJoinColumn: {
+      name: "tagId",
+      referencedColumnName: "id",
+      foreignKeyConstraintName: "eventTagsTagId",
+    },
+  })
+  eventHasTag: Tag[];
+
+  @ManyToMany(() => Photo, (image) => image.Events)
+  @JoinTable({
+    name: "event-image",
+    joinColumn: {
+      name: "eventId",
+      referencedColumnName: "id",
+      foreignKeyConstraintName: "eventImagesEventId",
+    },
+    inverseJoinColumn: {
+      name: "imageId",
+      referencedColumnName: "id",
+      foreignKeyConstraintName: "eventImagesImageId",
+    },
+  })
+  eventHasImage: Photo[];
+
+  @OneToMany(() => Schedule, (schedule) => schedule.Events, { cascade: true })
+  eventHasSchedule: Schedule[];
+
+  @ManyToMany(() => ExternalLink, (link) => link.Events, { cascade: true })
+  @JoinTable({
+    name: "event-link",
+    joinColumn: {
+      name: "eventId",
+      referencedColumnName: "id",
+      foreignKeyConstraintName: "eventLinkEventId",
+    },
+    inverseJoinColumn: {
+      name: "linkId",
+      referencedColumnName: "id",
+      foreignKeyConstraintName: "eventLinksLinkId",
+    },
+  })
+  eventHasLink: ExternalLink[];
+
+  //#endregion
 }
