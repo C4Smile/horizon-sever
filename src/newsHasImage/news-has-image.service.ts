@@ -4,24 +4,24 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 
 // entity
-import { EventHasImage } from "./event-has-image.entity";
+import { NewsHasImage } from "./news-has-image.entity";
 
 // dto
-import { AddEventHasImageDto } from "./dto/add-news-has-image.dto";
+import { AddNewsHasImageDto } from "./dto/add-news-has-image.dto";
 
 @Injectable()
-export class EventHasImageService {
-  constructor(@InjectRepository(Event) private eventHasImageService: Repository<EventHasImage>) {}
+export class NewsHasImageService {
+  constructor(@InjectRepository(News) private newsHasImageService: Repository<NewsHasImage>) {}
 
-  async create(event: AddEventHasImageDto) {
-    const newEvent = this.eventHasImageService.create(event);
-    return this.eventHasImageService.save(newEvent);
+  async create(news: AddNewsHasImageDto) {
+    const newNews = this.newsHasImageService.create(news);
+    return this.newsHasImageService.save(newNews);
   }
 
   async remove(imageId: number) {
-    const result = await this.eventHasImageService.delete({ imageId });
+    const result = await this.newsHasImageService.delete({ imageId });
     if (result.affected === 0)
-      throw new HttpException("Event has image not Found", HttpStatus.NOT_FOUND);
+      throw new HttpException("News has image not Found", HttpStatus.NOT_FOUND);
     return result;
   }
 }
