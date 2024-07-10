@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToMany } from "typeorm";
+import { Column, Entity, JoinTable, ManyToMany, OneToMany } from "typeorm";
 
 // entities
 import { Model } from "src/models/model";
@@ -67,7 +67,7 @@ export class Event extends Model {
   })
   eventHasImage: Photo[];
 
-  @OneToMany(() => Schedule, (schedule) => schedule.Events, { cascade: true })
+  @OneToMany(() => Schedule, (schedule) => schedule.Event, { cascade: true })
   eventHasSchedule: Schedule[];
 
   @ManyToMany(() => ExternalLink, (link) => link.Events, { cascade: true })
