@@ -14,43 +14,21 @@ export enum RoomStatus {
  */
 @Entity({ name: "rooms" })
 export class Room extends Model {
-  @Column()
+  @Column({ type: "text", unique: true })
   number: string = "";
 
-  @Column({ unique: true })
+  @Column({ type: "text", unique: true })
   name: string = "";
+
+  @Column({ type: "text", unique: true })
+  urlName: string = "";
 
   @Column({ type: "text" })
   description: string = "";
 
-  @Column()
+  @Column({ type: "text" })
+  content: string = "";
+
+  @Column({ type: "int8" })
   status: RoomStatus = RoomStatus.operational;
-
-  /**
-   * @returns Number
-   */
-  get Number() {
-    return this.number;
-  }
-
-  /**
-   * @returns Name
-   */
-  get Name() {
-    return this.name;
-  }
-
-  /**
-   * @returns Description
-   */
-  get Description() {
-    return this.description;
-  }
-
-  /**
-   * @returns Status
-   */
-  get Status() {
-    return this.status;
-  }
 }

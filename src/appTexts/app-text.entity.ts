@@ -9,12 +9,12 @@ import { Model } from "src/models/model";
  */
 @Entity({ name: "appTexts" })
 export class AppText extends Model {
-  @Column({ unique: true })
+  @Column({ type: "text", unique: true })
   title: string = "";
 
-  @Column({ unique: true })
+  @Column({ type: "text", unique: true })
   urlName: string = "";
 
-  @Column()
+  @Column({ type: "text" })
   content: string = "";
 }

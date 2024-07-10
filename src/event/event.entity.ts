@@ -13,25 +13,25 @@ import { EventHasSchedule } from "src/eventHasSchedule/event-has-schedule.entity
  */
 @Entity({ name: "events" })
 export class Event extends Model {
-  @Column({ unique: true })
+  @Column({ type: "text", unique: true })
   title: string = "";
 
-  @Column({ unique: true })
+  @Column({ type: "text", unique: true })
   urlName: string = "";
 
-  @Column()
+  @Column({ type: "text" })
   description: string = "";
 
-  @Column()
+  @Column({ type: "text" })
   content: string = "";
 
-  @Column()
+  @Column({ type: "text" })
   subtitle: string = "";
 
-  @Column()
+  @Column({ type: "text" })
   address: string = "";
 
-  @Column()
+  @Column({ type: "text" })
   location: string = "";
 
   //#region Relationships

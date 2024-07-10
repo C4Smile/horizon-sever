@@ -10,10 +10,10 @@ import { Event } from "src/event/event.entity";
  */
 @Entity({ name: "externalLink" })
 export class ExternalLink extends Model {
-  @Column({ unique: true })
+  @Column({ type: "text", unique: true })
   name: string = "";
 
-  @Column({ unique: true })
+  @Column({ type: "text", unique: true })
   preview: string = "";
 
   @ManyToMany(() => Event, (event) => event.eventHasLink)

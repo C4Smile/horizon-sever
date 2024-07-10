@@ -11,19 +11,19 @@ import { Tag } from "src/tags/tag.entity";
  */
 @Entity({ name: "news" })
 export class News extends Model {
-  @Column({ unique: true })
+  @Column({ type: "text", unique: true })
   title: string = "";
 
-  @Column({ unique: true })
+  @Column({ type: "text", unique: true })
   urlName: string = "";
 
-  @Column()
+  @Column({ type: "text" })
   description: string = "";
 
-  @Column()
+  @Column({ type: "text" })
   content: string = "";
 
-  @Column()
+  @Column({ type: "text" })
   subtitle: string = "";
 
   @ManyToMany(() => Tag, (newsTag) => newsTag.News, { cascade: true })

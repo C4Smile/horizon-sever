@@ -8,10 +8,10 @@ import { Room } from "src/room/room.entity";
 
 @Entity({ name: "images" })
 export class Photo extends Model {
-  @Column({ unique: true })
+  @Column({ type: "text", unique: true })
   fileName: string;
 
-  @Column({ unique: true })
+  @Column({ type: "text", unique: true })
   url: string;
 
   @ManyToMany(() => News, (news) => news.newsHasImage, { cascade: true })

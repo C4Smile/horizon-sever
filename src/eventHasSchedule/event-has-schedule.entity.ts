@@ -10,10 +10,13 @@ import { Event } from "src/event/event.entity";
  */
 @Entity({ name: "eventHasSchedule" })
 export class EventHasSchedule extends Model {
-  @Column()
+  @Column({ type: "int8" })
   eventId: number = 0;
 
-  @Column()
+  @Column({
+    type: "datetime",
+    default: () => "CURRENT_TIMESTAMP",
+  })
   date: Date = new Date();
 
   @ManyToOne(() => Event, (event) => event.eventHasSchedule)

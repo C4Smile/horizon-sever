@@ -11,7 +11,7 @@ import { Event } from "src/event/event.entity";
  */
 @Entity({ name: "tags" })
 export class Tag extends Model {
-  @Column({ unique: true })
+  @Column({ type: "text", unique: true })
   name: string = "";
 
   @ManyToMany(() => News, (news) => news.newsHasTag)

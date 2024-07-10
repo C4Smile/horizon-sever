@@ -10,28 +10,28 @@ import { Photo } from "src/image/image.entity";
  */
 @Entity({ name: "users" })
 export class User extends Model {
-  @Column({ unique: true })
+  @Column({ type: "text", unique: true })
   username: string;
 
   @Column({ type: "text" })
   password: string = "";
 
-  @Column()
+  @Column({ type: "text" })
   name: string = "";
 
-  @Column({ unique: true })
+  @Column({ type: "text", unique: true })
   email: string;
 
-  @Column({ unique: true })
+  @Column({ type: "text", unique: true })
   phone: string;
 
-  @Column()
+  @Column({ type: "text" })
   address: string = "";
 
-  @Column({ unique: true })
+  @Column({ type: "text", unique: true })
   identification: string;
 
-  @Column()
+  @Column({ type: "int8" })
   photoId: number;
 
   @ManyToOne(() => Photo, (image) => image.Users)
