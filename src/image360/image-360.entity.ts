@@ -2,9 +2,6 @@ import { Column, Entity, ManyToMany } from "typeorm";
 
 // entities
 import { Model } from "src/models/model";
-import { Event } from "src/event/event.entity";
-import { News } from "src/news/news.entity";
-import { Room } from "src/room/room.entity";
 
 @Entity({ name: "image360" })
 export class Photo360 extends Model {
