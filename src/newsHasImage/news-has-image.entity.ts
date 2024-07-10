@@ -1,11 +1,11 @@
 import { Entity, PrimaryColumn } from "typeorm";
 
 /**
- * @class EventHasImage
+ * @class NewsHasImage
  * @description Represents the relationship between news and images
  */
 @Entity({ name: "newsHasImage" })
-export class EventHasImage {
+export class NewsHasImage {
   @PrimaryColumn()
   newsId: number = 0;
 
