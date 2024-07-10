@@ -17,10 +17,10 @@ export class Photo extends Model {
   @ManyToMany(() => News, (news) => news.newsHasImage, { cascade: true })
   news: News[];
 
-  @ManyToMany(() => Event, (events) => events.eventHasImage, { cascade: true })
+  @ManyToMany(() => Event, (event) => event.eventHasImage, { cascade: true })
   events: Event[];
 
-  @ManyToMany(() => Room, (rooms) => rooms.eventHasImage, { cascade: true })
+  @ManyToMany(() => Room, (room) => room.roomHasImage, { cascade: true })
   rooms: Room[];
 
   /**

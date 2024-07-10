@@ -4,6 +4,7 @@ import { Column, Entity, ManyToMany } from "typeorm";
 import { Model } from "src/models/model";
 import { Tag } from "src/tags/tag.entity";
 import { Photo } from "src/image/image.entity";
+import { ExternalLink } from "src/externalLink/external-link.entity";
 
 /**
  * @class Event
