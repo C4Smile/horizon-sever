@@ -2,13 +2,13 @@ import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { writeFileSync } from "fs";
+import { join } from "path";
 
 // entities
 import { Photo360 } from "./image-360.entity";
 
 // dto
-import { BlobDto } from "./dto/blob..dto";
-import { join } from "path";
+import { BlobDto } from "src/image/dto/blob..dto";
 
 @Injectable()
 export class ImageService {
