@@ -91,7 +91,7 @@ export class RoomService extends PageService {
       where.name = ILike(`%${params.name}%`);
     }
 
-    if (params.description) {
+    /* if (params.description) {
       where.description = ILike(`%${params.description}%`);
     }
 
@@ -101,7 +101,7 @@ export class RoomService extends PageService {
 
     if (params.status) {
       where.status = params.status;
-    }
+    } */
 
     return where;
   }
