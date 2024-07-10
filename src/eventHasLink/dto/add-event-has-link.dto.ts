@@ -1,7 +1,4 @@
-// dto
-import { AddModelDto } from "src/models/add-model.dto";
-
-export interface AddEventHasLinkDto extends AddModelDto {
+export interface AddEventHasLinkDto {
   eventId: number;
   linkId: number;
   url: string;
