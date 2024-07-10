@@ -2,7 +2,7 @@ import { Entity, Column, ManyToOne } from "typeorm";
 import { Model } from "src/models/model";
 
 // entity
-import { Image } from "src/image/image.entity";
+import { Photo } from "src/image/image.entity";
 
 /**
  * @class User
@@ -34,8 +34,8 @@ export class User extends Model {
   @Column()
   photoId: number;
 
-  @ManyToOne(() => Image, (image) => image.Users)
-  photo: Image;
+  @ManyToOne(() => Photo, (image) => image.Users)
+  photo: Photo;
 
   /**
    * @returns Name

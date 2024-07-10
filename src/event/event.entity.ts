@@ -5,6 +5,7 @@ import { Model } from "src/models/model";
 import { Tag } from "src/tags/tag.entity";
 import { Photo } from "src/image/image.entity";
 import { ExternalLink } from "src/externalLink/external-link.entity";
+import { EventHasSchedule } from "src/eventHasSchedule/event-has-schedule.entity";
 
 /**
  * @class Event
@@ -67,8 +68,8 @@ export class Event extends Model {
   })
   eventHasImage: Photo[];
 
-  @OneToMany(() => Schedule, (schedule) => schedule.Event, { cascade: true })
-  eventHasSchedule: Schedule[];
+  @OneToMany(() => EventHasSchedule, (schedule) => schedule.Event, { cascade: true })
+  eventHasSchedule: EventHasSchedule[];
 
   @ManyToMany(() => ExternalLink, (link) => link.Events, { cascade: true })
   @JoinTable({

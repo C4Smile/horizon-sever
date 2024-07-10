@@ -86,15 +86,15 @@ export class NewsService {
   async getSmallNews(count: number) {
     const list = await this.newsService.find({
       take: count,
-      relations: ["province", "tags", "photo"],
+      relations: ["newsHasTag", "newsHasImage"],
       order: {
         lastUpdate: "ASC",
       },
     });
 
     const parsed = list.map((item) => {
-      const { title, description, photo } = item;
-      return { title, description, photo };
+      const { title, description, newsHasImage, newsHasTag } = item;
+      return { title, description, newsHasImage, newsHasTag };
     });
     return { data: parsed };
   }

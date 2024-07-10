@@ -5,7 +5,7 @@ import { TypeOrmModule } from "@nestjs/typeorm";
 import { EventHasScheduleController } from "./event-has-schedule.controller";
 
 // service
-import { EventHasScheduleService } from "./event-has-schdule.service";
+import { EventHasScheduleService } from "./event-has-schedule.service";
 
 // entities
 import { EventHasSchedule } from "./event-has-schedule.entity";

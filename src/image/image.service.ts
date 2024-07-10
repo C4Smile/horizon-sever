@@ -4,7 +4,7 @@ import { Repository } from "typeorm";
 import { writeFileSync } from "fs";
 
 // entities
-import { Image } from "./image.entity";
+import { Photo } from "./image.entity";
 
 // dto
 import { BlobDto } from "./dto/blob..dto";
@@ -12,7 +12,7 @@ import { join } from "path";
 
 @Injectable()
 export class ImageService {
-  constructor(@InjectRepository(Image) private imageService: Repository<Image>) {}
+  constructor(@InjectRepository(Photo) private imageService: Repository<Photo>) {}
 
   async create(image: BlobDto) {
     const { blob, fileName, ext } = image;

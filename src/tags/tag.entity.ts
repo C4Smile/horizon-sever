@@ -14,10 +14,10 @@ export class Tag extends Model {
   @Column({ unique: true })
   name: string = "";
 
-  @ManyToMany(() => News, (news) => news.Tags)
+  @ManyToMany(() => News, (news) => news.newsHasTag)
   news: News[];
 
-  @ManyToMany(() => Event, (event) => event.Tags)
+  @ManyToMany(() => Event, (event) => event.eventHasTag)
   events: Event[];
 
   /**

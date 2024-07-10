@@ -5,7 +5,6 @@ import {
   Get,
   Param,
   ParseIntPipe,
-  Patch,
   Post,
   Query,
   UseGuards,
@@ -17,7 +16,6 @@ import { AddExternalLinkDto } from "./dto/add-external-link.dto";
 
 // services
 import { ExternalLinkService } from "./external-link.service";
-import { UpdateExternalLinkDto } from "./dto/update-external-link.dto";
 
 // guard
 import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
@@ -48,11 +46,5 @@ export class ExternalLinkController {
   @Delete(":id")
   remove(@Param("id", ParseIntPipe) id: number) {
     return this.newsExternalLinkService.remove(id);
-  }
-
-  @UseGuards(JwtAuthGuard)
-  @Patch(":id")
-  update(@Param("id", ParseIntPipe) id: number, @Body() data: UpdateExternalLinkDto) {
-    return this.newsExternalLinkService.update(id, data);
   }
 }

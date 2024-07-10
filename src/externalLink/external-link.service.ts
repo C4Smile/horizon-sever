@@ -8,7 +8,6 @@ import { ExternalLink } from "./external-link.entity";
 
 // dto
 import { AddExternalLinkDto } from "./dto/add-external-link.dto";
-import { UpdateExternalLinkDto } from "./dto/update-external-link.dto";
 
 @Injectable()
 export class ExternalLinkService {
@@ -60,28 +59,5 @@ export class ExternalLinkService {
     const result = await this.externalLinkService.save({ id, deleted: true });
 
     return result;
-  }
-
-  async update(id: number, data: UpdateExternalLinkDto) {
-    const externalLinkFound = await this.externalLinkService.findOne({
-      where: {
-        id,
-      },
-    });
-
-    if (!externalLinkFound) throw new HttpException("ExternalLink not Found", HttpStatus.NOT_FOUND);
-
-    const conflict = await this.externalLinkService.findOne({
-      where: {
-        name: data.name,
-      },
-    });
-
-    if (conflict && conflict.id !== id)
-      throw new HttpException("ExternalLink already exists", HttpStatus.CONFLICT);
-
-    const updatedExternalLink = Object.assign(externalLinkFound, data);
-
-    return this.externalLinkService.save(updatedExternalLink);
   }
 }
