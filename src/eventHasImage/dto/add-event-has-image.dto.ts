@@ -1,7 +1,4 @@
-// dto
-import { AddModelDto } from "src/models/add-model.dto";
-
-export interface AddEventHasImageDto extends AddModelDto {
+export interface AddEventHasImageDto {
   eventId: number;
   imageId: number;
 }
