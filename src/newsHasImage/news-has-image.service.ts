@@ -11,7 +11,7 @@ import { AddNewsHasImageDto } from "./dto/add-news-has-image.dto";
 
 @Injectable()
 export class NewsHasImageService {
-  constructor(@InjectRepository(News) private newsHasImageService: Repository<NewsHasImage>) {}
+  constructor(@InjectRepository(NewsHasImage) private newsHasImageService: Repository<NewsHasImage>) {}
 
   async create(news: AddNewsHasImageDto) {
     const newNews = this.newsHasImageService.create(news);

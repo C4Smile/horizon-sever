@@ -11,7 +11,7 @@ import { AddEventHasImageDto } from "./dto/add-event-has-image.dto";
 
 @Injectable()
 export class EventHasImageService {
-  constructor(@InjectRepository(Event) private eventHasImageService: Repository<EventHasImage>) {}
+  constructor(@InjectRepository(EventHasImage) private eventHasImageService: Repository<EventHasImage>) {}
 
   async create(event: AddEventHasImageDto) {
     const newEvent = this.eventHasImageService.create(event);

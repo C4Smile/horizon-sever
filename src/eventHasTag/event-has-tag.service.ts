@@ -11,7 +11,7 @@ import { AddEventHasTagDto } from "./dto/add-event-has-tag.dto";
 
 @Injectable()
 export class EventHasTagService {
-  constructor(@InjectRepository(Event) private eventHasTagService: Repository<EventHasTag>) {}
+  constructor(@InjectRepository(EventHasTag) private eventHasTagService: Repository<EventHasTag>) {}
 
   async create(event: AddEventHasTagDto) {
     const newEvent = this.eventHasTagService.create(event);

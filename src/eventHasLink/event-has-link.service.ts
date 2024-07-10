@@ -11,7 +11,7 @@ import { AddEventHasLinkDto } from "./dto/add-event-has-link.dto";
 
 @Injectable()
 export class EventHasLinkService {
-  constructor(@InjectRepository(Event) private eventHasLinkService: Repository<EventHasLink>) {}
+  constructor(@InjectRepository(EventHasLink) private eventHasLinkService: Repository<EventHasLink>) {}
 
   async create(event: AddEventHasLinkDto) {
     const newEvent = this.eventHasLinkService.create(event);

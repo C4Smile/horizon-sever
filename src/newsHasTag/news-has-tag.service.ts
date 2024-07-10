@@ -11,7 +11,7 @@ import { AddNewsHasTagDto } from "./dto/add-news-has-tag.dto";
 
 @Injectable()
 export class NewsHasTagService {
-  constructor(@InjectRepository(News) private newsHasTagService: Repository<NewsHasTag>) {}
+  constructor(@InjectRepository(NewsHasTag) private newsHasTagService: Repository<NewsHasTag>) {}
 
   async create(news: AddNewsHasTagDto) {
     const newNews = this.newsHasTagService.create(news);
