@@ -40,7 +40,7 @@ export class Photo extends Model {
   /**
    * @returns Roms
    */
-  get Roms() {
+  get Rooms() {
     return this.rooms;
   }
 }

@@ -2,6 +2,7 @@ import { Column, Entity, ManyToMany } from "typeorm";
 
 // entities
 import { Model } from "src/models/model";
+import { Room } from "src/room/room.entity";
 
 @Entity({ name: "image360" })
 export class Photo360 extends Model {
@@ -17,7 +18,7 @@ export class Photo360 extends Model {
   /**
    * @returns Roms
    */
-  get Roms() {
+  get Rooms() {
     return this.rooms;
   }
 }
