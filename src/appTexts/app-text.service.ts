@@ -16,7 +16,7 @@ export class AppTextService {
 
   async create(appText: AddAppTextDto) {
     const appTextFound = await this.appTextService.findOne({
-      where: { name: appText.name },
+      where: { title: appText.title },
     });
 
     if (appTextFound) throw new HttpException("AppText already exists", HttpStatus.CONFLICT);
@@ -66,7 +66,7 @@ export class AppTextService {
 
     const conflict = await this.appTextService.findOne({
       where: {
-        name: data.name,
+        title: data.title,
       },
     });
 
