@@ -18,4 +18,11 @@ export class ExternalLink extends Model {
 
   @ManyToMany(() => Event, (event) => event.eventHasLink)
   events: Event[];
+
+  /**
+   * @returns Events
+   */
+  get Events() {
+    return this.events;
+  }
 }
