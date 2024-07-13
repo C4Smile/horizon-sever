@@ -8,7 +8,7 @@ import { Photo } from "src/image/image.entity";
  * @class Activity
  * @description Represents a country
  */
-@Entity({ name: "activities" })
+@Entity({ name: "activity" })
 export class Activity extends Model {
   @Column({ type: "text", unique: true })
   title: string = "";
