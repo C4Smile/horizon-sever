@@ -1,5 +1,4 @@
 export interface BlobDto {
-  blob: string;
+  url: string;
   fileName: string;
-  ext: string;
 }
