@@ -17,28 +17,15 @@ export class UserService {
   constructor(@InjectRepository(User) private userService: Repository<User>) {}
 
   async create(user: AddUserDto) {
-    const userFound = await this.userService.findOne({
-      where: { username: user.username },
-    });
-
-    if (userFound) throw new HttpException("User already exists", HttpStatus.CONFLICT);
-
     const phoneFound = await this.userService.findOne({ where: { phone: user.phone } });
     if (phoneFound) throw new HttpException("Phone is being used", HttpStatus.CONFLICT);
 
     const emailFound = await this.userService.findOne({ where: { email: user.email } });
     if (emailFound) throw new HttpException("Email is being used", HttpStatus.CONFLICT);
 
-    const identificationFound = await this.userService.findOne({
-      where: { identification: user.identification },
-    });
+    const hashedPassword = await hash(user.encrypted_password, 10);
 
-    if (identificationFound)
-      throw new HttpException("Identification is being used", HttpStatus.CONFLICT);
-
-    const hashedPassword = await hash(user.password, 10);
-
-    const newUser = this.userService.create({ ...user, password: hashedPassword });
+    const newUser = this.userService.create({ ...user, encrypted_password: hashedPassword });
     const resultUser = await this.userService.save(newUser);
     return resultUser as UserDto;
   }
@@ -81,13 +68,7 @@ export class UserService {
     const emailFound = await this.userService.findOne({ where: { email: data.email } });
     if (emailFound) throw new HttpException("Email is being used", HttpStatus.CONFLICT);
 
-    const identificationFound = await this.userService.findOne({
-      where: { identification: data.identification },
-    });
-    if (identificationFound)
-      throw new HttpException("Identification is being used", HttpStatus.CONFLICT);
-
-    if (data.password) data.password = await hash(data.password, 10);
+    if (data.encrypted_password) data.encrypted_password = await hash(data.encrypted_password, 10);
 
     const updatedUser = Object.assign(userFound, data);
 
