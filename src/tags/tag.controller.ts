@@ -24,35 +24,35 @@ import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
 
 @Controller("tag")
 export class TagController {
-  constructor(private newsTagService: TagService) {}
+  constructor(private tagService: TagService) {}
 
   @Get()
   get(@Query() query): Promise<TagDto[]> {
     const { order = "lastUpdate", page = 0, count = 20 } = query;
-    return this.newsTagService.get({ order, page, count });
+    return this.tagService.get({ order, page, count });
   }
 
   @UseGuards(JwtAuthGuard)
   @Get(":id")
   getById(@Param("id", ParseIntPipe) id: number) {
-    return this.newsTagService.getById(id);
+    return this.tagService.getById(id);
   }
 
   @UseGuards(JwtAuthGuard)
   @Post()
   create(@Body() newTag: AddTagDto) {
-    return this.newsTagService.create(newTag);
+    return this.tagService.create(newTag);
   }
 
   @UseGuards(JwtAuthGuard)
   @Delete(":id")
   remove(@Param("id", ParseIntPipe) id: number) {
-    return this.newsTagService.remove(id);
+    return this.tagService.remove(id);
   }
 
   @UseGuards(JwtAuthGuard)
   @Patch(":id")
   update(@Param("id", ParseIntPipe) id: number, @Body() data: UpdateTagDto) {
-    return this.newsTagService.update(id, data);
+    return this.tagService.update(id, data);
   }
 }
