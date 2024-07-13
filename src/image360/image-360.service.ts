@@ -8,13 +8,13 @@ import { join } from "path";
 import { Photo360 } from "./image-360.entity";
 
 // dto
-import { BlobDto } from "src/image/dto/blob..dto";
+import { AddBlobDto } from "src/image/dto/add-blob.dto";
 
 @Injectable()
 export class ImageService {
   constructor(@InjectRepository(Photo360) private imageService: Repository<Photo360>) {}
 
-  async create(image: BlobDto) {
+  async create(image: AddBlobDto) {
     const { blob, fileName, ext } = image;
     let url = "";
 
