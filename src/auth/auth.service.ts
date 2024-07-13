@@ -27,16 +27,16 @@ export class AuthService {
   async login(loginUserDto: LoginUserDto) {
     const userFound = await this.userService.findOne({
       where: {
-        username: loginUserDto.username,
+        email: loginUserDto.username,
       },
     });
 
     if (!userFound) throw new HttpException("User not found", HttpStatus.NOT_FOUND);
 
-    const isPasswordMatched = await compare(loginUserDto.password, userFound.password);
+    const isPasswordMatched = await compare(loginUserDto.password, userFound.encrypted_password);
 
     if (!isPasswordMatched)
-      throw new HttpException("Wrong username or password", HttpStatus.UNAUTHORIZED);
+      throw new HttpException("Wrong username or encrypted_password", HttpStatus.UNAUTHORIZED);
 
     const loggedUser = {
       id: userFound.id,
@@ -49,12 +49,6 @@ export class AuthService {
   }
 
   async register(user: AddUserDto) {
-    const userFound = await this.userService.findOne({
-      where: { username: user.username },
-    });
-
-    if (userFound) throw new HttpException("User already exists", HttpStatus.CONFLICT);
-
     const phoneFound = await this.userService.findOne({ where: { phone: user.phone } });
 
     if (phoneFound) throw new HttpException("Phone is being used", HttpStatus.CONFLICT);
@@ -63,16 +57,9 @@ export class AuthService {
 
     if (emailFound) throw new HttpException("Email is being used", HttpStatus.CONFLICT);
 
-    const identificationFound = await this.userService.findOne({
-      where: { identification: user.identification },
-    });
+    const hashedPassword = await hash(user.encrypted_password, 10);
 
-    if (identificationFound)
-      throw new HttpException("Identification is being used", HttpStatus.CONFLICT);
-
-    const hashedPassword = await hash(user.password, 10);
-
-    const newUser = this.userService.create({ ...user, password: hashedPassword });
+    const newUser = this.userService.create({ ...user, encrypted_password: hashedPassword });
     const resultUser = await this.userService.save(newUser);
     return resultUser as UserDto;
   }
