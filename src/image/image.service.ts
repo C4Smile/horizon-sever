@@ -2,19 +2,19 @@ import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { writeFileSync } from "fs";
+import { join } from "path";
 
 // entities
 import { Photo } from "./image.entity";
 
 // dto
-import { BlobDto } from "./dto/blob..dto";
-import { join } from "path";
+import { AddBlobDto } from "./dto/add-blob.dto";
 
 @Injectable()
 export class ImageService {
   constructor(@InjectRepository(Photo) private imageService: Repository<Photo>) {}
 
-  async create(image: BlobDto) {
+  async create(image: AddBlobDto) {
     const { blob, fileName, ext } = image;
     let url = "";
 
