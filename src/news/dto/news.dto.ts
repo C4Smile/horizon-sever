@@ -1,5 +1,5 @@
 // dto
-import { BlobDto } from "src/image/dto/blob..dto";
+import { BlobDto } from "src/image/dto/blob.dto";
 import { ModelDto } from "src/models/model.dto";
 import { TagDto } from "src/tags/dto/tag.dto";
 
