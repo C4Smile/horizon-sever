@@ -3,6 +3,7 @@ import { Column, Entity, OneToMany } from "typeorm";
 // entities
 import { Model } from "src/models/model";
 import { Photo } from "src/image/image.entity";
+import { ServiceHasSchedule } from "src/serviceHasSchedule/service-has-schedule.entity";
 
 /**
  * @class Service
@@ -27,4 +28,7 @@ export class Service extends Model {
 
   @OneToMany(() => Photo, (photo) => photo.Activities)
   image: Photo;
+
+  @OneToMany(() => ServiceHasSchedule, (schedule) => schedule.Service, { cascade: true })
+  serviceHasSchedule: ServiceHasSchedule[];
 }
