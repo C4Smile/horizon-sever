@@ -11,7 +11,7 @@ import { RoomType } from "src/roomType/room-type.entity";
  * @class Room
  * @description Represents a room
  */
-@Entity({ name: "rooms" })
+@Entity({ name: "room" })
 export class Room extends Model {
   @Column({ type: "text", unique: true })
   number: string = "";
