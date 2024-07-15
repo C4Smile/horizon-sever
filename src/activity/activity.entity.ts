@@ -6,7 +6,7 @@ import { Photo } from "src/image/image.entity";
 
 /**
  * @class Activity
- * @description Represents a country
+ * @description Represents a activity
  */
 @Entity({ name: "activity" })
 export class Activity extends Model {

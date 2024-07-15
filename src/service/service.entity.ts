@@ -7,7 +7,7 @@ import { ServiceHasSchedule } from "src/serviceHasSchedule/service-has-schedule.
 
 /**
  * @class Service
- * @description Represents a country
+ * @description Represents a service
  */
 @Entity({ name: "services" })
 export class Service extends Model {

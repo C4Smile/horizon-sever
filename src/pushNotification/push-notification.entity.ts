@@ -6,7 +6,7 @@ import { Photo } from "src/image/image.entity";
 
 /**
  * @class PushNotification
- * @description Represents a country
+ * @description Represents a push notification
  */
 @Entity({ name: "pushNotification" })
 export class PushNotification extends Model {

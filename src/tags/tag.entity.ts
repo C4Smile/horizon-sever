@@ -7,7 +7,7 @@ import { Event } from "src/event/event.entity";
 
 /**
  * @class Tag
- * @description Represents a country
+ * @description Represents a tag
  */
 @Entity({ name: "tags" })
 export class Tag extends Model {

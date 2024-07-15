@@ -6,7 +6,7 @@ import { Event } from "src/event/event.entity";
 
 /**
  * @class Tag
- * @description Represents a country
+ * @description Represents an external link
  */
 @Entity({ name: "externalLink" })
 export class ExternalLink extends Model {

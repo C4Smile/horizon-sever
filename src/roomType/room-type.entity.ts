@@ -6,7 +6,7 @@ import { Room } from "src/room/room.entity";
 
 /**
  * @class RoomType
- * @description Represents a country
+ * @description Represents a room type
  */
 @Entity({ name: "roomType" })
 export class RoomType extends Model {

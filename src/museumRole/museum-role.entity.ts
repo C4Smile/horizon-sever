@@ -6,7 +6,7 @@ import { MuseumUser } from "src/museumUser/museum-user.entity";
 
 /**
  * @class MuseumRole
- * @description Represents a country
+ * @description Represents a role
  */
 @Entity({ name: "museumRole" })
 export class MuseumRole extends Model {
