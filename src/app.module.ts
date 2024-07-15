@@ -47,7 +47,7 @@ import { ServiceHasScheduleModule } from "./serviceHasSchedule/service-has-sched
       port: 3306,
       database: "museo",
       entities: [__dirname + "/**/*.entity{.ts,.js}"],
-      synchronize: true,
+      synchronize: false,
     }),
     ActivityModule,
     AuthModule,
