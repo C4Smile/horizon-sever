@@ -19,7 +19,7 @@ export class PushNotification extends Model {
   @Column({ type: "text" })
   action: string = "";
 
-  @Column({ type: "int8" })
+  @Column({ type: "int" })
   imageId: number = 0;
 
   @Column({

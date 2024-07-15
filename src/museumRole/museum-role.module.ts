@@ -9,9 +9,10 @@ import { MuseumRoleService } from "./museum-role.service";
 
 // entities
 import { MuseumRole } from "./museum-role.entity";
+import { MuseumUser } from "src/museumUser/museum-user.entity";
 
 @Module({
-  imports: [TypeOrmModule.forFeature([MuseumRole])],
+  imports: [TypeOrmModule.forFeature([MuseumRole, MuseumUser])],
   controllers: [MuseumRoleController],
   providers: [MuseumRoleService],
   exports: [MuseumRoleService],

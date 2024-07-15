@@ -19,7 +19,7 @@ export class Activity extends Model {
   @Column({ type: "text" })
   entity: string = "";
 
-  @Column({ type: "int8" })
+  @Column({ type: "int" })
   imageId: number = 0;
 
   @OneToMany(() => Photo, (photo) => photo.Activities)

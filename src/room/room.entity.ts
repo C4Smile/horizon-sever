@@ -28,10 +28,10 @@ export class Room extends Model {
   @Column({ type: "text" })
   content: string = "";
 
-  @Column({ type: "int8" })
+  @Column({ type: "int" })
   status: number;
 
-  @Column({ type: "int8" })
+  @Column({ type: "int" })
   type: number;
 
   @OneToMany(() => RoomStatus, (roomStatus) => roomStatus.Rooms, { cascade: true })

@@ -28,7 +28,7 @@ export class MuseumUser extends Model {
   @Column({ type: "text", unique: true })
   email: string = "";
 
-  @Column({ type: "number" })
+  @Column({ type: "int" })
   roleId: number;
 
   @ManyToOne(() => MuseumRole, (museumRole) => museumRole.museumUsers)

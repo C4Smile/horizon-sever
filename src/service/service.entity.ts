@@ -23,7 +23,7 @@ export class Service extends Model {
   @Column({ type: "text" })
   content: string = "";
 
-  @Column({ type: "int8" })
+  @Column({ type: "int" })
   imageId: number = 0;
 
   @OneToMany(() => Photo, (photo) => photo.Activities)

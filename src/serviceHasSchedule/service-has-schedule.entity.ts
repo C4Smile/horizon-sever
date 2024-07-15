@@ -10,7 +10,7 @@ import { Service } from "src/service/service.entity";
  */
 @Entity({ name: "serviceHasSchedule" })
 export class ServiceHasSchedule extends Model {
-  @Column({ type: "int8" })
+  @Column({ type: "int" })
   serviceId: number = 0;
 
   @Column({

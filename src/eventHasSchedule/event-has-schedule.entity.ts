@@ -10,7 +10,7 @@ import { Event } from "src/event/event.entity";
  */
 @Entity({ name: "eventHasSchedule" })
 export class EventHasSchedule extends Model {
-  @Column({ type: "int8" })
+  @Column({ type: "int" })
   eventId: number = 0;
 
   @Column({
