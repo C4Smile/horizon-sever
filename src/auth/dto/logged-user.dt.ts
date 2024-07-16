@@ -1,4 +1,6 @@
 export type LoggedUserDto = {
-  id: number;
+  user: {
+    id: number;
+  };
   token: string;
 };

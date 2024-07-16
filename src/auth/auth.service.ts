@@ -39,7 +39,9 @@ export class AuthService {
       throw new HttpException("Wrong username or encrypted_password", HttpStatus.UNAUTHORIZED);
 
     const loggedUser = {
-      id: userFound.id,
+      user: {
+        id: userFound.id,
+      },
       token: "",
     };
 
