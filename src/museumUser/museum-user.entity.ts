@@ -1,8 +1,9 @@
-import { Column, Entity, ManyToOne } from "typeorm";
+import { Column, Entity, ManyToOne, OneToOne } from "typeorm";
 
 // entities
 import { Model } from "src/models/model";
 import { MuseumRole } from "src/museumRole/museum-role.entity";
+import { User } from "src/user/user.entity";
 
 /**
  * @class MuseumUser
@@ -33,4 +34,10 @@ export class MuseumUser extends Model {
 
   @ManyToOne(() => MuseumRole, (museumRole) => museumRole.museumUsers, { cascade: true })
   role: MuseumRole;
+
+  @Column({ type: "int" })
+  userId: number;
+
+  @OneToOne(() => User, (user) => user.museumUser, { cascade: true })
+  user: User;
 }
