@@ -37,6 +37,18 @@ export class MuseumUserService {
     return list;
   }
 
+  async getByUserId(userId: number) {
+    const museumUserFound = await this.museumUserService.findOne({
+      where: {
+        userId,
+      },
+    });
+
+    if (!museumUserFound) throw new HttpException("MuseumUser not Found", HttpStatus.NOT_FOUND);
+
+    return museumUserFound;
+  }
+
   async getById(id: number) {
     const museumUserFound = await this.museumUserService.findOne({
       where: {
