@@ -32,6 +32,7 @@ export class MuseumUserController {
     return this.museumUserService.get({ order, page, count });
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get("byUserId/:userId")
   async login(@Param("userId", ParseIntPipe) userId: number) {
     return this.museumUserService.getByUserId(userId);
