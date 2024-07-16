@@ -15,7 +15,7 @@ export class AuthController {
   constructor(private authService: AuthService) {}
 
   @UseGuards(JwtAuthGuard)
-  @Post("validate")
+  @GET("validate")
   validate() {
     return this.authService.validate();
   }
