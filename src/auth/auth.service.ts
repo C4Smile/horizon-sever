@@ -21,7 +21,7 @@ export class AuthService {
   ) {}
 
   async validate() {
-    return;
+    return { message: "Validated" };
   }
 
   async login(loginUserDto: LoginUserDto) {
