@@ -28,8 +28,8 @@ export class ServiceController {
 
   @Get()
   get(@Query() query): Promise<ServiceDto[]> {
-    const { order = "lastUpdate", page = 0, count = 20 } = query;
-    return this.serviceService.get({ order, page, count });
+    const { sort = "lastUpdate", order = "DESC", page = 0, count = 20 } = query;
+    return this.serviceService.get({ sort, order, page, count });
   }
 
   @UseGuards(JwtAuthGuard)

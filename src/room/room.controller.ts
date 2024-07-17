@@ -26,8 +26,8 @@ export class RoomController {
 
   @Get()
   get(@Query() query): Promise<RoomDto[]> {
-    const { order = "lastUpdate", page = 0, count = 20 } = query;
-    return this.roomService.get({ order, page, count });
+    const { sort = "lastUpdate", order = "DESC", page = 0, count = 20 } = query;
+    return this.roomService.get({ sort, order, page, count });
   }
 
   @UseGuards(JwtAuthGuard)

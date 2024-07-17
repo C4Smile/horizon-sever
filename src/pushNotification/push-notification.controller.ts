@@ -28,8 +28,8 @@ export class PushNotificationController {
 
   @Get()
   get(@Query() query): Promise<PushNotificationDto[]> {
-    const { order = "lastUpdate", page = 0, count = 20 } = query;
-    return this.pushNotificationService.get({ order, page, count });
+    const { sort = "lastUpdate", order = "DESC", page = 0, count = 20 } = query;
+    return this.pushNotificationService.get({ sort, order, page, count });
   }
 
   @UseGuards(JwtAuthGuard)

@@ -25,12 +25,12 @@ export class AppTextService {
     return this.appTextService.save(newAppText);
   }
 
-  async get({ order, page, count }) {
+  async get({ sort, order, page, count }) {
     const list = await this.appTextService.find({
       skip: page * count,
       take: (page + 1) * count,
       order: {
-        [order]: "ASC",
+        [sort]: order,
       },
     });
 

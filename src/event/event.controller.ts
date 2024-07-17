@@ -29,8 +29,8 @@ export class EventController {
 
   @Get()
   get(@Query() query): Promise<EventDto[]> {
-    const { order = "lastUpdate", page = 0, count = 20 } = query;
-    return this.eventService.get({ order, page, count });
+    const { sort = "lastUpdate", order = "DESC", page = 0, count = 20 } = query;
+    return this.eventService.get({ sort, order, page, count });
   }
 
   @UseGuards(JwtAuthGuard)

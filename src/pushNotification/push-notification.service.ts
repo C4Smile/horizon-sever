@@ -28,7 +28,7 @@ export class PushNotificationService {
     return this.pushNotificationService.save(newPushNotification);
   }
 
-  async get({ order, page, count }) {
+  async get({ sort, order, page, count }) {
     const list = await this.pushNotificationService.find({
       skip: page * count,
       take: (page + 1) * count,

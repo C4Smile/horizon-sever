@@ -25,7 +25,7 @@ export class RoomTypeService {
     return this.roomTypeService.save(newRoomType);
   }
 
-  async get({ order, page, count }) {
+  async get({ sort, order, page, count }) {
     const list = await this.roomTypeService.find({
       skip: page * count,
       take: (page + 1) * count,

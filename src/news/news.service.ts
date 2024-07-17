@@ -29,7 +29,7 @@ export class NewsService {
     return this.newsService.save(newNews);
   }
 
-  async get({ order, page, count }) {
+  async get({ sort, order, page, count }) {
     const list = await this.newsService.find({
       skip: page * count,
       take: (page + 1) * count,

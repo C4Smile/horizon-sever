@@ -25,7 +25,7 @@ export class TagService {
     return this.tagService.save(newTag);
   }
 
-  async get({ order, page, count }) {
+  async get({ sort, order, page, count }) {
     const list = await this.tagService.find({
       skip: page * count,
       take: (page + 1) * count,

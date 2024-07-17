@@ -26,8 +26,8 @@ export class ExternalLinkController {
 
   @Get()
   get(@Query() query): Promise<ExternalLinkDto[]> {
-    const { order = "lastUpdate", page = 0, count = 20 } = query;
-    return this.newsExternalLinkService.get({ order, page, count });
+    const { sort = "lastUpdate", order = "DESC", page = 0, count = 20 } = query;
+    return this.newsExternalLinkService.get({ sort, order, page, count });
   }
 
   @UseGuards(JwtAuthGuard)

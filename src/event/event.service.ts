@@ -25,7 +25,7 @@ export class EventService {
     return this.eventService.save(newEvent);
   }
 
-  async get({ order, page, count }) {
+  async get({ sort, order, page, count }) {
     const list = await this.eventService.find({
       skip: page * count,
       take: (page + 1) * count,

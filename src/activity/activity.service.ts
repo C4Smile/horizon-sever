@@ -25,7 +25,7 @@ export class ActivityService {
     return this.activityService.save(newActivity);
   }
 
-  async get({ order, page, count }) {
+  async get({ sort, order, page, count }) {
     const list = await this.activityService.find({
       skip: page * count,
       take: (page + 1) * count,

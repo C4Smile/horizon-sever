@@ -28,8 +28,8 @@ export class RoomTypeController {
 
   @Get()
   get(@Query() query): Promise<RoomTypeDto[]> {
-    const { order = "lastUpdate", page = 0, count = 20 } = query;
-    return this.newsRoomTypeService.get({ order, page, count });
+    const { sort = "lastUpdate", order = "DESC", page = 0, count = 20 } = query;
+    return this.newsRoomTypeService.get({ sort, order, page, count });
   }
 
   @UseGuards(JwtAuthGuard)

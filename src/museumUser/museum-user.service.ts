@@ -25,7 +25,7 @@ export class MuseumUserService {
     return this.museumUserService.save(newMuseumUser);
   }
 
-  async get({ order, page, count }) {
+  async get({ sort, order, page, count }) {
     const list = await this.museumUserService.find({
       skip: page * count,
       take: (page + 1) * count,

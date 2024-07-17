@@ -28,8 +28,8 @@ export class ActivityController {
 
   @Get()
   get(@Query() query): Promise<ActivityDto[]> {
-    const { order = "lastUpdate", page = 0, count = 20 } = query;
-    return this.activityService.get({ order, page, count });
+    const { sort = "lastUpdate", order = "DESC", page = 0, count = 20 } = query;
+    return this.activityService.get({ sort, order, page, count });
   }
 
   @UseGuards(JwtAuthGuard)

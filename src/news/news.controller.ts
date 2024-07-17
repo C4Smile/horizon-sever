@@ -28,8 +28,8 @@ export class NewsController {
 
   @Get()
   get(@Query() query): Promise<NewsDto[]> {
-    const { order = "lastUpdate", page = 0, count = 20 } = query;
-    return this.newsService.get({ order, page, count });
+    const { sort = "lastUpdate", order = "DESC", page = 0, count = 20 } = query;
+    return this.newsService.get({ sort, order, page, count });
   }
 
   @Get("small-news")

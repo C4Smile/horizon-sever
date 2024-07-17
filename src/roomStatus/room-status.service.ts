@@ -25,7 +25,7 @@ export class RoomStatusService {
     return this.roomStatusService.save(newRoomStatus);
   }
 
-  async get({ order, page, count }) {
+  async get({ sort, order, page, count }) {
     const list = await this.roomStatusService.find({
       skip: page * count,
       take: (page + 1) * count,

@@ -28,8 +28,8 @@ export class TagController {
 
   @Get()
   get(@Query() query): Promise<TagDto[]> {
-    const { order = "lastUpdate", page = 0, count = 20 } = query;
-    return this.tagService.get({ order, page, count });
+    const { sort = "lastUpdate", order = "DESC", page = 0, count = 20 } = query;
+    return this.tagService.get({ sort, order, page, count });
   }
 
   @UseGuards(JwtAuthGuard)
