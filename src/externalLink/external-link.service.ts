@@ -29,7 +29,7 @@ export class ExternalLinkService {
       skip: page * count,
       take: (page + 1) * count,
       order: {
-        [order]: "ASC",
+        [sort]: order,
       },
     });
 

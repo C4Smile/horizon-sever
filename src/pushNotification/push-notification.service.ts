@@ -33,7 +33,7 @@ export class PushNotificationService {
       skip: page * count,
       take: (page + 1) * count,
       order: {
-        [order]: "ASC",
+        [sort]: order,
       },
     });
 

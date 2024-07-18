@@ -35,7 +35,7 @@ export class NewsService {
       take: (page + 1) * count,
       relations: ["province", "tags", "photo"],
       order: {
-        [order]: "ASC",
+        [sort]: order,
       },
     });
 

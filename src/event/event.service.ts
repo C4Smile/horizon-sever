@@ -31,7 +31,7 @@ export class EventService {
       take: (page + 1) * count,
       relations: ["province", "tags"],
       order: {
-        [order]: "ASC",
+        [sort]: order,
       },
     });
 
