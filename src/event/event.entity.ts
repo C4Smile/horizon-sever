@@ -36,9 +36,12 @@ export class Event extends Model {
 
   //#region Relationships
 
+  @OneToMany(() => EventHasSchedule, (schedule) => schedule.Event, { cascade: true })
+  eventHasSchedule: EventHasSchedule[];
+
   @ManyToMany(() => Tag, (tag) => tag.Events, { cascade: true })
   @JoinTable({
-    name: "event-tags",
+    name: "eventHasTag",
     joinColumn: {
       name: "eventId",
       referencedColumnName: "id",
@@ -54,7 +57,7 @@ export class Event extends Model {
 
   @ManyToMany(() => Photo, (image) => image.Events)
   @JoinTable({
-    name: "event-image",
+    name: "eventHasImage",
     joinColumn: {
       name: "eventId",
       referencedColumnName: "id",
@@ -68,12 +71,9 @@ export class Event extends Model {
   })
   eventHasImage: Photo[];
 
-  @OneToMany(() => EventHasSchedule, (schedule) => schedule.Event, { cascade: true })
-  eventHasSchedule: EventHasSchedule[];
-
   @ManyToMany(() => ExternalLink, (link) => link.Events, { cascade: true })
   @JoinTable({
-    name: "event-link",
+    name: "eventHasLink",
     joinColumn: {
       name: "eventId",
       referencedColumnName: "id",
