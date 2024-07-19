@@ -14,16 +14,10 @@ import { AuthModule } from "./auth/auth.module";
 import { EventModule } from "./event/event.module";
 import { TagModule } from "./tags/tag.module";
 import { NewsModule } from "./news/news.module";
-import { EventHasImageModule } from "./eventHasImage/event-has-image.module";
 import { ExternalLinkModule } from "./externalLink/external-link.module";
 import { EventHasLinkModule } from "./eventHasLink/event-has-link.module";
 import { EventHasScheduleModule } from "./eventHasSchedule/event-has-schedule.module";
-import { EventHasTagModule } from "./eventHasTag/event-has-tag.module";
 import { AppTextModule } from "./appTexts/app-text.module";
-import { NewsHasTagModule } from "./newsHasTag/news-has-tag.module";
-import { NewsHasImageModule } from "./newsHasImage/news-has-image.module";
-import { RoomHasImage360Module } from "./roomHasImage360/room-has-image360.module";
-import { RoomHasImageModule } from "./roomHasImage/room-has-image.module";
 import { RoomHasScheduleModule } from "./roomHasSchedule/room-has-schedule.module";
 import { RoomStatusModule } from "./roomStatus/room-status.module";
 import { RoomTypeModule } from "./roomType/room-type.module";
@@ -48,26 +42,20 @@ import { ServiceHasScheduleModule } from "./serviceHasSchedule/service-has-sched
       port: 3306,
       database: "museo",
       entities: [__dirname + "/**/*.entity{.ts,.js}"],
-      synchronize: false,
+      synchronize: true,
     }),
     ActivityModule,
     AuthModule,
     AppTextModule,
     EventModule,
-    EventHasImageModule,
     EventHasLinkModule,
     EventHasScheduleModule,
-    EventHasTagModule,
     ExternalLinkModule,
     MuseumRoleModule,
     MuseumUserModule,
     NewsModule,
-    NewsHasImageModule,
-    NewsHasTagModule,
     PushNotificationModule,
     RoomModule,
-    RoomHasImageModule,
-    RoomHasImage360Module,
     RoomHasScheduleModule,
     RoomStatusModule,
     RoomTypeModule,
