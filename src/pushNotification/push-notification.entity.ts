@@ -1,4 +1,4 @@
-import { Column, Entity, OneToMany } from "typeorm";
+import { Column, Entity, OneToOne } from "typeorm";
 
 // entities
 import { Model } from "src/models/model";
@@ -8,7 +8,7 @@ import { Photo } from "src/image/image.entity";
  * @class PushNotification
  * @description Represents a push notification
  */
-@Entity({ name: "pushNotification" })
+@Entity({ name: "push-notification" })
 export class PushNotification extends Model {
   @Column({ type: "text", unique: true })
   title: string = "";
@@ -30,6 +30,6 @@ export class PushNotification extends Model {
   })
   sentDate: Date = null;
 
-  @OneToMany(() => Photo, (photo) => photo.Activities)
+  @OneToOne(() => Photo, (photo) => photo.pushNotification)
   image: Photo;
 }

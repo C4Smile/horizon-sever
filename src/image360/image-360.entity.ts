@@ -4,7 +4,7 @@ import { Column, Entity, ManyToMany } from "typeorm";
 import { Model } from "src/models/model";
 import { Room } from "src/room/room.entity";
 
-@Entity({ name: "image360" })
+@Entity({ name: "images360" })
 export class Photo360 extends Model {
   @Column({ type: "text", unique: true })
   fileName: string;

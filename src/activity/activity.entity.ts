@@ -1,4 +1,4 @@
-import { Column, Entity, OneToMany } from "typeorm";
+import { Column, Entity, OneToOne } from "typeorm";
 
 // entities
 import { Model } from "src/models/model";
@@ -22,6 +22,6 @@ export class Activity extends Model {
   @Column({ type: "int" })
   imageId: number = 0;
 
-  @OneToMany(() => Photo, (photo) => photo.Activities)
+  @OneToOne(() => Photo, (photo) => photo.activity)
   image: Photo;
 }

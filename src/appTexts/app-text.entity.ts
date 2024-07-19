@@ -7,7 +7,7 @@ import { Model } from "src/models/model";
  * @class AppText
  * @description Represents an app text
  */
-@Entity({ name: "appTexts" })
+@Entity({ name: "app-texts" })
 export class AppText extends Model {
   @Column({ type: "text", unique: true })
   title: string = "";

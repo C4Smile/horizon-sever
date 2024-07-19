@@ -8,7 +8,7 @@ import { MuseumUser } from "src/museumUser/museum-user.entity";
  * @class MuseumRole
  * @description Represents a role
  */
-@Entity({ name: "museumRole" })
+@Entity({ name: "museum-role" })
 export class MuseumRole extends Model {
   @Column({ type: "text", unique: true })
   name: string = "";

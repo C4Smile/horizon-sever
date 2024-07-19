@@ -7,6 +7,6 @@ export interface UpdateRoomDto extends UpdateModelDto {
   urlName?: string;
   description?: string;
   content?: string;
-  type?: number;
-  status?: number;
+  typeId?: number;
+  statusId?: number;
 }

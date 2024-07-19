@@ -8,7 +8,7 @@ import { Service } from "src/service/service.entity";
  * @class ServiceHasSchedule
  * @description Represents the relationship between services and external link
  */
-@Entity({ name: "serviceHasSchedule" })
+@Entity({ name: "service-has-schedule" })
 export class ServiceHasSchedule extends Model {
   @Column({ type: "int" })
   serviceId: number = 0;

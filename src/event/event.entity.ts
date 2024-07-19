@@ -4,8 +4,8 @@ import { Column, Entity, JoinTable, ManyToMany, OneToMany } from "typeorm";
 import { Model } from "src/models/model";
 import { Tag } from "src/tags/tag.entity";
 import { Photo } from "src/image/image.entity";
-import { ExternalLink } from "src/externalLink/external-link.entity";
 import { EventHasSchedule } from "src/eventHasSchedule/event-has-schedule.entity";
+import { EventHasLink } from "src/eventHasLink/event-has-link.entity";
 
 /**
  * @class Event
@@ -39,9 +39,12 @@ export class Event extends Model {
   @OneToMany(() => EventHasSchedule, (schedule) => schedule.Event, { cascade: true })
   eventHasSchedule: EventHasSchedule[];
 
+  @OneToMany(() => EventHasLink, (link) => link.Event, { cascade: true })
+  eventHasLink: EventHasLink[];
+
   @ManyToMany(() => Tag, (tag) => tag.Events, { cascade: true })
   @JoinTable({
-    name: "eventHasTag",
+    name: "event-has-tag",
     joinColumn: {
       name: "eventId",
       referencedColumnName: "id",
@@ -57,7 +60,7 @@ export class Event extends Model {
 
   @ManyToMany(() => Photo, (image) => image.Events)
   @JoinTable({
-    name: "eventHasImage",
+    name: "event-has-image",
     joinColumn: {
       name: "eventId",
       referencedColumnName: "id",
@@ -70,22 +73,6 @@ export class Event extends Model {
     },
   })
   eventHasImage: Photo[];
-
-  @ManyToMany(() => ExternalLink, (link) => link.Events, { cascade: true })
-  @JoinTable({
-    name: "eventHasLink",
-    joinColumn: {
-      name: "eventId",
-      referencedColumnName: "id",
-      foreignKeyConstraintName: "eventLinkEventId",
-    },
-    inverseJoinColumn: {
-      name: "linkId",
-      referencedColumnName: "id",
-      foreignKeyConstraintName: "eventLinksLinkId",
-    },
-  })
-  eventHasLink: ExternalLink[];
 
   //#endregion
 }

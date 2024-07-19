@@ -9,7 +9,7 @@ import { User } from "src/user/user.entity";
  * @class MuseumUser
  * @description Represents an user
  */
-@Entity({ name: "museumUser" })
+@Entity({ name: "museum-user" })
 export class MuseumUser extends Model {
   @Column({ type: "text" })
   name: string;

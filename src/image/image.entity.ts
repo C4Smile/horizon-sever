@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToMany, OneToMany } from "typeorm";
+import { Column, Entity, ManyToMany, OneToOne } from "typeorm";
 
 // entities
 import { Model } from "src/models/model";
@@ -6,6 +6,7 @@ import { Event } from "src/event/event.entity";
 import { News } from "src/news/news.entity";
 import { Room } from "src/room/room.entity";
 import { Activity } from "src/activity/activity.entity";
+import { Service } from "src/service/service.entity";
 
 @Entity({ name: "images" })
 export class Photo extends Model {
@@ -24,8 +25,14 @@ export class Photo extends Model {
   @ManyToMany(() => Room, (room) => room.roomHasImage, { cascade: true })
   rooms: Room[];
 
-  @OneToMany(() => Activity, (activity) => activity.image)
-  activities: Activity[];
+  @OneToOne(() => Activity, (activity) => activity.image)
+  activity: Activity;
+
+  @OneToOne(() => Activity, (service) => service.image)
+  service: Service;
+
+  @OneToOne(() => Activity, (pushNotification) => pushNotification.image)
+  pushNotification: Service;
 
   /**
    * @returns News
@@ -46,12 +53,5 @@ export class Photo extends Model {
    */
   get Rooms() {
     return this.rooms;
-  }
-
-  /**
-   * @return Activities
-   */
-  get Activities() {
-    return this.activities;
   }
 }

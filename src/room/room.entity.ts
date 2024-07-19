@@ -1,4 +1,4 @@
-import { Column, Entity, JoinTable, ManyToMany, OneToMany } from "typeorm";
+import { Column, Entity, JoinTable, ManyToMany, ManyToOne, OneToMany } from "typeorm";
 
 // entities
 import { Model } from "src/models/model";
@@ -30,25 +30,25 @@ export class Room extends Model {
   content: string = "";
 
   @Column({ type: "int" })
-  status: number;
+  statusId: number;
 
   @Column({ type: "int" })
-  type: number;
+  typeId: number;
 
   //#region Relationships
 
-  @OneToMany(() => RoomStatus, (roomStatus) => roomStatus.Rooms, { cascade: true })
-  roomStatus: RoomStatus;
+  @ManyToOne(() => RoomStatus, (roomStatus) => roomStatus.Rooms, { cascade: true })
+  status: RoomStatus;
 
-  @OneToMany(() => RoomType, (roomType) => roomType.Rooms, { cascade: true })
-  roomType: RoomType;
+  @ManyToOne(() => RoomType, (roomType) => roomType.Rooms, { cascade: true })
+  type: RoomType;
 
   @OneToMany(() => RoomHasSchedule, (schedule) => schedule.Room, { cascade: true })
   roomHasSchedule: RoomHasSchedule[];
 
   @ManyToMany(() => Photo, (image) => image.Rooms)
   @JoinTable({
-    name: "roomHasImage",
+    name: "room-has-image",
     joinColumn: {
       name: "roomId",
       referencedColumnName: "id",
@@ -64,7 +64,7 @@ export class Room extends Model {
 
   @ManyToMany(() => Photo360, (image360) => image360.Rooms)
   @JoinTable({
-    name: "roomHasImage360",
+    name: "room-has-image360",
     joinColumn: {
       name: "roomId",
       referencedColumnName: "id",

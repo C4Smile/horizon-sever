@@ -8,7 +8,7 @@ import { Room } from "src/room/room.entity";
  * @class RoomHasSchedule
  * @description Represents the relationship between rooms and external link
  */
-@Entity({ name: "roomHasSchedule" })
+@Entity({ name: "room-has-schedule" })
 export class RoomHasSchedule extends Model {
   @Column({ type: "int" })
   roomId: number = 0;

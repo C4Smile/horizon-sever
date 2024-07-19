@@ -28,7 +28,7 @@ export class News extends Model {
 
   @ManyToMany(() => Tag, (newsTag) => newsTag.News, { cascade: true })
   @JoinTable({
-    name: "news-tag",
+    name: "news-has-tag",
     joinColumn: {
       name: "newsId",
       referencedColumnName: "id",
@@ -44,7 +44,7 @@ export class News extends Model {
 
   @ManyToMany(() => Photo, (image) => image.News)
   @JoinTable({
-    name: "news-image",
+    name: "news-has-image",
     joinColumn: {
       name: "newsId",
       referencedColumnName: "id",

@@ -8,7 +8,7 @@ import { Event } from "src/event/event.entity";
  * @class EventHasSchedule
  * @description Represents the relationship between events and external link
  */
-@Entity({ name: "eventHasSchedule" })
+@Entity({ name: "event-has-schedule" })
 export class EventHasSchedule extends Model {
   @Column({ type: "int" })
   eventId: number = 0;
