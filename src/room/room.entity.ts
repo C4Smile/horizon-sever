@@ -6,6 +6,7 @@ import { Photo } from "src/image/image.entity";
 import { Photo360 } from "src/image360/image-360.entity";
 import { RoomStatus } from "src/roomStatus/room-status.entity";
 import { RoomType } from "src/roomType/room-type.entity";
+import { RoomHasSchedule } from "src/roomHasSchedule/room-has-schedule.entity";
 
 /**
  * @class Room
@@ -34,15 +35,20 @@ export class Room extends Model {
   @Column({ type: "int" })
   type: number;
 
+  //#region Relationships
+
   @OneToMany(() => RoomStatus, (roomStatus) => roomStatus.Rooms, { cascade: true })
   roomStatus: RoomStatus;
 
   @OneToMany(() => RoomType, (roomType) => roomType.Rooms, { cascade: true })
   roomType: RoomType;
 
+  @OneToMany(() => RoomHasSchedule, (schedule) => schedule.Room, { cascade: true })
+  roomHasSchedule: RoomHasSchedule[];
+
   @ManyToMany(() => Photo, (image) => image.Rooms)
   @JoinTable({
-    name: "room-image",
+    name: "roomHasImage",
     joinColumn: {
       name: "roomId",
       referencedColumnName: "id",
@@ -58,7 +64,7 @@ export class Room extends Model {
 
   @ManyToMany(() => Photo360, (image360) => image360.Rooms)
   @JoinTable({
-    name: "room-image",
+    name: "roomHasImage360",
     joinColumn: {
       name: "roomId",
       referencedColumnName: "id",
@@ -71,4 +77,6 @@ export class Room extends Model {
     },
   })
   roomHasImage360: Photo[];
+
+  //#endregion
 }
