@@ -33,7 +33,7 @@ export class NewsService {
     const list = await this.newsService.find({
       skip: page * count,
       take: (page + 1) * count,
-      relations: ["province", "tags", "photo"],
+      relations: ["newsHasTag", "newsHasImage"],
       order: {
         [sort]: order,
       },

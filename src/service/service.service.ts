@@ -29,6 +29,7 @@ export class ServiceService {
     const list = await this.serviceService.find({
       skip: page * count,
       take: (page + 1) * count,
+      relations: ["image"],
       order: {
         [sort]: order,
       },

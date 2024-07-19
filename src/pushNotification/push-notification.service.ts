@@ -32,6 +32,7 @@ export class PushNotificationService {
     const list = await this.pushNotificationService.find({
       skip: page * count,
       take: (page + 1) * count,
+      relations: ["image"],
       order: {
         [sort]: order,
       },

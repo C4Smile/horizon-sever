@@ -43,6 +43,7 @@ export class RoomService extends PageService {
     const list = await this.roomService.find({
       skip: page * count,
       take: (page + 1) * count,
+      relations: ["status", "type", "roomHasImage", "roomHasImage360"],
       order: {
         [sort]: order,
       },

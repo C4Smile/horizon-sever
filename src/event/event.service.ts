@@ -29,7 +29,7 @@ export class EventService {
     const list = await this.eventService.find({
       skip: page * count,
       take: (page + 1) * count,
-      relations: ["province", "tags"],
+      relations: ["eventHasLink", "eventHasTag", "eventHasImage"],
       order: {
         [sort]: order,
       },
