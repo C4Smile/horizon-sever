@@ -22,14 +22,15 @@ import { EventHasTagModule } from "./eventHasTag/event-has-tag.module";
 import { AppTextModule } from "./appTexts/app-text.module";
 import { NewsHasTagModule } from "./newsHasTag/news-has-tag.module";
 import { NewsHasImageModule } from "./newsHasImage/news-has-image.module";
+import { RoomHasImage360Module } from "./roomHasImage360/room-has-image360.module";
+import { RoomHasImageModule } from "./roomHasImage/room-has-image.module";
+import { RoomHasScheduleModule } from "./roomHasSchedule/room-has-schedule.module";
 import { RoomStatusModule } from "./roomStatus/room-status.module";
 import { RoomTypeModule } from "./roomType/room-type.module";
 import { ActivityModule } from "./activity/activity.module";
 import { MuseumRoleModule } from "./museumRole/museum-role.module";
 import { MuseumUserModule } from "./museumUser/museum-user.module";
 import { PushNotificationModule } from "./pushNotification/push-notification.module";
-import { RoomHasImage360Module } from "./roomHasImage360/room-has-image360.module";
-import { RoomHasImageModule } from "./roomHasImage/room-has-image.module";
 import { ServiceModule } from "./service/service.module";
 import { ServiceHasScheduleModule } from "./serviceHasSchedule/service-has-schedule.module";
 
@@ -67,6 +68,7 @@ import { ServiceHasScheduleModule } from "./serviceHasSchedule/service-has-sched
     RoomModule,
     RoomHasImageModule,
     RoomHasImage360Module,
+    RoomHasScheduleModule,
     RoomStatusModule,
     RoomTypeModule,
     TagModule,
