@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToMany, OneToOne } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToMany, OneToOne } from "typeorm";
 
 // entities
 import { Model } from "src/models/model";
@@ -27,12 +27,15 @@ export class Photo extends Model {
   rooms: Room[];
 
   @OneToOne(() => Activity, (activity) => activity.image)
+  @JoinColumn()
   activity: Activity;
 
   @OneToOne(() => Service, (service) => service.image)
+  @JoinColumn()
   service: Service;
 
   @OneToOne(() => Activity, (pushNotification) => pushNotification.image)
+  @JoinColumn()
   pushNotification: PushNotification;
 
   /**
