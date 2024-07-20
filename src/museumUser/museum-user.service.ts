@@ -22,7 +22,7 @@ export class MuseumUserService {
     if (museumUserFound) throw new HttpException("MuseumUser already exists", HttpStatus.CONFLICT);
 
     const newMuseumUser = this.museumUserService.create(museumUser);
-    return this.museumUserService.save(newMuseumUser);
+    return [this.museumUserService.save(newMuseumUser)];
   }
 
   async get({ sort, order, page, count }) {

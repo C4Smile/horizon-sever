@@ -27,7 +27,7 @@ export class UserService {
 
     const newUser = this.userService.create({ ...user, encrypted_password: hashedPassword });
     const resultUser = await this.userService.save(newUser);
-    return resultUser as UserDto;
+    return [resultUser as UserDto];
   }
 
   get() {

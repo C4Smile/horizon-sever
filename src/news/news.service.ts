@@ -24,9 +24,7 @@ export class NewsService {
 
     const newNews = this.newsService.create(news);
 
-    // newNews.tags = news.tagsId.map((id) => ({ ...new Tag(id), id }));
-
-    return this.newsService.save(newNews);
+    return [this.newsService.save(newNews)];
   }
 
   async get({ sort, order, page, count }) {

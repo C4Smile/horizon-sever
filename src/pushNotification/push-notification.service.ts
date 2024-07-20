@@ -25,7 +25,7 @@ export class PushNotificationService {
       throw new HttpException("PushNotification already exists", HttpStatus.CONFLICT);
 
     const newPushNotification = this.pushNotificationService.create(pushNotification);
-    return this.pushNotificationService.save(newPushNotification);
+    return [this.pushNotificationService.save(newPushNotification)];
   }
 
   async get({ sort, order, page, count }) {

@@ -22,7 +22,7 @@ export class TagService {
     if (tagFound) throw new HttpException("Tag already exists", HttpStatus.CONFLICT);
 
     const newTag = this.tagService.create(tag);
-    return this.tagService.save(newTag);
+    return [this.tagService.save(newTag)];
   }
 
   async get({ sort, order, page, count }) {

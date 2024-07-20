@@ -7,6 +7,7 @@ import { News } from "src/news/news.entity";
 import { Room } from "src/room/room.entity";
 import { Activity } from "src/activity/activity.entity";
 import { Service } from "src/service/service.entity";
+import { PushNotification } from "src/pushNotification/push-notification.entity";
 
 @Entity({ name: "images" })
 export class Photo extends Model {
@@ -28,11 +29,11 @@ export class Photo extends Model {
   @OneToOne(() => Activity, (activity) => activity.image)
   activity: Activity;
 
-  @OneToOne(() => Activity, (service) => service.image)
+  @OneToOne(() => Service, (service) => service.image)
   service: Service;
 
   @OneToOne(() => Activity, (pushNotification) => pushNotification.image)
-  pushNotification: Service;
+  pushNotification: PushNotification;
 
   /**
    * @returns News

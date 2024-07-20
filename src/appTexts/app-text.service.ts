@@ -22,7 +22,7 @@ export class AppTextService {
     if (appTextFound) throw new HttpException("AppText already exists", HttpStatus.CONFLICT);
 
     const newAppText = this.appTextService.create(appText);
-    return this.appTextService.save(newAppText);
+    return [this.appTextService.save(newAppText)];
   }
 
   async get({ sort, order, page, count }) {

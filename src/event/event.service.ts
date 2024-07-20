@@ -22,7 +22,7 @@ export class EventService {
     if (eventFound) throw new HttpException("Event already exists", HttpStatus.CONFLICT);
 
     const newEvent = this.eventService.create(event);
-    return this.eventService.save(newEvent);
+    return [this.eventService.save(newEvent)];
   }
 
   async get({ sort, order, page, count }) {

@@ -22,7 +22,7 @@ export class ActivityService {
     if (activityFound) throw new HttpException("Activity already exists", HttpStatus.CONFLICT);
 
     const newActivity = this.activityService.create(activity);
-    return this.activityService.save(newActivity);
+    return [this.activityService.save(newActivity)];
   }
 
   async get({ sort, order, page, count }) {

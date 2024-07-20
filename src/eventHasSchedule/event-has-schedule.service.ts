@@ -15,7 +15,7 @@ export class EventHasScheduleService {
 
   async create(event: AddEventHasScheduleDto) {
     const newEvent = this.eventHasScheduleService.create(event);
-    return this.eventHasScheduleService.save(newEvent);
+    return [this.eventHasScheduleService.save(newEvent)];
   }
 
   async remove(id: number) {

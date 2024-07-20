@@ -36,7 +36,7 @@ export class RoomService extends PageService {
     }
 
     const newRoom = this.roomService.create(room);
-    return this.roomService.save(newRoom);
+    return [this.roomService.save(newRoom)];
   }
 
   async get({ sort, order, page, count }) {

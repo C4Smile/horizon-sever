@@ -22,7 +22,7 @@ export class RoomTypeService {
     if (roomTypeFound) throw new HttpException("RoomType already exists", HttpStatus.CONFLICT);
 
     const newRoomType = this.roomTypeService.create(roomType);
-    return this.roomTypeService.save(newRoomType);
+    return [this.roomTypeService.save(newRoomType)];
   }
 
   async get({ sort, order, page, count }) {

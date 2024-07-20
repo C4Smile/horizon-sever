@@ -15,7 +15,7 @@ export class EventHasLinkService {
 
   async create(event: AddEventHasLinkDto) {
     const newEvent = this.eventHasLinkService.create(event);
-    return this.eventHasLinkService.save(newEvent);
+    return [this.eventHasLinkService.save(newEvent)];
   }
 
   async remove(linkId: number) {

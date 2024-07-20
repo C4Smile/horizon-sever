@@ -22,7 +22,7 @@ export class ServiceService {
     if (serviceFound) throw new HttpException("Service already exists", HttpStatus.CONFLICT);
 
     const newService = this.serviceService.create(service);
-    return this.serviceService.save(newService);
+    return [this.serviceService.save(newService)];
   }
 
   async get({ sort, order, page, count }) {
