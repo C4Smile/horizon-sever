@@ -32,8 +32,7 @@ export class AppTextController {
     return this.newsAppTextService.get({ sort, order, page, count });
   }
 
-  @UseGuards(JwtAuthGuard)
-  @Get(":id")
+   @Get(":id")
   getById(@Param("id", ParseIntPipe) id: number) {
     return this.newsAppTextService.getById(id);
   }

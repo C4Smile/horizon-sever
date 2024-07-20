@@ -32,8 +32,7 @@ export class RoomTypeController {
     return this.newsRoomTypeService.get({ sort, order, page, count });
   }
 
-  @UseGuards(JwtAuthGuard)
-  @Get(":id")
+   @Get(":id")
   getById(@Param("id", ParseIntPipe) id: number) {
     return this.newsRoomTypeService.getById(id);
   }

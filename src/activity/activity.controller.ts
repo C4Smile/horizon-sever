@@ -32,7 +32,6 @@ export class ActivityController {
     return this.activityService.get({ sort, order, page, count });
   }
 
-  @UseGuards(JwtAuthGuard)
   @Get(":id")
   getById(@Param("id", ParseIntPipe) id: number) {
     return this.activityService.getById(id);

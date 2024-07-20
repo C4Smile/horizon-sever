@@ -38,8 +38,7 @@ export class NewsController {
     return this.newsService.getSmallNews(Number(count));
   }
 
-  @UseGuards(JwtAuthGuard)
-  @Get(":id")
+   @Get(":id")
   getById(@Param("id", ParseIntPipe) id: number) {
     return this.newsService.getById(id);
   }

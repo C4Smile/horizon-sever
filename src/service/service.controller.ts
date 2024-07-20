@@ -32,8 +32,7 @@ export class ServiceController {
     return this.serviceService.get({ sort, order, page, count });
   }
 
-  @UseGuards(JwtAuthGuard)
-  @Get(":id")
+   @Get(":id")
   getById(@Param("id", ParseIntPipe) id: number) {
     return this.serviceService.getById(id);
   }

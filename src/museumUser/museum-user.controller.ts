@@ -38,8 +38,7 @@ export class MuseumUserController {
     return this.museumUserService.getByUserId(userId);
   }
 
-  @UseGuards(JwtAuthGuard)
-  @Get(":id")
+   @Get(":id")
   getById(@Param("id", ParseIntPipe) id: number) {
     return this.museumUserService.getById(id);
   }

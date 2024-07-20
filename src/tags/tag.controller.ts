@@ -32,8 +32,7 @@ export class TagController {
     return this.tagService.get({ sort, order, page, count });
   }
 
-  @UseGuards(JwtAuthGuard)
-  @Get(":id")
+   @Get(":id")
   getById(@Param("id", ParseIntPipe) id: number) {
     return this.tagService.getById(id);
   }

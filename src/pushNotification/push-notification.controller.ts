@@ -32,8 +32,7 @@ export class PushNotificationController {
     return this.pushNotificationService.get({ sort, order, page, count });
   }
 
-  @UseGuards(JwtAuthGuard)
-  @Get(":id")
+   @Get(":id")
   getById(@Param("id", ParseIntPipe) id: number) {
     return this.pushNotificationService.getById(id);
   }
