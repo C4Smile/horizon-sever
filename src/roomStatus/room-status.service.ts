@@ -46,7 +46,7 @@ export class RoomStatusService {
 
     if (!roomStatusFound) throw new HttpException("RoomStatus not Found", HttpStatus.NOT_FOUND);
 
-    return roomStatusFound;
+    return [roomStatusFound];
   }
 
   async remove(id: number) {

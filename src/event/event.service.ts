@@ -47,7 +47,7 @@ export class EventService {
 
     if (!eventFound) throw new HttpException("Event not Found", HttpStatus.NOT_FOUND);
 
-    return eventFound;
+    return [eventFound];
   }
 
   async remove(id: number) {

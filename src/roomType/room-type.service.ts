@@ -46,7 +46,7 @@ export class RoomTypeService {
 
     if (!roomTypeFound) throw new HttpException("RoomType not Found", HttpStatus.NOT_FOUND);
 
-    return roomTypeFound;
+    return [roomTypeFound];
   }
 
   async remove(id: number) {

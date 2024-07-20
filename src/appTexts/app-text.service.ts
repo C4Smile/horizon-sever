@@ -46,7 +46,7 @@ export class AppTextService {
 
     if (!appTextFound) throw new HttpException("AppText not Found", HttpStatus.NOT_FOUND);
 
-    return appTextFound;
+    return [appTextFound];
   }
 
   async remove(id: number) {

@@ -47,7 +47,7 @@ export class ServiceService {
 
     if (!serviceFound) throw new HttpException("Service not Found", HttpStatus.NOT_FOUND);
 
-    return serviceFound;
+    return [serviceFound];
   }
 
   async remove(id: number) {

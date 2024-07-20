@@ -49,7 +49,7 @@ export class NewsService {
 
     if (!newsFound) throw new HttpException("News not Found", HttpStatus.NOT_FOUND);
 
-    return newsFound;
+    return [newsFound];
   }
 
   async remove(id: number) {

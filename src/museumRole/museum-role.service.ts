@@ -46,7 +46,7 @@ export class MuseumRoleService {
 
     if (!museumRoleFound) throw new HttpException("MuseumRole not Found", HttpStatus.NOT_FOUND);
 
-    return museumRoleFound;
+    return [museumRoleFound];
   }
 
   async remove(id: number) {

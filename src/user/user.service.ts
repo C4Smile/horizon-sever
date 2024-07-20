@@ -43,7 +43,7 @@ export class UserService {
 
     if (!userFound) throw new HttpException("User not Found", HttpStatus.NOT_FOUND);
 
-    return userFound;
+    return [userFound];
   }
 
   async remove(id: number) {

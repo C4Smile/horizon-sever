@@ -61,7 +61,7 @@ export class RoomService extends PageService {
 
     if (!roomFound) throw new HttpException("Room not Found", HttpStatus.NOT_FOUND);
 
-    return roomFound;
+    return [roomFound];
   }
 
   async remove(id: number) {

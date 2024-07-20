@@ -58,7 +58,7 @@ export class MuseumUserService {
 
     if (!museumUserFound) throw new HttpException("MuseumUser not Found", HttpStatus.NOT_FOUND);
 
-    return museumUserFound;
+    return [museumUserFound];
   }
 
   async remove(id: number) {

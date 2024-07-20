@@ -46,7 +46,7 @@ export class TagService {
 
     if (!tagFound) throw new HttpException("Tag not Found", HttpStatus.NOT_FOUND);
 
-    return tagFound;
+    return [tagFound];
   }
 
   async remove(id: number) {

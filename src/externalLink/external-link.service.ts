@@ -45,7 +45,7 @@ export class ExternalLinkService {
 
     if (!externalLinkFound) throw new HttpException("ExternalLink not Found", HttpStatus.NOT_FOUND);
 
-    return externalLinkFound;
+    return [externalLinkFound];
   }
 
   async remove(id: number) {

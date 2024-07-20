@@ -51,7 +51,7 @@ export class PushNotificationService {
     if (!pushNotificationFound)
       throw new HttpException("PushNotification not Found", HttpStatus.NOT_FOUND);
 
-    return pushNotificationFound;
+    return [pushNotificationFound];
   }
 
   async remove(id: number) {

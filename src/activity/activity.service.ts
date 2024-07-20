@@ -46,7 +46,7 @@ export class ActivityService {
 
     if (!activityFound) throw new HttpException("Activity not Found", HttpStatus.NOT_FOUND);
 
-    return activityFound;
+    return [activityFound];
   }
 
   async remove(id: number) {
