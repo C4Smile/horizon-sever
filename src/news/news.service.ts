@@ -35,7 +35,6 @@ export class NewsService {
         [sort]: order,
       },
     });
-
     return list;
   }
 
