@@ -50,7 +50,7 @@ export class MuseumRoleService {
   }
 
   async remove(id: number) {
-    const result = await this.museumRoleService.delete({ id });
+    const result = await this.museumRoleService.update({ id }, { deleted: true });
     if (result.affected === 0) throw new HttpException("MuseumRole not Found", HttpStatus.NOT_FOUND);
     return result;
   }

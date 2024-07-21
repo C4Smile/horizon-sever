@@ -50,7 +50,7 @@ export class RoomStatusService {
   }
 
   async remove(id: number) {
-    const result = await this.roomStatusService.delete({ id });
+    const result = await this.roomStatusService.update({ id }, { deleted: true });
     if (result.affected === 0) throw new HttpException("RoomStatus not Found", HttpStatus.NOT_FOUND);
     return result;
   }

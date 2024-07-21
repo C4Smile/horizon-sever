@@ -9,7 +9,6 @@ import { News } from "./news.entity";
 // dto
 import { AddNewsDto } from "./dto/add-news.dto";
 import { UpdateNewsDto } from "./dto/update-news.dto";
-// import { Tag } from "src/tags/tag.entity";
 
 @Injectable()
 export class NewsService {
@@ -53,7 +52,7 @@ export class NewsService {
   }
 
   async remove(id: number) {
-    const result = await this.newsService.delete({ id });
+    const result = await this.newsService.update({ id }, { deleted: true });
     if (result.affected === 0) throw new HttpException("News not Found", HttpStatus.NOT_FOUND);
     return result;
   }

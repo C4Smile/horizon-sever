@@ -19,7 +19,7 @@ export class EventHasScheduleService {
   }
 
   async remove(id: number) {
-    const result = await this.eventHasScheduleService.delete({ id });
+    const result = await this.eventHasScheduleService.update({ id }, { deleted: true });
     if (result.affected === 0)
       throw new HttpException("Event has schedule not Found", HttpStatus.NOT_FOUND);
     return result;

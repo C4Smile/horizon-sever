@@ -55,7 +55,7 @@ export class PushNotificationService {
   }
 
   async remove(id: number) {
-    const result = await this.pushNotificationService.delete({ id });
+    const result = await this.pushNotificationService.update({ id }, { deleted: true });
     if (result.affected === 0)
       throw new HttpException("PushNotification not Found", HttpStatus.NOT_FOUND);
     return result;

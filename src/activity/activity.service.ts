@@ -50,7 +50,7 @@ export class ActivityService {
   }
 
   async remove(id: number) {
-    const result = await this.activityService.delete({ id });
+    const result = await this.activityService.update({ id }, { deleted: true });
     if (result.affected === 0) throw new HttpException("Activity not Found", HttpStatus.NOT_FOUND);
     return result;
   }

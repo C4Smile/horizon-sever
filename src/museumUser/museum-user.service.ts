@@ -62,7 +62,7 @@ export class MuseumUserService {
   }
 
   async remove(id: number) {
-    const result = await this.museumUserService.delete({ id });
+    const result = await this.museumUserService.update({ id }, { deleted: true });
     if (result.affected === 0) throw new HttpException("MuseumUser not Found", HttpStatus.NOT_FOUND);
     return result;
   }

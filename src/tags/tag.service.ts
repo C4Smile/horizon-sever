@@ -50,7 +50,7 @@ export class TagService {
   }
 
   async remove(id: number) {
-    const result = await this.tagService.delete({ id });
+    const result = await this.tagService.update({ id }, { deleted: true });
     if (result.affected === 0) throw new HttpException("Tag not Found", HttpStatus.NOT_FOUND);
     return result;
   }

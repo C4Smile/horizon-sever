@@ -38,7 +38,7 @@ export class NewsController {
     return this.newsService.getSmallNews(Number(count));
   }
 
-   @Get(":id")
+  @Get(":id")
   getById(@Param("id", ParseIntPipe) id: number) {
     return this.newsService.getById(id);
   }

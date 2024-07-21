@@ -22,7 +22,7 @@ export class ServiceHasScheduleService {
   }
 
   async remove(id: number) {
-    const result = await this.serviceHasScheduleService.delete({ id });
+    const result = await this.serviceHasScheduleService.update({ id }, { deleted: true });
     if (result.affected === 0)
       throw new HttpException("Service has schedule not Found", HttpStatus.NOT_FOUND);
     return result;

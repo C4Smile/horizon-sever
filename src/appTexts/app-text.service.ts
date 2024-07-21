@@ -50,7 +50,7 @@ export class AppTextService {
   }
 
   async remove(id: number) {
-    const result = await this.appTextService.delete({ id });
+    const result = await this.appTextService.update({ id }, { deleted: true });
     if (result.affected === 0) throw new HttpException("AppText not Found", HttpStatus.NOT_FOUND);
     return result;
   }

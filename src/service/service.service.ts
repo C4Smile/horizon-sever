@@ -51,7 +51,7 @@ export class ServiceService {
   }
 
   async remove(id: number) {
-    const result = await this.serviceService.delete({ id });
+    const result = await this.serviceService.update({ id }, { deleted: true });
     if (result.affected === 0) throw new HttpException("Service not Found", HttpStatus.NOT_FOUND);
     return result;
   }

@@ -21,7 +21,7 @@ export class RoomHasScheduleService {
   }
 
   async remove(id: number) {
-    const result = await this.roomHasScheduleService.delete({ id });
+    const result = await this.roomHasScheduleService.update({ id }, { deleted: true });
     if (result.affected === 0)
       throw new HttpException("Room has schedule not Found", HttpStatus.NOT_FOUND);
     return result;
