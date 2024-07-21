@@ -29,7 +29,7 @@ export class EventService {
     const list = await this.eventService.find({
       skip: page * count,
       take: (page + 1) * count,
-      relations: ["eventHasLink", "eventHasTag", "eventHasImage"],
+      relations: [/* "eventHasLink", */ "eventHasTag", "eventHasImage"],
       order: {
         [sort]: order,
       },
@@ -43,6 +43,7 @@ export class EventService {
       where: {
         id,
       },
+      relations: [/* "eventHasLink", */ "eventHasTag", "eventHasImage"],
     });
 
     if (!eventFound) throw new HttpException("Event not Found", HttpStatus.NOT_FOUND);

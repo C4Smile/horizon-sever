@@ -57,6 +57,7 @@ export class RoomService extends PageService {
       where: {
         id,
       },
+      relations: ["status", "type", "roomHasImage", "roomHasImage360"],
     });
 
     if (!roomFound) throw new HttpException("Room not Found", HttpStatus.NOT_FOUND);

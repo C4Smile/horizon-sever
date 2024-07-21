@@ -43,6 +43,7 @@ export class NewsService {
       where: {
         id,
       },
+      relations: ["newsHasTag", "newsHasImage"],
     });
 
     if (!newsFound) throw new HttpException("News not Found", HttpStatus.NOT_FOUND);

@@ -43,6 +43,7 @@ export class ServiceService {
       where: {
         id,
       },
+      relations: ["image"],
     });
 
     if (!serviceFound) throw new HttpException("Service not Found", HttpStatus.NOT_FOUND);

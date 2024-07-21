@@ -32,6 +32,7 @@ export class ActivityService {
       order: {
         [sort]: order,
       },
+      relations: ["image"],
     });
 
     return list;
@@ -42,6 +43,7 @@ export class ActivityService {
       where: {
         id,
       },
+      relations: ["image"],
     });
 
     if (!activityFound) throw new HttpException("Activity not Found", HttpStatus.NOT_FOUND);

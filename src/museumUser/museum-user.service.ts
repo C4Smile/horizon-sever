@@ -54,6 +54,7 @@ export class MuseumUserService {
       where: {
         id,
       },
+      relations: ["role"],
     });
 
     if (!museumUserFound) throw new HttpException("MuseumUser not Found", HttpStatus.NOT_FOUND);

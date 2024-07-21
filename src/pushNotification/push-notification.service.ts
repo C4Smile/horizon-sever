@@ -46,6 +46,7 @@ export class PushNotificationService {
       where: {
         id,
       },
+      relations: ["image"],
     });
 
     if (!pushNotificationFound)
