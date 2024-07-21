@@ -1,7 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
-import { writeFileSync } from "fs";
+import { rmSync, writeFileSync } from "fs";
 import { join } from "path";
 
 // entities
@@ -32,5 +32,22 @@ export class ImageService {
 
     const newNews = this.imageService.create({ url, fileName });
     return this.imageService.save(newNews);
+  }
+
+  async remove(id: number) {
+    const newsFound = await this.imageService.findOne({
+      where: { id },
+    });
+
+    if (!newsFound) throw new HttpException("Image not found", HttpStatus.NOT_FOUND);
+
+    try {
+      const path = join(__dirname, "..", `public${newsFound.url}`);
+      rmSync(path);
+    } catch (err) {
+      throw new HttpException("Error to delete image", HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    return this.imageService.delete({ id });
   }
 }
