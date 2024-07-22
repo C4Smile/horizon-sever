@@ -24,25 +24,25 @@ export class ImageService {
 
     url = `/assets/${fileName}`;
 
-    const newsFound = await this.imageService.findOne({
+    const imageFound = await this.imageService.findOne({
       where: { fileName, url },
     });
 
-    if (newsFound) throw new HttpException("Image already exists", HttpStatus.CONFLICT);
+    if (imageFound) throw new HttpException("Image already exists", HttpStatus.CONFLICT);
 
-    const newNews = this.imageService.create({ url, fileName });
-    return this.imageService.save(newNews);
+    const newImage = this.imageService.create({ url, fileName });
+    return [this.imageService.save(newImage)];
   }
 
   async remove(id: number) {
-    const newsFound = await this.imageService.findOne({
+    const imageFound = await this.imageService.findOne({
       where: { id },
     });
 
-    if (!newsFound) throw new HttpException("Image not found", HttpStatus.NOT_FOUND);
+    if (!imageFound) throw new HttpException("Image not found", HttpStatus.NOT_FOUND);
 
     try {
-      const path = join(__dirname, "..", `public${newsFound.url}`);
+      const path = join(__dirname, "..", `public${imageFound.url}`);
       rmSync(path);
     } catch (err) {
       throw new HttpException("Error to delete image", HttpStatus.INTERNAL_SERVER_ERROR);
