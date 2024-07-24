@@ -1,4 +1,5 @@
 import { Column, Entity, JoinTable, ManyToMany, ManyToOne, OneToMany } from "typeorm";
+import { AutoMap } from "@automapper/classes";
 
 // entities
 import { Model } from "src/models/model";
@@ -14,18 +15,23 @@ import { RoomHasSchedule } from "src/roomHasSchedule/room-has-schedule.entity";
  */
 @Entity({ name: "room" })
 export class Room extends Model {
+  @AutoMap()
   @Column({ type: "text", unique: true })
   number: string = "";
 
+  @AutoMap()
   @Column({ type: "text", unique: true })
   name: string = "";
 
+  @AutoMap()
   @Column({ type: "text", unique: true })
   urlName: string = "";
 
+  @AutoMap()
   @Column({ type: "text" })
   description: string = "";
 
+  @AutoMap()
   @Column({ type: "text" })
   content: string = "";
 
@@ -37,9 +43,11 @@ export class Room extends Model {
 
   //#region Relationships
 
+  @AutoMap()
   @ManyToOne(() => RoomStatus, (roomStatus) => roomStatus.Rooms, { cascade: true })
   status: RoomStatus;
 
+  @AutoMap()
   @ManyToOne(() => RoomType, (roomType) => roomType.Rooms, { cascade: true })
   type: RoomType;
 

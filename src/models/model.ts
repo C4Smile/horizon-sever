@@ -1,3 +1,4 @@
+import { AutoMap } from "@automapper/classes";
 import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
 
 /**
@@ -6,12 +7,15 @@ import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
  */
 @Entity()
 export class Model {
+  @AutoMap()
   @PrimaryGeneratedColumn("increment")
   id: number = 0;
 
+  @AutoMap()
   @Column({ nullable: true, type: "datetime", default: () => "CURRENT_TIMESTAMP" })
   dateOfCreation: Date = null;
 
+  @AutoMap()
   @Column({
     nullable: true,
     type: "datetime",
@@ -20,6 +24,7 @@ export class Model {
   })
   lastUpdate: Date = null;
 
+  @AutoMap()
   @Column({ nullable: true, default: () => false })
   deleted: boolean = false;
 

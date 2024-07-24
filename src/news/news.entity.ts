@@ -1,4 +1,5 @@
 import { Column, Entity, JoinTable, ManyToMany } from "typeorm";
+import { AutoMap } from "@automapper/classes";
 
 // entities
 import { Photo } from "src/image/image.entity";
@@ -11,18 +12,23 @@ import { Tag } from "src/tags/tag.entity";
  */
 @Entity({ name: "news" })
 export class News extends Model {
+  @AutoMap()
   @Column({ type: "text", unique: true })
   title: string = "";
 
+  @AutoMap()
   @Column({ type: "text", unique: true })
   urlName: string = "";
 
+  @AutoMap()
   @Column({ type: "text" })
   description: string = "";
 
+  @AutoMap()
   @Column({ type: "text" })
   content: string = "";
 
+  @AutoMap()
   @Column({ type: "text" })
   subtitle: string = "";
 
