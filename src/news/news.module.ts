@@ -1,5 +1,9 @@
 import { Module } from "@nestjs/common";
+import { classes } from "@automapper/classes";
 import { TypeOrmModule } from "@nestjs/typeorm";
+
+// automapper
+import { NewsAutomapper } from "./news.automapper";
 
 // controller
 import { NewsController } from "./news.controller";
@@ -15,11 +19,16 @@ import { NewsHasTag } from "./news-has-tag.entity";
 // modules
 import { TagModule } from "src/tags/tag.module";
 import { NewsHasTagController } from "./news-has-tags.controller";
+import { AutomapperModule } from "@automapper/nestjs";
 
 @Module({
-  imports: [TypeOrmModule.forFeature([News, NewsHasTag]), TagModule],
+  imports: [
+    TypeOrmModule.forFeature([News, NewsHasTag]),
+    TagModule,
+    AutomapperModule.forRoot({ strategyInitializer: classes() }),
+  ],
   controllers: [NewsController, NewsHasTagController],
-  providers: [NewsService, NewsHasTagService],
+  providers: [NewsService, NewsHasTagService, NewsAutomapper],
   exports: [NewsService, NewsHasTagService],
 })
 export class NewsModule {}
