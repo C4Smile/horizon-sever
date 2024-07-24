@@ -1,5 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
+import { InjectMapper } from "@automapper/nestjs";
+import { Mapper } from "@automapper/core";
 
 import { Repository } from "typeorm";
 
@@ -9,10 +11,14 @@ import { News } from "./news.entity";
 // dto
 import { AddNewsDto } from "./dto/add-news.dto";
 import { UpdateNewsDto } from "./dto/update-news.dto";
+import { LastNewsDto } from "./dto/last-news-dto.dto";
 
 @Injectable()
 export class NewsService {
-  constructor(@InjectRepository(News) private newsService: Repository<News>) {}
+  constructor(
+    @InjectRepository(News) private newsService: Repository<News>,
+    @InjectMapper() private readonly mapper: Mapper,
+  ) {}
 
   async create(news: AddNewsDto) {
     const newsFound = await this.newsService.findOne({
@@ -36,6 +42,20 @@ export class NewsService {
       },
     });
     return list;
+  }
+
+  async lasts() {
+    const list = await this.newsService.find({
+      take: 6,
+      relations: ["newsHasTag", "newsHasImage"],
+      order: {
+        lastUpdate: "ASC",
+      },
+    });
+
+    console.log(list);
+
+    return this.mapper.mapArrayAsync(list, News, LastNewsDto);
   }
 
   async getById(id: number) {

@@ -14,6 +14,7 @@ import {
 // dto
 import { NewsDto } from "./dto/news.dto";
 import { AddNewsDto } from "./dto/add-news.dto";
+import { LastNewsDto } from "./dto/last-news-dto.dto";
 
 // services
 import { NewsService } from "./news.service";
@@ -32,10 +33,9 @@ export class NewsController {
     return this.newsService.get({ sort, order, page, count });
   }
 
-  @Get("small-news")
-  getSmallNews(@Query() query) {
-    const { count } = query;
-    return this.newsService.getSmallNews(Number(count));
+  @Get("lasts")
+  last(): Promise<LastNewsDto[]> {
+    return this.newsService.lasts();
   }
 
   @Get(":id")
