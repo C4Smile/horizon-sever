@@ -1,4 +1,5 @@
 import { Column, Entity, OneToMany } from "typeorm";
+import { AutoMap } from "@automapper/classes";
 
 // entities
 import { Model } from "src/models/model";
@@ -10,6 +11,7 @@ import { Room } from "src/room/room.entity";
  */
 @Entity({ name: "room-type" })
 export class RoomType extends Model {
+  @AutoMap()
   @Column({ type: "text", unique: true })
   name: string = "";
 
