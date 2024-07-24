@@ -1,5 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
+import { InjectMapper } from "@automapper/nestjs";
 import { InjectRepository } from "@nestjs/typeorm";
+import { Mapper } from "@automapper/core";
 
 import { Repository } from "typeorm";
 
@@ -12,7 +14,10 @@ import { UpdateRoomStatusDto } from "./dto/update-room-status.dto";
 
 @Injectable()
 export class RoomStatusService {
-  constructor(@InjectRepository(RoomStatus) private roomStatusService: Repository<RoomStatus>) {}
+  constructor(
+    @InjectRepository(RoomStatus) private roomStatusService: Repository<RoomStatus>,
+    @InjectMapper() private readonly mapper: Mapper,
+  ) {}
 
   async create(roomStatus: AddRoomStatusDto) {
     const roomStatusFound = await this.roomStatusService.findOne({

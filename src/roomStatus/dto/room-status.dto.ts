@@ -1,6 +1,9 @@
-// dto
 import { ModelDto } from "src/models/model.dto";
 
-export interface RoomStatusDto extends ModelDto {
+// dto
+import { AutoMap } from "@automapper/classes";
+
+export class RoomStatusDto extends ModelDto {
+  @AutoMap()
   name: string;
 }
