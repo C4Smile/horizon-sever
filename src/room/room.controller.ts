@@ -14,10 +14,11 @@ import {
 // dto
 import { RoomDto } from "./dto/room.dto";
 import { AddRoomDto } from "./dto/add-room.dto";
+import { RoomHomeDto } from "./dto/room-home.dto";
+import { UpdateRoomDto } from "./dto/update-room.dto";
 
 // services
 import { RoomService } from "./room.service";
-import { UpdateRoomDto } from "./dto/update-room.dto";
 import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
 
 @Controller("room")
@@ -30,7 +31,12 @@ export class RoomController {
     return this.roomService.get({ sort, order, page, count });
   }
 
-   @Get(":id")
+  @Get("home-slider")
+  getHomeSlider(): Promise<RoomHomeDto[]> {
+    return this.roomService.getHomeSlider();
+  }
+
+  @Get(":id")
   getById(@Param("id", ParseIntPipe) id: number) {
     return this.roomService.getById(id);
   }

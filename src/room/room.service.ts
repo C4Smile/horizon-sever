@@ -1,5 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
+import { InjectMapper } from "@automapper/nestjs";
+import { Mapper } from "@automapper/core";
 
 import { ILike, Repository } from "typeorm";
 
@@ -13,10 +15,14 @@ import { PageService } from "src/models/page-size";
 import { RoomDto } from "./dto/room.dto";
 import { AddRoomDto } from "./dto/add-room.dto";
 import { UpdateRoomDto } from "./dto/update-room.dto";
+import { RoomHomeDto } from "./dto/room-home.dto";
 
 @Injectable()
 export class RoomService extends PageService {
-  constructor(@InjectRepository(Room) private roomService: Repository<Room>) {
+  constructor(
+    @InjectRepository(Room) private roomService: Repository<Room>,
+    @InjectMapper() private readonly roomMapper: Mapper,
+  ) {
     super();
   }
 
@@ -49,7 +55,19 @@ export class RoomService extends PageService {
       },
     });
 
-    return list;
+    return this.roomMapper.mapArrayAsync(list, Room, RoomDto);
+  }
+
+  async getHomeSlider() {
+    const list = await this.roomService.find({
+      take: 5,
+      relations: ["roomHasImage"],
+      order: {
+        lastUpdate: "ASC",
+      },
+    });
+
+    return this.roomMapper.mapArrayAsync(list, Room, RoomHomeDto);
   }
 
   async getById(id: number) {
@@ -62,7 +80,7 @@ export class RoomService extends PageService {
 
     if (!roomFound) throw new HttpException("Room not Found", HttpStatus.NOT_FOUND);
 
-    return [roomFound];
+    return this.roomMapper.mapArrayAsync([roomFound], Room, RoomDto);
   }
 
   async remove(id: number) {
