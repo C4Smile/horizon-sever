@@ -21,7 +21,7 @@ import { RoomHomeDto } from "./dto/room-home.dto";
 export class RoomService extends PageService {
   constructor(
     @InjectRepository(Room) private roomService: Repository<Room>,
-    @InjectMapper() private readonly roomMapper: Mapper,
+    @InjectMapper() private readonly mapper: Mapper,
   ) {
     super();
   }
@@ -55,19 +55,19 @@ export class RoomService extends PageService {
       },
     });
 
-    return this.roomMapper.mapArrayAsync(list, Room, RoomDto);
+    return this.mapper.mapArrayAsync(list, Room, RoomDto);
   }
 
   async getHomeSlider() {
     const list = await this.roomService.find({
-      take: 5,
+      take: 10,
       relations: ["roomHasImage"],
       order: {
         lastUpdate: "ASC",
       },
     });
 
-    return this.roomMapper.mapArrayAsync(list, Room, RoomHomeDto);
+    return this.mapper.mapArrayAsync(list, Room, RoomHomeDto);
   }
 
   async getById(id: number) {
@@ -80,7 +80,7 @@ export class RoomService extends PageService {
 
     if (!roomFound) throw new HttpException("Room not Found", HttpStatus.NOT_FOUND);
 
-    return this.roomMapper.mapArrayAsync([roomFound], Room, RoomDto);
+    return this.mapper.mapArrayAsync([roomFound], Room, RoomDto);
   }
 
   async remove(id: number) {
