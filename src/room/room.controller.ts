@@ -16,6 +16,7 @@ import { RoomDto } from "./dto/room.dto";
 import { AddRoomDto } from "./dto/add-room.dto";
 import { RoomHomeDto } from "./dto/room-home.dto";
 import { UpdateRoomDto } from "./dto/update-room.dto";
+import { RoomGalleryDto } from "./dto/room-gallery.dto";
 
 // services
 import { RoomService } from "./room.service";
@@ -34,6 +35,12 @@ export class RoomController {
   @Get("home-slider")
   getHomeSlider(): Promise<RoomHomeDto[]> {
     return this.roomService.getHomeSlider();
+  }
+
+  @Get("gallery")
+  getForGallery(@Query() query): Promise<RoomGalleryDto[]> {
+    const { count = 20 } = query;
+    return this.roomService.getForGallery({ count });
   }
 
   @Get(":id")

@@ -16,6 +16,15 @@ import { RoomDto } from "./dto/room.dto";
 import { AddRoomDto } from "./dto/add-room.dto";
 import { UpdateRoomDto } from "./dto/update-room.dto";
 import { RoomHomeDto } from "./dto/room-home.dto";
+import { RoomGalleryDto } from "./dto/room-gallery.dto";
+
+enum RoomType {
+  Museable = 1,
+}
+
+enum RoomStatus {
+  Active = 1,
+}
 
 @Injectable()
 export class RoomService extends PageService {
@@ -53,6 +62,10 @@ export class RoomService extends PageService {
       order: {
         [sort]: order,
       },
+      where: {
+        statusId: RoomStatus.Active,
+        typeId: RoomType.Museable,
+      },
     });
 
     return this.mapper.mapArrayAsync(list, Room, RoomDto);
@@ -65,9 +78,25 @@ export class RoomService extends PageService {
       order: {
         lastUpdate: "ASC",
       },
+      where: {
+        statusId: RoomStatus.Active,
+        typeId: RoomType.Museable,
+      },
     });
 
     return this.mapper.mapArrayAsync(list, Room, RoomHomeDto);
+  }
+
+  async getForGallery({ count }) {
+    const list = await this.roomService.find({
+      take: count,
+      relations: ["roomHasImage"],
+      order: {
+        lastUpdate: "ASC",
+      },
+    });
+
+    return this.mapper.mapArrayAsync(list, Room, RoomGalleryDto);
   }
 
   async getById(id: number) {

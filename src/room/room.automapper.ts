@@ -6,7 +6,10 @@ import { Injectable } from "@nestjs/common";
 import { Room } from "./room.entity";
 
 // dto
+import { RoomDto } from "./dto/room.dto";
 import { RoomHomeDto } from "./dto/room-home.dto";
+import { RoomGalleryDto } from "./dto/room-gallery.dto";
+import { BlobDto } from "src/image/dto/blob.dto";
 
 @Injectable()
 export class RoomAutomapper extends AutomapperProfile {
@@ -19,8 +22,41 @@ export class RoomAutomapper extends AutomapperProfile {
       createMap(
         mapper,
         Room,
+        RoomDto,
+        forMember(
+          (dest) => dest.roomHasImage,
+          mapFrom((source) =>
+            source.roomHasImage?.map((image) => ({
+              imageId: { id: image.id, url: image.url, fileName: image.fileName } as BlobDto,
+            })),
+          ),
+        ),
+        forMember(
+          (dest) => dest.roomHasImage360,
+          mapFrom((source) =>
+            source.roomHasImage?.map((image) => ({
+              imageId: { id: image.id, url: image.url, fileName: image.fileName } as BlobDto,
+            })),
+          ),
+        ),
+      );
+      createMap(
+        mapper,
+        Room,
         RoomHomeDto,
-        forMember((dest) => dest.image, mapFrom((source) => source.roomHasImage[0]?.url)),
+        forMember(
+          (dest) => dest.image,
+          mapFrom((source) => source.roomHasImage[0]?.url),
+        ),
+      );
+      createMap(
+        mapper,
+        Room,
+        RoomGalleryDto,
+        forMember(
+          (dest) => dest.image,
+          mapFrom((source) => source.roomHasImage[0]?.url),
+        ),
       );
     };
   }
