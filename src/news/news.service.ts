@@ -53,8 +53,6 @@ export class NewsService {
       },
     });
 
-    console.log(list);
-
     return this.mapper.mapArrayAsync(list, News, LastNewsDto);
   }
 
