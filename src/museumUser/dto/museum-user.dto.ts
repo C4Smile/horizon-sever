@@ -1,6 +1,6 @@
 // dto
 import { ModelDto } from "src/models/model.dto";
-import { MuseumRoleDto } from "src/museumrole/dto/museum-role.dto";
+import { MuseumRoleDto } from "src/museumRole/dto/museum-role.dto";
 
 export interface MuseumUserDto extends ModelDto {
   name: string;
