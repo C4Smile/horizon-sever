@@ -38,6 +38,12 @@ export class NewsController {
     return this.newsService.lasts();
   }
 
+  @Get("list")
+  list(@Query() query): Promise<LastNewsDto[]> {
+    const { sort = "lastUpdate", order = "DESC", page = 0, count = 9, tags = "" } = query;
+    return this.newsService.list({ sort, order, page, count, tags });
+  }
+
   @Get(":id")
   getById(@Param("id", ParseIntPipe) id: number) {
     return this.newsService.getById(id);

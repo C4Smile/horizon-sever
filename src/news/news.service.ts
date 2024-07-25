@@ -56,6 +56,21 @@ export class NewsService {
     return this.mapper.mapArrayAsync(list, News, LastNewsDto);
   }
 
+  async list({ sort, order, page, count, tags }) {
+    const list = await this.newsService.find({
+      skip: page * count,
+      take: (page + 1) * count,
+      relations: ["newsHasTag", "newsHasImage"],
+      order: {
+        [sort]: order,
+      },
+    });
+
+    // TODO filter by tags
+
+    return this.mapper.mapArrayAsync(list, News, LastNewsDto);
+  }
+
   async getById(id: number) {
     const newsFound = await this.newsService.findOne({
       where: {
