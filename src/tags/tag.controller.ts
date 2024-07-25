@@ -14,6 +14,7 @@ import {
 // dto
 import { TagDto } from "./dto/tag.dto";
 import { AddTagDto } from "./dto/add-tag.dto";
+import { ClientTagDto } from "./dto/client-tag.dto";
 
 // services
 import { TagService } from "./tag.service";
@@ -32,7 +33,12 @@ export class TagController {
     return this.tagService.get({ sort, order, page, count });
   }
 
-   @Get(":id")
+  @Get()
+  headers(): Promise<ClientTagDto[]> {
+    return this.tagService.headers();
+  }
+
+  @Get(":id")
   getById(@Param("id", ParseIntPipe) id: number) {
     return this.tagService.getById(id);
   }

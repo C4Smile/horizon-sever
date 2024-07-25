@@ -1,5 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
+import { InjectMapper } from "@automapper/nestjs";
+import { Mapper } from "@automapper/core";
 
 import { Repository } from "typeorm";
 
@@ -9,10 +11,14 @@ import { Tag } from "./tag.entity";
 // dto
 import { AddTagDto } from "./dto/add-tag.dto";
 import { UpdateTagDto } from "./dto/update-tag.dto";
+import { ClientTagDto } from "./dto/client-tag.dto";
 
 @Injectable()
 export class TagService {
-  constructor(@InjectRepository(Tag) private tagService: Repository<Tag>) {}
+  constructor(
+    @InjectRepository(Tag) private tagService: Repository<Tag>,
+    @InjectMapper() private readonly mapper: Mapper,
+  ) {}
 
   async create(tag: AddTagDto) {
     const tagFound = await this.tagService.findOne({
@@ -35,6 +41,16 @@ export class TagService {
     });
 
     return list;
+  }
+
+  async headers() {
+    const list = await this.tagService.find({
+      order: {
+        lastUpdate: "DESC",
+      },
+    });
+
+    return this.mapper.mapArrayAsync(list, Tag, ClientTagDto);
   }
 
   async getById(id: number) {
