@@ -14,7 +14,7 @@ import {
 // dto
 import { NewsDto } from "./dto/news.dto";
 import { AddNewsDto } from "./dto/add-news.dto";
-import { LastNewsDto } from "./dto/last-news-dto.dto";
+import { LastNewsDto } from "./dto/last-news.dto";
 
 // services
 import { NewsService } from "./news.service";

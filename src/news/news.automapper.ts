@@ -6,7 +6,7 @@ import { Injectable } from "@nestjs/common";
 import { News } from "./news.entity";
 
 // dto
-import { LastNewsDto } from "./dto/last-news-dto.dto";
+import { LastNewsDto } from "./dto/last-news.dto";
 
 @Injectable()
 export class NewsAutomapper extends AutomapperProfile {

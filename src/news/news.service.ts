@@ -11,7 +11,7 @@ import { News } from "./news.entity";
 // dto
 import { AddNewsDto } from "./dto/add-news.dto";
 import { UpdateNewsDto } from "./dto/update-news.dto";
-import { LastNewsDto } from "./dto/last-news-dto.dto";
+import { LastNewsDto } from "./dto/last-news.dto";
 
 @Injectable()
 export class NewsService {

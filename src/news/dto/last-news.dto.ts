@@ -6,9 +6,11 @@ export class LastNewsDto {
 
   @AutoMap()
   title: string;
+
   @AutoMap()
   urlName: string;
 
   tag: string;
+
   image: string;
 }
