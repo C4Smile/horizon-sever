@@ -10,6 +10,7 @@ import { RoomDto } from "./dto/room.dto";
 import { RoomHomeDto } from "./dto/room-home.dto";
 import { RoomGalleryDto } from "./dto/room-gallery.dto";
 import { BlobDto } from "src/image/dto/blob.dto";
+import { RoomDetailsDto } from "./dto/room-details.dto";
 
 @Injectable()
 export class RoomAutomapper extends AutomapperProfile {
@@ -40,6 +41,7 @@ export class RoomAutomapper extends AutomapperProfile {
           ),
         ),
       );
+      createMap(mapper, Room, RoomDetailsDto);
       createMap(
         mapper,
         Room,

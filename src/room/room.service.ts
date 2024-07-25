@@ -17,6 +17,7 @@ import { AddRoomDto } from "./dto/add-room.dto";
 import { UpdateRoomDto } from "./dto/update-room.dto";
 import { RoomHomeDto } from "./dto/room-home.dto";
 import { RoomGalleryDto } from "./dto/room-gallery.dto";
+import { RoomDetailsDto } from "./dto/room-details.dto";
 
 enum RoomType {
   Museable = 1,
@@ -110,6 +111,19 @@ export class RoomService extends PageService {
     if (!roomFound) throw new HttpException("Room not Found", HttpStatus.NOT_FOUND);
 
     return this.mapper.mapArrayAsync([roomFound], Room, RoomDto);
+  }
+
+  async getDetailsById(id: number) {
+    const roomFound = await this.roomService.findOne({
+      where: {
+        id,
+      },
+      relations: ["status", "type"],
+    });
+
+    if (!roomFound) throw new HttpException("Room not Found", HttpStatus.NOT_FOUND);
+
+    return this.mapper.mapArrayAsync([roomFound], Room, RoomDetailsDto);
   }
 
   async remove(id: number) {
