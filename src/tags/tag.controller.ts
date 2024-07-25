@@ -33,7 +33,7 @@ export class TagController {
     return this.tagService.get({ sort, order, page, count });
   }
 
-  @Get()
+  @Get("headers")
   headers(): Promise<ClientTagDto[]> {
     return this.tagService.headers();
   }
