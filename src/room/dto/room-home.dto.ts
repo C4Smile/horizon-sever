@@ -5,5 +5,8 @@ export class RoomHomeDto {
   urlName: string;
 
   @AutoMap()
+  name: string;
+
+  @AutoMap()
   image: string;
 }
