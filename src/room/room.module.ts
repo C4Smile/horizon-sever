@@ -1,5 +1,7 @@
 import { Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
+import { AutomapperModule } from "@automapper/nestjs";
+import { classes } from "@automapper/classes";
 
 // automapper
 import { RoomAutomapper } from "./room.automapper";
@@ -12,8 +14,6 @@ import { RoomService } from "./room.service";
 
 // entity
 import { Room } from "./room.entity";
-import { AutomapperModule } from "@automapper/nestjs";
-import { classes } from "@automapper/classes";
 
 @Module({
   imports: [

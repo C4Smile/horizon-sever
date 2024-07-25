@@ -113,10 +113,10 @@ export class RoomService extends PageService {
     return this.mapper.mapArrayAsync([roomFound], Room, RoomDto);
   }
 
-  async getDetailsById(id: number) {
+  async getDetailsBySlug(slug: string) {
     const roomFound = await this.roomService.findOne({
       where: {
-        id,
+        urlName: slug,
       },
       relations: ["status", "type"],
     });

@@ -43,9 +43,9 @@ export class RoomController {
     return this.roomService.getForGallery({ count });
   }
 
-  @Get("details/:id")
-  getDetailsId(@Param("id", ParseIntPipe) id: number) {
-    return this.roomService.getDetailsById(id);
+  @Get("details/:slug")
+  getDetailsBySlug(slug: string) {
+    return this.roomService.getDetailsBySlug(slug);
   }
 
   @Get(":id")
