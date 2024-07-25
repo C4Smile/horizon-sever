@@ -8,6 +8,9 @@ const getTagAttribute = (entity: any) => {
 };
 
 export const filterByTags = (array: News[] | Event[], tags: string) => {
+
+  // TODO Dictionary with keys tags
+
   if (tags.length) {
     const parsedTags = tags.split("|").map((tag) => tag.toLowerCase());
     const filterByTags = array.filter((entity) =>
