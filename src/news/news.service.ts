@@ -56,7 +56,7 @@ export class NewsService {
     return this.mapper.mapArrayAsync(list, News, LastNewsDto);
   }
 
-  async list({ sort, order, page, count, tags }) {
+  async list({ sort = "lastUpdate", order = "DESC", page = 0, count = 9, tags = "" }) {
     const list = await this.newsService.find({
       skip: page * count,
       take: (page + 1) * count,
@@ -66,8 +66,16 @@ export class NewsService {
       },
     });
 
-    // TODO filter by tags
+    // filtering and paring tags
 
+    if (tags.length) {
+      const parsedTags = tags.split("|").map((tag) => tag.toLowerCase());
+      const filterByTags = list.filter((news) =>
+        news.newsHasTag?.some((tag) => parsedTags.indexOf(tag.name.toLowerCase()) >= 0),
+      );
+
+      return this.mapper.mapArrayAsync(filterByTags, News, LastNewsDto);
+    }
     return this.mapper.mapArrayAsync(list, News, LastNewsDto);
   }
 
