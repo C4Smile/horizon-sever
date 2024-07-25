@@ -13,6 +13,9 @@ import { AddNewsDto } from "./dto/add-news.dto";
 import { UpdateNewsDto } from "./dto/update-news.dto";
 import { LastNewsDto } from "./dto/last-news.dto";
 
+// utils
+import { filterByTags } from "src/tags/utils";
+
 @Injectable()
 export class NewsService {
   constructor(
@@ -66,17 +69,7 @@ export class NewsService {
       },
     });
 
-    // filtering and paring tags
-
-    if (tags.length) {
-      const parsedTags = tags.split("|").map((tag) => tag.toLowerCase());
-      const filterByTags = list.filter((news) =>
-        news.newsHasTag?.some((tag) => parsedTags.indexOf(tag.name.toLowerCase()) >= 0),
-      );
-
-      return this.mapper.mapArrayAsync(filterByTags, News, LastNewsDto);
-    }
-    return this.mapper.mapArrayAsync(list, News, LastNewsDto);
+    return this.mapper.mapArrayAsync(filterByTags(list, tags), News, LastNewsDto);
   }
 
   async getById(id: number) {
