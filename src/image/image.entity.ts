@@ -8,6 +8,7 @@ import { Room } from "src/room/room.entity";
 import { Activity } from "src/activity/activity.entity";
 import { Service } from "src/service/service.entity";
 import { PushNotification } from "src/pushNotification/push-notification.entity";
+import { RoomArea } from "src/room-area/room-area.entity";
 
 @Entity({ name: "images" })
 export class Photo extends Model {
@@ -25,6 +26,9 @@ export class Photo extends Model {
 
   @ManyToMany(() => Room, (room) => room.roomHasImage, { cascade: true })
   rooms: Room[];
+
+  @ManyToMany(() => RoomArea, (roomArea) => roomArea.roomAreaHasImage, { cascade: true })
+  roomAreas: RoomArea[];
 
   @OneToOne(() => Activity, (activity) => activity.image)
   @JoinColumn()
@@ -57,5 +61,12 @@ export class Photo extends Model {
    */
   get Rooms() {
     return this.rooms;
+  }
+
+  /**
+   * @returns RoomAreas
+   */
+  get RoomAreas() {
+    return this.roomAreas;
   }
 }

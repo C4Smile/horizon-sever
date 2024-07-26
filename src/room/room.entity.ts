@@ -8,6 +8,7 @@ import { Photo360 } from "src/image360/image-360.entity";
 import { RoomStatus } from "src/roomStatus/room-status.entity";
 import { RoomType } from "src/roomType/room-type.entity";
 import { RoomHasSchedule } from "src/roomHasSchedule/room-has-schedule.entity";
+import { RoomArea } from "src/room-area/room-area.entity";
 
 /**
  * @class Room
@@ -53,6 +54,10 @@ export class Room extends Model {
 
   @OneToMany(() => RoomHasSchedule, (schedule) => schedule.Room, { cascade: true })
   roomHasSchedule: RoomHasSchedule[];
+
+  @AutoMap()
+  @OneToMany(() => RoomArea, (roomArea) => roomArea.room, { cascade: true })
+  roomAreas: RoomArea[];
 
   @ManyToMany(() => Photo, (image) => image.Rooms)
   @JoinTable({
