@@ -1,4 +1,5 @@
 import { Column, Entity, ManyToMany } from "typeorm";
+import { AutoMap } from "@automapper/classes";
 
 // entities
 import { Model } from "src/models/model";
@@ -11,6 +12,7 @@ import { Event } from "src/event/event.entity";
  */
 @Entity({ name: "tags" })
 export class Tag extends Model {
+  @AutoMap()
   @Column({ type: "text", unique: true })
   name: string = "";
 
