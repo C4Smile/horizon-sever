@@ -56,7 +56,7 @@ export class Room extends Model {
   roomHasSchedule: RoomHasSchedule[];
 
   @AutoMap()
-  @OneToMany(() => RoomArea, (roomArea) => roomArea.room, { cascade: true })
+  @OneToMany(() => RoomArea, (roomArea) => roomArea.room)
   roomAreas: RoomArea[];
 
   @ManyToMany(() => Photo, (image) => image.Rooms)

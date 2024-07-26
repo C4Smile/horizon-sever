@@ -45,7 +45,7 @@ export class RoomArea extends Model {
     inverseJoinColumn: {
       name: "imageId",
       referencedColumnName: "id",
-      foreignKeyConstraintName: "imageOfRoom",
+      foreignKeyConstraintName: "imageOfRoomArea",
     },
   })
   roomAreaHasImage: Photo[];
@@ -61,7 +61,7 @@ export class RoomArea extends Model {
     inverseJoinColumn: {
       name: "image360Id",
       referencedColumnName: "id",
-      foreignKeyConstraintName: "image360OfRoom",
+      foreignKeyConstraintName: "image360OfRoomArea",
     },
   })
   roomAreaHasImage360: Photo[];
