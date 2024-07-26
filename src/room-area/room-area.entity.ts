@@ -17,6 +17,14 @@ export class RoomArea extends Model {
   @Column({ type: "text", unique: true })
   name: string = "";
 
+  @AutoMap()
+  @Column({ type: "text" })
+  description: string = "";
+
+  @AutoMap()
+  @Column({ type: "text" })
+  content: string = "";
+
   @Column({ type: "int" })
   roomId: number;
 

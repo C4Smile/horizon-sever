@@ -9,6 +9,7 @@ import { Repository } from "typeorm";
 import { RoomArea } from "./room-area.entity";
 
 // dto
+import { RoomAreaDto } from "./dto/room-area.dto";
 import { AddRoomAreaDto } from "./dto/add-room-area.dto";
 import { UpdateRoomAreaDto } from "./dto/update-room-area.dto";
 
@@ -39,7 +40,7 @@ export class RoomAreaService {
       },
     });
 
-    return list;
+    return this.mapper.mapArrayAsync(list, RoomArea, RoomAreaDto);
   }
 
   async getById(id: number) {
