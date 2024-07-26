@@ -4,6 +4,7 @@ import { AutoMap } from "@automapper/classes";
 // entities
 import { Model } from "src/models/model";
 import { Room } from "src/room/room.entity";
+import { RoomArea } from "src/room-area/room-area.entity";
 
 /**
  * @class RoomStatus
@@ -18,10 +19,20 @@ export class RoomStatus extends Model {
   @OneToMany(() => Room, (room) => room.status)
   rooms: Room[];
 
+  @OneToMany(() => RoomArea, (roomArea) => roomArea.status)
+  roomAreas: RoomArea[];
+
   /**
    * @returns Rooms
    */
   get Rooms() {
     return this.rooms;
+  }
+
+  /**
+   * @returns RoomAreas
+   */
+  get RoomAreas() {
+    return this.roomAreas;
   }
 }

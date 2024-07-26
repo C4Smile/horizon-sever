@@ -6,4 +6,5 @@ export interface UpdateRoomAreaDto extends UpdateModelDto {
   roomId?: number;
   description?: string;
   content?: string;
+  statusId?: number;
 }

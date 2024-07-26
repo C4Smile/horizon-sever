@@ -6,6 +6,7 @@ import { Model } from "src/models/model";
 import { Room } from "src/room/room.entity";
 import { Photo } from "src/image/image.entity";
 import { Photo360 } from "src/image360/image-360.entity";
+import { RoomStatus } from "src/roomStatus/room-status.entity";
 
 /**
  * @class RoomArea
@@ -28,7 +29,14 @@ export class RoomArea extends Model {
   @Column({ type: "int" })
   roomId: number;
 
+  @Column({ type: "int" })
+  statusId: number;
+
   //#region Relationships
+
+  @AutoMap()
+  @ManyToOne(() => RoomStatus, (roomStatus) => roomStatus.RoomAreas, { cascade: true })
+  status: RoomStatus;
 
   @AutoMap()
   @ManyToOne(() => Room, (room) => room.roomAreas, { cascade: true })

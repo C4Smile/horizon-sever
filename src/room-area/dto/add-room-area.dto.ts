@@ -6,4 +6,5 @@ export interface AddRoomAreaDto extends AddModelDto {
   roomId: number;
   description: string;
   content: string;
+  statusId: number;
 }
