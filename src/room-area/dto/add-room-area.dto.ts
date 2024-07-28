@@ -2,7 +2,7 @@
 import { AddModelDto } from "src/models/add-model.dto";
 
 export interface AddRoomAreaDto extends AddModelDto {
-  order: number;
+  number: number;
   name: string;
   description: string;
   content: string;

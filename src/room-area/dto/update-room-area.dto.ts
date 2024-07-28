@@ -2,7 +2,7 @@
 import { UpdateModelDto } from "src/models/update-model.dto";
 
 export interface UpdateRoomAreaDto extends UpdateModelDto {
-  order?: number;
+  number?: number;
   name?: string;
   roomId?: number;
   description?: string;
