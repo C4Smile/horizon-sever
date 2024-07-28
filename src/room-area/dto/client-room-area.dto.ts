@@ -16,13 +16,10 @@ export class ClientRoomAreaDto extends ModelDto {
   room: RoomDto;
 
   @AutoMap()
-  description: string;
-
-  @AutoMap()
   content: string;
 
   @AutoMap()
   status: RoomStatusDto;
 
-  roomAreaHasImage: string;
+  image: string;
 }
