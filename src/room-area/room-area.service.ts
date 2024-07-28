@@ -12,6 +12,11 @@ import { RoomArea } from "./room-area.entity";
 import { RoomAreaDto } from "./dto/room-area.dto";
 import { AddRoomAreaDto } from "./dto/add-room-area.dto";
 import { UpdateRoomAreaDto } from "./dto/update-room-area.dto";
+import { ClientRoomAreaDto } from "./dto/client-room-area.dto";
+
+enum RoomAreaStatus {
+  Active = 1,
+}
 
 @Injectable()
 export class RoomAreaService {
@@ -41,6 +46,22 @@ export class RoomAreaService {
     });
 
     return this.mapper.mapArrayAsync(list, RoomArea, RoomAreaDto);
+  }
+
+  async getByRoomId({ sort, order, page, count, roomId }) {
+    const list = await this.roomAreaService.find({
+      skip: page * count,
+      take: (page + 1) * count,
+      order: {
+        [sort]: order,
+      },
+      where: {
+        roomId,
+        statusId: RoomAreaStatus.Active,
+      },
+    });
+
+    return this.mapper.mapArrayAsync(list, RoomArea, ClientRoomAreaDto);
   }
 
   async getById(id: number) {
