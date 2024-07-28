@@ -3,6 +3,9 @@ import { TypeOrmModule } from "@nestjs/typeorm";
 import { AutomapperModule } from "@automapper/nestjs";
 import { classes } from "@automapper/classes";
 
+// automapper
+import { RoomAreaAutomapper } from "./room-area.automapper";
+
 // controller
 import { RoomAreaController } from "./room-area.controller";
 
@@ -11,7 +14,6 @@ import { RoomAreaService } from "./room-area.service";
 
 // entities
 import { RoomArea } from "./room-area.entity";
-import { RoomAreaAutomapper } from "./room-area.automapper";
 
 @Module({
   imports: [
