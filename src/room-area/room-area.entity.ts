@@ -15,11 +15,11 @@ import { RoomStatus } from "src/roomStatus/room-status.entity";
 @Entity({ name: "room-area" })
 export class RoomArea extends Model {
   @AutoMap()
-  @Column({ type: "text", unique: true })
-  number: string = "";
+  @Column({ type: "number" })
+  order: number = 0;
 
   @AutoMap()
-  @Column({ type: "text", unique: true })
+  @Column({ type: "text" })
   name: string = "";
 
   @AutoMap()

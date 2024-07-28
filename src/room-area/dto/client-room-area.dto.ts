@@ -7,7 +7,7 @@ import { RoomStatusDto } from "src/roomStatus/dto/room-status.dto";
 
 export class ClientRoomAreaDto extends ModelDto {
   @AutoMap()
-  number: string;
+  order: string;
 
   @AutoMap()
   name: string;
