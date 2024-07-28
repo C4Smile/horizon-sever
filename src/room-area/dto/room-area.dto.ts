@@ -8,19 +8,22 @@ import { RoomStatusDto } from "src/roomStatus/dto/room-status.dto";
 
 export class RoomAreaDto extends ModelDto {
   @AutoMap()
+  number: number;
+
+  @AutoMap()
   name: string;
 
   @AutoMap()
   room: RoomDto;
 
   @AutoMap()
-  status: RoomStatusDto;
+  description: string;
 
   @AutoMap()
   content: string;
 
   @AutoMap()
-  description: string;
+  status: RoomStatusDto;
 
   roomAreaHasImage: RoomAreaHasImageDto[];
   roomAreaHasImage360: RoomAreaHasImageDto[];
