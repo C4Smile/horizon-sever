@@ -48,6 +48,7 @@ export class RoomAreaService {
       where: {
         id,
       },
+      relations: ["room", "status"],
     });
 
     if (!roomAreaFound) throw new HttpException("RoomArea not Found", HttpStatus.NOT_FOUND);
