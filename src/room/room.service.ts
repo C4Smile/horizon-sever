@@ -3,7 +3,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { InjectMapper } from "@automapper/nestjs";
 import { Mapper } from "@automapper/core";
 
-import { ILike, Repository } from "typeorm";
+import { ILike, MoreThan, Repository } from "typeorm";
 
 // entity
 import { Room } from "./room.entity";
@@ -14,8 +14,9 @@ import { PageService } from "src/models/page-size";
 // dto
 import { RoomDto } from "./dto/room.dto";
 import { AddRoomDto } from "./dto/add-room.dto";
-import { UpdateRoomDto } from "./dto/update-room.dto";
+import { NextRoomDto } from "./dto/next-room.dto";
 import { RoomHomeDto } from "./dto/room-home.dto";
+import { UpdateRoomDto } from "./dto/update-room.dto";
 import { RoomGalleryDto } from "./dto/room-gallery.dto";
 import { RoomDetailsDto } from "./dto/room-details.dto";
 
@@ -62,10 +63,6 @@ export class RoomService extends PageService {
       relations: ["status", "type", "roomHasImage", "roomHasImage360"],
       order: {
         [sort]: order,
-      },
-      where: {
-        statusId: RoomStatus.Active,
-        typeId: RoomType.Museable,
       },
     });
 
@@ -123,7 +120,21 @@ export class RoomService extends PageService {
 
     if (!roomFound) throw new HttpException("Room not Found", HttpStatus.NOT_FOUND);
 
-    return this.mapper.mapArrayAsync([roomFound], Room, RoomDetailsDto);
+    // fetching next room
+
+    const nextRoom = await this.roomService.findOne({
+      where: {
+        number: MoreThan(roomFound.number),
+      },
+    });
+
+    const asDetailRoom = await this.mapper.mapAsync(roomFound, Room, RoomDetailsDto);
+
+    if (nextRoom) {
+      asDetailRoom.nextRoom = await this.mapper.mapAsync(nextRoom, Room, NextRoomDto);
+    }
+
+    return asDetailRoom;
   }
 
   async remove(id: number) {
