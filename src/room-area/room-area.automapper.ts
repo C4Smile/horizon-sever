@@ -8,6 +8,7 @@ import { RoomArea } from "./room-area.entity";
 // dto
 import { RoomAreaDto } from "./dto/room-area.dto";
 import { BlobDto } from "src/image/dto/blob.dto";
+import { ClientRoomAreaDto } from "./dto/client-room-area.dto";
 
 @Injectable()
 export class RoomAreaAutomapper extends AutomapperProfile {
@@ -36,6 +37,15 @@ export class RoomAreaAutomapper extends AutomapperProfile {
               imageId: { id: image.id, url: image.url, fileName: image.fileName } as BlobDto,
             })),
           ),
+        ),
+      );
+      createMap(
+        mapper,
+        RoomArea,
+        ClientRoomAreaDto,
+        forMember(
+          (dest) => dest.image,
+          mapFrom((source) => source.roomAreaHasImage[0]?.url),
         ),
       );
     };
