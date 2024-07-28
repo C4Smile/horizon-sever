@@ -26,5 +26,6 @@ export class RoomAreaDto extends ModelDto {
   status: RoomStatusDto;
 
   roomAreaHasImage: RoomAreaHasImageDto[];
+
   roomAreaHasImage360: RoomAreaHasImageDto[];
 }
