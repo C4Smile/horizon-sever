@@ -11,6 +11,7 @@ import { RoomHomeDto } from "./dto/room-home.dto";
 import { RoomGalleryDto } from "./dto/room-gallery.dto";
 import { BlobDto } from "src/image/dto/blob.dto";
 import { RoomDetailsDto } from "./dto/room-details.dto";
+import { NextRoomDto } from "./dto/next-room.dto";
 
 @Injectable()
 export class RoomAutomapper extends AutomapperProfile {
@@ -20,6 +21,7 @@ export class RoomAutomapper extends AutomapperProfile {
 
   override get profile() {
     return (mapper: Mapper) => {
+      /* ROOM DTO */
       createMap(
         mapper,
         Room,
@@ -42,6 +44,7 @@ export class RoomAutomapper extends AutomapperProfile {
         ),
       );
       createMap(mapper, Room, RoomDetailsDto);
+      /* ROOM HOME DTO */
       createMap(
         mapper,
         Room,
@@ -51,10 +54,21 @@ export class RoomAutomapper extends AutomapperProfile {
           mapFrom((source) => source.roomHasImage[0]?.url),
         ),
       );
+      /* ROOM GALLERY DTO */
       createMap(
         mapper,
         Room,
         RoomGalleryDto,
+        forMember(
+          (dest) => dest.image,
+          mapFrom((source) => source.roomHasImage[0]?.url),
+        ),
+      );
+      /* NEXT ROOM DTO */
+      createMap(
+        mapper,
+        Room,
+        NextRoomDto,
         forMember(
           (dest) => dest.image,
           mapFrom((source) => source.roomHasImage[0]?.url),
