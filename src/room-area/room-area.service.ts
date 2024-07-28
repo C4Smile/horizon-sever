@@ -40,6 +40,7 @@ export class RoomAreaService {
     const list = await this.roomAreaService.find({
       skip: page * count,
       take: (page + 1) * count,
+      relations: ["room", "status", "roomAreaHasImage", "roomAreaHasImage360"],
       order: {
         [sort]: order,
       },
@@ -55,6 +56,7 @@ export class RoomAreaService {
       order: {
         [sort]: order,
       },
+      relations: ["room", "status", "roomAreaHasImage", "roomAreaHasImage360"],
       where: {
         roomId,
         statusId: RoomAreaStatus.Active,
@@ -69,7 +71,7 @@ export class RoomAreaService {
       where: {
         id,
       },
-      relations: ["room", "status"],
+      relations: ["room", "status", "roomAreaHasImage", "roomAreaHasImage360"],
     });
 
     if (!roomAreaFound) throw new HttpException("RoomArea not Found", HttpStatus.NOT_FOUND);
