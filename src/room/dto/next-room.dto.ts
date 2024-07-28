@@ -5,7 +5,7 @@ import { ModelDto } from "src/models/model.dto";
 
 export class NextRoomDto extends ModelDto {
   @AutoMap()
-  number: number;
+  number: string;
 
   @AutoMap()
   name: string;
