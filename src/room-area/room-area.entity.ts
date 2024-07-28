@@ -15,8 +15,8 @@ import { RoomStatus } from "src/roomStatus/room-status.entity";
 @Entity({ name: "room-area" })
 export class RoomArea extends Model {
   @AutoMap()
-  @Column({ type: "number" })
-  order: number = 0;
+  @Column({ type: "int" })
+  number: number = 0;
 
   @AutoMap()
   @Column({ type: "text" })
