@@ -9,7 +9,6 @@ import { Repository } from "typeorm";
 import { RoomArea } from "./room-area.entity";
 
 // dto
-import { RoomAreaDto } from "./dto/room-area.dto";
 import { AddRoomAreaDto } from "./dto/add-room-area.dto";
 import { UpdateRoomAreaDto } from "./dto/update-room-area.dto";
 import { ClientRoomAreaDto } from "./dto/client-room-area.dto";
@@ -46,7 +45,18 @@ export class RoomAreaService {
       },
     });
 
-    return this.mapper.mapArrayAsync(list, RoomArea, RoomAreaDto);
+    const mapped = [];
+    // TODO MAP THIS CORRECTLY
+    for (const roomArea of list) {
+      const newArea = { ...roomArea, roomAreaHasImage: [], roomAreaHasImage360: [] };
+      newArea.roomAreaHasImage = roomArea.roomAreaHasImage.map((image) => ({ imageId: { ...image } }));
+      newArea.roomAreaHasImage360 = roomArea.roomAreaHasImage360.map((image) => ({
+        imageId: { ...image },
+      }));
+      mapped.push(newArea);
+    }
+
+    return mapped;
   }
 
   async getByRoomId({ sort, order, page, count, roomId }) {
