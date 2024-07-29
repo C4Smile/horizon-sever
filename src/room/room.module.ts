@@ -22,6 +22,6 @@ import { Room } from "./room.entity";
   ],
   controllers: [RoomController],
   providers: [RoomService, RoomAutomapper],
-  exports: [RoomService],
+  exports: [RoomService, RoomAutomapper],
 })
 export class RoomModule {}
