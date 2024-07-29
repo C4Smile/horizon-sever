@@ -15,12 +15,12 @@ export class ImageService {
   constructor(@InjectRepository(Photo) private imageService: Repository<Photo>) {}
 
   async create(image: AddBlobDto) {
-    const { blob, fileName, ext } = image;
+    const { base64, folder, fileName, ext } = image;
     let url = "";
 
-    const base64Data = blob.replace(`data:image\/${ext};base64,`, "");
+    const base64Data = base64.replace(`data:image\/${ext};base64,`, "");
 
-    writeFileSync(join(__dirname, "..", `public/assets/${fileName}`), base64Data);
+    writeFileSync(join(__dirname, "..", `public/assets/${folder}/${fileName}`), base64Data);
 
     url = `/assets/${fileName}`;
 
