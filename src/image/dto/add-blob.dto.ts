@@ -1,5 +1,6 @@
 export interface AddBlobDto {
-  blob: string;
+  base64: string;
+  folder: string;
   fileName: string;
   ext: string;
 }
