@@ -28,6 +28,8 @@ import { MuseumUserModule } from "./museumUser/museum-user.module";
 import { PushNotificationModule } from "./pushNotification/push-notification.module";
 import { ServiceModule } from "./service/service.module";
 import { ServiceHasScheduleModule } from "./serviceHasSchedule/service-has-schedule.module";
+import { ImageModule } from "./image/image.module";
+import { Image360Module } from "./image360/image-360.module";
 
 @Module({
   imports: [
@@ -52,6 +54,8 @@ import { ServiceHasScheduleModule } from "./serviceHasSchedule/service-has-sched
     EventHasLinkModule,
     EventHasScheduleModule,
     ExternalLinkModule,
+    ImageModule,
+    Image360Module,
     MuseumRoleModule,
     MuseumUserModule,
     NewsModule,
