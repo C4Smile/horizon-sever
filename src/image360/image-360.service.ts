@@ -11,7 +11,7 @@ import { Photo360 } from "./image-360.entity";
 import { AddBlobDto } from "src/image/dto/add-blob.dto";
 
 @Injectable()
-export class ImageService {
+export class Image360Service {
   constructor(@InjectRepository(Photo360) private imageService: Repository<Photo360>) {}
 
   async create(image: AddBlobDto) {
