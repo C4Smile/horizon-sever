@@ -9,7 +9,7 @@ import { Image360Service } from "./image-360.service";
 // guard
 import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
 
-@Controller("images")
+@Controller("images360")
 export class Image360Controller {
   constructor(private imageService: Image360Service) {}
 
