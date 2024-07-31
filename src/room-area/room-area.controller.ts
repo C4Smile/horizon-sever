@@ -37,6 +37,12 @@ export class RoomAreaController {
     return this.roomAreaService.getById(id);
   }
 
+  @Get("byRoomId/:id")
+  getByRoomId(@Param("id", ParseIntPipe) id: number, @Query() query) {
+    const { sort = "lastUpdate", order = "DESC", page = 0, count = 20 } = query;
+    return this.roomAreaService.getByRoomId({ roomId: id, sort, order, page, count });
+  }
+
   @UseGuards(JwtAuthGuard)
   @Post()
   create(@Body() newRoomArea: AddRoomAreaDto) {
