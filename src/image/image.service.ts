@@ -26,7 +26,7 @@ export class ImageService {
     if (!existsSync(join(__dirname, "../../", `public/images/${folder}`)))
       mkdirSync(join(__dirname, "../../", `public/images/${folder}`));
     writeFileSync(
-      join(__dirname, "../../", `public/images${folder}/${fileName}`),
+      join(__dirname, "../../", `public/images/${folder}/${fileName}`),
       base64Data,
       "base64",
     );

@@ -25,7 +25,7 @@ export class Image360Service {
       mkdirSync(join(__dirname, "../../", `public/images`));
     if (!existsSync(join(__dirname, "../../", `public/images/${folder}`)))
       mkdirSync(join(__dirname, "../../", `public/images/${folder}`));
-    writeFileSync(join(__dirname, "../../", `public/images${folder}/${fileName}`), base64Data, "base64");
+    writeFileSync(join(__dirname, "../../", `public/images/${folder}/${fileName}`), base64Data, "base64");
 
     const url = `${folder}${fileName}`;
 
