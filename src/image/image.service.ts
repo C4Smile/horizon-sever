@@ -4,6 +4,8 @@ import { Repository } from "typeorm";
 import { rmSync, writeFileSync, existsSync, mkdirSync } from "fs";
 import { join } from "path";
 
+import { toSlug } from "some-javascript-utils";
+
 // entities
 import { Photo } from "./image.entity";
 
@@ -19,6 +21,8 @@ export class ImageService {
     const parts = fileName.split(".");
     const ext = parts.length > 1 ? parts.pop() : "";
 
+    const slugFileName = toSlug(parts[0]);
+
     const base64Data = base64.replace(`data:image\/${ext};base64,`, "");
 
     if (!existsSync(join(__dirname, "../../", `public/images`)))
@@ -26,20 +30,20 @@ export class ImageService {
     if (!existsSync(join(__dirname, "../../", `public/images/${folder}`)))
       mkdirSync(join(__dirname, "../../", `public/images/${folder}`));
     writeFileSync(
-      join(__dirname, "../../", `public/images/${folder}/${fileName}`),
+      join(__dirname, "../../", `public/images/${folder}/${slugFileName}.${ext}`),
       base64Data,
       "base64",
     );
 
-    const url = `${folder}${fileName}`;
+    const url = `${folder}/${slugFileName}.${ext}`;
 
     const imageFound = await this.imageService.findOne({
-      where: { fileName, url },
+      where: { fileName: slugFileName, url },
     });
 
     if (imageFound) throw new HttpException("Image already exists", HttpStatus.CONFLICT);
 
-    const newImage = this.imageService.create({ url, fileName });
+    const newImage = this.imageService.create({ url, fileName: slugFileName });
     const saved = await this.imageService.save(newImage);
     return [saved];
   }

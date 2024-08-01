@@ -35,6 +35,7 @@ import { Image360Module } from "./image360/image-360.module";
   imports: [
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, "..", "public"),
+      serveRoot: "/public/",
     }),
 
     TypeOrmModule.forRoot({
