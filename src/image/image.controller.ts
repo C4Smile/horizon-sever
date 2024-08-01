@@ -16,9 +16,7 @@ export class ImageController {
   @UseGuards(JwtAuthGuard)
   @Post()
   async create(@Body() newEvent: AddBlobDto) {
-    const a = await this.imageService.create(newEvent);
-    console.log(a);
-    return a;
+    return await this.imageService.create(newEvent);
   }
 
   @UseGuards(JwtAuthGuard)
