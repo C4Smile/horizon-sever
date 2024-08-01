@@ -15,8 +15,8 @@ export class NewsHasTagService {
 
   async create(newsHasTag: AddNewsHasTagDto) {
     const newNewsHasTag = this.newsHasTagService.create(newsHasTag);
-
-    return [this.newsHasTagService.save(newNewsHasTag)];
+    const saved = await this.newsHasTagService.save(newNewsHasTag);
+    return [saved];
   }
 
   async remove(newsHasTag: AddNewsHasTagDto) {

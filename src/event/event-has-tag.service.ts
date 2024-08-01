@@ -15,8 +15,8 @@ export class EventHasTagService {
 
   async create(eventHasTag: AddEventHasTagDto) {
     const newEventHasTag = this.eventHasTagService.create(eventHasTag);
-
-    return [this.eventHasTagService.save(newEventHasTag)];
+    const saved = await this.eventHasTagService.save(newEventHasTag);
+    return [saved];
   }
 
   async remove(eventHasTag: AddEventHasTagDto) {

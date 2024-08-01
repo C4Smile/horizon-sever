@@ -22,7 +22,8 @@ export class AppTextService {
     if (appTextFound) throw new HttpException("AppText already exists", HttpStatus.CONFLICT);
 
     const newAppText = this.appTextService.create(appText);
-    return [this.appTextService.save(newAppText)];
+    const saved = await this.appTextService.save(newAppText);
+    return [saved];
   }
 
   async get({ sort, order, page, count }) {
@@ -74,7 +75,7 @@ export class AppTextService {
       throw new HttpException("AppText already exists", HttpStatus.CONFLICT);
 
     const updatedAppText = Object.assign(appTextFound, data);
-
-    return this.appTextService.save(updatedAppText);
+    const saved = await this.appTextService.save(updatedAppText);
+    return [saved];
   }
 }

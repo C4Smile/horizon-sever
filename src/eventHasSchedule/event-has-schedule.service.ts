@@ -11,11 +11,14 @@ import { AddEventHasScheduleDto } from "./dto/add-event-has-schedule.dto";
 
 @Injectable()
 export class EventHasScheduleService {
-  constructor(@InjectRepository(EventHasSchedule) private eventHasScheduleService: Repository<EventHasSchedule>) {}
+  constructor(
+    @InjectRepository(EventHasSchedule) private eventHasScheduleService: Repository<EventHasSchedule>,
+  ) {}
 
   async create(event: AddEventHasScheduleDto) {
     const newEvent = this.eventHasScheduleService.create(event);
-    return [this.eventHasScheduleService.save(newEvent)];
+    const saved = await this.eventHasScheduleService.save(newEvent);
+    return [saved];
   }
 
   async remove(id: number) {

@@ -28,7 +28,8 @@ export class TagService {
     if (tagFound) throw new HttpException("Tag already exists", HttpStatus.CONFLICT);
 
     const newTag = this.tagService.create(tag);
-    return [this.tagService.save(newTag)];
+    const saved = await this.tagService.save(newTag);
+    return [saved];
   }
 
   async get({ sort, order, page, count }) {
@@ -90,7 +91,7 @@ export class TagService {
       throw new HttpException("Tag already exists", HttpStatus.CONFLICT);
 
     const updatedTag = Object.assign(tagFound, data);
-
-    return this.tagService.save(updatedTag);
+    const saved = await this.tagService.save(updatedTag);
+    return [saved];
   }
 }

@@ -32,7 +32,8 @@ export class RoomAreaService {
     if (roomAreaFound) throw new HttpException("RoomArea already exists", HttpStatus.CONFLICT);
 
     const newRoomArea = this.roomAreaService.create(roomArea);
-    return [this.roomAreaService.save(newRoomArea)];
+    const saved = await this.roomAreaService.save(newRoomArea);
+    return [saved];
   }
 
   async get({ sort, order, page, count }) {
@@ -114,7 +115,8 @@ export class RoomAreaService {
       throw new HttpException("RoomArea already exists", HttpStatus.CONFLICT);
 
     const updatedRoomArea = Object.assign(roomAreaFound, data);
+    const saved = await this.roomAreaService.save(updatedRoomArea);
 
-    return this.roomAreaService.save(updatedRoomArea);
+    return [saved];
   }
 }

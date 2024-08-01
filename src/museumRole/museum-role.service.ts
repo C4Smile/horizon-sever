@@ -22,7 +22,8 @@ export class MuseumRoleService {
     if (museumRoleFound) throw new HttpException("MuseumRole already exists", HttpStatus.CONFLICT);
 
     const newMuseumRole = this.museumRoleService.create(museumRole);
-    return [this.museumRoleService.save(newMuseumRole)];
+    const saved = await this.museumRoleService.save(newMuseumRole);
+    return [saved];
   }
 
   async get({ sort, order, page, count }) {
@@ -74,7 +75,7 @@ export class MuseumRoleService {
       throw new HttpException("MuseumRole already exists", HttpStatus.CONFLICT);
 
     const updatedMuseumRole = Object.assign(museumRoleFound, data);
-
-    return this.museumRoleService.save(updatedMuseumRole);
+    const saved = await this.museumRoleService.save(updatedMuseumRole);
+    return [saved];
   }
 }

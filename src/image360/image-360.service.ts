@@ -36,7 +36,8 @@ export class Image360Service {
     if (imageFound) throw new HttpException("Image already exists", HttpStatus.CONFLICT);
 
     const newImage = this.imageService.create({ url, fileName });
-    return [this.imageService.save(newImage)];
+    const saved = await this.imageService.save(newImage);
+    return [saved];
   }
 
   async remove(id: number) {

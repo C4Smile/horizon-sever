@@ -22,7 +22,8 @@ export class ServiceService {
     if (serviceFound) throw new HttpException("Service already exists", HttpStatus.CONFLICT);
 
     const newService = this.serviceService.create(service);
-    return [this.serviceService.save(newService)];
+    const saved = await this.serviceService.save(newService);
+    return [saved];
   }
 
   async get({ sort, order, page, count }) {
@@ -76,7 +77,7 @@ export class ServiceService {
       throw new HttpException("Service already exists", HttpStatus.CONFLICT);
 
     const updatedService = Object.assign(serviceFound, data);
-
-    return this.serviceService.save(updatedService);
+    const saved = await this.serviceService.save(updatedService);
+    return [saved];
   }
 }

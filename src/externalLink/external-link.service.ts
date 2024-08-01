@@ -21,7 +21,8 @@ export class ExternalLinkService {
     if (externalLinkFound) throw new HttpException("ExternalLink already exists", HttpStatus.CONFLICT);
 
     const newExternalLink = this.externalLinkService.create(externalLink);
-    return [this.externalLinkService.save(newExternalLink)];
+    const saved = await this.externalLinkService.save(newExternalLink);
+    return [saved];
   }
 
   async get({ sort, order, page, count }) {

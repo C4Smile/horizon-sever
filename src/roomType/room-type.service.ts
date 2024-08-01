@@ -27,7 +27,8 @@ export class RoomTypeService {
     if (roomTypeFound) throw new HttpException("RoomType already exists", HttpStatus.CONFLICT);
 
     const newRoomType = this.roomTypeService.create(roomType);
-    return [this.roomTypeService.save(newRoomType)];
+    const saved = await this.roomTypeService.save(newRoomType);
+    return [saved];
   }
 
   async get({ sort, order, page, count }) {
@@ -79,7 +80,7 @@ export class RoomTypeService {
       throw new HttpException("RoomType already exists", HttpStatus.CONFLICT);
 
     const updatedRoomType = Object.assign(roomTypeFound, data);
-
-    return this.roomTypeService.save(updatedRoomType);
+    const saved = await this.roomTypeService.save(updatedRoomType);
+    return [saved];
   }
 }

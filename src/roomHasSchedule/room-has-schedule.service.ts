@@ -17,7 +17,8 @@ export class RoomHasScheduleService {
 
   async create(room: AddRoomHasScheduleDto) {
     const newRoom = this.roomHasScheduleService.create(room);
-    return [this.roomHasScheduleService.save(newRoom)];
+    const saved = await this.roomHasScheduleService.save(newRoom);
+    return [saved];
   }
 
   async remove(id: number) {

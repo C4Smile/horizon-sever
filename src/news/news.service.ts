@@ -31,8 +31,8 @@ export class NewsService {
     if (newsFound) throw new HttpException("News already exists", HttpStatus.CONFLICT);
 
     const newNews = this.newsService.create(news);
-
-    return [this.newsService.save(newNews)];
+    const saved = await this.newsService.save(newNews);
+    return [saved];
   }
 
   async get({ sort, order, page, count }) {
@@ -110,8 +110,8 @@ export class NewsService {
       throw new HttpException("News already exists", HttpStatus.CONFLICT);
 
     const updatedNews = Object.assign(newsFound, data);
-
-    return this.newsService.save(updatedNews);
+    const saved = await this.newsService.save(updatedNews);
+    return [saved];
   }
 
   async getSmallNews(count: number) {

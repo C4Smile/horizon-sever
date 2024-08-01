@@ -22,7 +22,8 @@ export class MuseumUserService {
     if (museumUserFound) throw new HttpException("MuseumUser already exists", HttpStatus.CONFLICT);
 
     const newMuseumUser = this.museumUserService.create(museumUser);
-    return [this.museumUserService.save(newMuseumUser)];
+    const saved = await this.museumUserService.save(newMuseumUser);
+    return [saved];
   }
 
   async get({ sort, order, page, count }) {
@@ -87,7 +88,7 @@ export class MuseumUserService {
       throw new HttpException("MuseumUser already exists", HttpStatus.CONFLICT);
 
     const updatedMuseumUser = Object.assign(museumUserFound, data);
-
-    return this.museumUserService.save(updatedMuseumUser);
+    const saved = await this.museumUserService.save(updatedMuseumUser);
+    return [saved];
   }
 }

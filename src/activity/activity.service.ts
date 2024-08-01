@@ -22,7 +22,8 @@ export class ActivityService {
     if (activityFound) throw new HttpException("Activity already exists", HttpStatus.CONFLICT);
 
     const newActivity = this.activityService.create(activity);
-    return [this.activityService.save(newActivity)];
+    const saved = await this.activityService.save(newActivity);
+    return [saved];
   }
 
   async get({ sort, order, page, count }) {
@@ -76,7 +77,7 @@ export class ActivityService {
       throw new HttpException("Activity already exists", HttpStatus.CONFLICT);
 
     const updatedActivity = Object.assign(activityFound, data);
-
-    return this.activityService.save(updatedActivity);
+    const saved = await this.activityService.save(updatedActivity);
+    return [saved];
   }
 }

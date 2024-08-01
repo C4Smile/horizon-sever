@@ -18,7 +18,8 @@ export class ServiceHasScheduleService {
 
   async create(service: AddServiceHasScheduleDto) {
     const newService = this.serviceHasScheduleService.create(service);
-    return [this.serviceHasScheduleService.save(newService)];
+    const saved = await this.serviceHasScheduleService.save(newService);
+    return [saved];
   }
 
   async remove(id: number) {

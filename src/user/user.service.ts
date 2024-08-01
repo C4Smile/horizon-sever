@@ -8,7 +8,6 @@ import { Repository } from "typeorm";
 import { User } from "./user.entity";
 
 // dto
-import { UserDto } from "./dto/user.dto";
 import { AddUserDto } from "./dto/add-user.dto";
 import { UpdateUserDto } from "./dto/update-user.dto";
 
@@ -27,7 +26,7 @@ export class UserService {
 
     const newUser = this.userService.create({ ...user, encrypted_password: hashedPassword });
     const resultUser = await this.userService.save(newUser);
-    return [resultUser as UserDto];
+    return [resultUser];
   }
 
   get() {
@@ -73,6 +72,6 @@ export class UserService {
     const updatedUser = Object.assign(userFound, data);
 
     const resultUser = await this.userService.save(updatedUser);
-    return resultUser as UserDto;
+    return [resultUser];
   }
 }

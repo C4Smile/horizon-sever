@@ -25,7 +25,11 @@ export class ImageService {
       mkdirSync(join(__dirname, "../../", `public/images`));
     if (!existsSync(join(__dirname, "../../", `public/images/${folder}`)))
       mkdirSync(join(__dirname, "../../", `public/images/${folder}`));
-    writeFileSync(join(__dirname, "../../", `public/images${folder}${fileName}`), base64Data, "base64");
+    writeFileSync(
+      join(__dirname, "../../", `public/images${folder}/${fileName}`),
+      base64Data,
+      "base64",
+    );
 
     const url = `${folder}${fileName}`;
 
@@ -36,7 +40,8 @@ export class ImageService {
     if (imageFound) throw new HttpException("Image already exists", HttpStatus.CONFLICT);
 
     const newImage = this.imageService.create({ url, fileName });
-    return [this.imageService.save(newImage)];
+    const saved = await this.imageService.save(newImage);
+    return [saved];
   }
 
   async remove(id: number) {

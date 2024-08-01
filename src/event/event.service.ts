@@ -22,7 +22,8 @@ export class EventService {
     if (eventFound) throw new HttpException("Event already exists", HttpStatus.CONFLICT);
 
     const newEvent = this.eventService.create(event);
-    return [this.eventService.save(newEvent)];
+    const saved = await this.eventService.save(newEvent);
+    return [saved];
   }
 
   async get({ sort, order, page, count }) {
@@ -76,7 +77,7 @@ export class EventService {
       throw new HttpException("Event already exists", HttpStatus.CONFLICT);
 
     const updatedEvent = Object.assign(eventFound, data);
-
-    return this.eventService.save(updatedEvent);
+    const saved = await this.eventService.save(updatedEvent);
+    return saved;
   }
 }

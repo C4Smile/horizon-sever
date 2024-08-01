@@ -10,7 +10,6 @@ import { User } from "src/user/user.entity";
 // dto
 import { LoginUserDto } from "./dto/login-user.dto";
 import { AddUserDto } from "src/user/dto/add-user.dto";
-import { UserDto } from "src/user/dto/user.dto";
 import { LoggedUserDto } from "./dto/logged-user.dt";
 
 @Injectable()
@@ -63,6 +62,6 @@ export class AuthService {
 
     const newUser = this.userService.create({ ...user, encrypted_password: hashedPassword });
     const resultUser = await this.userService.save(newUser);
-    return resultUser as UserDto;
+    return [resultUser];
   }
 }

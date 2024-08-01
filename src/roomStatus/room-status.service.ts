@@ -27,7 +27,8 @@ export class RoomStatusService {
     if (roomStatusFound) throw new HttpException("RoomStatus already exists", HttpStatus.CONFLICT);
 
     const newRoomStatus = this.roomStatusService.create(roomStatus);
-    return this.roomStatusService.save(newRoomStatus);
+    const saved = await this.roomStatusService.save(newRoomStatus);
+    return [saved];
   }
 
   async get({ sort, order, page, count }) {
@@ -79,7 +80,7 @@ export class RoomStatusService {
       throw new HttpException("RoomStatus already exists", HttpStatus.CONFLICT);
 
     const updatedRoomStatus = Object.assign(roomStatusFound, data);
-
-    return this.roomStatusService.save(updatedRoomStatus);
+    const saved = await this.roomStatusService.save(updatedRoomStatus);
+    return [saved];
   }
 }

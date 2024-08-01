@@ -53,7 +53,8 @@ export class RoomService extends PageService {
     }
 
     const newRoom = this.roomService.create(room);
-    return [this.roomService.save(newRoom)];
+    const saved = await this.roomService.save(newRoom);
+    return [saved];
   }
 
   async get({ sort, order, page, count }) {
@@ -154,8 +155,8 @@ export class RoomService extends PageService {
     if (!roomFound) throw new HttpException("Room not Found", HttpStatus.NOT_FOUND);
 
     const updatedRoom = Object.assign(roomFound, data);
-
-    return this.roomService.save(updatedRoom);
+    const saved = await this.roomService.save(updatedRoom);
+    return [saved];
   }
 
   private createWhereQuery(params: RoomDto) {
