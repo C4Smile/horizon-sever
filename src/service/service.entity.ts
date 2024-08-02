@@ -26,7 +26,7 @@ export class Service extends Model {
   @Column({ type: "int" })
   imageId: number = 0;
 
-  @OneToOne(() => Photo, (photo) => photo.service)
+  @ManyToOne(() => Photo)
   image: Photo;
 
   @OneToMany(() => ServiceHasSchedule, (schedule) => schedule.Service, { cascade: true })

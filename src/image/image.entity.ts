@@ -1,4 +1,4 @@
-import { Column, Entity, JoinColumn, ManyToMany, OneToOne } from "typeorm";
+import { Column, Entity, ManyToMany, OneToMany } from "typeorm";
 
 // entities
 import { Model } from "src/models/model";
@@ -30,17 +30,14 @@ export class Photo extends Model {
   @ManyToMany(() => RoomArea, (roomArea) => roomArea.roomAreaHasImage, { cascade: true })
   roomAreas: RoomArea[];
 
-  @OneToOne(() => Activity, (activity) => activity.image)
-  @JoinColumn()
-  activity: Activity;
+  @OneToMany(() => Activity, (activity) => activity.image, { cascade: true })
+  activities: Activity;
 
-  @OneToOne(() => Service, (service) => service.image)
-  @JoinColumn()
-  service: Service;
+  @OneToMany(() => Service, (service) => service.image, { cascade: true })
+  services: Service;
 
-  @OneToOne(() => Activity, (pushNotification) => pushNotification.image)
-  @JoinColumn()
-  pushNotification: PushNotification;
+  @OneToMany(() => PushNotification, (pushNotification) => pushNotification.image, { cascade: true })
+  pushNotifications: PushNotification;
 
   /**
    * @returns News
