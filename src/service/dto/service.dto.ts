@@ -1,11 +1,21 @@
-// dto
-import { BlobDto } from "src/image/dto/blob.dto";
-import { ModelDto } from "src/models/model.dto";
+import { AutoMap } from "@automapper/classes";
 
-export interface ServiceDto extends ModelDto {
+// dto
+import { ModelDto } from "src/models/model.dto";
+import { ServiceHasImageDto } from "./service-has-image.dto";
+
+
+export class ServiceDto extends ModelDto {
+  @AutoMap()
   name: string;
+
+  @AutoMap()
   urlName: string;
+
+  @AutoMap()
   description: string;
+
+  @AutoMap()
   content: string;
-  image: BlobDto;
+  image: ServiceHasImageDto;
 }

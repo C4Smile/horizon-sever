@@ -1,9 +1,11 @@
-import { Column, Entity, OneToMany, OneToOne } from "typeorm";
+import { Column, Entity, ManyToOne, OneToMany } from "typeorm";
+import { AutoMap } from "@automapper/classes";
 
 // entities
 import { Model } from "src/models/model";
 import { Photo } from "src/image/image.entity";
 import { ServiceHasSchedule } from "src/serviceHasSchedule/service-has-schedule.entity";
+
 
 /**
  * @class Service
@@ -11,15 +13,19 @@ import { ServiceHasSchedule } from "src/serviceHasSchedule/service-has-schedule.
  */
 @Entity({ name: "services" })
 export class Service extends Model {
+  @AutoMap()
   @Column({ type: "text", unique: true })
   name: string;
 
+  @AutoMap()
   @Column({ type: "text", unique: true })
   urlName: string;
 
+  @AutoMap()
   @Column({ type: "text" })
   description: string = "";
 
+  @AutoMap()
   @Column({ type: "text" })
   content: string = "";
 

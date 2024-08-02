@@ -1,5 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
+import { InjectMapper } from "@automapper/nestjs";
+import { Mapper } from "@automapper/core";
 
 import { Repository } from "typeorm";
 
@@ -9,10 +11,14 @@ import { Service } from "./service.entity";
 // dto
 import { AddServiceDto } from "./dto/add-service.dto";
 import { UpdateServiceDto } from "./dto/update-service.dto";
+import { ServiceDto } from "./dto/service.dto";
 
 @Injectable()
 export class ServiceService {
-  constructor(@InjectRepository(Service) private serviceService: Repository<Service>) {}
+  constructor(
+    @InjectRepository(Service) private serviceService: Repository<Service>,
+    @InjectMapper() private readonly mapper: Mapper,
+  ) {}
 
   async create(service: AddServiceDto) {
     const serviceFound = await this.serviceService.findOne({
@@ -36,7 +42,7 @@ export class ServiceService {
       },
     });
 
-    return list;
+    return this.mapper.mapArrayAsync(list, Service, ServiceDto);
   }
 
   async getById(id: number) {
@@ -49,7 +55,7 @@ export class ServiceService {
 
     if (!serviceFound) throw new HttpException("Service not Found", HttpStatus.NOT_FOUND);
 
-    return [serviceFound];
+    return this.mapper.mapArrayAsync([serviceFound], Service, ServiceDto);
   }
 
   async remove(id: number) {
