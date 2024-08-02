@@ -32,7 +32,7 @@ export class ServiceController {
     return this.serviceService.get({ sort, order, page, count });
   }
 
-   @Get(":id")
+  @Get(":id")
   getById(@Param("id", ParseIntPipe) id: number) {
     return this.serviceService.getById(id);
   }
