@@ -28,5 +28,9 @@ export class RoomDetailsDto extends ModelDto {
   @AutoMap()
   type: RoomTypeDto;
 
+  images: string[];
+
+  images360: string[];
+
   nextRoom: NextRoomDto;
 }
