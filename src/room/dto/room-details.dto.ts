@@ -2,11 +2,11 @@ import { AutoMap } from "@automapper/classes";
 
 // dto
 import { NextRoomDto } from "./next-room.dto";
-import { ModelDto } from "src/models/model.dto";
-import { RoomStatusDto } from "src/roomStatus/dto/room-status.dto";
-import { RoomTypeDto } from "src/roomType/dto/room-type.dto";
 
-export class RoomDetailsDto extends ModelDto {
+export class RoomDetailsDto {
+  @AutoMap()
+  id: number;
+
   @AutoMap()
   number: string;
 
@@ -21,12 +21,6 @@ export class RoomDetailsDto extends ModelDto {
 
   @AutoMap()
   content: string;
-
-  @AutoMap()
-  status: RoomStatusDto;
-
-  @AutoMap()
-  type: RoomTypeDto;
 
   images: string[];
 
