@@ -23,7 +23,7 @@ import { GuestBookService } from "./guest-book.service";
 // guard
 import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
 
-@Controller("guest-book")
+@Controller("guestBook")
 export class GuestBookController {
   constructor(private guestBookService: GuestBookService) {}
 
