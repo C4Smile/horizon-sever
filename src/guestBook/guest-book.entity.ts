@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToMany } from "typeorm";
+import { Column, Entity, JoinTable, ManyToMany } from "typeorm";
 import { AutoMap } from "@automapper/classes";
 
 // entities
@@ -27,6 +27,19 @@ export class GuestBook extends Model {
   @Column({ type: "text" })
   content: string = "";
 
-  @ManyToMany(() => Photo)
+  @ManyToMany(() => Photo, (photo) => photo.guestBooks)
+  @JoinTable({
+    name: "guest-has-image",
+    joinColumn: {
+      name: "guestBookId",
+      referencedColumnName: "id",
+      foreignKeyConstraintName: "guestBookHasImage",
+    },
+    inverseJoinColumn: {
+      name: "imageId",
+      referencedColumnName: "id",
+      foreignKeyConstraintName: "imageOfGuestBook",
+    },
+  })
   guestBookHasImage: Photo[];
 }
