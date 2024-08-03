@@ -116,7 +116,7 @@ export class RoomService extends PageService {
       where: {
         urlName: slug,
       },
-      relations: ["status", "type"],
+      relations: ["status", "type", "roomHasImage", "roomHasImage360"],
     });
 
     if (!roomFound) throw new HttpException("Room not Found", HttpStatus.NOT_FOUND);
@@ -126,6 +126,7 @@ export class RoomService extends PageService {
     const nextRoom = await this.roomService.findOne({
       where: {
         number: MoreThan(roomFound.number),
+        relations: ["status", "type", "roomHasImage", "roomHasImage360"],
       },
     });
 
