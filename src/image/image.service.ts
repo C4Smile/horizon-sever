@@ -19,7 +19,8 @@ export class ImageService {
   async create(image: AddBlobDto) {
     const { base64, folder, fileName } = image;
     const parts = fileName.split(".");
-    const ext = parts.length > 1 ? parts.pop() : "";
+    let ext = parts.length > 1 ? parts.pop() : "";
+    if (ext === "jpg") ext = "jpeg";
 
     const slugFileName = toSlug(parts[0]);
 
