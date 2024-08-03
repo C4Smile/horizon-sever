@@ -64,6 +64,20 @@ export class RoomAutomapper extends AutomapperProfile {
           mapFrom((source) => source.roomHasImage[0]?.url),
         ),
       );
+      /* ROOM DETAILS DTO */
+      createMap(
+        mapper,
+        Room,
+        RoomDetailsDto,
+        forMember(
+          (dest) => dest.images,
+          mapFrom((source) => source.roomHasImage?.map((image) => image.url)),
+        ),
+        forMember(
+          (dest) => dest.images360,
+          mapFrom((source) => source.roomHasImage360?.map((image) => image.url)),
+        ),
+      );
       /* NEXT ROOM DTO */
       createMap(
         mapper,
