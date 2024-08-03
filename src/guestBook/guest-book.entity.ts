@@ -16,10 +16,6 @@ export class GuestBook extends Model {
   name: string;
 
   @AutoMap()
-  @Column({ type: "text", unique: true })
-  urlName: string;
-
-  @AutoMap()
   @Column({ type: "text" })
   description: string = "";
 
