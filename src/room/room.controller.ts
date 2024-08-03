@@ -44,7 +44,7 @@ export class RoomController {
   }
 
   @Get("details/:slug")
-  getDetailsBySlug(slug: string) {
+  getDetailsBySlug(@Param("slug") slug: string) {
     return this.roomService.getDetailsBySlug(slug);
   }
 
