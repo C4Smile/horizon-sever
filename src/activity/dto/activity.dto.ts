@@ -1,8 +1,18 @@
+import { AutoMap } from "@automapper/classes";
+
 // dto
 import { ModelDto } from "src/models/model.dto";
+import { BlobDto } from "src/image/dto/blob.dto";
 
-export interface ActivityDto extends ModelDto {
+export class ActivityDto extends ModelDto {
+  @AutoMap()
   title: string;
+
+  @AutoMap()
   description: string;
+
+  @AutoMap()
   entity: string;
+
+  imageId: BlobDto;
 }

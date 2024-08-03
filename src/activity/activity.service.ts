@@ -1,5 +1,7 @@
-import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
+import { Mapper } from "@automapper/core";
+import { InjectMapper } from "@automapper/nestjs";
 import { InjectRepository } from "@nestjs/typeorm";
+import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 
 import { Repository } from "typeorm";
 
@@ -9,10 +11,14 @@ import { Activity } from "./activity.entity";
 // dto
 import { AddActivityDto } from "./dto/add-activity.dto";
 import { UpdateActivityDto } from "./dto/update-activity.dto";
+import { ActivityDto } from "./dto/activity.dto";
 
 @Injectable()
 export class ActivityService {
-  constructor(@InjectRepository(Activity) private activityService: Repository<Activity>) {}
+  constructor(
+    @InjectRepository(Activity) private activityService: Repository<Activity>,
+    @InjectMapper() private readonly mapper: Mapper,
+  ) {}
 
   async create(activity: AddActivityDto) {
     const activityFound = await this.activityService.findOne({
@@ -36,7 +42,7 @@ export class ActivityService {
       relations: ["image"],
     });
 
-    return list;
+    return this.mapper.mapArrayAsync(list, Activity, ActivityDto);
   }
 
   async getById(id: number) {
@@ -49,7 +55,7 @@ export class ActivityService {
 
     if (!activityFound) throw new HttpException("Activity not Found", HttpStatus.NOT_FOUND);
 
-    return [activityFound];
+    return this.mapper.mapArrayAsync([activityFound], Activity, ActivityDto);
   }
 
   async remove(id: number) {
