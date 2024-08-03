@@ -2,8 +2,7 @@ import { AutoMap } from "@automapper/classes";
 
 // dto
 import { ModelDto } from "src/models/model.dto";
-import { ServiceHasImageDto } from "./service-has-image.dto";
-
+import { BlobDto } from "src/image/dto/blob.dto";
 
 export class ServiceDto extends ModelDto {
   @AutoMap()
@@ -17,5 +16,6 @@ export class ServiceDto extends ModelDto {
 
   @AutoMap()
   content: string;
-  image: ServiceHasImageDto;
+
+  imageId: BlobDto;
 }
