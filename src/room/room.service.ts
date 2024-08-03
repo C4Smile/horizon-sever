@@ -131,9 +131,7 @@ export class RoomService extends PageService {
 
     const asDetailRoom = await this.mapper.mapAsync(roomFound, Room, RoomDetailsDto);
 
-    if (nextRoom) {
-      asDetailRoom.nextRoom = await this.mapper.mapAsync(nextRoom, Room, NextRoomDto);
-    }
+    if (nextRoom) asDetailRoom.nextRoom = await this.mapper.mapAsync(nextRoom, Room, NextRoomDto);
 
     return asDetailRoom;
   }
