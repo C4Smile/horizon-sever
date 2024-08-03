@@ -9,6 +9,7 @@ import { Activity } from "src/activity/activity.entity";
 import { Service } from "src/service/service.entity";
 import { PushNotification } from "src/pushNotification/push-notification.entity";
 import { RoomArea } from "src/room-area/room-area.entity";
+import { GuestBook } from "src/guestBook/guest-book.entity";
 
 @Entity({ name: "images" })
 export class Photo extends Model {
@@ -38,6 +39,9 @@ export class Photo extends Model {
 
   @OneToMany(() => PushNotification, (pushNotification) => pushNotification.image, { cascade: true })
   pushNotifications: PushNotification;
+
+  @ManyToMany(() => GuestBook, (guestBook) => guestBook.guestBookHasImage, { cascade: true })
+  guestBooks: GuestBook[];
 
   /**
    * @returns News

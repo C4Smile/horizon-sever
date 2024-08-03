@@ -30,6 +30,7 @@ import { ServiceModule } from "./service/service.module";
 import { ServiceHasScheduleModule } from "./serviceHasSchedule/service-has-schedule.module";
 import { ImageModule } from "./image/image.module";
 import { Image360Module } from "./image360/image-360.module";
+import { GuestBookModule } from "./guestBook/guest-book.module";
 
 @Module({
   imports: [
@@ -55,6 +56,7 @@ import { Image360Module } from "./image360/image-360.module";
     EventHasLinkModule,
     EventHasScheduleModule,
     ExternalLinkModule,
+    GuestBookModule,
     ImageModule,
     Image360Module,
     MuseumRoleModule,
