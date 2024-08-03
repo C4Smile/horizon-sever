@@ -26,7 +26,7 @@ export class RoomAreaService {
 
   async create(roomArea: AddRoomAreaDto) {
     const roomAreaFound = await this.roomAreaService.findOne({
-      where: [{ name: roomArea.name }, { roomId: roomArea.roomId }],
+      where: [{ name: roomArea.name, roomId: roomArea.roomId }],
     });
 
     if (roomAreaFound) throw new HttpException("RoomArea already exists", HttpStatus.CONFLICT);
