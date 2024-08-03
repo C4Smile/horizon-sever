@@ -7,6 +7,7 @@ import { Service } from "./service.entity";
 
 // dto
 import { ServiceDto } from "./dto/service.dto";
+import { BlobDto } from "src/image/dto/blob.dto";
 
 @Injectable()
 export class ServiceAutomapper extends AutomapperProfile {
@@ -22,10 +23,10 @@ export class ServiceAutomapper extends AutomapperProfile {
         Service,
         ServiceDto,
         forMember(
-          (dest) => dest.image,
-          mapFrom((source) => {
-            imageId: source.image;
-          }),
+          (dest) => dest.imageId,
+          mapFrom(({ image }) =>
+            !image ? null : ({ id: image.id, url: image.url, fileName: image.fileName } as BlobDto),
+          ),
         ),
       );
     };
