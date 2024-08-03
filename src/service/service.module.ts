@@ -11,6 +11,8 @@ import { ServiceService } from "./service.service";
 
 // entities
 import { Service } from "./service.entity";
+
+// automapper
 import { ServiceAutomapper } from "./service.automapper";
 
 @Module({
