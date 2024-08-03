@@ -56,12 +56,11 @@ export class Image360Service {
     if (!imageFound) throw new HttpException("Image not found", HttpStatus.NOT_FOUND);
 
     try {
-      const path = join(__dirname, "..", `public${imageFound.url}`);
+      const path = join(__dirname, "../../", `public/images/${imageFound.url}`);
       rmSync(path);
+      return this.imageService.delete({ id });
     } catch (err) {
       throw new HttpException("Error to delete image", HttpStatus.INTERNAL_SERVER_ERROR);
     }
-
-    return this.imageService.delete({ id });
   }
 }
