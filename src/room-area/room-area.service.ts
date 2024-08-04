@@ -25,11 +25,19 @@ export class RoomAreaService {
   ) {}
 
   async create(roomArea: AddRoomAreaDto) {
-    const roomAreaFound = await this.roomAreaService.findOne({
-      where: [{ name: roomArea.name, roomId: roomArea.roomId }],
+    const roomAreasFound = await this.roomAreaService.find({
+      order: {
+        number: "DESC",
+      },
     });
 
-    if (roomAreaFound) throw new HttpException("RoomArea already exists", HttpStatus.CONFLICT);
+    const found = roomAreasFound.find(
+      (area) => area.name === roomArea.name && area.roomId === roomArea.roomId,
+    );
+
+    if (found) throw new HttpException("RoomArea already exists", HttpStatus.CONFLICT);
+
+    roomArea.number = roomAreasFound[0]?.number + 1 ?? 1;
 
     const newRoomArea = this.roomAreaService.create(roomArea);
     const saved = await this.roomAreaService.save(newRoomArea);
