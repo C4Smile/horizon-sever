@@ -29,5 +29,6 @@ export class RoomDto extends ModelDto {
   type: RoomTypeDto;
 
   roomHasImage: RoomHasImageDto[];
+
   roomHasImage360: RoomHasImageDto[];
 }
