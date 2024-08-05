@@ -7,6 +7,7 @@ import {
   ParseIntPipe,
   Patch,
   Post,
+  Put,
   Query,
   UseGuards,
 } from "@nestjs/common";
@@ -14,10 +15,11 @@ import {
 // dto
 import { RoomAreaDto } from "./dto/room-area.dto";
 import { AddRoomAreaDto } from "./dto/add-room-area.dto";
+import { UpdateRoomAreaDto } from "./dto/update-room-area.dto";
+import { UpdateRoomAreaOrderDto } from "./dto/update-room-area-order.dto";
 
 // services
 import { RoomAreaService } from "./room-area.service";
-import { UpdateRoomAreaDto } from "./dto/update-room-area.dto";
 
 // guard
 import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
@@ -39,7 +41,7 @@ export class RoomAreaController {
 
   @Get("byRoomId/:id")
   getByRoomId(@Param("id", ParseIntPipe) id: number, @Query() query) {
-    const { sort = "lastUpdate", order = "DESC", page = 0, count = 999 } = query;
+    const { sort = "number", order = "DESC", page = 0, count = 999 } = query;
     return this.roomAreaService.getByRoomId({ roomId: id, sort, order, page, count });
   }
 
@@ -59,5 +61,11 @@ export class RoomAreaController {
   @Patch(":id")
   update(@Param("id", ParseIntPipe) id: number, @Body() data: UpdateRoomAreaDto) {
     return this.roomAreaService.update(id, data);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Put("order")
+  order(@Body() roomAreas: UpdateRoomAreaOrderDto[]) {
+    return this.roomAreaService.saveOrder(roomAreas);
   }
 }

@@ -12,6 +12,7 @@ import { RoomArea } from "./room-area.entity";
 import { AddRoomAreaDto } from "./dto/add-room-area.dto";
 import { UpdateRoomAreaDto } from "./dto/update-room-area.dto";
 import { ClientRoomAreaDto } from "./dto/client-room-area.dto";
+import { UpdateRoomAreaOrderDto } from "./dto/update-room-area-order.dto";
 
 enum RoomAreaStatus {
   Active = 1,
@@ -102,6 +103,15 @@ export class RoomAreaService {
     const result = await this.roomAreaService.update({ id }, { deleted: true });
     if (result.affected === 0) throw new HttpException("RoomArea not Found", HttpStatus.NOT_FOUND);
     return result;
+  }
+
+  async saveOrder(data: UpdateRoomAreaOrderDto[]) {
+    for (let i = 0; i < data.length; i += 1) {
+      const toSave = { id: data[i].id, number: i + 1 };
+      await this.roomAreaService.save(toSave);
+    }
+
+    return [data];
   }
 
   async update(id: number, data: UpdateRoomAreaDto) {
