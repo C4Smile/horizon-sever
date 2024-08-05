@@ -41,7 +41,7 @@ export class RoomAreaController {
 
   @Get("byRoomId/:id")
   getByRoomId(@Param("id", ParseIntPipe) id: number, @Query() query) {
-    const { sort = "number", order = "DESC", page = 0, count = 999 } = query;
+    const { sort = "number", order = "ASC", page = 0, count = 999 } = query;
     return this.roomAreaService.getByRoomId({ roomId: id, sort, order, page, count });
   }
 
