@@ -35,6 +35,7 @@ import { RoomHasImageModule } from "./roomHasImage/room-has-image.module";
 import { GuestBookHasImageModule } from "./guestBookHasImage/guest-book-has-image.module";
 import { NewsHasImageModule } from "./newsHasImage/news-has-image.module";
 import { EventHasImageModule } from "./eventHasImage/event-has-image.module";
+import { RoomAreaHasImageModule } from "./roomAreaHasImage/room-area-has-image.module";
 
 @Module({
   imports: [
@@ -71,6 +72,7 @@ import { EventHasImageModule } from "./eventHasImage/event-has-image.module";
     NewsHasImageModule,
     PushNotificationModule,
     RoomAreaModule,
+    RoomAreaHasImageModule,
     RoomModule,
     RoomHasImageModule,
     RoomHasScheduleModule,
