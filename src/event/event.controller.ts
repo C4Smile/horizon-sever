@@ -26,7 +26,6 @@ import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
 export class EventController {
   constructor(private eventService: EventService) {}
 
-
   @Get()
   get(@Query() query): Promise<EventDto[]> {
     const { sort = "lastUpdate", order = "DESC", page = 0, count = 20 } = query;
