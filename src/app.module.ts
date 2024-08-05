@@ -34,6 +34,7 @@ import { GuestBookModule } from "./guestBook/guest-book.module";
 import { RoomHasImageModule } from "./roomHasImage/room-has-image.module";
 import { GuestBookHasImageModule } from "./guestBookHasImage/guest-book-has-image.module";
 import { NewsHasImageModule } from "./newsHasImage/news-has-image.module";
+import { EventHasImageModule } from "./eventHasImage/event-has-image.module";
 
 @Module({
   imports: [
@@ -56,6 +57,7 @@ import { NewsHasImageModule } from "./newsHasImage/news-has-image.module";
     AuthModule,
     AppTextModule,
     EventModule,
+    EventHasImageModule,
     EventHasLinkModule,
     EventHasScheduleModule,
     ExternalLinkModule,
