@@ -3,7 +3,7 @@ import { Entity, PrimaryColumn } from "typeorm";
 
 /**
  * @class News
- * @description Represents a room
+ * @description Represents the relationship between a news and an image
  */
 @Entity({ name: "news-has-image" })
 export class NewsHasImage {
