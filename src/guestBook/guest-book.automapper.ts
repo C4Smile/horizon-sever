@@ -40,6 +40,12 @@ export class GuestBookAutomapper extends AutomapperProfile {
           (dest) => dest.images,
           mapFrom((source) => source.guestBookHasImage?.map((image) => image.url)),
         ),
+        forMember(
+          (dest) => dest.date,
+          mapFrom((source) =>
+            source.date.toLocaleDateString("es-Es", { year: "numeric", month: "long", day: "numeric" }),
+          ),
+        ),
       );
     };
   }

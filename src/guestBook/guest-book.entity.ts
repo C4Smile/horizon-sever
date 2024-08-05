@@ -15,13 +15,10 @@ export class GuestBook extends Model {
   @Column({ type: "text", unique: true })
   name: string;
 
-  @AutoMap()
-  @Column({ type: "text" })
-  description: string = "";
-
-  @AutoMap()
-  @Column({ type: "text" })
-  content: string = "";
+  @Column({
+    type: "datetime",
+  })
+  date: Date = null;
 
   @ManyToMany(() => Photo, (photo) => photo.guestBooks)
   @JoinTable({

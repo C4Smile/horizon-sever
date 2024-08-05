@@ -10,11 +10,7 @@ export class ClientGuestBookDto extends ModelDto {
   @AutoMap()
   urlName: string;
 
-  @AutoMap()
-  description: string;
-
-  @AutoMap()
-  content: string;
+  date: string;
 
   images: string[];
 }
