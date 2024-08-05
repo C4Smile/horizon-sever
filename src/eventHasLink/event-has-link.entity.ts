@@ -1,4 +1,5 @@
 import { Event } from "src/event/event.entity";
+import { ExternalLink } from "src/externalLink/external-link.entity";
 import { Column, Entity, ManyToOne, PrimaryColumn } from "typeorm";
 
 /**
@@ -7,14 +8,17 @@ import { Column, Entity, ManyToOne, PrimaryColumn } from "typeorm";
  */
 @Entity({ name: "event-has-link" })
 export class EventHasLink {
-  @PrimaryColumn()
-  eventId: number = 0;
+  @PrimaryColumn({ type: "int" })
+  eventId: number;
 
-  @ManyToOne(() => Event, (event) => event.eventHasLink)
+  @ManyToOne(() => Event)
   event: Event;
 
-  @PrimaryColumn()
+  @PrimaryColumn({ type: "int" })
   linkId: number = 0;
+
+  @ManyToOne(() => ExternalLink)
+  link: ExternalLink;
 
   @Column({ type: "text" })
   url: string = "";
