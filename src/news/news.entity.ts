@@ -33,6 +33,7 @@ export class News extends Model {
   subtitle: string = "";
 
   @ManyToMany(() => Tag, (newsTag) => newsTag.News, { cascade: true })
+  @AutoMap()
   @JoinTable({
     name: "news-has-tag",
     joinColumn: {
