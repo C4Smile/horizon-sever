@@ -31,6 +31,7 @@ import { ServiceHasScheduleModule } from "./serviceHasSchedule/service-has-sched
 import { ImageModule } from "./image/image.module";
 import { Image360Module } from "./image360/image-360.module";
 import { GuestBookModule } from "./guestBook/guest-book.module";
+import { RoomHasImageModule } from "./roomHasImage/room-has-image.module";
 
 @Module({
   imports: [
@@ -65,6 +66,7 @@ import { GuestBookModule } from "./guestBook/guest-book.module";
     PushNotificationModule,
     RoomAreaModule,
     RoomModule,
+    RoomHasImageModule,
     RoomHasScheduleModule,
     RoomStatusModule,
     RoomTypeModule,
