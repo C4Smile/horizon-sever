@@ -4,7 +4,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 
 // entity
-import { EventHasTag } from "./event-has-.entity";
+import { EventHasTag } from "./event-has-tag.entity";
 
 // dto
 import { AddEventHasTagDto } from "./dto/add-event-has-tag.dto";

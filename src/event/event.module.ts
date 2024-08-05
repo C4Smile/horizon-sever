@@ -14,7 +14,7 @@ import { TagModule } from "src/tags/tag.module";
 
 // entities
 import { Event } from "./event.entity";
-import { EventHasTag } from "./event-has-.entity";
+import { EventHasTag } from "./event-has-tag.entity";
 
 @Module({
   imports: [TypeOrmModule.forFeature([Event, EventHasTag]), TagModule],
