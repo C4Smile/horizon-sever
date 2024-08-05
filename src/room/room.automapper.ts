@@ -37,7 +37,7 @@ export class RoomAutomapper extends AutomapperProfile {
         forMember(
           (dest) => dest.roomHasImage360,
           mapFrom((source) =>
-            source.roomHasImage?.map((image) => ({
+            source.roomHasImage360?.map((image) => ({
               imageId: { id: image.id, url: image.url, fileName: image.fileName } as BlobDto,
             })),
           ),
