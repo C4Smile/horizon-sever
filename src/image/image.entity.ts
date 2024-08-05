@@ -8,7 +8,7 @@ import { Room } from "src/room/room.entity";
 import { Activity } from "src/activity/activity.entity";
 import { Service } from "src/service/service.entity";
 import { PushNotification } from "src/pushNotification/push-notification.entity";
-import { RoomArea } from "src/room-area/room-area.entity";
+import { RoomArea } from "src/roomArea/room-area.entity";
 import { GuestBook } from "src/guestBook/guest-book.entity";
 
 @Entity({ name: "images" })

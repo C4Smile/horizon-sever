@@ -8,7 +8,7 @@ import { Photo360 } from "src/image360/image-360.entity";
 import { RoomStatus } from "src/roomStatus/room-status.entity";
 import { RoomType } from "src/roomType/room-type.entity";
 import { RoomHasSchedule } from "src/roomHasSchedule/room-has-schedule.entity";
-import { RoomArea } from "src/room-area/room-area.entity";
+import { RoomArea } from "src/roomArea/room-area.entity";
 
 /**
  * @class Room

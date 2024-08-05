@@ -18,7 +18,7 @@ import { ExternalLinkModule } from "./externalLink/external-link.module";
 import { EventHasLinkModule } from "./eventHasLink/event-has-link.module";
 import { EventHasScheduleModule } from "./eventHasSchedule/event-has-schedule.module";
 import { AppTextModule } from "./appTexts/app-text.module";
-import { RoomAreaModule } from "./room-area/room-area.module";
+import { RoomAreaModule } from "./roomArea/room-area.module";
 import { RoomHasScheduleModule } from "./roomHasSchedule/room-has-schedule.module";
 import { RoomStatusModule } from "./roomStatus/room-status.module";
 import { RoomTypeModule } from "./roomType/room-type.module";

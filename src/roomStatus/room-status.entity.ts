@@ -4,7 +4,7 @@ import { AutoMap } from "@automapper/classes";
 // entities
 import { Model } from "src/models/model";
 import { Room } from "src/room/room.entity";
-import { RoomArea } from "src/room-area/room-area.entity";
+import { RoomArea } from "src/roomArea/room-area.entity";
 
 /**
  * @class RoomStatus

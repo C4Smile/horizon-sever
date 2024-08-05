@@ -3,7 +3,7 @@ import { Column, Entity, ManyToMany } from "typeorm";
 // entities
 import { Model } from "src/models/model";
 import { Room } from "src/room/room.entity";
-import { RoomArea } from "src/room-area/room-area.entity";
+import { RoomArea } from "src/roomArea/room-area.entity";
 
 @Entity({ name: "images360" })
 export class Photo360 extends Model {
