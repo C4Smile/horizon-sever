@@ -32,6 +32,8 @@ import { ImageModule } from "./image/image.module";
 import { Image360Module } from "./image360/image-360.module";
 import { GuestBookModule } from "./guestBook/guest-book.module";
 import { RoomHasImageModule } from "./roomHasImage/room-has-image.module";
+import { GuestBookHasImageModule } from "./guestBookHasImage/guest-book-has-image.module";
+import { NewsHasImageModule } from "./newsHasImage/news-has-image.module";
 
 @Module({
   imports: [
@@ -58,11 +60,13 @@ import { RoomHasImageModule } from "./roomHasImage/room-has-image.module";
     EventHasScheduleModule,
     ExternalLinkModule,
     GuestBookModule,
+    GuestBookHasImageModule,
     ImageModule,
     Image360Module,
     MuseumRoleModule,
     MuseumUserModule,
     NewsModule,
+    NewsHasImageModule,
     PushNotificationModule,
     RoomAreaModule,
     RoomModule,
