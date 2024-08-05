@@ -9,6 +9,7 @@ import { Repository } from "typeorm";
 import { News } from "./news.entity";
 
 // dto
+import { NewsDto } from "./dto/news.dto";
 import { AddNewsDto } from "./dto/add-news.dto";
 import { UpdateNewsDto } from "./dto/update-news.dto";
 import { LastNewsDto } from "./dto/last-news.dto";
@@ -44,7 +45,7 @@ export class NewsService {
         [sort]: order,
       },
     });
-    return list;
+    return this.mapper.mapArrayAsync(list, News, NewsDto);
   }
 
   async lasts() {
@@ -82,7 +83,7 @@ export class NewsService {
 
     if (!newsFound) throw new HttpException("News not Found", HttpStatus.NOT_FOUND);
 
-    return [newsFound];
+    return this.mapper.mapArrayAsync([newsFound], News, NewsDto);
   }
 
   async remove(id: number) {

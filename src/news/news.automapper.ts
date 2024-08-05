@@ -7,6 +7,8 @@ import { News } from "./news.entity";
 
 // dto
 import { LastNewsDto } from "./dto/last-news.dto";
+import { BlobDto } from "src/image/dto/blob.dto";
+import { NewsDto } from "./dto/news.dto";
 
 @Injectable()
 export class NewsAutomapper extends AutomapperProfile {
@@ -16,6 +18,21 @@ export class NewsAutomapper extends AutomapperProfile {
 
   override get profile() {
     return (mapper: Mapper) => {
+      /* NEWS DTO */
+      createMap(
+        mapper,
+        News,
+        NewsDto,
+        forMember(
+          (dest) => dest.newsHasImage,
+          mapFrom((source) =>
+            source.newsHasImage?.map((image) => ({
+              imageId: { id: image.id, url: image.url, fileName: image.fileName } as BlobDto,
+            })),
+          ),
+        ),
+      );
+      /* LAST NEWS DTO */
       createMap(
         mapper,
         News,
