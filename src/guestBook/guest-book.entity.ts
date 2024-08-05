@@ -22,7 +22,7 @@ export class GuestBook extends Model {
 
   @ManyToMany(() => Photo, (photo) => photo.guestBooks)
   @JoinTable({
-    name: "guest-has-image",
+    name: "guest-book-has-image",
     joinColumn: {
       name: "guestBookId",
       referencedColumnName: "id",
