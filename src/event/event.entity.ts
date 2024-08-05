@@ -1,4 +1,5 @@
 import { Column, Entity, JoinTable, ManyToMany, OneToMany } from "typeorm";
+import { AutoMap } from "@automapper/classes";
 
 // entities
 import { Model } from "src/models/model";
@@ -13,24 +14,31 @@ import { EventHasLink } from "src/eventHasLink/event-has-link.entity";
  */
 @Entity({ name: "events" })
 export class Event extends Model {
+  @AutoMap()
   @Column({ type: "text", unique: true })
   title: string = "";
 
+  @AutoMap()
   @Column({ type: "text", unique: true })
   urlName: string = "";
 
+  @AutoMap()
   @Column({ type: "text" })
   description: string = "";
 
+  @AutoMap()
   @Column({ type: "text" })
   content: string = "";
 
+  @AutoMap()
   @Column({ type: "text" })
   subtitle: string = "";
 
+  @AutoMap()
   @Column({ type: "text" })
   address: string = "";
 
+  @AutoMap()
   @Column({ type: "text" })
   location: string = "";
 
