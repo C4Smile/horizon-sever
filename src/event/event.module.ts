@@ -1,4 +1,6 @@
 import { Module } from "@nestjs/common";
+import { classes } from "@automapper/classes";
+import { AutomapperModule } from "@automapper/nestjs";
 import { TypeOrmModule } from "@nestjs/typeorm";
 
 // controller
@@ -17,7 +19,11 @@ import { Event } from "./event.entity";
 import { EventHasTag } from "./event-has-tag.entity";
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Event, EventHasTag]), TagModule],
+  imports: [
+    TypeOrmModule.forFeature([Event, EventHasTag]),
+    TagModule,
+    AutomapperModule.forRoot({ strategyInitializer: classes() }),
+  ],
   controllers: [EventController, EventHasTagController],
   providers: [EventService, EventHasTagService],
   exports: [EventService, EventHasTagService],
