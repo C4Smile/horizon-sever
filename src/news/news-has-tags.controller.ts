@@ -20,7 +20,7 @@ export class NewsHasTagController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Delete(":id")
+  @Delete()
   remove(@Body() newsHasTag: AddNewsHasTagDto) {
     return this.newsHasTagService.remove(newsHasTag);
   }

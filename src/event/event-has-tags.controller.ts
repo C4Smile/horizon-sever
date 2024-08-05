@@ -20,7 +20,7 @@ export class EventHasTagController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Delete(":id")
+  @Delete()
   remove(@Body() eventHasTag: AddEventHasTagDto) {
     return this.eventHasTagService.remove(eventHasTag);
   }
