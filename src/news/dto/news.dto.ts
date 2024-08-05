@@ -1,9 +1,9 @@
 import { AutoMap } from "@automapper/classes";
 
 // dto
-import { TagDto } from "src/tags/dto/tag.dto";
 import { ModelDto } from "src/models/model.dto";
 import { NewsHasImageDto } from "src/newsHasImage/dto/news-has-image.dto";
+import { NewsHasTagDto } from "./news-has-tag.dto";
 
 export class NewsDto extends ModelDto {
   @AutoMap()
@@ -22,7 +22,7 @@ export class NewsDto extends ModelDto {
   subtitle: string;
 
   @AutoMap()
-  newsHasTag: TagDto[];
+  newsHasTag: NewsHasTagDto[];
 
   newsHasImage: NewsHasImageDto[];
 }
