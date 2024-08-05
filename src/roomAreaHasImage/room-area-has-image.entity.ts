@@ -5,7 +5,7 @@ import { Entity, PrimaryColumn } from "typeorm";
  * @class RoomArea
  * @description Represents a room
  */
-@Entity({ name: "room-has-image" })
+@Entity({ name: "room-area-has-image" })
 export class RoomAreaHasImage {
   @AutoMap()
   @PrimaryColumn({ type: "int" })
