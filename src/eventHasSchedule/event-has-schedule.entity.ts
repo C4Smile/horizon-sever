@@ -13,6 +13,9 @@ export class EventHasSchedule extends Model {
   @Column({ type: "int" })
   eventId: number = 0;
 
+  @Column({ type: "text" })
+  description: string = "";
+
   @Column({
     type: "datetime",
     default: () => "CURRENT_TIMESTAMP",
