@@ -9,6 +9,7 @@ import { News } from "./news.entity";
 import { LastNewsDto } from "./dto/last-news.dto";
 import { BlobDto } from "src/image/dto/blob.dto";
 import { NewsDto } from "./dto/news.dto";
+import { TagDto } from "src/tags/dto/tag.dto";
 
 @Injectable()
 export class NewsAutomapper extends AutomapperProfile {
@@ -30,6 +31,10 @@ export class NewsAutomapper extends AutomapperProfile {
               imageId: { id: image.id, url: image.url, fileName: image.fileName } as BlobDto,
             })),
           ),
+        ),
+        forMember(
+          (dest) => dest.newsHasTag,
+          mapFrom((source) => source.newsHasTag.map((tag) => ({ tagId: tag as TagDto }))),
         ),
       );
       /* LAST NEWS DTO */
