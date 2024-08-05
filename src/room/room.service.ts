@@ -123,12 +123,22 @@ export class RoomService extends PageService {
 
     // fetching next room
 
-    const nextRoom = await this.roomService.findOne({
+    let nextRoom = await this.roomService.findOne({
       where: {
         number: MoreThan(roomFound.number),
       },
       relations: ["status", "type", "roomHasImage", "roomHasImage360"],
     });
+
+    if(!nextRoom){
+      nextRoom = await this.roomService.findOne({
+	where: {
+           statusId: RoomStatus.Active,
+           typeId: RoomType.Museable,
+        },
+      relations: ["status", "type", "roomHasImage", "roomHasImage360"],
+    });
+    }
 
     const asDetailRoom = await this.mapper.mapAsync(roomFound, Room, RoomDetailsDto);
 
