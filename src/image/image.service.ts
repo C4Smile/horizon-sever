@@ -39,10 +39,11 @@ export class ImageService {
     const url = `${folder}/${slugFileName}.${ext}`;
 
     const imageFound = await this.imageService.findOne({
-      where: { fileName: slugFileName, url },
+      where: { url },
     });
 
-    if (imageFound) throw new HttpException("Image already exists", HttpStatus.CONFLICT);
+    if (imageFound !== null && imageFound !== undefined)
+      throw new HttpException("Image already exists", HttpStatus.CONFLICT);
 
     const newImage = this.imageService.create({ url, fileName: slugFileName });
     const saved = await this.imageService.save(newImage);
