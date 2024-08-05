@@ -17,6 +17,7 @@ import { TagModule } from "src/tags/tag.module";
 // entities
 import { Event } from "./event.entity";
 import { EventHasTag } from "./event-has-tag.entity";
+import { EventAutomapper } from "./event.automapper";
 
 @Module({
   imports: [
@@ -25,7 +26,7 @@ import { EventHasTag } from "./event-has-tag.entity";
     AutomapperModule.forRoot({ strategyInitializer: classes() }),
   ],
   controllers: [EventController, EventHasTagController],
-  providers: [EventService, EventHasTagService],
+  providers: [EventService, EventHasTagService, EventAutomapper],
   exports: [EventService, EventHasTagService],
 })
 export class EventModule {}

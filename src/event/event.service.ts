@@ -1,18 +1,23 @@
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-
+import { Mapper } from "@automapper/core";
+import { InjectMapper } from "@automapper/nestjs";
 import { Repository } from "typeorm";
 
 // entity
 import { Event } from "./event.entity";
 
 // dto
+import { EventDto } from "./dto/event.dto";
 import { AddEventDto } from "./dto/add-event.dto";
 import { UpdateEventDto } from "./dto/update-event.dto";
 
 @Injectable()
 export class EventService {
-  constructor(@InjectRepository(Event) private eventService: Repository<Event>) {}
+  constructor(
+    @InjectRepository(Event) private eventService: Repository<Event>,
+    @InjectMapper() private readonly mapper: Mapper,
+  ) {}
 
   async create(event: AddEventDto) {
     const eventFound = await this.eventService.findOne({
@@ -36,7 +41,7 @@ export class EventService {
       },
     });
 
-    return list;
+    return this.mapper.mapArrayAsync(list, Event, EventDto);
   }
 
   async getById(id: number) {
@@ -49,7 +54,7 @@ export class EventService {
 
     if (!eventFound) throw new HttpException("Event not Found", HttpStatus.NOT_FOUND);
 
-    return [eventFound];
+    return this.mapper.mapArrayAsync([eventFound], Event, EventDto);
   }
 
   async remove(id: number) {
