@@ -18,7 +18,6 @@ export class RoomAreaHasImage360Service {
   async create(room: AddRoomAreaHasImage360Dto) {
     const parsedRoom = { ...room, image360Id: room.imageId };
     delete parsedRoom.imageId;
-    console.log(parsedRoom);
     const newRoom = this.roomAreaService.create(parsedRoom);
     const saved = await this.roomAreaService.save(newRoom);
     return [saved];
