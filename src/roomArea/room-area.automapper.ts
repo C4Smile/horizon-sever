@@ -18,6 +18,7 @@ export class RoomAreaAutomapper extends AutomapperProfile {
 
   override get profile() {
     return (mapper: Mapper) => {
+      /* ROOM AREA DTO */
       createMap(
         mapper,
         RoomArea,
@@ -39,13 +40,14 @@ export class RoomAreaAutomapper extends AutomapperProfile {
           ),
         ),
       );
+      /* CLIENT ROOM AREA DTO */
       createMap(
         mapper,
         RoomArea,
         ClientRoomAreaDto,
         forMember(
           (dest) => dest.image,
-          mapFrom((source) => source.roomAreaHasImage[0]?.url),
+          mapFrom((source) => source.roomAreaHasImage[0]?.url ?? null),
         ),
       );
     };

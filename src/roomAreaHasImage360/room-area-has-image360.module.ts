@@ -5,7 +5,7 @@ import { TypeOrmModule } from "@nestjs/typeorm";
 import { RoomAreaHasImage360Controller } from "./room-area-has-image360.controller";
 
 // service
-import { RoomAreaHasImage360Service } from "./room-has-image360.service";
+import { RoomAreaHasImage360Service } from "./room-area-has-image360.service";
 
 // entity
 import { RoomAreaHasImage360 } from "./room-area-has-image360.entity";

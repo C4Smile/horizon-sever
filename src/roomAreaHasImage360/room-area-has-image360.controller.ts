@@ -4,7 +4,7 @@ import { Body, Controller, Delete, Post, UseGuards } from "@nestjs/common";
 import { AddRoomAreaHasImage360Dto } from "./dto/add-room-area-has-image360.dto";
 
 // services
-import { RoomAreaHasImage360Service } from "./room-has-image360.service";
+import { RoomAreaHasImage360Service } from "./room-area-has-image360.service";
 
 // guard
 import { JwtAuthGuard } from "src/auth/jwt-auth.guard";

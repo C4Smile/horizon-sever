@@ -37,7 +37,7 @@ import { NewsHasImageModule } from "./newsHasImage/news-has-image.module";
 import { EventHasImageModule } from "./eventHasImage/event-has-image.module";
 import { RoomAreaHasImageModule } from "./roomAreaHasImage/room-area-has-image.module";
 import { RoomHasImage360Module } from "./roomHasImage360/room-has-image360.module";
-import { RoomAreaHasImage360Module } from "./roomAreaHasImage360/room-has-image360.module";
+import { RoomAreaHasImage360Module } from "./roomAreaHasImage360/room-area-has-image360.module";
 
 @Module({
   imports: [
