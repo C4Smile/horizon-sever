@@ -19,7 +19,8 @@ export class Image360Service {
   async create(image: AddBlobDto) {
     const { base64, folder, fileName } = image;
     const parts = fileName.split(".");
-    const ext = parts.length > 1 ? parts.pop() : "";
+    let ext = parts.length > 1 ? parts.pop() : "";
+    if (ext === "jpg") ext = "jpeg";
 
     const slugFileName = toSlug(parts[0]);
 
@@ -38,7 +39,7 @@ export class Image360Service {
     const url = `${folder}/${slugFileName}.${ext}`;
 
     const imageFound = await this.imageService.findOne({
-      where: { fileName: slugFileName, url },
+      where: { url },
     });
 
     if (imageFound) throw new HttpException("Image already exists", HttpStatus.CONFLICT);
