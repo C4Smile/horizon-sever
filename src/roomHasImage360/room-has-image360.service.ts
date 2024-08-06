@@ -11,10 +11,14 @@ import { AddRoomHasImage360Dto } from "./dto/add-room-has-image360.dto";
 
 @Injectable()
 export class RoomHasImage360Service {
-  constructor(@InjectRepository(RoomHasImage360) private roomHasImage360Service: Repository<RoomHasImage360>) {}
+  constructor(
+    @InjectRepository(RoomHasImage360) private roomHasImage360Service: Repository<RoomHasImage360>,
+  ) {}
 
   async create(room: AddRoomHasImage360Dto) {
-    const newRoom = this.roomHasImage360Service.create(room);
+    const parsedRoom = { ...room, image360Id: room.imageId };
+    delete parsedRoom.imageId;
+    const newRoom = this.roomHasImage360Service.create(parsedRoom);
     const saved = await this.roomHasImage360Service.save(newRoom);
     return [saved];
   }
