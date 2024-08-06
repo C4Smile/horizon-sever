@@ -71,11 +71,11 @@ export class RoomAutomapper extends AutomapperProfile {
         RoomDetailsDto,
         forMember(
           (dest) => dest.images,
-          mapFrom((source) => source.roomHasImage?.map((image) => image.url)),
+          mapFrom((source) => source.roomHasImage?.map((image) => image.url) ?? []),
         ),
         forMember(
           (dest) => dest.images360,
-          mapFrom((source) => source.roomHasImage360?.map((image) => image.url)),
+          mapFrom((source) => source.roomHasImage360?.map((image) => image.url) ?? []),
         ),
       );
       /* NEXT ROOM DTO */

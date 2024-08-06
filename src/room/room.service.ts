@@ -130,14 +130,14 @@ export class RoomService extends PageService {
       relations: ["status", "type", "roomHasImage", "roomHasImage360"],
     });
 
-    if(!nextRoom){
+    if (!nextRoom) {
       nextRoom = await this.roomService.findOne({
-	where: {
-           statusId: RoomStatus.Active,
-           typeId: RoomType.Museable,
+        where: {
+          statusId: RoomStatus.Active,
+          typeId: RoomType.Museable,
         },
-      relations: ["status", "type", "roomHasImage", "roomHasImage360"],
-    });
+        relations: ["status", "type", "roomHasImage", "roomHasImage360"],
+      });
     }
 
     const asDetailRoom = await this.mapper.mapAsync(roomFound, Room, RoomDetailsDto);
