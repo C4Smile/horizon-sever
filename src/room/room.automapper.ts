@@ -43,7 +43,6 @@ export class RoomAutomapper extends AutomapperProfile {
           ),
         ),
       );
-      createMap(mapper, Room, RoomDetailsDto);
       /* ROOM HOME DTO */
       createMap(
         mapper,
