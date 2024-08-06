@@ -2,8 +2,8 @@ import { AutoMap } from "@automapper/classes";
 import { Entity, PrimaryColumn } from "typeorm";
 
 /**
- * @class GuestBook
- * @description Represents a room
+ * @class GuestBookHasImage
+ * @description Represents the relationship between a guest book and an image
  */
 @Entity({ name: "guest-book-has-image" })
 export class GuestBookHasImage {
