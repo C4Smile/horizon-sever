@@ -11,16 +11,16 @@ import { AddRoomHasImage360Dto } from "./dto/add-room-has-image360.dto";
 
 @Injectable()
 export class RoomHasImage360Service {
-  constructor(@InjectRepository(RoomHasImage360) private roomService: Repository<RoomHasImage360>) {}
+  constructor(@InjectRepository(RoomHasImage360) private roomHasImage360Service: Repository<RoomHasImage360>) {}
 
   async create(room: AddRoomHasImage360Dto) {
-    const newRoom = this.roomService.create(room);
-    const saved = await this.roomService.save(newRoom);
+    const newRoom = this.roomHasImage360Service.create(room);
+    const saved = await this.roomHasImage360Service.save(newRoom);
     return [saved];
   }
 
   async remove(ids: number[]) {
-    const result = await this.roomService.delete(ids);
+    const result = await this.roomHasImage360Service.delete(ids);
     if (result.affected === 0)
       throw new HttpException("Room Has Image360 not Found", HttpStatus.NOT_FOUND);
 

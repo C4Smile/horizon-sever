@@ -11,17 +11,17 @@ import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
 
 @Controller("guestBookHasImage")
 export class GuestBookHasImageController {
-  constructor(private roomService: GuestBookHasImageService) {}
+  constructor(private guestBookService: GuestBookHasImageService) {}
 
   @UseGuards(JwtAuthGuard)
   @Post()
   create(@Body() newGuestBook: AddGuestBookHasImageDto) {
-    return this.roomService.create(newGuestBook);
+    return this.guestBookService.create(newGuestBook);
   }
 
   @UseGuards(JwtAuthGuard)
   @Delete(":id")
   remove(@Body() toDelete: number[]) {
-    return this.roomService.remove(toDelete);
+    return this.guestBookService.remove(toDelete);
   }
 }

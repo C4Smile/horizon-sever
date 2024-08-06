@@ -11,17 +11,17 @@ import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
 
 @Controller("roomHasImage360")
 export class RoomHasImage360Controller {
-  constructor(private roomService: RoomHasImage360Service) {}
+  constructor(private roomHasImage360Service: RoomHasImage360Service) {}
 
   @UseGuards(JwtAuthGuard)
   @Post()
   create(@Body() newRoom: AddRoomHasImage360Dto) {
-    return this.roomService.create(newRoom);
+    return this.roomHasImage360Service.create(newRoom);
   }
 
   @UseGuards(JwtAuthGuard)
   @Delete(":id")
   remove(@Body() toDelete: number[]) {
-    return this.roomService.remove(toDelete);
+    return this.roomHasImage360Service.remove(toDelete);
   }
 }
