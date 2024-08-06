@@ -44,11 +44,11 @@ export class NewsAutomapper extends AutomapperProfile {
         LastNewsDto,
         forMember(
           (dest) => dest.image,
-          mapFrom((source) => source.newsHasImage[0]?.url),
+          mapFrom((source) => source.newsHasImage[0]?.url ?? null),
         ),
         forMember(
           (dest) => dest.tag,
-          mapFrom((source) => source.newsHasTag[0]?.name),
+          mapFrom((source) => source.newsHasTag[0]?.name ?? null),
         ),
       );
     };

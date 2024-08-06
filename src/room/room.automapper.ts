@@ -51,7 +51,7 @@ export class RoomAutomapper extends AutomapperProfile {
         RoomHomeDto,
         forMember(
           (dest) => dest.image,
-          mapFrom((source) => source.roomHasImage[0]?.url),
+          mapFrom((source) => source.roomHasImage[0]?.url ?? null),
         ),
       );
       /* ROOM GALLERY DTO */
@@ -61,7 +61,7 @@ export class RoomAutomapper extends AutomapperProfile {
         RoomGalleryDto,
         forMember(
           (dest) => dest.image,
-          mapFrom((source) => source.roomHasImage[0]?.url),
+          mapFrom((source) => source.roomHasImage[0]?.url ?? null),
         ),
       );
       /* ROOM DETAILS DTO */
@@ -85,7 +85,7 @@ export class RoomAutomapper extends AutomapperProfile {
         NextRoomDto,
         forMember(
           (dest) => dest.image,
-          mapFrom((source) => source.roomHasImage[0]?.url),
+          mapFrom((source) => source.roomHasImage[0]?.url ?? null),
         ),
       );
     };

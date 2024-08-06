@@ -38,7 +38,7 @@ export class GuestBookAutomapper extends AutomapperProfile {
         ClientGuestBookDto,
         forMember(
           (dest) => dest.images,
-          mapFrom((source) => source.guestBookHasImage?.map((image) => image.url)),
+          mapFrom((source) => source.guestBookHasImage?.map((image) => image.url) ?? []),
         ),
         forMember(
           (dest) => dest.date,
