@@ -63,7 +63,13 @@ export class CrudService<
   async remove(ids: number[]) {
     const result = await this.entityService.update(ids, { deleted: true } as any);
     if (result.affected === 0) throw new HttpException("Entity not Found", HttpStatus.NOT_FOUND);
-    return result;
+    return { count: result.affected };
+  }
+
+  async restore(ids: number[]) {
+    const result = await this.entityService.update(ids, { deleted: false } as any);
+    if (result.affected === 0) throw new HttpException("Entity not Found", HttpStatus.NOT_FOUND);
+    return { count: result.affected };
   }
 
   async update(id: number, data: UpdateDto) {

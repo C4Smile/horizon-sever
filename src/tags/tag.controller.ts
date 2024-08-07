@@ -56,6 +56,12 @@ export class TagController {
   }
 
   @UseGuards(JwtAuthGuard)
+  @Patch("restore")
+  restore(@Body() ids: number[]) {
+    return this.tagService.restore(ids);
+  }
+
+  @UseGuards(JwtAuthGuard)
   @Patch(":id")
   update(@Param("id", ParseIntPipe) id: number, @Body() data: UpdateTagDto) {
     return this.tagService.update(id, data);
