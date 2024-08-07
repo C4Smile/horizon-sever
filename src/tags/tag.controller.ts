@@ -50,9 +50,9 @@ export class TagController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Delete(":id")
-  remove(@Param("id", ParseIntPipe) id: number) {
-    return this.tagService.remove(id);
+  @Delete()
+  remove(@Body() ids: number[]) {
+    return this.tagService.remove(ids);
   }
 
   @UseGuards(JwtAuthGuard)
