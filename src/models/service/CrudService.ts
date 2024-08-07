@@ -41,7 +41,11 @@ export class CrudService<
       },
     });
 
-    return list;
+    return this.mapper.mapArrayAsync(
+      list,
+      Object as unknown as new () => Entity,
+      Object as unknown as new () => BaseDto,
+    );
   }
 
   async getById(id: number): Promise<BaseDto[]> {
