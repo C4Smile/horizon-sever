@@ -1,7 +1,7 @@
 import { AutoMap } from "@automapper/classes";
 
 // dto
-import { ModelDto } from "src/models/model.dto";
+import { ModelDto } from "src/models/dto/model.dto";
 import { EventHasTagDto } from "./event-has-tag.dto";
 import { EventHasLinkDto } from "./event-has-link.dto";
 import { EventHasScheduleDto } from "./event-has-schedule.dto";

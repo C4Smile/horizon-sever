@@ -1,4 +1,4 @@
-import { ModelDto } from "src/models/model.dto";
+import { ModelDto } from "src/models/dto/model.dto";
 
 // dto
 import { AutoMap } from "@automapper/classes";

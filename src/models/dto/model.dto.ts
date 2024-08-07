@@ -5,11 +5,11 @@ export class ModelDto {
   id: number;
 
   @AutoMap()
-  dateOfCreation?: Date;
+  dateOfCreation: Date;
 
   @AutoMap()
-  lastUpdate?: Date;
+  lastUpdate: Date;
 
   @AutoMap()
-  deleted?: boolean;
+  deleted: boolean;
 }

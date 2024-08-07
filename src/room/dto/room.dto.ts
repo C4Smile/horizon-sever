@@ -1,7 +1,7 @@
 import { AutoMap } from "@automapper/classes";
 
 // dto
-import { ModelDto } from "src/models/model.dto";
+import { ModelDto } from "src/models/dto/model.dto";
 import { RoomHasImageDto } from "src/roomHasImage/dto/room-has-image.dto";
 import { RoomStatusDto } from "src/roomStatus/dto/room-status.dto";
 import { RoomTypeDto } from "src/roomType/dto/room-type.dto";

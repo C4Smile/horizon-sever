@@ -1,7 +1,7 @@
 import { AutoMap } from "@automapper/classes";
 
 // dto
-import { ModelDto } from "src/models/model.dto";
+import { ModelDto } from "src/models/dto/model.dto";
 import { NewsHasImageDto } from "src/newsHasImage/dto/news-has-image.dto";
 import { NewsHasTagDto } from "./news-has-tag.dto";
 

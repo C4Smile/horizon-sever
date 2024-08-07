@@ -1,5 +1,5 @@
 // dto
-import { UpdateModelDto } from "src/models/update-model.dto";
+import { UpdateModelDto } from "src/models/dto/update-model.dto";
 
 export interface UpdateUserDto extends UpdateModelDto {
   email?: string;
