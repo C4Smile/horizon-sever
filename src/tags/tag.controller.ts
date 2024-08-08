@@ -9,7 +9,12 @@ import {
   Post,
   Query,
   UseGuards,
+  UseInterceptors,
 } from "@nestjs/common";
+import { MapInterceptor } from "@automapper/nestjs";
+
+// entity
+import { Tag } from "./tag.entity";
 
 // dto
 import { TagDto } from "./dto/tag.dto";
@@ -28,12 +33,14 @@ export class TagController {
   constructor(private tagService: TagService) {}
 
   @Get()
+  @UseInterceptors(MapInterceptor(Tag, TagDto, { isArray: true }))
   get(@Query() query): Promise<TagDto[]> {
     const { sort = "lastUpdate", order = "DESC", page = 0, count = 20 } = query;
     return this.tagService.get({ sort, order, page, count });
   }
 
   @Get("headers")
+  @UseInterceptors(MapInterceptor(Tag, TagDto, { isArray: true }))
   headers(): Promise<ClientTagDto[]> {
     return this.tagService.headers();
   }
