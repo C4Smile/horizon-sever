@@ -14,7 +14,6 @@ import { UpdateModelDto } from "../dto/update-model.dto";
 @Injectable()
 export class CrudService<
   Entity extends Model,
-  BaseDto extends Model,
   AddDto extends AddModelDto,
   UpdateDto extends UpdateModelDto,
 > {
@@ -41,14 +40,10 @@ export class CrudService<
       },
     });
 
-    return this.mapper.mapArrayAsync(
-      list,
-      Object as unknown as new () => Entity,
-      Object as unknown as new () => BaseDto,
-    );
+    return list;
   }
 
-  async getById(id: number): Promise<BaseDto[]> {
+  async getById(id: number) {
     const entityFound = await this.entityService.findOne({
       where: {
         id,
@@ -57,11 +52,7 @@ export class CrudService<
 
     if (!entityFound) throw new HttpException("Entity not Found", HttpStatus.NOT_FOUND);
 
-    return this.mapper.mapArrayAsync(
-      [entityFound],
-      Object as unknown as new () => Entity,
-      Object as unknown as new () => BaseDto,
-    );
+    return [entityFound];
   }
 
   async remove(ids: number[]) {
