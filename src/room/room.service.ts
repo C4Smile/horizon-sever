@@ -29,11 +29,8 @@ enum RoomStatus {
 
 @Injectable()
 export class RoomService extends CrudService<Room, AddRoomDto, UpdateRoomDto> {
-  constructor(
-    @InjectRepository(Room) roomService: Repository<Room>,
-    @InjectMapper() mapper: Mapper,
-    relationships: string[] = ["status", "type", "roomHasImage", "roomHasImage360"],
-  ) {
+  constructor(@InjectRepository(Room) roomService: Repository<Room>, @InjectMapper() mapper: Mapper) {
+    const relationships = ["status", "type", "roomHasImage", "roomHasImage360"];
     super(roomService, mapper, relationships);
   }
 

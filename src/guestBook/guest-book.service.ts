@@ -20,8 +20,8 @@ export class GuestBookService extends CrudService<GuestBook, AddGuestBookDto, Up
   constructor(
     @InjectRepository(GuestBook) serviceGuestBook: Repository<GuestBook>,
     @InjectMapper() mapper: Mapper,
-    relationships: string[] = ["guestBookHasImage"],
   ) {
+    const relationships = ["guestBookHasImage"];
     super(serviceGuestBook, mapper, relationships);
   }
 

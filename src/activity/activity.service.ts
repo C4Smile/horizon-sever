@@ -19,8 +19,8 @@ export class ActivityService extends CrudService<Activity, AddActivityDto, Updat
   constructor(
     @InjectRepository(Activity) activityService: Repository<Activity>,
     @InjectMapper() mapper: Mapper,
-    relationships: string[] = ["image"],
   ) {
+    const relationships = ["image"];
     super(activityService, mapper, relationships);
   }
 }

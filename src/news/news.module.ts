@@ -32,7 +32,7 @@ import { CrudService } from "src/models/service/CrudService";
     AutomapperModule.forRoot({ strategyInitializer: classes() }),
   ],
   controllers: [NewsController, NewsHasTagController],
-  providers: [Repository, Array, CrudService, NewsService, NewsHasTagService, NewsAutomapper],
+  providers: [Repository, Array, Object, CrudService, NewsService, NewsHasTagService, NewsAutomapper],
   exports: [NewsService, NewsHasTagService],
 })
 export class NewsModule {}

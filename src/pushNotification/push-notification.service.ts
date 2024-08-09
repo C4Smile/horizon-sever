@@ -23,8 +23,8 @@ export class PushNotificationService extends CrudService<
   constructor(
     @InjectRepository(PushNotification) pushNotificationService: Repository<PushNotification>,
     @InjectMapper() mapper: Mapper,
-    relationships: string[] = ["image"],
   ) {
+    const relationships = ["image"];
     super(pushNotificationService, mapper, relationships);
   }
 }

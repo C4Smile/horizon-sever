@@ -21,6 +21,7 @@ export class ServiceService extends CrudService<Service, AddServiceDto, UpdateSe
     @InjectRepository(Service) serviceService: Repository<Service>,
     @InjectMapper() mapper: Mapper,
   ) {
-    super(serviceService, mapper);
+    const relationships = ["image"];
+    super(serviceService, mapper, relationships);
   }
 }

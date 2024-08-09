@@ -20,18 +20,15 @@ import { filterByTags } from "src/tags/utils";
 
 @Injectable()
 export class NewsService extends CrudService<News, AddNewsDto, UpdateNewsDto> {
-  constructor(
-    @InjectRepository(News) newsService: Repository<News>,
-    @InjectMapper() mapper: Mapper,
-    relationships: string[] = ["newsHasTag", "newsHasImage"],
-  ) {
+  constructor(@InjectRepository(News) newsService: Repository<News>, @InjectMapper() mapper: Mapper) {
+    const relationships = ["newsHasTag", "newsHasImage"];
     super(newsService, mapper, relationships);
   }
 
   async lasts() {
     const list = await this.entityService.find({
       take: 6,
-      relations: ["newsHasTag", "newsHasImage"],
+      relations: this.relationships,
       order: {
         lastUpdate: "ASC",
       },
@@ -44,7 +41,7 @@ export class NewsService extends CrudService<News, AddNewsDto, UpdateNewsDto> {
     const list = await this.entityService.find({
       skip: page * count,
       take: (page + 1) * count,
-      relations: ["newsHasTag", "newsHasImage"],
+      relations: this.relationships,
       order: {
         [sort]: order,
       },
@@ -56,7 +53,7 @@ export class NewsService extends CrudService<News, AddNewsDto, UpdateNewsDto> {
   async getSmallNews(count: number) {
     const list = await this.entityService.find({
       take: count,
-      relations: ["newsHasTag", "newsHasImage"],
+      relations: this.relationships,
       order: {
         lastUpdate: "ASC",
       },

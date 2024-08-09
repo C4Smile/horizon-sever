@@ -19,8 +19,8 @@ export class EventService extends CrudService<Event, AddEventDto, UpdateEventDto
   constructor(
     @InjectRepository(Event) eventService: Repository<Event>,
     @InjectMapper() mapper: Mapper,
-    relationships: string[] = ["eventHasLink", "eventHasTag", "eventHasImage"],
   ) {
+    const relationships = ["eventHasLink", "eventHasTag", "eventHasImage"];
     super(eventService, mapper, relationships);
   }
 }

@@ -25,8 +25,8 @@ export class RoomAreaService extends CrudService<RoomArea, AddRoomAreaDto, Updat
   constructor(
     @InjectRepository(RoomArea) roomAreaService: Repository<RoomArea>,
     @InjectMapper() mapper: Mapper,
-    relationships: string[] = ["room", "status", "roomAreaHasImage", "roomAreaHasImage360"],
   ) {
+    const relationships = ["room", "status", "roomAreaHasImage", "roomAreaHasImage360"];
     super(roomAreaService, mapper, relationships);
   }
 
