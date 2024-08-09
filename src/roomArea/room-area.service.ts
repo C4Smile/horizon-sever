@@ -1,9 +1,11 @@
-import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
+import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { InjectMapper } from "@automapper/nestjs";
 import { Mapper } from "@automapper/core";
-
 import { Repository } from "typeorm";
+
+// base
+import { CrudService } from "src/models/service/CrudService";
 
 // entity
 import { RoomArea } from "./room-area.entity";
@@ -19,34 +21,17 @@ enum RoomAreaStatus {
 }
 
 @Injectable()
-export class RoomAreaService {
+export class RoomAreaService extends CrudService<RoomArea, AddRoomAreaDto, UpdateRoomAreaDto> {
   constructor(
-    @InjectRepository(RoomArea) private roomAreaService: Repository<RoomArea>,
-    @InjectMapper() private readonly mapper: Mapper,
-  ) {}
-
-  async create(roomArea: AddRoomAreaDto) {
-    const roomAreasFound = await this.roomAreaService.find({
-      order: {
-        number: "DESC",
-      },
-    });
-
-    const found = roomAreasFound.find(
-      (area) => area.name === roomArea.name && area.roomId === roomArea.roomId,
-    );
-
-    if (found) throw new HttpException("RoomArea already exists", HttpStatus.CONFLICT);
-
-    roomArea.number = roomAreasFound[0]?.number + 1 ?? 1;
-
-    const newRoomArea = this.roomAreaService.create(roomArea);
-    const saved = await this.roomAreaService.save(newRoomArea);
-    return [saved];
+    @InjectRepository(RoomArea) roomAreaService: Repository<RoomArea>,
+    @InjectMapper() mapper: Mapper,
+    relationships: string[] = ["room", "status", "roomAreaHasImage", "roomAreaHasImage360"],
+  ) {
+    super(roomAreaService, mapper, relationships);
   }
 
   async get({ sort, order, page, count }) {
-    const list = await this.roomAreaService.find({
+    const list = await this.entityService.find({
       skip: page * count,
       take: (page + 1) * count,
       relations: ["room", "status", "roomAreaHasImage", "roomAreaHasImage360"],
@@ -70,7 +55,7 @@ export class RoomAreaService {
   }
 
   async getByRoomId({ sort, order, page, count, roomId }) {
-    const list = await this.roomAreaService.find({
+    const list = await this.entityService.find({
       skip: page * count,
       take: (page + 1) * count,
       order: {
@@ -86,55 +71,12 @@ export class RoomAreaService {
     return this.mapper.mapArrayAsync(list, RoomArea, ClientRoomAreaDto);
   }
 
-  async getById(id: number) {
-    const roomAreaFound = await this.roomAreaService.findOne({
-      where: {
-        id,
-      },
-      relations: ["room", "status", "roomAreaHasImage", "roomAreaHasImage360"],
-    });
-
-    if (!roomAreaFound) throw new HttpException("RoomArea not Found", HttpStatus.NOT_FOUND);
-
-    return [roomAreaFound];
-  }
-
-  async remove(id: number) {
-    const result = await this.roomAreaService.update({ id }, { deleted: true });
-    if (result.affected === 0) throw new HttpException("RoomArea not Found", HttpStatus.NOT_FOUND);
-    return result;
-  }
-
   async saveOrder(data: UpdateRoomAreaOrderDto[]) {
     for (let i = 0; i < data.length; i += 1) {
       const toSave = { id: data[i].id, number: i + 1 };
-      await this.roomAreaService.save(toSave);
+      await this.entityService.save(toSave);
     }
 
     return [data];
-  }
-
-  async update(id: number, data: UpdateRoomAreaDto) {
-    const roomAreaFound = await this.roomAreaService.findOne({
-      where: {
-        id,
-      },
-    });
-
-    if (!roomAreaFound) throw new HttpException("RoomArea not Found", HttpStatus.NOT_FOUND);
-
-    const conflict = await this.roomAreaService.findOne({
-      where: {
-        name: data.name,
-      },
-    });
-
-    if (conflict && conflict.id !== id)
-      throw new HttpException("RoomArea already exists", HttpStatus.CONFLICT);
-
-    const updatedRoomArea = Object.assign(roomAreaFound, data);
-    const saved = await this.roomAreaService.save(updatedRoomArea);
-
-    return [saved];
   }
 }

@@ -3,16 +3,15 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { InjectMapper } from "@automapper/nestjs";
 import { Mapper } from "@automapper/core";
 
-import { ILike, MoreThan, Repository } from "typeorm";
+import { MoreThan, Repository } from "typeorm";
+
+// base
+import { CrudService } from "src/models/service/CrudService";
 
 // entity
 import { Room } from "./room.entity";
 
-// services
-import { PageService } from "src/models/page-size";
-
 // dto
-import { RoomDto } from "./dto/room.dto";
 import { AddRoomDto } from "./dto/add-room.dto";
 import { NextRoomDto } from "./dto/next-room.dto";
 import { RoomHomeDto } from "./dto/room-home.dto";
@@ -29,49 +28,17 @@ enum RoomStatus {
 }
 
 @Injectable()
-export class RoomService extends PageService {
+export class RoomService extends CrudService<Room, AddRoomDto, UpdateRoomDto> {
   constructor(
-    @InjectRepository(Room) private roomService: Repository<Room>,
-    @InjectMapper() private readonly mapper: Mapper,
+    @InjectRepository(Room) roomService: Repository<Room>,
+    @InjectMapper() mapper: Mapper,
+    relationships: string[] = ["status", "type", "roomHasImage", "roomHasImage360"],
   ) {
-    super();
-  }
-
-  async create(room: AddRoomDto) {
-    const roomFound = await this.roomService.findOne({
-      where: { name: room.name },
-    });
-
-    if (roomFound) throw new HttpException("Room already exists", HttpStatus.CONFLICT);
-
-    if (room.number && room.number.length) {
-      const roomFound = await this.roomService.findOne({
-        where: { number: room.number },
-      });
-
-      if (roomFound) throw new HttpException("Number already in use", HttpStatus.CONFLICT);
-    }
-
-    const newRoom = this.roomService.create(room);
-    const saved = await this.roomService.save(newRoom);
-    return [saved];
-  }
-
-  async get({ sort, order, page, count }) {
-    const list = await this.roomService.find({
-      skip: page * count,
-      take: (page + 1) * count,
-      relations: ["status", "type", "roomHasImage", "roomHasImage360"],
-      order: {
-        [sort]: order,
-      },
-    });
-
-    return this.mapper.mapArrayAsync(list, Room, RoomDto);
+    super(roomService, mapper, relationships);
   }
 
   async getHomeSlider() {
-    const list = await this.roomService.find({
+    const list = await this.entityService.find({
       take: 10,
       relations: ["roomHasImage"],
       order: {
@@ -87,7 +54,7 @@ export class RoomService extends PageService {
   }
 
   async getForGallery({ count }) {
-    const list = await this.roomService.find({
+    const list = await this.entityService.find({
       take: count,
       relations: ["roomHasImage"],
       order: {
@@ -98,21 +65,8 @@ export class RoomService extends PageService {
     return this.mapper.mapArrayAsync(list, Room, RoomGalleryDto);
   }
 
-  async getById(id: number) {
-    const roomFound = await this.roomService.findOne({
-      where: {
-        id,
-      },
-      relations: ["status", "type", "roomHasImage", "roomHasImage360"],
-    });
-
-    if (!roomFound) throw new HttpException("Room not Found", HttpStatus.NOT_FOUND);
-
-    return this.mapper.mapArrayAsync([roomFound], Room, RoomDto);
-  }
-
   async getDetailsBySlug(slug: string) {
-    const roomFound = await this.roomService.findOne({
+    const roomFound = await this.entityService.findOne({
       where: {
         urlName: slug,
       },
@@ -123,7 +77,7 @@ export class RoomService extends PageService {
 
     // fetching next room
 
-    let nextRoom = await this.roomService.findOne({
+    let nextRoom = await this.entityService.findOne({
       where: {
         number: MoreThan(roomFound.number),
       },
@@ -131,7 +85,7 @@ export class RoomService extends PageService {
     });
 
     if (!nextRoom) {
-      nextRoom = await this.roomService.findOne({
+      nextRoom = await this.entityService.findOne({
         where: {
           statusId: RoomStatus.Active,
           typeId: RoomType.Museable,
@@ -145,48 +99,5 @@ export class RoomService extends PageService {
     if (nextRoom) asDetailRoom.nextRoom = await this.mapper.mapAsync(nextRoom, Room, NextRoomDto);
 
     return asDetailRoom;
-  }
-
-  async remove(id: number) {
-    const result = await this.roomService.update({ id }, { deleted: true });
-    if (result.affected === 0) throw new HttpException("Room not Found", HttpStatus.NOT_FOUND);
-
-    return result;
-  }
-
-  async update(id: number, data: UpdateRoomDto) {
-    const roomFound = await this.roomService.findOne({
-      where: {
-        id,
-      },
-    });
-
-    if (!roomFound) throw new HttpException("Room not Found", HttpStatus.NOT_FOUND);
-
-    const updatedRoom = Object.assign(roomFound, data);
-    const saved = await this.roomService.save(updatedRoom);
-    return [saved];
-  }
-
-  private createWhereQuery(params: RoomDto) {
-    const where: any = {};
-
-    if (params.name) {
-      where.name = ILike(`%${params.name}%`);
-    }
-
-    /* if (params.description) {
-      where.description = ILike(`%${params.description}%`);
-    }
-
-    if (params.number) {
-      where.number = params.number;
-    }
-
-    if (params.status) {
-      where.status = params.status;
-    } */
-
-    return where;
   }
 }
