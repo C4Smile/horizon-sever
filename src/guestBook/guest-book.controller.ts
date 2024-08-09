@@ -9,7 +9,12 @@ import {
   Post,
   Query,
   UseGuards,
+  UseInterceptors,
 } from "@nestjs/common";
+import { MapInterceptor } from "@automapper/nestjs";
+
+// entity
+import { GuestBook } from "./guest-book.entity";
 
 // dto
 import { GuestBookDto } from "./dto/guest-book.dto";
@@ -28,7 +33,8 @@ export class GuestBookController {
   constructor(private guestBookService: GuestBookService) {}
 
   @Get()
-  get(@Query() query): Promise<GuestBookDto[]> {
+  @UseInterceptors(MapInterceptor(GuestBook, GuestBookDto, { isArray: true }))
+  get(@Query() query) {
     const { sort = "lastUpdate", order = "DESC", page = 0, count = 20 } = query;
     return this.guestBookService.get({ sort, order, page, count });
   }
@@ -40,6 +46,7 @@ export class GuestBookController {
   }
 
   @Get(":id")
+  @UseInterceptors(MapInterceptor(GuestBook, GuestBookDto, { isArray: true }))
   getById(@Param("id", ParseIntPipe) id: number) {
     return this.guestBookService.getById(id);
   }
@@ -51,9 +58,9 @@ export class GuestBookController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Delete(":id")
-  remove(@Param("id", ParseIntPipe) id: number) {
-    return this.guestBookService.remove(id);
+  @Delete()
+  remove(@Body() ids: number[]) {
+    return this.guestBookService.remove(ids);
   }
 
   @UseGuards(JwtAuthGuard)

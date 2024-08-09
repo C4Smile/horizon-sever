@@ -8,7 +8,11 @@ import {
   Post,
   Query,
   UseGuards,
+  UseInterceptors,
 } from "@nestjs/common";
+
+// entity
+import { ExternalLink } from "./external-link.entity";
 
 // dto
 import { ExternalLinkDto } from "./dto/external-link.dto";
@@ -19,18 +23,21 @@ import { ExternalLinkService } from "./external-link.service";
 
 // guard
 import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
+import { MapInterceptor } from "@automapper/nestjs";
 
 @Controller("externalLink")
 export class ExternalLinkController {
   constructor(private newsExternalLinkService: ExternalLinkService) {}
 
   @Get()
+  @UseInterceptors(MapInterceptor(ExternalLink, ExternalLinkDto, { isArray: true }))
   get(@Query() query): Promise<ExternalLinkDto[]> {
     const { sort = "lastUpdate", order = "DESC", page = 0, count = 20 } = query;
     return this.newsExternalLinkService.get({ sort, order, page, count });
   }
 
-   @Get(":id")
+  @Get(":id")
+  @UseInterceptors(MapInterceptor(ExternalLink, ExternalLinkDto, { isArray: true }))
   getById(@Param("id", ParseIntPipe) id: number) {
     return this.newsExternalLinkService.getById(id);
   }
@@ -42,8 +49,8 @@ export class ExternalLinkController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Delete(":id")
-  remove(@Param("id", ParseIntPipe) id: number) {
-    return this.newsExternalLinkService.remove(id);
+  @Delete()
+  remove(@Body() ids: number[]) {
+    return this.newsExternalLinkService.remove(ids);
   }
 }

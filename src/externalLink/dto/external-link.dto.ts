@@ -1,7 +1,12 @@
+import { AutoMap } from "@automapper/classes";
+
 // dto
 import { ModelDto } from "src/models/dto/model.dto";
 
-export interface ExternalLinkDto extends ModelDto {
+export class ExternalLinkDto extends ModelDto {
+  @AutoMap()
   name: string;
+
+  @AutoMap()
   preview: string;
 }

@@ -1,64 +1,25 @@
-import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
+import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-
+import { InjectMapper } from "@automapper/nestjs";
+import { Mapper } from "@automapper/core";
 import { Repository } from "typeorm";
+
+// base
+import { CrudService } from "src/models/service/CrudService";
 
 // entity
 import { ExternalLink } from "./external-link.entity";
 
 // dto
 import { AddExternalLinkDto } from "./dto/add-external-link.dto";
+import { UpdateModelDto } from "src/models/dto/update-model.dto";
 
 @Injectable()
-export class ExternalLinkService {
-  constructor(@InjectRepository(ExternalLink) private externalLinkService: Repository<ExternalLink>) {}
-
-  async create(externalLink: AddExternalLinkDto) {
-    const externalLinkFound = await this.externalLinkService.findOne({
-      where: { name: externalLink.name },
-    });
-
-    if (externalLinkFound) throw new HttpException("ExternalLink already exists", HttpStatus.CONFLICT);
-
-    const newExternalLink = this.externalLinkService.create(externalLink);
-    const saved = await this.externalLinkService.save(newExternalLink);
-    return [saved];
-  }
-
-  async get({ sort, order, page, count }) {
-    const list = await this.externalLinkService.find({
-      skip: page * count,
-      take: (page + 1) * count,
-      order: {
-        [sort]: order,
-      },
-    });
-
-    return list;
-  }
-
-  async getById(id: number) {
-    const externalLinkFound = await this.externalLinkService.findOne({
-      where: {
-        id,
-      },
-    });
-
-    if (!externalLinkFound) throw new HttpException("ExternalLink not Found", HttpStatus.NOT_FOUND);
-
-    return [externalLinkFound];
-  }
-
-  async remove(id: number) {
-    const externalLinkFound = await this.externalLinkService.findOne({
-      where: { id },
-    });
-
-    if (!externalLinkFound)
-      throw new HttpException("ExternalLink already exists", HttpStatus.NOT_FOUND);
-
-    const result = await this.externalLinkService.save({ id, deleted: true });
-
-    return result;
+export class ExternalLinkService extends CrudService<ExternalLink, AddExternalLinkDto, UpdateModelDto> {
+  constructor(
+    @InjectRepository(ExternalLink) private externalLinkService: Repository<ExternalLink>,
+    @InjectMapper() mapper: Mapper,
+  ) {
+    super(externalLinkService, mapper);
   }
 }
