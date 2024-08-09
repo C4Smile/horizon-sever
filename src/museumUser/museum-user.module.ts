@@ -2,6 +2,7 @@ import { Module } from "@nestjs/common";
 import { classes } from "@automapper/classes";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { AutomapperModule } from "@automapper/nestjs";
+import { Repository } from "typeorm";
 
 // controller
 import { MuseumUserController } from "./museum-user.controller";
@@ -17,6 +18,9 @@ import { MuseumRoleModule } from "src/museumRole/museum-role.module";
 // automapper
 import { MuseumUserAutomapper } from "./mueum-user.automapper";
 
+// base
+import { CrudService } from "src/models/service/CrudService";
+
 @Module({
   imports: [
     TypeOrmModule.forFeature([MuseumUser, MuseumRole]),
@@ -24,7 +28,7 @@ import { MuseumUserAutomapper } from "./mueum-user.automapper";
     AutomapperModule.forRoot({ strategyInitializer: classes() }),
   ],
   controllers: [MuseumUserController],
-  providers: [MuseumUserService, MuseumUserAutomapper],
+  providers: [Repository, Array, CrudService, MuseumUserService, MuseumUserAutomapper],
   exports: [MuseumUserService, MuseumUserAutomapper],
 })
 export class MuseumUserModule {}

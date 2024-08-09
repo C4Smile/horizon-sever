@@ -1,4 +1,5 @@
 import { Module } from "@nestjs/common";
+import { Repository } from "typeorm";
 import { TypeOrmModule } from "@nestjs/typeorm";
 
 // controller
@@ -10,10 +11,13 @@ import { PushNotificationService } from "./push-notification.service";
 // entities
 import { PushNotification } from "./push-notification.entity";
 
+// base
+import { CrudService } from "src/models/service/CrudService";
+
 @Module({
   imports: [TypeOrmModule.forFeature([PushNotification])],
   controllers: [PushNotificationController],
-  providers: [PushNotificationService],
+  providers: [Repository, Array, CrudService, PushNotificationService],
   exports: [PushNotificationService],
 })
 export class PushNotificationModule {}

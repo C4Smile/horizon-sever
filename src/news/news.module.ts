@@ -1,6 +1,8 @@
 import { Module } from "@nestjs/common";
 import { classes } from "@automapper/classes";
 import { TypeOrmModule } from "@nestjs/typeorm";
+import { AutomapperModule } from "@automapper/nestjs";
+import { Repository } from "typeorm";
 
 // automapper
 import { NewsAutomapper } from "./news.automapper";
@@ -19,7 +21,9 @@ import { NewsHasTag } from "./news-has-tag.entity";
 // modules
 import { TagModule } from "src/tags/tag.module";
 import { NewsHasTagController } from "./news-has-tags.controller";
-import { AutomapperModule } from "@automapper/nestjs";
+
+// base
+import { CrudService } from "src/models/service/CrudService";
 
 @Module({
   imports: [
@@ -28,7 +32,7 @@ import { AutomapperModule } from "@automapper/nestjs";
     AutomapperModule.forRoot({ strategyInitializer: classes() }),
   ],
   controllers: [NewsController, NewsHasTagController],
-  providers: [NewsService, NewsHasTagService, NewsAutomapper],
+  providers: [Repository, Array, CrudService, NewsService, NewsHasTagService, NewsAutomapper],
   exports: [NewsService, NewsHasTagService],
 })
 export class NewsModule {}
