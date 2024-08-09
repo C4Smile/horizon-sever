@@ -9,7 +9,12 @@ import {
   Post,
   Query,
   UseGuards,
+  UseInterceptors,
 } from "@nestjs/common";
+import { MapInterceptor } from "@automapper/nestjs";
+
+// entity
+import { News } from "./news.entity";
 
 // dto
 import { NewsDto } from "./dto/news.dto";
@@ -28,7 +33,8 @@ export class NewsController {
   constructor(private newsService: NewsService) {}
 
   @Get()
-  get(@Query() query): Promise<NewsDto[]> {
+  @UseInterceptors(MapInterceptor(News, NewsDto, { isArray: true }))
+  get(@Query() query) {
     const { sort = "lastUpdate", order = "DESC", page = 0, count = 20 } = query;
     return this.newsService.get({ sort, order, page, count });
   }
@@ -45,6 +51,7 @@ export class NewsController {
   }
 
   @Get(":id")
+  @UseInterceptors(MapInterceptor(News, NewsDto, { isArray: true }))
   getById(@Param("id", ParseIntPipe) id: number) {
     return this.newsService.getById(id);
   }
@@ -56,9 +63,9 @@ export class NewsController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Delete(":id")
-  remove(@Param("id", ParseIntPipe) id: number) {
-    return this.newsService.remove(id);
+  @Delete()
+  remove(@Body() ids: number[]) {
+    return this.newsService.remove(ids);
   }
 
   @UseGuards(JwtAuthGuard)

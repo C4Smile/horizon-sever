@@ -9,7 +9,12 @@ import {
   Post,
   Query,
   UseGuards,
+  UseInterceptors,
 } from "@nestjs/common";
+import { PushNotification } from "./push-notification.entity";
+
+// entity
+import { Tag } from "src/tags/tag.entity";
 
 // dto
 import { PushNotificationDto } from "./dto/push-notification.dto";
@@ -21,18 +26,21 @@ import { UpdatePushNotificationDto } from "./dto/update-push-notification.dto";
 
 // guard
 import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
+import { MapInterceptor } from "@automapper/nestjs";
 
 @Controller("pushNotification")
 export class PushNotificationController {
   constructor(private pushNotificationService: PushNotificationService) {}
 
   @Get()
+  @UseInterceptors(MapInterceptor(Tag, PushNotification, { isArray: true }))
   get(@Query() query): Promise<PushNotificationDto[]> {
     const { sort = "lastUpdate", order = "DESC", page = 0, count = 20 } = query;
     return this.pushNotificationService.get({ sort, order, page, count });
   }
 
-   @Get(":id")
+  @Get(":id")
+  @UseInterceptors(MapInterceptor(Tag, PushNotification, { isArray: true }))
   getById(@Param("id", ParseIntPipe) id: number) {
     return this.pushNotificationService.getById(id);
   }
@@ -44,9 +52,9 @@ export class PushNotificationController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Delete(":id")
-  remove(@Param("id", ParseIntPipe) id: number) {
-    return this.pushNotificationService.remove(id);
+  @Delete()
+  remove(@Body() ids: number[]) {
+    return this.pushNotificationService.remove(ids);
   }
 
   @UseGuards(JwtAuthGuard)
