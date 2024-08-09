@@ -9,6 +9,7 @@ import {
   Post,
   Query,
   UseGuards,
+  UseInterceptors,
 } from "@nestjs/common";
 
 // dto
@@ -21,18 +22,22 @@ import { UpdateAppTextDto } from "./dto/update-app-text.dto";
 
 // guard
 import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
+import { MapInterceptor } from "@automapper/nestjs";
+import { AppText } from "./app-text.entity";
 
-@Controller("appTexts")
+@Controller("appText")
 export class AppTextController {
   constructor(private newsAppTextService: AppTextService) {}
 
   @Get()
+  @UseInterceptors(MapInterceptor(AppText, AppTextDto, { isArray: true }))
   get(@Query() query): Promise<AppTextDto[]> {
     const { sort = "lastUpdate", order = "DESC", page = 0, count = 20 } = query;
     return this.newsAppTextService.get({ sort, order, page, count });
   }
 
-   @Get(":id")
+  @Get(":id")
+  @UseInterceptors(MapInterceptor(AppText, AppTextDto, { isArray: true }))
   getById(@Param("id", ParseIntPipe) id: number) {
     return this.newsAppTextService.getById(id);
   }
@@ -44,9 +49,9 @@ export class AppTextController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Delete(":id")
-  remove(@Param("id", ParseIntPipe) id: number) {
-    return this.newsAppTextService.remove(id);
+  @Delete()
+  remove(@Body() ids: number[]) {
+    return this.newsAppTextService.remove(ids);
   }
 
   @UseGuards(JwtAuthGuard)

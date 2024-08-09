@@ -1,7 +1,11 @@
-import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
+import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-
+import { InjectMapper } from "@automapper/nestjs";
+import { Mapper } from "@automapper/core";
 import { Repository } from "typeorm";
+
+// base
+import { CrudService } from "src/models/service/CrudService";
 
 // entity
 import { AppText } from "./app-text.entity";
@@ -11,71 +15,11 @@ import { AddAppTextDto } from "./dto/add-app-text.dto";
 import { UpdateAppTextDto } from "./dto/update-app-text.dto";
 
 @Injectable()
-export class AppTextService {
-  constructor(@InjectRepository(AppText) private appTextService: Repository<AppText>) {}
-
-  async create(appText: AddAppTextDto) {
-    const appTextFound = await this.appTextService.findOne({
-      where: { title: appText.title },
-    });
-
-    if (appTextFound) throw new HttpException("AppText already exists", HttpStatus.CONFLICT);
-
-    const newAppText = this.appTextService.create(appText);
-    const saved = await this.appTextService.save(newAppText);
-    return [saved];
-  }
-
-  async get({ sort, order, page, count }) {
-    const list = await this.appTextService.find({
-      skip: page * count,
-      take: (page + 1) * count,
-      order: {
-        [sort]: order,
-      },
-    });
-
-    return list;
-  }
-
-  async getById(id: number) {
-    const appTextFound = await this.appTextService.findOne({
-      where: {
-        id,
-      },
-    });
-
-    if (!appTextFound) throw new HttpException("AppText not Found", HttpStatus.NOT_FOUND);
-
-    return [appTextFound];
-  }
-
-  async remove(id: number) {
-    const result = await this.appTextService.update({ id }, { deleted: true });
-    if (result.affected === 0) throw new HttpException("AppText not Found", HttpStatus.NOT_FOUND);
-    return result;
-  }
-
-  async update(id: number, data: UpdateAppTextDto) {
-    const appTextFound = await this.appTextService.findOne({
-      where: {
-        id,
-      },
-    });
-
-    if (!appTextFound) throw new HttpException("AppText not Found", HttpStatus.NOT_FOUND);
-
-    const conflict = await this.appTextService.findOne({
-      where: {
-        title: data.title,
-      },
-    });
-
-    if (conflict && conflict.id !== id)
-      throw new HttpException("AppText already exists", HttpStatus.CONFLICT);
-
-    const updatedAppText = Object.assign(appTextFound, data);
-    const saved = await this.appTextService.save(updatedAppText);
-    return [saved];
+export class AppTextService extends CrudService<AppText, AddAppTextDto, UpdateAppTextDto> {
+  constructor(
+    @InjectRepository(AppText) private appTextService: Repository<AppText>,
+    @InjectMapper() mapper: Mapper,
+  ) {
+    super(appTextService, mapper);
   }
 }
