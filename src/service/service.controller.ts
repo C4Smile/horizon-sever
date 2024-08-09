@@ -9,7 +9,12 @@ import {
   Post,
   Query,
   UseGuards,
+  UseInterceptors,
 } from "@nestjs/common";
+import { MapInterceptor } from "@automapper/nestjs";
+
+// entity
+import { Service } from "./service.entity";
 
 // dto
 import { ServiceDto } from "./dto/service.dto";
@@ -27,12 +32,14 @@ export class ServiceController {
   constructor(private serviceService: ServiceService) {}
 
   @Get()
-  get(@Query() query): Promise<ServiceDto[]> {
+  @UseInterceptors(MapInterceptor(Service, ServiceDto, { isArray: true }))
+  get(@Query() query) {
     const { sort = "lastUpdate", order = "DESC", page = 0, count = 20 } = query;
     return this.serviceService.get({ sort, order, page, count });
   }
 
   @Get(":id")
+  @UseInterceptors(MapInterceptor(Service, ServiceDto, { isArray: true }))
   getById(@Param("id", ParseIntPipe) id: number) {
     return this.serviceService.getById(id);
   }
@@ -44,9 +51,9 @@ export class ServiceController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Delete(":id")
-  remove(@Param("id", ParseIntPipe) id: number) {
-    return this.serviceService.remove(id);
+  @Delete()
+  remove(@Body() ids: number[]) {
+    return this.serviceService.remove(ids);
   }
 
   @UseGuards(JwtAuthGuard)

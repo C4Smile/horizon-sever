@@ -9,7 +9,12 @@ import {
   Post,
   Query,
   UseGuards,
+  UseInterceptors,
 } from "@nestjs/common";
+import { MapInterceptor } from "@automapper/nestjs";
+
+// entity
+import { RoomType } from "./room-type.entity";
 
 // dto
 import { RoomTypeDto } from "./dto/room-type.dto";
@@ -27,12 +32,14 @@ export class RoomTypeController {
   constructor(private newsRoomTypeService: RoomTypeService) {}
 
   @Get()
+  @UseInterceptors(MapInterceptor(RoomType, RoomTypeDto, { isArray: true }))
   get(@Query() query): Promise<RoomTypeDto[]> {
     const { sort = "lastUpdate", order = "DESC", page = 0, count = 20 } = query;
     return this.newsRoomTypeService.get({ sort, order, page, count });
   }
 
-   @Get(":id")
+  @Get(":id")
+  @UseInterceptors(MapInterceptor(RoomType, RoomTypeDto, { isArray: true }))
   getById(@Param("id", ParseIntPipe) id: number) {
     return this.newsRoomTypeService.getById(id);
   }
@@ -44,9 +51,9 @@ export class RoomTypeController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Delete(":id")
-  remove(@Param("id", ParseIntPipe) id: number) {
-    return this.newsRoomTypeService.remove(id);
+  @Delete()
+  remove(@Body() ids: number[]) {
+    return this.newsRoomTypeService.remove(ids);
   }
 
   @UseGuards(JwtAuthGuard)
