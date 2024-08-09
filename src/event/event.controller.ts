@@ -9,7 +9,12 @@ import {
   Post,
   Query,
   UseGuards,
+  UseInterceptors,
 } from "@nestjs/common";
+import { MapInterceptor } from "@automapper/nestjs";
+
+// entity
+import { Event } from "./event.entity";
 
 // dto
 import { EventDto } from "./dto/event.dto";
@@ -27,12 +32,14 @@ export class EventController {
   constructor(private eventService: EventService) {}
 
   @Get()
-  get(@Query() query): Promise<EventDto[]> {
+  @UseInterceptors(MapInterceptor(Event, EventDto, { isArray: true }))
+  get(@Query() query) {
     const { sort = "lastUpdate", order = "DESC", page = 0, count = 20 } = query;
     return this.eventService.get({ sort, order, page, count });
   }
 
-   @Get(":id")
+  @Get(":id")
+  @UseInterceptors(MapInterceptor(Event, EventDto, { isArray: true }))
   getById(@Param("id", ParseIntPipe) id: number) {
     return this.eventService.getById(id);
   }
@@ -44,9 +51,9 @@ export class EventController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Delete(":id")
-  remove(@Param("id", ParseIntPipe) id: number) {
-    return this.eventService.remove(id);
+  @Delete()
+  remove(@Body() ids: number[]) {
+    return this.eventService.remove(ids);
   }
 
   @UseGuards(JwtAuthGuard)

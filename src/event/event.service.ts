@@ -1,88 +1,26 @@
-import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
+import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Mapper } from "@automapper/core";
 import { InjectMapper } from "@automapper/nestjs";
 import { Repository } from "typeorm";
 
+// base
+import { CrudService } from "src/models/service/CrudService";
+
 // entity
 import { Event } from "./event.entity";
 
 // dto
-import { EventDto } from "./dto/event.dto";
 import { AddEventDto } from "./dto/add-event.dto";
 import { UpdateEventDto } from "./dto/update-event.dto";
 
 @Injectable()
-export class EventService {
+export class EventService extends CrudService<Event, AddEventDto, UpdateEventDto> {
   constructor(
-    @InjectRepository(Event) private eventService: Repository<Event>,
-    @InjectMapper() private readonly mapper: Mapper,
-  ) {}
-
-  async create(event: AddEventDto) {
-    const eventFound = await this.eventService.findOne({
-      where: { title: event.title },
-    });
-
-    if (eventFound) throw new HttpException("Event already exists", HttpStatus.CONFLICT);
-
-    const newEvent = this.eventService.create(event);
-    const saved = await this.eventService.save(newEvent);
-    return [saved];
-  }
-
-  async get({ sort, order, page, count }) {
-    const list = await this.eventService.find({
-      skip: page * count,
-      take: (page + 1) * count,
-      relations: ["eventHasLink", "eventHasTag", "eventHasImage"],
-      order: {
-        [sort]: order,
-      },
-    });
-
-    return this.mapper.mapArrayAsync(list, Event, EventDto);
-  }
-
-  async getById(id: number) {
-    const eventFound = await this.eventService.findOne({
-      where: {
-        id,
-      },
-      relations: ["eventHasLink", "eventHasTag", "eventHasImage"],
-    });
-
-    if (!eventFound) throw new HttpException("Event not Found", HttpStatus.NOT_FOUND);
-
-    return this.mapper.mapArrayAsync([eventFound], Event, EventDto);
-  }
-
-  async remove(id: number) {
-    const result = await this.eventService.update({ id }, { deleted: true });
-    if (result.affected === 0) throw new HttpException("Event not Found", HttpStatus.NOT_FOUND);
-    return result;
-  }
-
-  async update(id: number, data: UpdateEventDto) {
-    const eventFound = await this.eventService.findOne({
-      where: {
-        id,
-      },
-    });
-
-    if (!eventFound) throw new HttpException("Event not Found", HttpStatus.NOT_FOUND);
-
-    const conflict = await this.eventService.findOne({
-      where: {
-        title: data.title,
-      },
-    });
-
-    if (conflict && conflict.id !== id)
-      throw new HttpException("Event already exists", HttpStatus.CONFLICT);
-
-    const updatedEvent = Object.assign(eventFound, data);
-    const saved = await this.eventService.save(updatedEvent);
-    return saved;
+    @InjectRepository(Event) eventService: Repository<Event>,
+    @InjectMapper() mapper: Mapper,
+    relationships: string[] = ["eventHasLink", "eventHasTag", "eventHasImage"],
+  ) {
+    super(eventService, mapper, relationships);
   }
 }
