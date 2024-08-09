@@ -9,7 +9,12 @@ import {
   Post,
   Query,
   UseGuards,
+  UseInterceptors,
 } from "@nestjs/common";
+import { MapInterceptor } from "@automapper/nestjs";
+
+// entity
+import { Activity } from "./activity.entity";
 
 // dto
 import { ActivityDto } from "./dto/activity.dto";
@@ -27,12 +32,14 @@ export class ActivityController {
   constructor(private activityService: ActivityService) {}
 
   @Get()
-  get(@Query() query): Promise<ActivityDto[]> {
+  @UseInterceptors(MapInterceptor(Activity, ActivityDto, { isArray: true }))
+  get(@Query() query) {
     const { sort = "lastUpdate", order = "DESC", page = 0, count = 20 } = query;
     return this.activityService.get({ sort, order, page, count });
   }
 
   @Get(":id")
+  @UseInterceptors(MapInterceptor(Activity, ActivityDto, { isArray: true }))
   getById(@Param("id", ParseIntPipe) id: number) {
     return this.activityService.getById(id);
   }
@@ -44,9 +51,9 @@ export class ActivityController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Delete(":id")
-  remove(@Param("id", ParseIntPipe) id: number) {
-    return this.activityService.remove(id);
+  @Delete()
+  remove(@Body() ids: number[]) {
+    return this.activityService.remove(ids);
   }
 
   @UseGuards(JwtAuthGuard)
