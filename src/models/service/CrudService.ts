@@ -1,13 +1,13 @@
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { InjectMapper } from "@automapper/nestjs";
 import { Mapper } from "@automapper/core";
-
 import { Repository } from "typeorm";
 
 // entity
 import { Model } from "../model";
 
 // dto
+import { QueryFilter } from "../generic-filter";
 import { AddModelDto } from "../dto/add-model.dto";
 import { UpdateModelDto } from "../dto/update-model.dto";
 
@@ -19,10 +19,16 @@ export class CrudService<
 > {
   protected entityService: Repository<Entity>;
   protected mapper: Mapper;
+  protected relationships: string[];
 
-  constructor(entityService: Repository<Entity>, @InjectMapper() mapper: Mapper) {
+  constructor(
+    entityService: Repository<Entity>,
+    @InjectMapper() mapper: Mapper,
+    relationships: string[] = [],
+  ) {
     this.entityService = entityService;
     this.mapper = mapper;
+    this.relationships = relationships;
   }
 
   async create(entity: AddDto) {
@@ -31,14 +37,18 @@ export class CrudService<
     return [saved];
   }
 
-  async get({ sort, order, page, count }) {
-    const list = await this.entityService.find({
+  async get(query?: QueryFilter) {
+    const { page, count, sort, order } = query;
+    const findOptions = {
       skip: page * count,
       take: (page + 1) * count,
       order: {
-        [sort]: order,
+        [sort as keyof Entity]: order,
       },
-    });
+      relationships: this.relationships,
+    };
+
+    const list = await this.entityService.find(findOptions as any);
 
     return list;
   }
@@ -48,10 +58,10 @@ export class CrudService<
       where: {
         id,
       } as any,
+      relations: this.relationships,
     });
 
     if (!entityFound) throw new HttpException("Entity not Found", HttpStatus.NOT_FOUND);
-
     return [entityFound];
   }
 
