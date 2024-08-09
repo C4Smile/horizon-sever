@@ -1,7 +1,11 @@
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-
+import { InjectMapper } from "@automapper/nestjs";
+import { Mapper } from "@automapper/core";
 import { Repository } from "typeorm";
+
+// base
+import { CrudService } from "src/models/service/CrudService";
 
 // entity
 import { MuseumUser } from "./museum-user.entity";
@@ -11,35 +15,17 @@ import { AddMuseumUserDto } from "./dto/add-museum-user.dto";
 import { UpdateMuseumUserDto } from "./dto/update-museum-user.dto";
 
 @Injectable()
-export class MuseumUserService {
-  constructor(@InjectRepository(MuseumUser) private museumUserService: Repository<MuseumUser>) {}
-
-  async create(museumUser: AddMuseumUserDto) {
-    const museumUserFound = await this.museumUserService.findOne({
-      where: { name: museumUser.name },
-    });
-
-    if (museumUserFound) throw new HttpException("MuseumUser already exists", HttpStatus.CONFLICT);
-
-    const newMuseumUser = this.museumUserService.create(museumUser);
-    const saved = await this.museumUserService.save(newMuseumUser);
-    return [saved];
-  }
-
-  async get({ sort, order, page, count }) {
-    const list = await this.museumUserService.find({
-      skip: page * count,
-      take: (page + 1) * count,
-      order: {
-        [sort]: order,
-      },
-    });
-
-    return list;
+export class MuseumUserService extends CrudService<MuseumUser, AddMuseumUserDto, UpdateMuseumUserDto> {
+  constructor(
+    @InjectRepository(MuseumUser) museumUserService: Repository<MuseumUser>,
+    @InjectMapper() mapper: Mapper,
+    relationships: string[] = ["user", "role"],
+  ) {
+    super(museumUserService, mapper, relationships);
   }
 
   async getByUserId(userId: number) {
-    const museumUserFound = await this.museumUserService.findOne({
+    const museumUserFound = await this.entityService.findOne({
       where: {
         userId,
       },
@@ -48,47 +34,5 @@ export class MuseumUserService {
     if (!museumUserFound) throw new HttpException("MuseumUser not Found", HttpStatus.NOT_FOUND);
 
     return museumUserFound;
-  }
-
-  async getById(id: number) {
-    const museumUserFound = await this.museumUserService.findOne({
-      where: {
-        id,
-      },
-      relations: ["role"],
-    });
-
-    if (!museumUserFound) throw new HttpException("MuseumUser not Found", HttpStatus.NOT_FOUND);
-
-    return [museumUserFound];
-  }
-
-  async remove(id: number) {
-    const result = await this.museumUserService.update({ id }, { deleted: true });
-    if (result.affected === 0) throw new HttpException("MuseumUser not Found", HttpStatus.NOT_FOUND);
-    return result;
-  }
-
-  async update(id: number, data: UpdateMuseumUserDto) {
-    const museumUserFound = await this.museumUserService.findOne({
-      where: {
-        id,
-      },
-    });
-
-    if (!museumUserFound) throw new HttpException("MuseumUser not Found", HttpStatus.NOT_FOUND);
-
-    const conflict = await this.museumUserService.findOne({
-      where: {
-        name: data.name,
-      },
-    });
-
-    if (conflict && conflict.id !== id)
-      throw new HttpException("MuseumUser already exists", HttpStatus.CONFLICT);
-
-    const updatedMuseumUser = Object.assign(museumUserFound, data);
-    const saved = await this.museumUserService.save(updatedMuseumUser);
-    return [saved];
   }
 }

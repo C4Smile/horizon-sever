@@ -9,7 +9,12 @@ import {
   Post,
   Query,
   UseGuards,
+  UseInterceptors,
 } from "@nestjs/common";
+import { MapInterceptor } from "@automapper/nestjs";
+
+// entity
+import { MuseumUser } from "./museum-user.entity";
 
 // dto
 import { MuseumUserDto } from "./dto/museum-user.dto";
@@ -27,6 +32,7 @@ export class MuseumUserController {
   constructor(private museumUserService: MuseumUserService) {}
 
   @Get()
+  @UseInterceptors(MapInterceptor(MuseumUser, MuseumUserDto, { isArray: true }))
   get(@Query() query): Promise<MuseumUserDto[]> {
     const { sort = "lastUpdate", order = "DESC", page = 0, count = 20 } = query;
     return this.museumUserService.get({ sort, order, page, count });
@@ -38,7 +44,8 @@ export class MuseumUserController {
     return this.museumUserService.getByUserId(userId);
   }
 
-   @Get(":id")
+  @Get(":id")
+  @UseInterceptors(MapInterceptor(MuseumUser, MuseumUserDto, { isArray: true }))
   getById(@Param("id", ParseIntPipe) id: number) {
     return this.museumUserService.getById(id);
   }
@@ -50,9 +57,9 @@ export class MuseumUserController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Delete(":id")
-  remove(@Param("id", ParseIntPipe) id: number) {
-    return this.museumUserService.remove(id);
+  @Delete()
+  remove(@Body() ids: number[]) {
+    return this.museumUserService.remove(ids);
   }
 
   @UseGuards(JwtAuthGuard)
