@@ -1,7 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { InjectMapper } from "@automapper/nestjs";
 import { Mapper } from "@automapper/core";
-import { Repository } from "typeorm";
+import { FindOptionsOrder, Repository } from "typeorm";
 
 // entity
 import { Model } from "../model";
@@ -24,7 +24,7 @@ export class CrudService<
   constructor(
     entityService: Repository<Entity>,
     @InjectMapper() mapper: Mapper,
-    relationships: string[] = [],
+    relationships?: string[],
   ) {
     this.entityService = entityService;
     this.mapper = mapper;
@@ -39,16 +39,15 @@ export class CrudService<
 
   async get(query?: QueryFilter) {
     const { page, count, sort, order } = query;
-    const findOptions = {
+
+    const list = await this.entityService.find({
       skip: page * count,
       take: (page + 1) * count,
       order: {
         [sort as keyof Entity]: order,
-      },
-      relationships: this.relationships,
-    };
-
-    const list = await this.entityService.find(findOptions as any);
+      } as FindOptionsOrder<Entity>,
+      relations: this.relationships,
+    });
 
     return list;
   }
