@@ -1,6 +1,9 @@
+import { AutoMap } from "@automapper/classes";
+
 // dto
 import { ModelDto } from "src/models/dto/model.dto";
 
-export interface MuseumRoleDto extends ModelDto {
+export class MuseumRoleDto extends ModelDto {
+  @AutoMap()
   name: string;
 }
