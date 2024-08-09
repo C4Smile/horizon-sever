@@ -32,6 +32,8 @@ export enum SortOrder {
   DESC = "DESC",
 }
 
+export type QueryFilter = { sort: string; order: SortOrder; page: number; count: number };
+
 export class GenericFilter {
   @Transform(({ value }) => toNumber(value, { default: 1, min: 1 }))
   @IsNumber({}, { message: ' "page" atrribute should be a number' })
