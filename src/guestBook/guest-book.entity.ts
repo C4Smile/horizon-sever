@@ -20,6 +20,10 @@ export class GuestBook extends Model {
   })
   date: Date = null;
 
+  @AutoMap()
+  @Column({ type: "text" })
+  content: string = "";
+
   @ManyToMany(() => Photo, (photo) => photo.guestBooks)
   @JoinTable({
     name: "guest-book-has-image",

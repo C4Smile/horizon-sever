@@ -11,7 +11,11 @@ export class GuestBookDto extends ModelDto {
   @AutoMap()
   urlName: string;
 
+  @AutoMap()
   date: Date;
+
+  @AutoMap()
+  content: string = "";
 
   guestBookHasImage: GuestBookHasImageDto[];
 }
