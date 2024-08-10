@@ -4,10 +4,6 @@ import { AutoMap } from "@automapper/classes";
 import { BlobDto } from "src/image/dto/blob.dto";
 import { ModelDto } from "src/models/dto/model.dto";
 
-type PushNotificationHasImageDto = {
-  imageId: BlobDto;
-};
-
 export class PushNotificationDto extends ModelDto {
   @AutoMap()
   title: string;
@@ -19,5 +15,5 @@ export class PushNotificationDto extends ModelDto {
   action: string;
 
   @AutoMap()
-  imageId: PushNotificationHasImageDto;
+  imageId: BlobDto;
 }
