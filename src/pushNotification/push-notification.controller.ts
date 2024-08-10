@@ -11,10 +11,9 @@ import {
   UseGuards,
   UseInterceptors,
 } from "@nestjs/common";
-import { PushNotification } from "./push-notification.entity";
 
 // entity
-import { Tag } from "src/tags/tag.entity";
+import { PushNotification } from "./push-notification.entity";
 
 // dto
 import { PushNotificationDto } from "./dto/push-notification.dto";
@@ -33,14 +32,14 @@ export class PushNotificationController {
   constructor(private pushNotificationService: PushNotificationService) {}
 
   @Get()
-  @UseInterceptors(MapInterceptor(Tag, PushNotification, { isArray: true }))
-  get(@Query() query): Promise<PushNotificationDto[]> {
+  @UseInterceptors(MapInterceptor(PushNotification, PushNotificationDto, { isArray: true }))
+  async get(@Query() query) {
     const { sort = "lastUpdate", order = "DESC", page = 0, count = 20 } = query;
     return this.pushNotificationService.get({ sort, order, page, count });
   }
 
   @Get(":id")
-  @UseInterceptors(MapInterceptor(Tag, PushNotification, { isArray: true }))
+  @UseInterceptors(MapInterceptor(PushNotification, PushNotificationDto, { isArray: true }))
   getById(@Param("id", ParseIntPipe) id: number) {
     return this.pushNotificationService.getById(id);
   }
