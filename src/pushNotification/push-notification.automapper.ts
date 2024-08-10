@@ -1,5 +1,5 @@
 import { AutomapperProfile, InjectMapper } from "@automapper/nestjs";
-import { createMap, type Mapper } from "@automapper/core";
+import { createMap, forMember, mapFrom, type Mapper } from "@automapper/core";
 import { Injectable } from "@nestjs/common";
 
 // entity
@@ -16,7 +16,17 @@ export class PushNotificationAutomapper extends AutomapperProfile {
 
   override get profile() {
     return (mapper: Mapper) => {
-      createMap(mapper, PushNotification, PushNotificationDto);
+      createMap(
+        mapper,
+        PushNotification,
+        PushNotificationDto,
+        forMember(
+          (dest) => dest.image,
+          mapFrom((source) => ({
+            imageId: { id: source.image.id, url: source.image.url, fileName: source.image.fileName },
+          })),
+        ),
+      );
     };
   }
 }
