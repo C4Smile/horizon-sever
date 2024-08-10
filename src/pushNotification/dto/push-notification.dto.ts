@@ -19,5 +19,5 @@ export class PushNotificationDto extends ModelDto {
   action: string;
 
   @AutoMap()
-  image: PushNotificationHasImageDto;
+  imageId: PushNotificationHasImageDto;
 }
