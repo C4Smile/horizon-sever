@@ -15,6 +15,7 @@ export class GuestBook extends Model {
   @Column({ type: "text", unique: true })
   name: string;
 
+  @AutoMap()
   @Column({
     type: "datetime",
   })
