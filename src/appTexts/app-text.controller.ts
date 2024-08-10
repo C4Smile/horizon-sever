@@ -55,6 +55,12 @@ export class AppTextController {
   }
 
   @UseGuards(JwtAuthGuard)
+  @Patch("restore")
+  restore(@Body() ids: number[]) {
+    return this.newsAppTextService.restore(ids);
+  }
+
+  @UseGuards(JwtAuthGuard)
   @Patch(":id")
   update(@Param("id", ParseIntPipe) id: number, @Body() data: UpdateAppTextDto) {
     return this.newsAppTextService.update(id, data);

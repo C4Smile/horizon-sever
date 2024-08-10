@@ -29,36 +29,42 @@ import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
 
 @Controller("roomStatus")
 export class RoomStatusController {
-  constructor(private newsRoomStatusService: RoomStatusService) {}
+  constructor(private roomStatusService: RoomStatusService) {}
 
   @Get()
   @UseInterceptors(MapInterceptor(RoomStatus, RoomStatusDto, { isArray: true }))
   get(@Query() query): Promise<RoomStatusDto[]> {
     const { sort = "lastUpdate", order = "DESC", page = 0, count = 20 } = query;
-    return this.newsRoomStatusService.get({ sort, order, page, count });
+    return this.roomStatusService.get({ sort, order, page, count });
   }
 
   @Get(":id")
   @UseInterceptors(MapInterceptor(RoomStatus, RoomStatusDto, { isArray: true }))
   getById(@Param("id", ParseIntPipe) id: number) {
-    return this.newsRoomStatusService.getById(id);
+    return this.roomStatusService.getById(id);
   }
 
   @UseGuards(JwtAuthGuard)
   @Post()
   create(@Body() newRoomStatus: AddRoomStatusDto) {
-    return this.newsRoomStatusService.create(newRoomStatus);
+    return this.roomStatusService.create(newRoomStatus);
   }
 
   @UseGuards(JwtAuthGuard)
   @Delete()
   remove(@Body() ids: number[]) {
-    return this.newsRoomStatusService.remove(ids);
+    return this.roomStatusService.remove(ids);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Patch("restore")
+  restore(@Body() ids: number[]) {
+    return this.roomStatusService.restore(ids);
   }
 
   @UseGuards(JwtAuthGuard)
   @Patch(":id")
   update(@Param("id", ParseIntPipe) id: number, @Body() data: UpdateRoomStatusDto) {
-    return this.newsRoomStatusService.update(id, data);
+    return this.roomStatusService.update(id, data);
   }
 }

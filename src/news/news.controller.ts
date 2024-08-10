@@ -69,6 +69,12 @@ export class NewsController {
   }
 
   @UseGuards(JwtAuthGuard)
+  @Patch("restore")
+  restore(@Body() ids: number[]) {
+    return this.newsService.restore(ids);
+  }
+
+  @UseGuards(JwtAuthGuard)
   @Patch(":id")
   update(@Param("id", ParseIntPipe) id: number, @Body() data: UpdateNewsDto) {
     return this.newsService.update(id, data);

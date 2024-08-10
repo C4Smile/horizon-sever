@@ -57,6 +57,12 @@ export class PushNotificationController {
   }
 
   @UseGuards(JwtAuthGuard)
+  @Patch("restore")
+  restore(@Body() ids: number[]) {
+    return this.pushNotificationService.restore(ids);
+  }
+
+  @UseGuards(JwtAuthGuard)
   @Patch(":id")
   update(@Param("id", ParseIntPipe) id: number, @Body() data: UpdatePushNotificationDto) {
     return this.pushNotificationService.update(id, data);

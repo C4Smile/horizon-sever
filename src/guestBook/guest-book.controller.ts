@@ -64,6 +64,12 @@ export class GuestBookController {
   }
 
   @UseGuards(JwtAuthGuard)
+  @Patch("restore")
+  restore(@Body() ids: number[]) {
+    return this.guestBookService.restore(ids);
+  }
+
+  @UseGuards(JwtAuthGuard)
   @Patch(":id")
   update(@Param("id", ParseIntPipe) id: number, @Body() data: UpdateGuestBookDto) {
     return this.guestBookService.update(id, data);

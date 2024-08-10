@@ -5,6 +5,7 @@ import {
   Get,
   Param,
   ParseIntPipe,
+  Patch,
   Post,
   Query,
   UseGuards,
@@ -52,5 +53,11 @@ export class ExternalLinkController {
   @Delete()
   remove(@Body() ids: number[]) {
     return this.newsExternalLinkService.remove(ids);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Patch("restore")
+  restore(@Body() ids: number[]) {
+    return this.newsExternalLinkService.restore(ids);
   }
 }

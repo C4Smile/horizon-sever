@@ -29,36 +29,42 @@ import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
 
 @Controller("roomType")
 export class RoomTypeController {
-  constructor(private newsRoomTypeService: RoomTypeService) {}
+  constructor(private roomTypeService: RoomTypeService) {}
 
   @Get()
   @UseInterceptors(MapInterceptor(RoomType, RoomTypeDto, { isArray: true }))
   get(@Query() query): Promise<RoomTypeDto[]> {
     const { sort = "lastUpdate", order = "DESC", page = 0, count = 20 } = query;
-    return this.newsRoomTypeService.get({ sort, order, page, count });
+    return this.roomTypeService.get({ sort, order, page, count });
   }
 
   @Get(":id")
   @UseInterceptors(MapInterceptor(RoomType, RoomTypeDto, { isArray: true }))
   getById(@Param("id", ParseIntPipe) id: number) {
-    return this.newsRoomTypeService.getById(id);
+    return this.roomTypeService.getById(id);
   }
 
   @UseGuards(JwtAuthGuard)
   @Post()
   create(@Body() newRoomType: AddRoomTypeDto) {
-    return this.newsRoomTypeService.create(newRoomType);
+    return this.roomTypeService.create(newRoomType);
   }
 
   @UseGuards(JwtAuthGuard)
   @Delete()
   remove(@Body() ids: number[]) {
-    return this.newsRoomTypeService.remove(ids);
+    return this.roomTypeService.remove(ids);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Patch("restore")
+  restore(@Body() ids: number[]) {
+    return this.roomTypeService.restore(ids);
   }
 
   @UseGuards(JwtAuthGuard)
   @Patch(":id")
   update(@Param("id", ParseIntPipe) id: number, @Body() data: UpdateRoomTypeDto) {
-    return this.newsRoomTypeService.update(id, data);
+    return this.roomTypeService.update(id, data);
   }
 }

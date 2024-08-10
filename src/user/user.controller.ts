@@ -31,7 +31,7 @@ export class UserController {
     return this.userService.get();
   }
 
-   @Get(":id")
+  @Get(":id")
   getById(@Param("id", ParseIntPipe) id: number) {
     return this.userService.getById(id);
   }

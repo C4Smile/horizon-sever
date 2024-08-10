@@ -15,5 +15,8 @@ export class PushNotificationDto extends ModelDto {
   action: string;
 
   @AutoMap()
+  sentDate: Date;
+
+  @AutoMap()
   imageId: BlobDto;
 }
