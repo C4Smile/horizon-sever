@@ -21,7 +21,7 @@ export class PushNotificationAutomapper extends AutomapperProfile {
         PushNotification,
         PushNotificationDto,
         forMember(
-          (dest) => dest.image,
+          (dest) => dest.imageId,
           mapFrom((source) => ({
             imageId: { id: source.image.id, url: source.image.url, fileName: source.image.fileName },
           })),
