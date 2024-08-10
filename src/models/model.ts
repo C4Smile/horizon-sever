@@ -13,7 +13,7 @@ export class Model {
 
   @AutoMap()
   @Column({ nullable: true, type: "datetime", default: () => "CURRENT_TIMESTAMP" })
-  dateOfCreation: Date = null;
+  dateOfCreation: Date;
 
   @AutoMap()
   @Column({
@@ -22,7 +22,7 @@ export class Model {
     default: () => "CURRENT_TIMESTAMP",
     onUpdate: "CURRENT_TIMESTAMP",
   })
-  lastUpdate: Date = null;
+  lastUpdate: Date;
 
   @AutoMap()
   @Column({ nullable: true, default: () => false })
