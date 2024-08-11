@@ -17,7 +17,7 @@ import { UpdateAppTextDto } from "./dto/update-app-text.dto";
 @Injectable()
 export class AppTextService extends CrudService<AppText, AddAppTextDto, UpdateAppTextDto> {
   constructor(
-    @InjectRepository(AppText) private appTextService: Repository<AppText>,
+    @InjectRepository(AppText) appTextService: Repository<AppText>,
     @InjectMapper() mapper: Mapper,
   ) {
     super(appTextService, mapper);
