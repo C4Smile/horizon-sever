@@ -16,6 +16,9 @@ import { MapInterceptor } from "@automapper/nestjs";
 // entity
 import { Tag } from "./tag.entity";
 
+// utils
+import { PagedResult } from "src/models/types";
+
 // dto
 import { TagDto } from "./dto/tag.dto";
 import { AddTagDto } from "./dto/add-tag.dto";
@@ -34,7 +37,7 @@ export class TagController {
 
   @Get()
   @UseInterceptors(MapInterceptor(Tag, TagDto, { isArray: true }))
-  get(@Query() query): Promise<TagDto[]> {
+  get(@Query() query): Promise<PagedResult<TagDto>> {
     const { sort = "lastUpdate", order = "DESC", page = 0, count = 20 } = query;
     return this.tagService.get({ sort, order, page, count });
   }

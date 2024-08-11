@@ -11,9 +11,11 @@ import {
   UseGuards,
   UseInterceptors,
 } from "@nestjs/common";
+import { MapInterceptor } from "@automapper/nestjs";
 
 // entity
 import { ExternalLink } from "./external-link.entity";
+import { PagedResult } from "src/models/types";
 
 // dto
 import { ExternalLinkDto } from "./dto/external-link.dto";
@@ -24,7 +26,6 @@ import { ExternalLinkService } from "./external-link.service";
 
 // guard
 import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
-import { MapInterceptor } from "@automapper/nestjs";
 
 @Controller("externalLink")
 export class ExternalLinkController {
@@ -32,7 +33,7 @@ export class ExternalLinkController {
 
   @Get()
   @UseInterceptors(MapInterceptor(ExternalLink, ExternalLinkDto, { isArray: true }))
-  get(@Query() query): Promise<ExternalLinkDto[]> {
+  get(@Query() query): Promise<PagedResult<ExternalLinkDto>> {
     const { sort = "lastUpdate", order = "DESC", page = 0, count = 20 } = query;
     return this.newsExternalLinkService.get({ sort, order, page, count });
   }

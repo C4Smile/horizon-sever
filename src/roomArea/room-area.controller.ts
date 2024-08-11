@@ -16,6 +16,7 @@ import { MapInterceptor } from "@automapper/nestjs";
 
 // entity
 import { RoomArea } from "./room-area.entity";
+import { PagedResult } from "src/models/types";
 
 // dto
 import { RoomAreaDto } from "./dto/room-area.dto";
@@ -35,7 +36,7 @@ export class RoomAreaController {
 
   @Get()
   @UseInterceptors(MapInterceptor(RoomArea, RoomAreaDto, { isArray: true }))
-  get(@Query() query): Promise<RoomAreaDto[]> {
+  get(@Query() query): Promise<PagedResult<RoomAreaDto>> {
     const { sort = "lastUpdate", order = "DESC", page = 0, count = 20 } = query;
     return this.roomAreaService.get({ sort, order, page, count });
   }

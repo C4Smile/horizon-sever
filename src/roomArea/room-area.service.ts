@@ -51,7 +51,9 @@ export class RoomAreaService extends CrudService<RoomArea, AddRoomAreaDto, Updat
       mapped.push(newArea);
     }
 
-    return mapped;
+    const total = await this.entityService.count();
+
+    return { items: mapped, total };
   }
 
   async getByRoomId({ sort, order, page, count, roomId }) {

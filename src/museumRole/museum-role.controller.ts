@@ -15,6 +15,7 @@ import { MapInterceptor } from "@automapper/nestjs";
 
 // entity
 import { MuseumRole } from "./museum-role.entity";
+import { PagedResult } from "src/models/types";
 
 // dto
 import { MuseumRoleDto } from "./dto/museum-role.dto";
@@ -33,7 +34,7 @@ export class MuseumRoleController {
 
   @Get()
   @UseInterceptors(MapInterceptor(MuseumRole, MuseumRoleDto, { isArray: true }))
-  get(@Query() query): Promise<MuseumRoleDto[]> {
+  get(@Query() query): Promise<PagedResult<MuseumRoleDto>> {
     const { sort = "lastUpdate", order = "DESC", page = 0, count = 20 } = query;
     return this.museumRoleService.get({ sort, order, page, count });
   }

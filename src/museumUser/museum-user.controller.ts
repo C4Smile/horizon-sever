@@ -15,6 +15,7 @@ import { MapInterceptor } from "@automapper/nestjs";
 
 // entity
 import { MuseumUser } from "./museum-user.entity";
+import { PagedResult } from "src/models/types";
 
 // dto
 import { MuseumUserDto } from "./dto/museum-user.dto";
@@ -33,7 +34,7 @@ export class MuseumUserController {
 
   @Get()
   @UseInterceptors(MapInterceptor(MuseumUser, MuseumUserDto, { isArray: true }))
-  get(@Query() query): Promise<MuseumUserDto[]> {
+  get(@Query() query): Promise<PagedResult<MuseumUserDto>> {
     const { sort = "lastUpdate", order = "DESC", page = 0, count = 20 } = query;
     return this.museumUserService.get({ sort, order, page, count });
   }

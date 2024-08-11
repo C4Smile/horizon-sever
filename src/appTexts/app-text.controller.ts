@@ -11,6 +11,11 @@ import {
   UseGuards,
   UseInterceptors,
 } from "@nestjs/common";
+import { MapInterceptor } from "@automapper/nestjs";
+
+// entity
+import { AppText } from "./app-text.entity";
+import { PagedResult } from "src/models/types";
 
 // dto
 import { AppTextDto } from "./dto/app-text.dto";
@@ -22,8 +27,6 @@ import { UpdateAppTextDto } from "./dto/update-app-text.dto";
 
 // guard
 import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
-import { MapInterceptor } from "@automapper/nestjs";
-import { AppText } from "./app-text.entity";
 
 @Controller("appText")
 export class AppTextController {
@@ -31,7 +34,7 @@ export class AppTextController {
 
   @Get()
   @UseInterceptors(MapInterceptor(AppText, AppTextDto, { isArray: true }))
-  get(@Query() query): Promise<AppTextDto[]> {
+  get(@Query() query): Promise<PagedResult<AppTextDto>> {
     const { sort = "lastUpdate", order = "DESC", page = 0, count = 20 } = query;
     return this.newsAppTextService.get({ sort, order, page, count });
   }
