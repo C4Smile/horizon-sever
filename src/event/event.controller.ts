@@ -16,6 +16,9 @@ import { MapInterceptor } from "@automapper/nestjs";
 // entity
 import { Event } from "./event.entity";
 
+// utils
+import { PagedResult, QueryFilter } from "src/models/types";
+
 // dto
 import { EventDto } from "./dto/event.dto";
 import { AddEventDto } from "./dto/add-event.dto";
@@ -32,10 +35,8 @@ export class EventController {
   constructor(private eventService: EventService) {}
 
   @Get()
-  @UseInterceptors(MapInterceptor(Event, EventDto, { isArray: true }))
-  get(@Query() query) {
-    const { sort = "lastUpdate", order = "DESC", page = 0, count = 20 } = query;
-    return this.eventService.get({ sort, order, page, count });
+  get(@Query() query: QueryFilter): Promise<PagedResult<EventDto>> {
+    return this.eventService.mappedGet(query);
   }
 
   @Get(":id")

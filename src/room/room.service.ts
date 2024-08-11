@@ -11,7 +11,11 @@ import { CrudService } from "src/models/service/CrudService";
 // entity
 import { Room } from "./room.entity";
 
+// utils
+import { QueryFilter, PagedResult } from "src/models/types";
+
 // dto
+import { RoomDto } from "./dto/room.dto";
 import { AddRoomDto } from "./dto/add-room.dto";
 import { NextRoomDto } from "./dto/next-room.dto";
 import { RoomHomeDto } from "./dto/room-home.dto";
@@ -33,6 +37,15 @@ export class RoomService extends CrudService<Room, AddRoomDto, UpdateRoomDto> {
     const relationships = ["status", "type", "roomHasImage", "roomHasImage360"];
     super(roomService, mapper, relationships);
   }
+
+  mappedGet = async (query: QueryFilter): Promise<PagedResult<RoomDto>> => {
+    const result = await this.get(query);
+    const mappedItems = await this.mapper.mapArrayAsync(result.items, Room, RoomDto);
+    return {
+      items: mappedItems,
+      total: result.total,
+    };
+  };
 
   async getHomeSlider() {
     const list = await this.entityService.find({

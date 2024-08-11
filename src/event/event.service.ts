@@ -10,7 +10,11 @@ import { CrudService } from "src/models/service/CrudService";
 // entity
 import { Event } from "./event.entity";
 
+// utils
+import { QueryFilter, PagedResult } from "src/models/types";
+
 // dto
+import { EventDto } from "./dto/event.dto";
 import { AddEventDto } from "./dto/add-event.dto";
 import { UpdateEventDto } from "./dto/update-event.dto";
 
@@ -23,4 +27,13 @@ export class EventService extends CrudService<Event, AddEventDto, UpdateEventDto
     const relationships = ["eventHasLink", "eventHasTag", "eventHasImage"];
     super(eventService, mapper, relationships);
   }
+
+  mappedGet = async (query: QueryFilter): Promise<PagedResult<EventDto>> => {
+    const result = await this.get(query);
+    const mappedItems = await this.mapper.mapArrayAsync(result.items, Event, EventDto);
+    return {
+      items: mappedItems,
+      total: result.total,
+    };
+  };
 }

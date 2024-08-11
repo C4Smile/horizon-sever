@@ -11,9 +11,13 @@ import {
   UseGuards,
   UseInterceptors,
 } from "@nestjs/common";
+import { MapInterceptor } from "@automapper/nestjs";
 
 // entity
 import { PushNotification } from "./push-notification.entity";
+
+// utils
+import { PagedResult, QueryFilter } from "src/models/types";
 
 // dto
 import { PushNotificationDto } from "./dto/push-notification.dto";
@@ -25,17 +29,14 @@ import { UpdatePushNotificationDto } from "./dto/update-push-notification.dto";
 
 // guard
 import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
-import { MapInterceptor } from "@automapper/nestjs";
 
 @Controller("pushNotification")
 export class PushNotificationController {
   constructor(private pushNotificationService: PushNotificationService) {}
 
   @Get()
-  @UseInterceptors(MapInterceptor(PushNotification, PushNotificationDto, { isArray: true }))
-  async get(@Query() query) {
-    const { sort = "lastUpdate", order = "DESC", page = 0, count = 20 } = query;
-    return this.pushNotificationService.get({ sort, order, page, count });
+  async get(@Query() query: QueryFilter): Promise<PagedResult<PushNotificationDto>> {
+    return this.pushNotificationService.mappedGet(query);
   }
 
   @Get(":id")

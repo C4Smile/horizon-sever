@@ -10,7 +10,11 @@ import { CrudService } from "src/models/service/CrudService";
 // entity
 import { PushNotification } from "./push-notification.entity";
 
+// utils
+import { QueryFilter, PagedResult } from "src/models/types";
+
 // dto
+import { PushNotificationDto } from "./dto/push-notification.dto";
 import { AddPushNotificationDto } from "./dto/add-push-notification.dto";
 import { UpdatePushNotificationDto } from "./dto/update-push-notification.dto";
 
@@ -27,4 +31,17 @@ export class PushNotificationService extends CrudService<
     const relationships = ["image"];
     super(pushNotificationService, mapper, relationships);
   }
+
+  mappedGet = async (query: QueryFilter): Promise<PagedResult<PushNotificationDto>> => {
+    const result = await this.get(query);
+    const mappedItems = await this.mapper.mapArrayAsync(
+      result.items,
+      PushNotification,
+      PushNotificationDto,
+    );
+    return {
+      items: mappedItems,
+      total: result.total,
+    };
+  };
 }

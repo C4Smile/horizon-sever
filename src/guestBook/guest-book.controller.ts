@@ -16,6 +16,9 @@ import { MapInterceptor } from "@automapper/nestjs";
 // entity
 import { GuestBook } from "./guest-book.entity";
 
+// utils
+import { PagedResult, QueryFilter } from "src/models/types";
+
 // dto
 import { GuestBookDto } from "./dto/guest-book.dto";
 import { AddGuestBookDto } from "./dto/add-guest-book.dto";
@@ -33,10 +36,8 @@ export class GuestBookController {
   constructor(private guestBookService: GuestBookService) {}
 
   @Get()
-  @UseInterceptors(MapInterceptor(GuestBook, GuestBookDto, { isArray: true }))
-  get(@Query() query) {
-    const { sort = "lastUpdate", order = "DESC", page = 0, count = 20 } = query;
-    return this.guestBookService.get({ sort, order, page, count });
+  get(@Query() query: QueryFilter): Promise<PagedResult<GuestBookDto>> {
+    return this.guestBookService.mappedGet(query);
   }
 
   @Get("/all")

@@ -16,6 +16,9 @@ import { MapInterceptor } from "@automapper/nestjs";
 // entity
 import { Service } from "./service.entity";
 
+// utils
+import { PagedResult, QueryFilter } from "src/models/types";
+
 // dto
 import { ServiceDto } from "./dto/service.dto";
 import { AddServiceDto } from "./dto/add-service.dto";
@@ -32,10 +35,8 @@ export class ServiceController {
   constructor(private serviceService: ServiceService) {}
 
   @Get()
-  @UseInterceptors(MapInterceptor(Service, ServiceDto, { isArray: true }))
-  get(@Query() query) {
-    const { sort = "lastUpdate", order = "DESC", page = 0, count = 20 } = query;
-    return this.serviceService.get({ sort, order, page, count });
+  get(@Query() query: QueryFilter): Promise<PagedResult<ServiceDto>> {
+    return this.serviceService.mappedGet(query);
   }
 
   @Get(":id")

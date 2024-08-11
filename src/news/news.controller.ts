@@ -16,6 +16,9 @@ import { MapInterceptor } from "@automapper/nestjs";
 // entity
 import { News } from "./news.entity";
 
+// utils
+import { PagedResult, QueryFilter } from "src/models/types";
+
 // dto
 import { NewsDto } from "./dto/news.dto";
 import { AddNewsDto } from "./dto/add-news.dto";
@@ -33,10 +36,8 @@ export class NewsController {
   constructor(private newsService: NewsService) {}
 
   @Get()
-  @UseInterceptors(MapInterceptor(News, NewsDto, { isArray: true }))
-  get(@Query() query) {
-    const { sort = "lastUpdate", order = "DESC", page = 0, count = 20 } = query;
-    return this.newsService.get({ sort, order, page, count });
+  get(@Query() query: QueryFilter): Promise<PagedResult<NewsDto>> {
+    return this.newsService.mappedGet(query);
   }
 
   @Get("lasts")

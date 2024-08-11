@@ -16,6 +16,9 @@ import { MapInterceptor } from "@automapper/nestjs";
 // entity
 import { Room } from "./room.entity";
 
+// utils
+import { PagedResult, QueryFilter } from "src/models/types";
+
 // dto
 import { RoomDto } from "./dto/room.dto";
 import { AddRoomDto } from "./dto/add-room.dto";
@@ -32,10 +35,8 @@ export class RoomController {
   constructor(private roomService: RoomService) {}
 
   @Get()
-  @UseInterceptors(MapInterceptor(Room, RoomDto, { isArray: true }))
-  get(@Query() query) {
-    const { sort = "lastUpdate", order = "DESC", page = 0, count = 20 } = query;
-    return this.roomService.get({ sort, order, page, count });
+  get(@Query() query: QueryFilter): Promise<PagedResult<RoomDto>> {
+    return this.roomService.mappedGet(query);
   }
 
   @Get("home-slider")

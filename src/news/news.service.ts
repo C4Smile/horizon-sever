@@ -10,7 +10,11 @@ import { CrudService } from "src/models/service/CrudService";
 // entity
 import { News } from "./news.entity";
 
+// utils
+import { QueryFilter, PagedResult } from "src/models/types";
+
 // dto
+import { NewsDto } from "./dto/news.dto";
 import { AddNewsDto } from "./dto/add-news.dto";
 import { UpdateNewsDto } from "./dto/update-news.dto";
 import { LastNewsDto } from "./dto/last-news.dto";
@@ -24,6 +28,15 @@ export class NewsService extends CrudService<News, AddNewsDto, UpdateNewsDto> {
     const relationships = ["newsHasTag", "newsHasImage"];
     super(newsService, mapper, relationships);
   }
+
+  mappedGet = async (query: QueryFilter): Promise<PagedResult<NewsDto>> => {
+    const result = await this.get(query);
+    const mappedItems = await this.mapper.mapArrayAsync(result.items, News, NewsDto);
+    return {
+      items: mappedItems,
+      total: result.total,
+    };
+  };
 
   async lasts() {
     const list = await this.entityService.find({
