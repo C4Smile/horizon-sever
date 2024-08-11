@@ -1,0 +1,40 @@
+// dto
+import { ModelDto } from "./dto/model.dto";
+
+interface ToNumberOptions {
+  default?: number;
+  min?: number;
+  max?: number;
+}
+
+export function toNumber(value: string, opts: ToNumberOptions = {}): number {
+  let newValue: number = Number.parseInt(value || String(opts.default), 10);
+
+  if (Number.isNaN(newValue)) {
+    newValue = opts.default;
+  }
+
+  if (opts.min) {
+    if (newValue < opts.min) {
+      newValue = opts.min;
+    }
+
+    if (newValue > opts.max) {
+      newValue = opts.max;
+    }
+  }
+
+  return newValue;
+}
+
+export enum SortOrder {
+  ASC = "ASC",
+  DESC = "DESC",
+}
+
+export type QueryFilter = { sort: string; order: SortOrder; page: number; count: number };
+
+export type PagedResult<TDto extends ModelDto> = {
+  items: TDto[];
+  total: number;
+};
