@@ -7,7 +7,7 @@ import { FindOptionsOrder, Repository } from "typeorm";
 import { Model } from "../model";
 
 // dto
-import { QueryFilter } from "../generic-filter";
+import { PagedResult, QueryFilter } from "../types";
 import { AddModelDto } from "../dto/add-model.dto";
 import { UpdateModelDto } from "../dto/update-model.dto";
 
@@ -37,7 +37,7 @@ export class CrudService<
     return [saved];
   }
 
-  async get(query?: QueryFilter) {
+  async get(query?: QueryFilter): Promise<PagedResult<Entity>> {
     const { page, count, sort, order } = query;
 
     const list = await this.entityService.find({
@@ -49,7 +49,9 @@ export class CrudService<
       relations: this.relationships,
     });
 
-    return list;
+    const total = await this.entityService.count();
+
+    return { items: list, total: total };
   }
 
   async getById(id: number) {
