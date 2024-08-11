@@ -27,7 +27,8 @@ export class EventService extends CrudService<Event, AddEventDto, UpdateEventDto
     const relationships = [/* "eventHasLink", */ "eventHasTag", "eventHasImage"];
     super(eventService, mapper, relationships);
   }
- mappedGet = async (query: QueryFilter): Promise<PagedResult<EventDto>> => {
+
+  mappedGet = async (query: QueryFilter): Promise<PagedResult<EventDto>> => {
     const result = await this.get(query);
     const mappedItems = await this.mapper.mapArrayAsync(result.items, Event, EventDto);
     return {
@@ -35,5 +36,4 @@ export class EventService extends CrudService<Event, AddEventDto, UpdateEventDto
       total: result.total,
     };
   };
-
 }
