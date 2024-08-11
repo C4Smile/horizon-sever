@@ -7,7 +7,6 @@ import { Activity } from "./activity.entity";
 
 // dto
 import { ActivityDto } from "./dto/activity.dto";
-import { BlobDto } from "src/image/dto/blob.dto";
 
 @Injectable()
 export class ActivityAutomapper extends AutomapperProfile {
@@ -24,9 +23,11 @@ export class ActivityAutomapper extends AutomapperProfile {
         ActivityDto,
         forMember(
           (dest) => dest.imageId,
-          mapFrom(({ image }) =>
-            !image ? null : ({ id: image.id, url: image.url, fileName: image.fileName } as BlobDto),
-          ),
+          mapFrom((source) => ({
+            id: source.image.id,
+            url: source.image.url,
+            fileName: source.image.fileName,
+          })),
         ),
       );
     };
