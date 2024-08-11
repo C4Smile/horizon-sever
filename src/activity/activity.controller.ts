@@ -16,6 +16,9 @@ import { MapInterceptor } from "@automapper/nestjs";
 // entity
 import { Activity } from "./activity.entity";
 
+// utils
+import { PagedResult, QueryFilter } from "src/models/types";
+
 // dto
 import { ActivityDto } from "./dto/activity.dto";
 import { AddActivityDto } from "./dto/add-activity.dto";
@@ -32,10 +35,8 @@ export class ActivityController {
   constructor(private activityService: ActivityService) {}
 
   @Get()
-  @UseInterceptors(MapInterceptor(Activity, ActivityDto, { isArray: true }))
-  get(@Query() query) {
-    const { sort = "lastUpdate", order = "DESC", page = 0, count = 20 } = query;
-    return this.activityService.get({ sort, order, page, count });
+  get(@Query() query: QueryFilter): Promise<PagedResult<ActivityDto>> {
+    return this.activityService.mappedGet(query);
   }
 
   @Get(":id")
