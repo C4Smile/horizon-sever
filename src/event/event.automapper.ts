@@ -25,30 +25,34 @@ export class EventAutomapper extends AutomapperProfile {
         EventDto,
         forMember(
           (dest) => dest.eventHasImage,
-          mapFrom((source) =>
-            source.eventHasImage?.map((image) => ({
-              imageId: { id: image.id, url: image.url, fileName: image.fileName } as BlobDto,
-            })),
+          mapFrom(
+            (source) =>
+              source.eventHasImage?.map((image) => ({
+                imageId: { id: image.id, url: image.url, fileName: image.fileName } as BlobDto,
+              })) ?? [],
           ),
         ),
         forMember(
           (dest) => dest.eventHasTag,
-          mapFrom((source) => source.eventHasTag.map((tag) => ({ tagId: tag as TagDto }))),
+          mapFrom((source) => source.eventHasTag?.map((tag) => ({ tagId: tag as TagDto })) ?? []),
         ),
         forMember(
           (dest) => dest.eventHasLink,
-          mapFrom((source) =>
-            source.eventHasLink.map((link) => ({ linkId: { id: link.linkId }, url: link.url })),
+          mapFrom(
+            (source) =>
+              source.eventHasLink?.map((link) => ({ linkId: { id: link.linkId }, url: link.url })) ??
+              [],
           ),
         ),
         forMember(
           (dest) => dest.eventHasSchedule,
-          mapFrom((source) =>
-            source.eventHasSchedule.map((schedule) => ({
-              id: schedule.id,
-              date: schedule.date,
-              description: schedule.description,
-            })),
+          mapFrom(
+            (source) =>
+              source.eventHasSchedule?.map((schedule) => ({
+                id: schedule.id,
+                date: schedule.date,
+                description: schedule.description,
+              })) ?? [],
           ),
         ),
       );

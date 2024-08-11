@@ -24,11 +24,10 @@ export class EventService extends CrudService<Event, AddEventDto, UpdateEventDto
     @InjectRepository(Event) eventService: Repository<Event>,
     @InjectMapper() mapper: Mapper,
   ) {
-    const relationships = ["eventHasLink", "eventHasTag", "eventHasImage"];
+    const relationships = [/* "eventHasLink", */ "eventHasTag", "eventHasImage"];
     super(eventService, mapper, relationships);
   }
-
-  mappedGet = async (query: QueryFilter): Promise<PagedResult<EventDto>> => {
+ mappedGet = async (query: QueryFilter): Promise<PagedResult<EventDto>> => {
     const result = await this.get(query);
     const mappedItems = await this.mapper.mapArrayAsync(result.items, Event, EventDto);
     return {
@@ -36,4 +35,5 @@ export class EventService extends CrudService<Event, AddEventDto, UpdateEventDto
       total: result.total,
     };
   };
+
 }
