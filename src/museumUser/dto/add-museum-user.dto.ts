@@ -6,6 +6,7 @@ export interface AddMuseumUserDto extends AddModelDto {
   username: string;
   address: string;
   identification: string;
+  password: string;
   phone: string;
   email: string;
   roleId: number;
