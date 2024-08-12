@@ -57,6 +57,7 @@ export class RoomController {
   }
 
   @Get(":id")
+  @UseInterceptors(MapInterceptor(Room, RoomDto, { isArray: true }))
   getById(@Param("id", ParseIntPipe) id: number) {
     return this.roomService.getById(id);
   }
