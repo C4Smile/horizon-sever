@@ -16,12 +16,6 @@ export class UserService {
   constructor(@InjectRepository(User) private userService: Repository<User>) {}
 
   async create(user: AddUserDto) {
-    const phoneFound = await this.userService.findOne({ where: { phone: user.phone } });
-    if (phoneFound) throw new HttpException("Phone is being used", HttpStatus.CONFLICT);
-
-    const emailFound = await this.userService.findOne({ where: { email: user.email } });
-    if (emailFound) throw new HttpException("Email is being used", HttpStatus.CONFLICT);
-
     const hashedPassword = await hash(user.encrypted_password, 10);
 
     const newUser = this.userService.create({ ...user, encrypted_password: hashedPassword });
