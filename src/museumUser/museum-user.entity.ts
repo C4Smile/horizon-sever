@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToOne, OneToOne } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, OneToOne } from "typeorm";
 import { AutoMap } from "@automapper/classes";
 
 // entities
@@ -47,6 +47,7 @@ export class MuseumUser extends Model {
   userId: number;
 
   @AutoMap()
-  @OneToOne(() => User, (user) => user.museumUser, { cascade: true })
+  @OneToOne(() => User)
+  @JoinColumn()
   user: User;
 }

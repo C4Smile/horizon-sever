@@ -1,6 +1,5 @@
-import { Entity, Column, OneToOne } from "typeorm";
+import { Entity, Column } from "typeorm";
 import { Model } from "src/models/model";
-import { MuseumUser } from "src/museumUser/museum-user.entity";
 
 /**
  * @class User
@@ -16,7 +15,4 @@ export class User extends Model {
 
   @Column({ type: "text", unique: true })
   phone: string;
-
-  @OneToOne(() => MuseumUser, (user) => user.user)
-  museumUser: MuseumUser;
 }
