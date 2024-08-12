@@ -43,12 +43,12 @@ export class TagController {
   }
 
   @Get("headers")
-  @UseInterceptors(MapInterceptor(Tag, TagDto, { isArray: true }))
   headers(): Promise<ClientTagDto[]> {
     return this.tagService.headers();
   }
 
   @Get(":id")
+  @UseInterceptors(MapInterceptor(Tag, TagDto, { isArray: true }))
   getById(@Param("id", ParseIntPipe) id: number) {
     return this.tagService.getById(id);
   }
