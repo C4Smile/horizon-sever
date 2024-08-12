@@ -5,6 +5,7 @@ import { AutoMap } from "@automapper/classes";
 import { Model } from "src/models/model";
 import { MuseumRole } from "src/museumRole/museum-role.entity";
 import { User } from "src/user/user.entity";
+import { Photo } from "src/image/image.entity";
 
 /**
  * @class MuseumUser
@@ -50,4 +51,10 @@ export class MuseumUser extends Model {
   @OneToOne(() => User)
   @JoinColumn()
   user: User;
+
+  @Column({ type: "int" })
+  imageId: number = 0;
+
+  @ManyToOne(() => Photo)
+  image: Photo;
 }
