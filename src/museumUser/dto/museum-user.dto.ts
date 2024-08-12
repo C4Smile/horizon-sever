@@ -1,4 +1,5 @@
 import { AutoMap } from "@automapper/classes";
+import { BlobDto } from "src/image/dto/blob.dto";
 
 // dto
 import { ModelDto } from "src/models/dto/model.dto";
@@ -25,4 +26,6 @@ export class MuseumUserDto extends ModelDto {
 
   @AutoMap()
   role: MuseumRoleDto;
+
+  imageId: BlobDto;
 }
