@@ -1,5 +1,5 @@
 import { AutomapperProfile, InjectMapper } from "@automapper/nestjs";
-import { createMap, type Mapper } from "@automapper/core";
+import { createMap, forMember, mapFrom, type Mapper } from "@automapper/core";
 import { Injectable } from "@nestjs/common";
 
 // entity
@@ -16,7 +16,19 @@ export class MuseumUserAutomapper extends AutomapperProfile {
 
   override get profile() {
     return (mapper: Mapper) => {
-      createMap(mapper, MuseumUser, MuseumUserDto);
+      createMap(
+        mapper,
+        MuseumUser,
+        MuseumUserDto,
+        forMember(
+          (dest) => dest.imageId,
+          mapFrom((source) => ({
+            id: source.image.id,
+            url: source.image.url,
+            fileName: source.image.fileName,
+          })),
+        ),
+      );
     };
   }
 }
