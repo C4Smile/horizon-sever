@@ -28,6 +28,10 @@ export class MuseumUserAutomapper extends AutomapperProfile {
             fileName: source.image.fileName,
           })),
         ),
+        forMember(
+          (dest) => dest.roleId,
+          mapFrom((source) => source.role),
+        ),
       );
     };
   }

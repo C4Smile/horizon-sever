@@ -24,8 +24,7 @@ export class MuseumUserDto extends ModelDto {
   @AutoMap()
   email: string;
 
-  @AutoMap()
-  role: MuseumRoleDto;
+  roleId: MuseumRoleDto;
 
   imageId: BlobDto;
 }
