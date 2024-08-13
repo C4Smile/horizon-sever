@@ -24,7 +24,7 @@ export class MuseumUserService extends CrudService<MuseumUser, AddMuseumUserDto,
     @InjectRepository(MuseumUser) museumUserService: Repository<MuseumUser>,
     @InjectMapper() mapper: Mapper,
   ) {
-    const relationships = ["user", "role"];
+    const relationships = ["user", "role", "image"];
     super(museumUserService, mapper, relationships);
   }
 
