@@ -3,11 +3,13 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { InjectMapper } from "@automapper/nestjs";
 import { Mapper } from "@automapper/core";
 import { Repository } from "typeorm";
+import { hash } from "bcrypt";
 
 // base
 import { CrudService } from "src/models/service/CrudService";
 
 // entity
+import { User } from "src/user/user.entity";
 import { MuseumUser } from "./museum-user.entity";
 
 // utils
@@ -22,10 +24,32 @@ import { UpdateMuseumUserDto } from "./dto/update-museum-user.dto";
 export class MuseumUserService extends CrudService<MuseumUser, AddMuseumUserDto, UpdateMuseumUserDto> {
   constructor(
     @InjectRepository(MuseumUser) museumUserService: Repository<MuseumUser>,
+    @InjectRepository(User) private readonly userService: Repository<User>,
     @InjectMapper() mapper: Mapper,
   ) {
     const relationships = ["user", "role", "image"];
     super(museumUserService, mapper, relationships);
+  }
+
+  override async create(user: AddMuseumUserDto) {
+    const { email, phone, password } = user;
+
+    const hashedPassword = await hash(password, 10);
+
+    const newUser = this.userService.create({
+      email,
+      phone,
+      encrypted_password: hashedPassword,
+    });
+    const resultUser = await this.userService.save(newUser);
+
+    const museumUser = this.entityService.create({
+      ...user,
+      userId: resultUser.id,
+    });
+    const resultMuseumUser = await this.entityService.save(museumUser);
+
+    return [resultMuseumUser];
   }
 
   mappedGet = async (query: QueryFilter): Promise<PagedResult<MuseumUserDto>> => {
