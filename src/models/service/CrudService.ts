@@ -26,15 +26,15 @@ export class CrudService<
     @InjectMapper() mapper: Mapper,
     relationships?: string[],
   ) {
-    this.entityService = entityService;
     this.mapper = mapper;
+    this.entityService = entityService;
     this.relationships = relationships;
   }
 
   async create(entity: AddDto) {
     const newEntity = this.entityService.create(entity as any);
     const saved = await this.entityService.save(newEntity);
-    return [saved];
+    return saved;
   }
 
   async get(query?: QueryFilter): Promise<PagedResult<Entity>> {
