@@ -41,7 +41,7 @@ export class GuestBookService extends CrudService<GuestBook, AddGuestBookDto, Up
   async clientGet({ sort, order, page, count }) {
     const list = await this.entityService.find({
       skip: page * count,
-      take: (page + 1) * count,
+      take: count,
       relations: this.relationships,
       order: {
         [sort]: order,

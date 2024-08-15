@@ -33,7 +33,7 @@ export class RoomAreaService extends CrudService<RoomArea, AddRoomAreaDto, Updat
   async get({ sort, order, page, count }) {
     const list = await this.entityService.find({
       skip: page * count,
-      take: (page + 1) * count,
+      take: count,
       relations: ["room", "status", "roomAreaHasImage", "roomAreaHasImage360"],
       order: {
         [sort]: order,
@@ -59,7 +59,7 @@ export class RoomAreaService extends CrudService<RoomArea, AddRoomAreaDto, Updat
   async getByRoomId({ sort, order, page, count, roomId }) {
     const list = await this.entityService.find({
       skip: page * count,
-      take: (page + 1) * count,
+      take: count,
       order: {
         [sort]: order,
       },

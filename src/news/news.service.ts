@@ -53,7 +53,7 @@ export class NewsService extends CrudService<News, AddNewsDto, UpdateNewsDto> {
   async list({ sort = "lastUpdate", order = "DESC", page = 0, count = 9, tags = "" }) {
     const list = await this.entityService.find({
       skip: page * count,
-      take: (page + 1) * count,
+      take: count,
       relations: this.relationships,
       order: {
         [sort]: order,
