@@ -1,6 +1,3 @@
-// dto
-import { ModelDto } from "./dto/model.dto";
-
 interface ToNumberOptions {
   default?: number;
   min?: number;
@@ -34,7 +31,7 @@ export enum SortOrder {
 
 export type QueryFilter = { sort: string; order: SortOrder; page: number; count: number };
 
-export type PagedResult<TDto extends ModelDto> = {
+export type PagedResult<TDto> = {
   items: TDto[];
   total: number;
 };

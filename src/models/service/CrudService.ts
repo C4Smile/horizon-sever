@@ -3,20 +3,11 @@ import { InjectMapper } from "@automapper/nestjs";
 import { Mapper } from "@automapper/core";
 import { FindOptionsOrder, Repository } from "typeorm";
 
-// entity
-import { Model } from "../model";
-
 // dto
 import { PagedResult, QueryFilter } from "../types";
-import { AddModelDto } from "../dto/add-model.dto";
-import { UpdateModelDto } from "../dto/update-model.dto";
 
 @Injectable()
-export class CrudService<
-  Entity extends Model,
-  AddDto extends AddModelDto,
-  UpdateDto extends UpdateModelDto,
-> {
+export class CrudService<Entity, AddDto, UpdateDto> {
   protected entityService: Repository<Entity>;
   protected mapper: Mapper;
   protected relationships: string[];

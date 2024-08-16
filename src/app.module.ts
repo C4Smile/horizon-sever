@@ -38,6 +38,7 @@ import { EventHasImageModule } from "./eventHasImage/event-has-image.module";
 import { RoomAreaHasImageModule } from "./roomAreaHasImage/room-area-has-image.module";
 import { RoomHasImage360Module } from "./roomHasImage360/room-has-image360.module";
 import { RoomAreaHasImage360Module } from "./roomAreaHasImage360/room-area-has-image360.module";
+import { ChatLogModule } from "./chatBotLog/chat-log.module";
 
 @Module({
   imports: [
@@ -56,9 +57,11 @@ import { RoomAreaHasImage360Module } from "./roomAreaHasImage360/room-area-has-i
       entities: [__dirname + "/**/*.entity{.ts,.js}"],
       synchronize: true,
     }),
+    AppModule,
     ActivityModule,
     AuthModule,
     AppTextModule,
+    ChatLogModule,
     EventModule,
     EventHasImageModule,
     EventHasLinkModule,
