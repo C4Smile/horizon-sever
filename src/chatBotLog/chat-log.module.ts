@@ -9,9 +9,10 @@ import { ChatLogService } from "./chat-log.service";
 
 // entities
 import { ChatLog } from "./chat-log.entity";
+import { HttpModule } from "@nestjs/axios";
 
 @Module({
-  imports: [TypeOrmModule.forFeature([ChatLog])],
+  imports: [TypeOrmModule.forFeature([ChatLog]), HttpModule],
   controllers: [ChatLogController],
   providers: [ChatLogService],
   exports: [ChatLogService],
