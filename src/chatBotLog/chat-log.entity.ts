@@ -15,11 +15,11 @@ export class ChatLog {
   message: string;
 
   @Column({ type: "int" })
-  userId: number;
+  targetId: number;
 
   @AutoMap()
   @ManyToOne(() => MuseumUser)
-  user: MuseumUser;
+  target: MuseumUser;
 
   @Column({ type: "int" })
   senderId: number;
