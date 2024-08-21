@@ -1,6 +1,7 @@
 import { Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { ServeStaticModule } from "@nestjs/serve-static";
+
 import { join } from "path";
 
 // app
@@ -40,6 +41,9 @@ import { RoomHasImage360Module } from "./roomHasImage360/room-has-image360.modul
 import { RoomAreaHasImage360Module } from "./roomAreaHasImage360/room-area-has-image360.module";
 import { ChatLogModule } from "./chatBotLog/chat-log.module";
 
+// config
+import config from "./config";
+
 @Module({
   imports: [
     ServeStaticModule.forRoot({
@@ -49,11 +53,11 @@ import { ChatLogModule } from "./chatBotLog/chat-log.module";
 
     TypeOrmModule.forRoot({
       type: "mysql",
-      username: "root",
-      password: "",
-      host: "localhost",
-      port: 3306,
-      database: "museo",
+      username: config.db.user,
+      password: config.db.password,
+      host: config.db.host,
+      port: config.db.port,
+      database: config.db.name,
       entities: [__dirname + "/**/*.entity{.ts,.js}"],
       synchronize: true,
     }),
