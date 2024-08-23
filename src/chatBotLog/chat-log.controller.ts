@@ -16,6 +16,6 @@ export class ChatLogController {
   @UseGuards(JwtAuthGuard)
   @Post()
   async send(@Body() log: LogDto) {
-    return await this.chatLogService.create(log);
+    return await this.chatLogService.sendMessage(log.message);
   }
 }
