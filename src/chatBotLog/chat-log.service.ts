@@ -14,10 +14,10 @@ import { ChatLog } from "./chat-log.entity";
 // dto
 import { LogDto } from "./dto/log.dto";
 import { MessageDto } from "./dto/message.dto";
+import { BotAnswerDto, From } from "./dto/bot-answer.dto";
 
 // config
-import config from "src/config";
-import { BotAnswerDto, From } from "./dto/bot-answer.dto";
+import config from "src/config/configuration";
 
 @Injectable()
 export class ChatLogService extends CrudService<ChatLog, LogDto, LogDto> {
