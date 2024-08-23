@@ -42,7 +42,8 @@ import { RoomAreaHasImage360Module } from "./roomAreaHasImage360/room-area-has-i
 import { ChatLogModule } from "./chatBotLog/chat-log.module";
 
 // config
-import config from "./config";
+
+import config from "./config/configuration";
 
 @Module({
   imports: [
@@ -55,7 +56,7 @@ import config from "./config";
       type: "mysql",
       username: config.db.user,
       password: config.db.password,
-      host: config.db.host,
+      host: config.db.url,
       port: config.db.port,
       database: config.db.name,
       entities: [__dirname + "/**/*.entity{.ts,.js}"],
