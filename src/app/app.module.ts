@@ -24,5 +24,5 @@ import { AppAutomapper } from "./app.automapper";
   providers: [AppService, AppAutomapper],
   exports: [AppService, AppAutomapper],
 })
-export class AppModule {}
+export class AppsModule {}
 96;

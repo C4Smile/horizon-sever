@@ -44,6 +44,8 @@ import { ChatLogModule } from "./chatBotLog/chat-log.module";
 // config
 
 import config from "./config/configuration";
+import { AppTranslationModule } from "./appTranslation/app-translation.module";
+import { AppsModule } from "./app/app.module";
 
 @Module({
   imports: [
@@ -63,6 +65,9 @@ import config from "./config/configuration";
       synchronize: true,
     }),
     AppModule,
+
+    AppsModule,
+    AppTranslationModule,
     ActivityModule,
     AuthModule,
     AppTextModule,
