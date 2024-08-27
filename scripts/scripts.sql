@@ -26,3 +26,8 @@ INSERT INTO `app-texts` (`dateOfCreation`, `lastUpdate`, `deleted`, `title`, `ur
 ('2024-07-19 09:05:40', '2024-07-19 09:05:40', 0, 'Término y Condiciones de uso', 'termino-y-condiciones-de-uso', '<p>Contenido del Término y Condiciones de uso</p>\n'),
 ('2024-07-19 09:05:55', '2024-07-19 09:05:55', 0, 'Política de Privacidad', 'politica-de-privacidad', '<p>Contenido de las Política de Privacidad</p>\n'),
 ('2024-07-19 09:06:08', '2024-07-19 09:06:08', 0, 'Política de Cookies', 'politica-de-cookies', '<p>Contenido de las Política de Cookies</p>\n');
+
+INSERT INTO `room-status` (`dateOfCreation`, `lastUpdate`, `deleted`, `name`) VALUES
+('2024-08-27 10:36:47', '2024-08-27 10:36:47', 0, 'Funcional'),
+('2024-08-27 10:36:53', '2024-08-27 10:36:53', 0, 'Mantenimiento'),
+('2024-08-27 10:36:58', '2024-08-27 10:36:58', 0, 'Inhabilitada');
