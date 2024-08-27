@@ -11,10 +11,12 @@ import { User } from "src/user/user.entity";
 import { LoginUserDto } from "./dto/login-user.dto";
 import { AddUserDto } from "src/user/dto/add-user.dto";
 import { LoggedUserDto } from "./dto/logged-user.dt";
+import { MuseumUser } from "src/museumUser/museum-user.entity";
 
 @Injectable()
 export class AuthService {
   constructor(
+    @InjectRepository(MuseumUser) private museumUserService: Repository<MuseumUser>,
     @InjectRepository(User) private userService: Repository<User>,
     private jwtAuthService: JwtService,
   ) {}
@@ -24,15 +26,21 @@ export class AuthService {
   }
 
   async login(loginUserDto: LoginUserDto) {
-    const userFound = await this.userService.findOne({
-      where: {
-        email: loginUserDto.username,
-      },
+    const userFound = await this.museumUserService.findOne({
+      where: [
+        {
+          email: loginUserDto.username,
+        },
+        {
+          username: loginUserDto.username,
+        },
+      ],
+      relations: ["user"],
     });
 
     if (!userFound) throw new HttpException("User not found", HttpStatus.NOT_FOUND);
 
-    const isPasswordMatched = await compare(loginUserDto.password, userFound.encrypted_password);
+    const isPasswordMatched = await compare(loginUserDto.password, userFound.user.encrypted_password);
 
     if (!isPasswordMatched)
       throw new HttpException("Wrong username or encrypted_password", HttpStatus.UNAUTHORIZED);

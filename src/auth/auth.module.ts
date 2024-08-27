@@ -4,6 +4,7 @@ import { TypeOrmModule } from "@nestjs/typeorm";
 
 // module
 import { UserModule } from "src/user/user.module";
+import { MuseumUserModule } from "src/museumUser/museum-user.module";
 
 // entity
 import { User } from "src/user/user.entity";
@@ -24,6 +25,7 @@ import { jwtConstant } from "./dto/jwtConstant";
   imports: [
     TypeOrmModule.forFeature([User]),
     UserModule,
+    MuseumUserModule,
     JwtModule.register({ secret: jwtConstant.secret, signOptions: { expiresIn: "24h" } }),
   ],
   controllers: [AuthController],
