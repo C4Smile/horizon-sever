@@ -31,3 +31,6 @@ INSERT INTO `room-status` (`dateOfCreation`, `lastUpdate`, `deleted`, `name`) VA
 ('2024-08-27 10:36:47', '2024-08-27 10:36:47', 0, 'Funcional'),
 ('2024-08-27 10:36:53', '2024-08-27 10:36:53', 0, 'Mantenimiento'),
 ('2024-08-27 10:36:58', '2024-08-27 10:36:58', 0, 'Inhabilitada');
+
+INSERT INTO `room-type` (`dateOfCreation`, `lastUpdate`, `deleted`, `name`) VALUES
+('2024-08-27 10:39:36', '2024-08-27 10:39:36', 0, 'Museable');
