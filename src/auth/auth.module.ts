@@ -8,6 +8,7 @@ import { MuseumUserModule } from "src/museumUser/museum-user.module";
 
 // entity
 import { User } from "src/user/user.entity";
+import { MuseumUser } from "src/museumUser/museum-user.entity";
 
 // controller
 import { AuthController } from "./auth.controller";
@@ -23,7 +24,7 @@ import { jwtConstant } from "./dto/jwtConstant";
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([User]),
+    TypeOrmModule.forFeature([User, MuseumUser]),
     UserModule,
     MuseumUserModule,
     JwtModule.register({ secret: jwtConstant.secret, signOptions: { expiresIn: "24h" } }),
