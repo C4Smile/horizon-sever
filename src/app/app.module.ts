@@ -25,4 +25,3 @@ import { AppAutomapper } from "./app.automapper";
   exports: [AppService, AppAutomapper],
 })
 export class AppsModule {}
-96;
