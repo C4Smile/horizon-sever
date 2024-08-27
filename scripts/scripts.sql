@@ -34,3 +34,7 @@ INSERT INTO `room-status` (`dateOfCreation`, `lastUpdate`, `deleted`, `name`) VA
 
 INSERT INTO `room-type` (`dateOfCreation`, `lastUpdate`, `deleted`, `name`) VALUES
 ('2024-08-27 10:39:36', '2024-08-27 10:39:36', 0, 'Museable');
+
+INSERT INTO `tags` (`dateOfCreation`, `lastUpdate`, `deleted`, `name`) VALUES
+('2024-08-27 10:41:21', '2024-08-27 10:41:21', 0, 'Cultural'),
+('2024-08-27 10:41:25', '2024-08-27 10:41:25', 0, 'Internacional');
