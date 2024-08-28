@@ -30,7 +30,7 @@ import { AppTranslationService } from "./app-translation.service";
 // guard
 import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
 
-@Controller("appTranslations")
+@Controller("applicationTranslations")
 export class AppTranslationController {
   constructor(private roomStatusService: AppTranslationService) {}
 
