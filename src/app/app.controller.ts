@@ -30,7 +30,7 @@ import { UpdateAppDto } from "./dto/update-app.dto";
 // guard
 import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
 
-@Controller("apps")
+@Controller("application")
 export class AppController {
   constructor(private roomStatusService: AppService) {}
 
