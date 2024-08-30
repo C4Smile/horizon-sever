@@ -50,6 +50,7 @@ export class AuthService {
     const loggedUser = {
       user: {
         id: userFound.user.id,
+        museumUserId: userFound.id,
       },
       token: "",
     };
