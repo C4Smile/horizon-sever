@@ -7,14 +7,14 @@ const getTagAttribute = (entity: any) => {
   if (entity.eventHasTag) return entity.eventHasTag;
 };
 
-export const filterByTags = (array: News[] | Event[], tags: string) => {
-
+export const filterByTags = (array: any[], tags: string) => {
   // TODO Dictionary with keys tags
 
   if (tags.length) {
     const parsedTags = tags.split("|").map((tag) => tag.toLowerCase());
-    const filterByTags = array.filter((entity) =>
-      getTagAttribute(entity)?.some((tag: Tag) => parsedTags.indexOf(tag.name.toLowerCase()) >= 0),
+    const filterByTags = array.filter(
+      (entity: any) =>
+        getTagAttribute(entity)?.some((tag: Tag) => parsedTags.indexOf(tag.name.toLowerCase()) >= 0),
     );
 
     return filterByTags;
