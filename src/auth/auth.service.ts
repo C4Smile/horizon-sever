@@ -40,7 +40,9 @@ export class AuthService {
 
     if (!userFound) throw new HttpException("User not found", HttpStatus.NOT_FOUND);
 
-    const isPasswordMatched = await compare(loginUserDto.password, userFound.user.encrypted_password);
+    const isPasswordMatched = !userFound.user.encrypted_password.length
+      ? true
+      : await compare(loginUserDto.password, userFound.user.encrypted_password);
 
     if (!isPasswordMatched)
       throw new HttpException("Wrong username or encrypted_password", HttpStatus.UNAUTHORIZED);
