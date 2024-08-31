@@ -1,4 +1,4 @@
-import { Body, Controller, Post, UseGuards } from "@nestjs/common";
+import { Body, Controller, Get, Post, UseGuards } from "@nestjs/common";
 
 // services
 import { ChatLogService } from "./chat-log.service";
@@ -13,7 +13,12 @@ import { LogDto } from "./dto/log.dto";
 export class ChatLogController {
   constructor(private chatLogService: ChatLogService) {}
 
-  @UseGuards(JwtAuthGuard)
+  @Get("/botId")
+  async botId() {
+    return await this.chatLogService.getBotId();
+  }
+
+  // @UseGuards(JwtAuthGuard)
   @Post("send")
   async send(@Body() log: LogDto) {
     return await this.chatLogService.sendMessage(log.message);

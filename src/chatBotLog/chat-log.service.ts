@@ -10,6 +10,7 @@ import { CrudService } from "src/models/service/CrudService";
 
 // entity
 import { ChatLog } from "./chat-log.entity";
+import { MuseumUser } from "src/museumUser/museum-user.entity";
 
 // dto
 import { LogDto } from "./dto/log.dto";
@@ -23,6 +24,7 @@ import config from "src/config/configuration";
 export class ChatLogService extends CrudService<ChatLog, LogDto, LogDto> {
   constructor(
     @InjectRepository(ChatLog) chatLogService: Repository<ChatLog>,
+    @InjectRepository(MuseumUser) private museumUserService: Repository<MuseumUser>,
     @InjectMapper() mapper: Mapper,
     private readonly httpService: HttpService,
   ) {
@@ -38,6 +40,18 @@ export class ChatLogService extends CrudService<ChatLog, LogDto, LogDto> {
     const parsedMessage: BotAnswerDto = { role: From.user, parts: [{ text: message.message }] };
     if (message.senderId === 0) parsedMessage.role = From.model;
     return parsedMessage;
+  }
+
+  async getBotId() {
+    const botMuseumUser = await this.museumUserService.findOne({
+      where: {
+        username: "bot",
+      },
+    });
+
+    return {
+      id: botMuseumUser.id,
+    };
   }
 
   async sendMessage(message: MessageDto): Promise<MessageDto> {
