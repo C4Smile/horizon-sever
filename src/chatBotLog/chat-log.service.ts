@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { HttpService } from "@nestjs/axios";
 import { InjectRepository } from "@nestjs/typeorm";
 import { InjectMapper } from "@automapper/nestjs";
@@ -56,6 +56,7 @@ export class ChatLogService extends CrudService<ChatLog, LogDto, LogDto> {
 
   async sendMessage(message: MessageDto): Promise<MessageDto> {
     const history = [];
+    const bot = await this.getBotId();
 
     // save new message to history here
     const newEntity = this.entityService.create(message as any);
@@ -63,40 +64,44 @@ export class ChatLogService extends CrudService<ChatLog, LogDto, LogDto> {
 
     // load history here
 
-    const response = await this.httpService.axiosRef.post<BotAnswerDto[]>(
-      config.chatbot.api,
-      {
-        tenantId: "hoteles",
-        message,
-        history,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${config.chatbot.token}`,
+    try {
+      const response = await this.httpService.axiosRef.post<BotAnswerDto[]>(
+        config.chatbot.api,
+        {
+          tenantId: "hoteles",
+          message: message.message,
+          history,
         },
-      },
-    );
+        {
+          headers: {
+            Authorization: `Bearer ${config.chatbot.token}`,
+          },
+        },
+      );
 
-    const { data } = response;
+      const { data } = response;
 
-    if (data.length) {
-      const last = data.pop();
+      if (data.length) {
+        const last = data.pop();
 
-      if (last) {
-        const botMessage: MessageDto = {
-          message: last.parts[0].text,
-          senderId: 0,
-          targetId: message.senderId,
-          sentDate: new Date(),
-          fromApp: message.fromApp,
-        };
+        if (last) {
+          const botMessage: MessageDto = {
+            message: last.parts[0].text,
+            senderId: bot.id,
+            targetId: message.senderId,
+            sentDate: new Date(),
+            fromApp: message.fromApp,
+          };
 
-        // save bot message here
-        const newEntity = this.entityService.create(botMessage as any);
-        await this.entityService.save(newEntity);
+          // save bot message here
+          const newEntity = this.entityService.create(botMessage as any);
+          await this.entityService.save(newEntity);
 
-        return botMessage;
+          return botMessage;
+        }
       }
+    } catch (err) {
+      throw new HttpException(String(err), HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 }
