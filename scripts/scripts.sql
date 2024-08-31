@@ -16,7 +16,7 @@ INSERT INTO `museum-user` (`dateOfCreation`, `lastUpdate`, `deleted`, `name`, `u
 ('2024-08-26 09:12:02', '2024-08-26 09:12:02', 0, 'bot', 'bot', 'bot', 'bot', 'bot', 'bot@email.com', 1, 1, 1),
 ('2024-08-12 10:34:55', '2024-08-13 09:37:16', 0, 'Administrador', 'administrador', 'administrador', 'administrador', 'administrador', 'aministrador@email.com', 1, 2, 1),
 ('2024-08-13 09:14:04', '2024-08-13 09:14:39', 0, 'Comunicador', 'comunicador', 'comunicador', 'comunicador', 'comunicador', 'comunicador@email.com', 2, 3, 1),
-('2024-08-26 09:11:04', '2024-08-26 09:11:04', 0, 'invitado@email.com', 'invitado', 'invitado', 'invitado', 'invitado', 'invitado@email.com', 4, 5, 1);
+('2024-08-26 09:11:04', '2024-08-26 09:11:04', 0, 'Invitado', 'invitado', 'invitado', 'invitado', 'invitado', 'invitado@email.com', 4, 5, 1);
 
 INSERT INTO `app-texts` (`dateOfCreation`, `lastUpdate`, `deleted`, `title`, `urlName`, `content`) VALUES
 ('2024-07-19 09:03:21', '2024-07-19 09:03:21', 0, 'Acerca del Museo', 'acerca-del-museo', '<p>Contenido del Acerca de</p>\n'),
