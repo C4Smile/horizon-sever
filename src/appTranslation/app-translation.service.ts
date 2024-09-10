@@ -4,6 +4,9 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { Mapper } from "@automapper/core";
 import { Repository } from "typeorm";
 
+// utils
+import { CSVToArray } from "src/utils/csv";
+
 // base
 import { CrudService } from "src/models/service/CrudService";
 
@@ -36,5 +39,10 @@ export class AppTranslationService extends CrudService<
     });
 
     return this.mapper.mapArrayAsync(translations, AppTranslation, AppTranslationDto);
+  }
+
+  async uploadTranslations(appId: number, content: string) {
+    const result = CSVToArray(content, ",");
+    console.log(result);
   }
 }

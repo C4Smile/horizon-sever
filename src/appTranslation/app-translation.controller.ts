@@ -20,6 +20,7 @@ import { AppTranslation } from "./app-translation.entity";
 import { PagedResult } from "src/models/types";
 
 // dto
+import { UploadContentDto } from "./dto/upload-content.dto";
 import { AppTranslationDto } from "./dto/app-translation.dto";
 import { AddAppTranslationDto } from "./dto/add-app-translation.dto";
 import { UpdateAppTranslationDto } from "./dto/update-app-translation.dto";
@@ -30,7 +31,7 @@ import { AppTranslationService } from "./app-translation.service";
 // guard
 import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
 
-@Controller("applicationTranslations")
+@Controller("applicationTranslation")
 export class AppTranslationController {
   constructor(private appTranslationService: AppTranslationService) {}
 
@@ -50,6 +51,11 @@ export class AppTranslationController {
   @Get("byApplicationId/:appId")
   getByAppId(@Param("appId", ParseIntPipe) appId: number) {
     return this.appTranslationService.getByAppId(appId);
+  }
+
+  @Post("/:appId/upload-translations")
+  uploadTranslations(@Param("appId", ParseIntPipe) appId: number, @Body() body: UploadContentDto) {
+    return this.appTranslationService.uploadTranslations(appId, body.content);
   }
 
   @UseGuards(JwtAuthGuard)
