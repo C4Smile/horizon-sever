@@ -6,4 +6,10 @@ import { AutoMap } from "@automapper/classes";
 export class AppTranslationDto extends ModelDto {
   @AutoMap()
   name: string;
+
+  @AutoMap()
+  language: string;
+
+  @AutoMap()
+  content: string;
 }

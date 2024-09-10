@@ -32,42 +32,47 @@ import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
 
 @Controller("applicationTranslations")
 export class AppTranslationController {
-  constructor(private roomStatusService: AppTranslationService) {}
+  constructor(private appTranslationService: AppTranslationService) {}
 
   @Get()
   @UseInterceptors(MapInterceptor(AppTranslation, AppTranslationDto, { isArray: true }))
   get(@Query() query): Promise<PagedResult<AppTranslationDto>> {
     const { sort = "lastUpdate", order = "DESC", page = 0, count = 20 } = query;
-    return this.roomStatusService.get({ sort, order, page, count });
+    return this.appTranslationService.get({ sort, order, page, count });
   }
 
   @Get(":id")
   @UseInterceptors(MapInterceptor(AppTranslation, AppTranslationDto, { isArray: true }))
   getById(@Param("id", ParseIntPipe) id: number) {
-    return this.roomStatusService.getById(id);
+    return this.appTranslationService.getById(id);
+  }
+
+  @Get("byApplicationId/:appId")
+  getByAppId(@Param("appId", ParseIntPipe) appId: number) {
+    return this.appTranslationService.getByAppId(appId);
   }
 
   @UseGuards(JwtAuthGuard)
   @Post()
   create(@Body() newApp: AddAppTranslationDto) {
-    return this.roomStatusService.create(newApp);
+    return this.appTranslationService.create(newApp);
   }
 
   @UseGuards(JwtAuthGuard)
   @Delete()
   remove(@Body() ids: number[]) {
-    return this.roomStatusService.remove(ids);
+    return this.appTranslationService.remove(ids);
   }
 
   @UseGuards(JwtAuthGuard)
   @Patch("restore")
   restore(@Body() ids: number[]) {
-    return this.roomStatusService.restore(ids);
+    return this.appTranslationService.restore(ids);
   }
 
   @UseGuards(JwtAuthGuard)
   @Patch(":id")
   update(@Param("id", ParseIntPipe) id: number, @Body() data: UpdateAppTranslationDto) {
-    return this.roomStatusService.update(id, data);
+    return this.appTranslationService.update(id, data);
   }
 }

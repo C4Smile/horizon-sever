@@ -11,6 +11,7 @@ import { CrudService } from "src/models/service/CrudService";
 import { AppTranslation } from "./app-translation.entity";
 
 // dto
+import { AppTranslationDto } from "./dto/app-translation.dto";
 import { AddAppTranslationDto } from "./dto/add-app-translation.dto";
 import { UpdateAppTranslationDto } from "./dto/update-app-translation.dto";
 
@@ -25,5 +26,15 @@ export class AppTranslationService extends CrudService<
     @InjectMapper() mapper: Mapper,
   ) {
     super(appService, mapper);
+  }
+
+  async getByAppId(appId: number) {
+    const translations = await this.entityService.find({
+      where: {
+        appId,
+      },
+    });
+
+    return this.mapper.mapArrayAsync(translations, AppTranslation, AppTranslationDto);
   }
 }
