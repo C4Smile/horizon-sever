@@ -7,9 +7,9 @@ import { AppTranslation } from "src/appTranslation/app-translation.entity";
 
 /**
  * @class Lang
- * @description Represents a room status
+ * @description Represents a language
  */
-@Entity({ name: "app" })
+@Entity({ name: "lang" })
 export class Lang extends Model {
   @AutoMap()
   @Column({ type: "text", unique: true })

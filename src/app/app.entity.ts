@@ -7,7 +7,7 @@ import { AppTranslation } from "src/appTranslation/app-translation.entity";
 
 /**
  * @class App
- * @description Represents a room status
+ * @description Represents an application
  */
 @Entity({ name: "app" })
 export class App extends Model {
