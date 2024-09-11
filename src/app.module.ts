@@ -47,6 +47,7 @@ import config from "./config/configuration";
 import { AppTranslationModule } from "./appTranslation/app-translation.module";
 import { AppsModule } from "./app/app.module";
 import { LangsModule } from "./lang/lang.module";
+import { LangTranslationModule } from "./langTranslation/lang-translation.module";
 
 @Module({
   imports: [
@@ -83,6 +84,7 @@ import { LangsModule } from "./lang/lang.module";
     ImageModule,
     Image360Module,
     LangsModule,
+    LangTranslationModule,
     MuseumRoleModule,
     MuseumUserModule,
     NewsModule,

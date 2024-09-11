@@ -1,8 +1,9 @@
-import { Column, Entity } from "typeorm";
+import { Column, Entity, ManyToMany } from "typeorm";
 import { AutoMap } from "@automapper/classes";
 
 // entities
 import { Model } from "src/models/model";
+import { AppTranslation } from "src/appTranslation/app-translation.entity";
 
 /**
  * @class Lang
@@ -17,4 +18,9 @@ export class Lang extends Model {
   @AutoMap()
   @Column({ type: "text", unique: true })
   code: string = "";
+
+  @ManyToMany(() => AppTranslation, (appTranslation) => appTranslation.langTranslations, {
+    cascade: true,
+  })
+  translations: AppTranslation[];
 }
