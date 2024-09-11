@@ -10,13 +10,13 @@ INSERT INTO `users` (`dateOfCreation`, `lastUpdate`, `deleted`, `email`, `encryp
 INSERT INTO `museum-role` (`id`, `dateOfCreation`, `lastUpdate`, `deleted`, `name`) VALUES
 (1, '2024-07-19 09:01:36', '2024-07-19 09:01:36', 0, 'Administrador'),
 (2, '2024-07-19 09:01:36', '2024-07-19 09:01:36', 0, 'Comunicador'),
-(4, '2024-08-26 09:18:35', '2024-08-26 09:18:35', 0, 'Invitado');
+(3, '2024-08-26 09:18:35', '2024-08-26 09:18:35', 0, 'Invitado');
 
 INSERT INTO `museum-user` (`dateOfCreation`, `lastUpdate`, `deleted`, `name`, `username`, `address`, `identification`, `phone`, `email`, `roleId`, `userId`, `imageId`) VALUES
 ('2024-08-26 09:12:02', '2024-08-26 09:12:02', 0, 'bot', 'bot', 'bot', 'bot', 'bot', 'bot@email.com', 1, 1, 1),
 ('2024-08-12 10:34:55', '2024-08-13 09:37:16', 0, 'Administrador', 'administrador', 'administrador', 'administrador', 'administrador', 'aministrador@email.com', 1, 2, 1),
 ('2024-08-13 09:14:04', '2024-08-13 09:14:39', 0, 'Comunicador', 'comunicador', 'comunicador', 'comunicador', 'comunicador', 'comunicador@email.com', 2, 3, 1),
-('2024-08-26 09:11:04', '2024-08-26 09:11:04', 0, 'Invitado', 'invitado', 'invitado', 'invitado', 'invitado', 'invitado@email.com', 4, 5, 1);
+('2024-08-26 09:11:04', '2024-08-26 09:11:04', 0, 'Invitado', 'invitado', 'invitado', 'invitado', 'invitado', 'invitado@email.com', 3, 4, 1);
 
 INSERT INTO `app-texts` (`dateOfCreation`, `lastUpdate`, `deleted`, `title`, `urlName`, `content`) VALUES
 ('2024-07-19 09:03:21', '2024-07-19 09:03:21', 0, 'Acerca del Museo', 'acerca-del-museo', '<p>Contenido del Acerca de</p>\n'),
@@ -35,3 +35,10 @@ INSERT INTO `room-type` (`dateOfCreation`, `lastUpdate`, `deleted`, `name`) VALU
 INSERT INTO `tags` (`dateOfCreation`, `lastUpdate`, `deleted`, `name`) VALUES
 ('2024-08-27 10:41:21', '2024-08-27 10:41:21', 0, 'Cultural'),
 ('2024-08-27 10:41:25', '2024-08-27 10:41:25', 0, 'Internacional');
+
+INSERT INTO `lang` (`dateOfCreation`, `lastUpdate`, `deleted`, `name`, "code") VALUES
+('2024-08-27 10:41:21', '2024-08-27 10:41:21', 0, 'Español', "es"),
+('2024-08-27 10:41:25', '2024-08-27 10:41:25', 0, 'Inglés', "en"),
+('2024-08-27 10:41:25', '2024-08-27 10:41:25', 0, 'Francés', "fr"),
+('2024-08-27 10:41:25', '2024-08-27 10:41:25', 0, 'Alemán', "de"),
+('2024-08-27 10:41:25', '2024-08-27 10:41:25', 0, 'Ruso', "rs");
