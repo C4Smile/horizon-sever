@@ -8,8 +8,5 @@ export class AppTranslationDto extends ModelDto {
   name: string;
 
   @AutoMap()
-  language: string;
-
-  @AutoMap()
-  content: string;
+  appId: number;
 }
