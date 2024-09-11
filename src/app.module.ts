@@ -46,6 +46,7 @@ import { ChatLogModule } from "./chatBotLog/chat-log.module";
 import config from "./config/configuration";
 import { AppTranslationModule } from "./appTranslation/app-translation.module";
 import { AppsModule } from "./app/app.module";
+import { LangsModule } from "./lang/lang.module";
 
 @Module({
   imports: [
@@ -81,6 +82,7 @@ import { AppsModule } from "./app/app.module";
     GuestBookHasImageModule,
     ImageModule,
     Image360Module,
+    LangsModule,
     MuseumRoleModule,
     MuseumUserModule,
     NewsModule,
