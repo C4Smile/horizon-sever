@@ -43,6 +43,29 @@ export class AppTranslationService extends CrudService<
 
   async uploadTranslations(appId: number, content: string) {
     const result = CSVToArray(content, ",");
-    console.log(result);
+    const columns = result.splice(0, 1)[0];
+    const groupByLang = {};
+    const parseRows = result.map((item: any) => {
+      const parsedItem = { name: "" };
+      columns.forEach((column: string, i) => {
+        switch (column) {
+          case "Key":
+          case "key":
+            parsedItem.name = item[i];
+            break;
+          default:
+            const matches = [...column.matchAll(/\([a-zA-Z]{2}\)/g)];
+            if (matches.length) {
+              const lang = matches.map((match) => match[0])[0];
+              const parsedLang = lang.substring(1, lang.length - 1);
+              if (!groupByLang[parsedLang]) groupByLang[parsedLang] = {};
+              groupByLang[parsedLang][parsedItem.name] = item[i];
+            }
+        }
+      });
+      return parsedItem;
+    });
+
+    console.log(groupByLang, parseRows);
   }
 }

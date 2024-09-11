@@ -17,11 +17,7 @@ export class AppTranslation extends Model {
 
   @AutoMap()
   @Column({ type: "text" })
-  language: string = "es";
-
-  @AutoMap()
-  @Column({ type: "text" })
-  content: string = "es";
+  content: string = "";
 
   @Column({ type: "int" })
   appId: number;
