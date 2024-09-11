@@ -5,7 +5,7 @@ import { Column, Entity, PrimaryColumn } from "typeorm";
  * @class LangTranslation
  * @description Represents the relationship between a room and an image
  */
-@Entity({ name: "room-has-image" })
+@Entity({ name: "lang-translation" })
 export class LangTranslation {
   @AutoMap()
   @PrimaryColumn({ type: "int" })
