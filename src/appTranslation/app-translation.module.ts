@@ -10,14 +10,16 @@ import { AppTranslationController } from "./app-translation.controller";
 import { AppTranslationService } from "./app-translation.service";
 
 // entities
+import { Lang } from "src/lang/lang.entity";
 import { AppTranslation } from "./app-translation.entity";
+import { LangTranslation } from "src/langTranslation/lang-translation.entity";
 
 // automapper
 import { AppTranslationAutomapper } from "./app-translation.automapper";
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([AppTranslation]),
+    TypeOrmModule.forFeature([AppTranslation, LangTranslation, Lang]),
     AutomapperModule.forRoot({ strategyInitializer: classes() }),
   ],
   controllers: [AppTranslationController],
