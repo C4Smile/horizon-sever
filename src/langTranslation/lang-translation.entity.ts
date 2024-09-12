@@ -9,7 +9,7 @@ import { Column, Entity, PrimaryColumn } from "typeorm";
 export class LangTranslation {
   @AutoMap()
   @PrimaryColumn({ type: "int" })
-  appId: number;
+  langId: number;
 
   @AutoMap()
   @PrimaryColumn({ type: "int" })
