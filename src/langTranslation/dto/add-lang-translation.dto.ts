@@ -1,5 +1,5 @@
 export type AddLangTranslationDto = {
-  appId: number;
   langId: number;
+  translationId: number;
   content: string;
 };
