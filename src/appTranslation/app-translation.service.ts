@@ -11,7 +11,12 @@ import { CSVToArray } from "src/utils/csv";
 import { CrudService } from "src/models/service/CrudService";
 
 // entity
+import { Lang } from "src/lang/lang.entity";
 import { AppTranslation } from "./app-translation.entity";
+import { LangTranslation } from "src/langTranslation/lang-translation.entity";
+
+// service
+import { LangTranslationService } from "src/langTranslation/lang-translation.service";
 
 // dto
 import { AppTranslationDto } from "./dto/app-translation.dto";
@@ -25,10 +30,12 @@ export class AppTranslationService extends CrudService<
   UpdateAppTranslationDto
 > {
   constructor(
-    @InjectRepository(AppTranslation) appService: Repository<AppTranslation>,
     @InjectMapper() mapper: Mapper,
+    @InjectRepository(Lang) private langService: Repository<Lang>,
+    @InjectRepository(AppTranslation) appTranslationService: Repository<AppTranslation>,
+    @InjectRepository(LangTranslation) private langTranslationService: LangTranslationService,
   ) {
-    super(appService, mapper);
+    super(appTranslationService, mapper);
   }
 
   async getByAppId(appId: number) {
@@ -66,6 +73,52 @@ export class AppTranslationService extends CrudService<
       return parsedItem;
     });
 
-    console.log(groupByLang, parseRows);
+    const parsed = {};
+
+    // saving translations first
+    for (const item of parseRows) {
+      const found = await this.entityService.findOne({
+        where: {
+          name: item.name,
+        },
+      });
+      if (!found) {
+        const inserted = this.entityService.create({ ...item, appId });
+        const resultOfSave = await this.entityService.save(inserted);
+        parsed[resultOfSave.name] = { id: resultOfSave.id, insert: true };
+      } else parsed[found.name] = { id: found.id, insert: false };
+    }
+
+    // getting langs
+    const allLangs = await this.langService.find();
+    const langs = {};
+    allLangs.forEach((lang) => {
+      langs[lang.code] = lang.id;
+    });
+
+    const langsToSave = Object.keys(groupByLang);
+    for (const lang of langsToSave) {
+      const translationsByLang = groupByLang[lang];
+      const toSave = Object.keys(translationsByLang);
+      for (const translation of toSave) {
+        const found = await this.langTranslationService.findOne({
+          where: {
+            langId: langs[lang],
+            translationId: parsed[translation].id,
+          },
+        });
+
+        if (!found) {
+          const inserted = this.langTranslationService.create({
+            langId: langs[lang],
+            translationId: parsed[translation].id,
+            content: translationsByLang[translation],
+          });
+        } else {
+          found.content = translationsByLang[translation];
+          this.langTranslationService.update(found);
+        }
+      }
+    }
   }
 }
