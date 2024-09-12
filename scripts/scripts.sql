@@ -2,9 +2,9 @@ INSERT INTO `images` (`dateOfCreation`, `lastUpdate`, `deleted`, `fileName`, `ur
 ('2024-08-26 09:28:46', '2024-08-26 09:28:46', 0, 'user-no-image.webp', '/user-no-image.webp');
 
 INSERT INTO `users` (`dateOfCreation`, `lastUpdate`, `deleted`, `email`, `encrypted_password`, `phone`) VALUES
-('2024-08-26 09:12:02', '2024-08-26 09:12:02', 0, 'bot@email.com', '$2b$10$4YsdTpoGUfo8Vlcay53Ka.qUruxAOyUO7zjcLUZQLkv2zuEe3SbHi', 'bot'),
-('2024-07-19 09:01:22', '2024-07-19 09:01:22', 0, 'administrador@email.com', '$2b$10$4YsdTpoGUfo8Vlcay53Ka.qUruxAOyUO7zjcLUZQLkv2zuEe3SbHi', 'administrador'),
-('2024-08-13 09:14:04', '2024-08-13 09:14:04', 0, 'comunicador@email.com', '$2b$10$4YsdTpoGUfo8Vlcay53Ka.qUruxAOyUO7zjcLUZQLkv2zuEe3SbHi', 'comunicador'),
+('2024-08-26 09:12:02', '2024-08-26 09:12:02', 0, 'bot@email.com', '$2b$10$MPHks/bwdSic91xZta3tfeGWpEF6mxslv/YLoOXTrbRdYai6wIQMO', 'bot'),
+('2024-07-19 09:01:22', '2024-07-19 09:01:22', 0, 'administrador@email.com', '$2b$10$MPHks/bwdSic91xZta3tfeGWpEF6mxslv/YLoOXTrbRdYai6wIQMO', 'administrador'),
+('2024-08-13 09:14:04', '2024-08-13 09:14:04', 0, 'comunicador@email.com', '$2b$10$MPHks/bwdSic91xZta3tfeGWpEF6mxslv/YLoOXTrbRdYai6wIQMO', 'comunicador'),
 ('2024-08-26 09:11:04', '2024-08-26 09:11:04', 0, 'invitado@email.com', '', 'invitado');
 
 INSERT INTO `museum-role` (`id`, `dateOfCreation`, `lastUpdate`, `deleted`, `name`) VALUES
