@@ -20,6 +20,16 @@ export class LangTranslationService {
     return this.langTranslationService.findOne(options);
   }
 
+  async getByLangId(langId: number) {
+    const list = this.langTranslationService.find({
+      where: {
+        langId,
+      },
+      relations: ["lang-translations"],
+    });
+    return list;
+  }
+
   async create(langTranslation: AddLangTranslationDto) {
     const newLangTranslation = this.langTranslationService.create(langTranslation);
     const saved = await this.langTranslationService.save(newLangTranslation);
@@ -30,7 +40,7 @@ export class LangTranslationService {
     const entityFound = await this.langTranslationService.findOne({
       where: {
         langId: langTranslation.langId,
-        translationId: langTranslation.translationId,
+        appTranslationId: langTranslation.appTranslationId,
       },
     });
 
