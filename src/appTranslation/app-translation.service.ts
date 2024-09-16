@@ -105,14 +105,14 @@ export class AppTranslationService extends CrudService<
         const found = await this.langTranslationService.findOne({
           where: {
             langId: langs[lang],
-            translationId: parsed[translation].id,
+            appTranslationId: parsed[translation].id,
           },
         });
 
         if (!found) {
           this.langTranslationService.create({
             langId: langs[lang],
-            translationId: parsed[translation].id,
+            appTranslationId: parsed[translation].id,
             content: translationsByLang[translation],
           });
         } else {

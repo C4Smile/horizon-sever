@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Post, UseGuards } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, UseGuards } from "@nestjs/common";
 
 // dto
 import { AddLangTranslationDto } from "./dto/add-lang-translation.dto";
@@ -12,6 +12,11 @@ import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
 @Controller("langTranslation")
 export class LangTranslationController {
   constructor(private langTranslationService: LangTranslationService) {}
+
+  @Get("/byLangId/:langId")
+  getByLangId(@Param("langId", ParseIntPipe) langId: number) {
+    return this.langTranslationService.getByLangId(langId);
+  }
 
   @UseGuards(JwtAuthGuard)
   @Post()
