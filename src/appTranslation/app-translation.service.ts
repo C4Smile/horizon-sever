@@ -33,9 +33,10 @@ export class AppTranslationService extends CrudService<
     @InjectMapper() mapper: Mapper,
     @InjectRepository(Lang) private langService: Repository<Lang>,
     @InjectRepository(AppTranslation) appTranslationService: Repository<AppTranslation>,
-    @InjectRepository(LangTranslation) private langTranslationService: LangTranslationService,
+    @InjectRepository(LangTranslation) private langTranslationService: Repository<LangTranslation>,
   ) {
-    super(appTranslationService, mapper);
+    const relationships = ["lang-translations"];
+    super(appTranslationService, mapper, relationships);
   }
 
   async getByAppId(appId: number) {
@@ -109,16 +110,17 @@ export class AppTranslationService extends CrudService<
         });
 
         if (!found) {
-          const inserted = this.langTranslationService.create({
+          this.langTranslationService.create({
             langId: langs[lang],
             translationId: parsed[translation].id,
             content: translationsByLang[translation],
           });
         } else {
           found.content = translationsByLang[translation];
-          this.langTranslationService.update(found);
+          this.langTranslationService.save(found);
         }
       }
     }
+    return { status: 200 };
   }
 }
