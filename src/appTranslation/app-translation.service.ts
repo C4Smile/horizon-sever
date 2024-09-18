@@ -108,12 +108,14 @@ export class AppTranslationService extends CrudService<
             appTranslationId: parsed[translation].id,
           },
         });
-
         if (!found) {
-          this.langTranslationService.create({
+          const toSave = this.langTranslationService.create({
             langId: langs[lang],
             appTranslationId: parsed[translation].id,
             content: translationsByLang[translation],
+          });
+          await this.langTranslationService.save({
+            ...toSave,
           });
         } else {
           found.content = translationsByLang[translation];
