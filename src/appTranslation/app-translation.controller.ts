@@ -37,7 +37,7 @@ export class AppTranslationController {
 
   @Get()
   @UseInterceptors(MapInterceptor(AppTranslation, AppTranslationDto, { isArray: true }))
-  get(@Query() query): Promise<PagedResult<AppTranslationDto>> {
+  get(@Query() query): Promise<PagedResult<AppTranslation>> {
     const { sort = "lastUpdate", order = "DESC", page = 0, count = 20 } = query;
     return this.appTranslationService.get({ sort, order, page, count });
   }
@@ -49,7 +49,7 @@ export class AppTranslationController {
   }
 
   @Get("byApplicationId/:appId")
-  getByAppId(@Param("appId", ParseIntPipe) appId: number) {
+  async getByAppId(@Param("appId", ParseIntPipe) appId: number) {
     return this.appTranslationService.getByAppId(appId);
   }
 
