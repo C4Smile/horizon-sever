@@ -1,7 +1,13 @@
+import { AutoMap } from "@automapper/classes";
 import { LangDto } from "src/lang/dto/lang.dto";
 
 export class LangTranslationDto {
-  lang: string;
-  translation: string;
+  @AutoMap()
+  langId: number;
+
+  @AutoMap()
+  translationId: number;
+
+  @AutoMap()
   content: string;
 }
