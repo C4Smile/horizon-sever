@@ -22,6 +22,7 @@ import { LangTranslationService } from "src/langTranslation/lang-translation.ser
 import { AppTranslationDto } from "./dto/app-translation.dto";
 import { AddAppTranslationDto } from "./dto/add-app-translation.dto";
 import { UpdateAppTranslationDto } from "./dto/update-app-translation.dto";
+import { LangTranslationDto } from "src/langTranslation/dto/lang-translation.dto";
 
 @Injectable()
 export class AppTranslationService extends CrudService<
@@ -47,6 +48,10 @@ export class AppTranslationService extends CrudService<
       relations: ["langTranslations"],
     });
     return this.mapper.mapArrayAsync(translations, AppTranslation, AppTranslationDto);
+  }
+
+  async updateLangTranslation(langTranslation: LangTranslationDto) {
+    await this.langTranslationService.save(langTranslation);
   }
 
   async uploadTranslations(appId: number, content: string) {

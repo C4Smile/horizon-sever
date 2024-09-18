@@ -24,6 +24,7 @@ import { UploadContentDto } from "./dto/upload-content.dto";
 import { AppTranslationDto } from "./dto/app-translation.dto";
 import { AddAppTranslationDto } from "./dto/add-app-translation.dto";
 import { UpdateAppTranslationDto } from "./dto/update-app-translation.dto";
+import { LangTranslationDto } from "src/langTranslation/dto/lang-translation.dto";
 
 // services
 import { AppTranslationService } from "./app-translation.service";
@@ -80,5 +81,11 @@ export class AppTranslationController {
   @Patch(":id")
   update(@Param("id", ParseIntPipe) id: number, @Body() data: UpdateAppTranslationDto) {
     return this.appTranslationService.update(id, data);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Post("updateLangTranslation")
+  updateLangTranslation(@Body() data: LangTranslationDto) {
+    return this.appTranslationService.updateLangTranslation(data);
   }
 }
