@@ -6,7 +6,7 @@ export class LangTranslationDto {
   langId: number;
 
   @AutoMap()
-  translationId: number;
+  appTranslationId: number;
 
   @AutoMap()
   content: string;

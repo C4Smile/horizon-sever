@@ -1,5 +1,5 @@
 import { AutomapperProfile, InjectMapper } from "@automapper/nestjs";
-import { createMap, type Mapper } from "@automapper/core";
+import { createMap, forMember, mapFrom, type Mapper } from "@automapper/core";
 import { Injectable } from "@nestjs/common";
 
 // entity
@@ -7,6 +7,7 @@ import { AppTranslation } from "./app-translation.entity";
 
 // dto
 import { AppTranslationDto } from "./dto/app-translation.dto";
+import { LangTranslationDto } from "src/langTranslation/dto/lang-translation.dto";
 
 @Injectable()
 export class AppTranslationAutomapper extends AutomapperProfile {
@@ -16,7 +17,15 @@ export class AppTranslationAutomapper extends AutomapperProfile {
 
   override get profile() {
     return (mapper: Mapper) => {
-      createMap(mapper, AppTranslation, AppTranslationDto);
+      createMap(
+        mapper,
+        AppTranslation,
+        AppTranslationDto,
+        forMember(
+          (dest) => dest.langTranslations,
+          mapFrom((source) => source.langTranslations.map((langTranslation) => langTranslation)),
+        ),
+      );
     };
   }
 }
