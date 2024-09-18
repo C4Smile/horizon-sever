@@ -2,6 +2,7 @@ import { ModelDto } from "src/models/dto/model.dto";
 
 // dto
 import { AutoMap } from "@automapper/classes";
+import { LangTranslationDto } from "src/langTranslation/dto/lang-translation.dto";
 
 export class AppTranslationDto extends ModelDto {
   @AutoMap()
@@ -9,4 +10,7 @@ export class AppTranslationDto extends ModelDto {
 
   @AutoMap()
   appId: number;
+
+  @AutoMap()
+  langTranslations: LangTranslationDto[];
 }
