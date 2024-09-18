@@ -44,8 +44,8 @@ export class AppTranslationService extends CrudService<
       where: {
         appId,
       },
+      relations: ["langTranslations"],
     });
-
     return this.mapper.mapArrayAsync(translations, AppTranslation, AppTranslationDto);
   }
 
