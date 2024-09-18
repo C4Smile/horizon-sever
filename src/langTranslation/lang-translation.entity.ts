@@ -11,15 +11,16 @@ import { AppTranslation } from "src/appTranslation/app-translation.entity";
  */
 @Entity({ name: "lang-translations" })
 export class LangTranslation {
+  @AutoMap()
   @PrimaryColumn({ type: "int" })
   langId: number;
 
-  @AutoMap()
   @ManyToOne(() => Lang, (lang) => lang.langTranslations, {
     cascade: true,
   })
   lang: Lang;
 
+  @AutoMap()
   @PrimaryColumn({ type: "int" })
   appTranslationId: number;
 
