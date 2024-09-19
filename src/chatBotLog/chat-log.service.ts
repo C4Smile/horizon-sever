@@ -4,6 +4,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { InjectMapper } from "@automapper/nestjs";
 import { Mapper } from "@automapper/core";
 import { Repository } from "typeorm";
+import fs from "fs";
 
 // base
 import { CrudService } from "src/models/service/CrudService";
@@ -12,13 +13,15 @@ import { CrudService } from "src/models/service/CrudService";
 import { ChatLog } from "./chat-log.entity";
 import { MuseumUser } from "src/museumUser/museum-user.entity";
 
+// config
+import config from "src/config/configuration";
+
 // dto
 import { LogDto } from "./dto/log.dto";
 import { MessageDto } from "./dto/message.dto";
-import { BotAnswerDto, From } from "./dto/bot-answer.dto";
-
-// config
-import config from "src/config/configuration";
+import { BotAnswerDto, From, SavedInstructionDto } from "./dto/bot-answer.dto";
+import { AddInstructionDto } from "./dto/add-instruction.dto";
+import { UpdateInstructionDto } from "./dto/update-instruction.dto";
 
 @Injectable()
 export class ChatLogService extends CrudService<ChatLog, LogDto, LogDto> {
@@ -66,7 +69,7 @@ export class ChatLogService extends CrudService<ChatLog, LogDto, LogDto> {
 
     try {
       const response = await this.httpService.axiosRef.post<BotAnswerDto[]>(
-        config.chatbot.api,
+        `${config.chatbot.api}ia-message/public-send`,
         {
           tenantId: "hoteles",
           message: message.message,
@@ -100,6 +103,65 @@ export class ChatLogService extends CrudService<ChatLog, LogDto, LogDto> {
           return botMessage;
         }
       }
+    } catch (err) {
+      throw new HttpException(String(err), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  async loadContext() {
+    try {
+      const read = JSON.parse(fs.readFileSync("ia-instructions.json", "utf8")) as SavedInstructionDto;
+      return {
+        instructions: [read.instructions],
+      };
+    } catch (err) {
+      throw new HttpException(String(err), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  async updateContext(data: UpdateInstructionDto) {
+    try {
+      await this.httpService.axiosRef.put<SavedInstructionDto>(
+        `${config.chatbot.api}ia-instructions/${data.id}`,
+        {
+          data: { instructions: data.instructions },
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${config.chatbot.token}`,
+          },
+        },
+      );
+
+      const read = JSON.parse(fs.readFileSync("ia-instructions.json", "utf8")) as SavedInstructionDto;
+      read.instructions = data.instructions;
+      fs.writeFileSync("ia-instructions.json", JSON.stringify(read));
+
+      return { status: 200 };
+    } catch (err) {
+      throw new HttpException(String(err), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  async createContext(instruction: AddInstructionDto) {
+    try {
+      const response = await this.httpService.axiosRef.post<SavedInstructionDto>(
+        `${config.chatbot.api}ia-instructions`,
+        {
+          ...instruction,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${config.chatbot.token}`,
+          },
+        },
+      );
+
+      const { data } = response;
+
+      fs.writeFileSync("ia-instructions.json", JSON.stringify(data));
+
+      return { status: 200 };
     } catch (err) {
       throw new HttpException(String(err), HttpStatus.INTERNAL_SERVER_ERROR);
     }
