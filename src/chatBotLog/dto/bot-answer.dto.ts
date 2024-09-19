@@ -11,3 +11,8 @@ export interface BotAnswerDto {
   role: From;
   parts: Answer[];
 }
+
+export type SavedInstructionDto = {
+  id: number;
+  instructions: string;
+};
