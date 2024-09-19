@@ -52,6 +52,7 @@ export class AppTranslationService extends CrudService<
 
   async updateLangTranslation(langTranslation: LangTranslationDto) {
     await this.langTranslationService.save(langTranslation);
+    return { status: 201 };
   }
 
   async uploadTranslations(appId: number, content: string) {
@@ -128,6 +129,7 @@ export class AppTranslationService extends CrudService<
         }
       }
     }
+
     return { status: 200 };
   }
 }
