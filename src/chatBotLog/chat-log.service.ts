@@ -4,7 +4,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { InjectMapper } from "@automapper/nestjs";
 import { Mapper } from "@automapper/core";
 import { Repository } from "typeorm";
-import fs from "fs";
+import * as fs from "fs";
 
 // base
 import { CrudService } from "src/models/service/CrudService";
@@ -111,10 +111,12 @@ export class ChatLogService extends CrudService<ChatLog, LogDto, LogDto> {
   async loadContext() {
     try {
       const read = JSON.parse(fs.readFileSync("ia-instructions.json", "utf8")) as SavedInstructionDto;
+
       return {
         instructions: [read.instructions],
       };
     } catch (err) {
+      console.error(err);
       throw new HttpException(String(err), HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
