@@ -25,7 +25,7 @@ export class CrudService<Entity, AddDto, UpdateDto> {
   async create(entity: AddDto) {
     const newEntity = this.entityService.create(entity as any);
     const saved = await this.entityService.save(newEntity);
-    return saved;
+    return [saved] as unknown as Promise<Entity[]>;
   }
 
   async get(query?: QueryFilter): Promise<PagedResult<Entity>> {
