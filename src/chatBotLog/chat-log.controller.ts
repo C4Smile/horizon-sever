@@ -22,13 +22,13 @@ export class ChatLogController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Get("update")
+  @Post("update")
   async updateContext(@Body() instructions: UpdateInstructionDto) {
     return await this.chatLogService.updateContext(instructions);
   }
 
   @UseGuards(JwtAuthGuard)
-  @Get("create")
+  @Post("create")
   async createContext(@Body() instructions: AddInstructionDto) {
     return await this.chatLogService.createContext(instructions);
   }
