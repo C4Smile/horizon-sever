@@ -9,7 +9,7 @@ import { RoomAreaHasImageService } from "./room-area-has-image.service";
 // guard
 import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
 
-@Controller("roomAreaHasImage360")
+@Controller("roomAreaHasImage")
 export class RoomAreaHasImageController {
   constructor(private roomAreaService: RoomAreaHasImageService) {}
 
