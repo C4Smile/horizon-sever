@@ -41,14 +41,15 @@ export class RoomController {
 
   @Get("home-slider")
   @UseInterceptors(MapInterceptor(Room, RoomDto, { isArray: true }))
-  getHomeSlider(): Promise<RoomHomeDto[]> {
-    return this.roomService.getHomeSlider();
+  getHomeSlider(@Query() query): Promise<RoomHomeDto[]> {
+    const { type } = query;
+    return this.roomService.getHomeSlider(type);
   }
 
   @Get("gallery")
   getForGallery(@Query() query): Promise<RoomGalleryDto[]> {
-    const { count = 20 } = query;
-    return this.roomService.getForGallery({ count });
+    const { count = 20, type } = query;
+    return this.roomService.getForGallery({ count }, type);
   }
 
   @Get("details/:slug")
