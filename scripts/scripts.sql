@@ -30,7 +30,10 @@ INSERT INTO `room-status` (`dateOfCreation`, `lastUpdate`, `deleted`, `name`) VA
 ('2024-08-27 10:36:58', '2024-08-27 10:36:58', 0, 'Inhabilitada');
 
 INSERT INTO `room-type` (`dateOfCreation`, `lastUpdate`, `deleted`, `name`) VALUES
-('2024-08-27 10:39:36', '2024-08-27 10:39:36', 0, 'Salas de exposición permanente');
+('2024-08-27 10:39:36', '2024-08-27 10:39:36', 0, 'Salas de exposición permanente'),
+('2024-09-22 12:14:44', '2024-09-22 12:14:44', 0, 'Sala transitoria'),
+('2024-09-22 12:17:28', '2024-09-22 12:17:28', 0, 'Otros espacios');
+
 
 INSERT INTO `tags` (`dateOfCreation`, `lastUpdate`, `deleted`, `name`) VALUES
 ('2024-08-27 10:41:21', '2024-08-27 10:41:21', 0, 'Cultural'),
@@ -42,3 +45,19 @@ INSERT INTO `lang` (`dateOfCreation`, `lastUpdate`, `deleted`, `name`, "code") V
 ('2024-08-27 10:41:25', '2024-08-27 10:41:25', 0, 'Francés', "fr"),
 ('2024-08-27 10:41:25', '2024-08-27 10:41:25', 0, 'Alemán', "de"),
 ('2024-08-27 10:41:25', '2024-08-27 10:41:25', 0, 'Ruso', "ru");
+
+INSERT INTO `room` (`dateOfCreation`, `lastUpdate`, `deleted`, `number`, `name`, `urlName`, `description`, `content`, `statusId`, `typeId`) VALUES
+('2024-09-20 08:46:25', '2024-09-22 12:06:50', 0, 'I', 'Historia de un símbolo', 'i', 'Descripción de la sala Historia de un símbolo', '<p>Descripción de la sala Historia de un símbolo</p>\n', 1, 1),
+('2024-09-20 08:46:47', '2024-09-22 12:07:01', 0, 'II', 'La Forja de un guerrillero', 'ii', 'La Forja de un guerrillero.', '<p><span style=\"color: rgb(0,0,0);background-color: transparent;font-size: 12pt;font-family: Arial, sans-serif;\">La Forja de un guerrillero.</span>&nbsp;</p>\n', 1, 1),
+('2024-09-20 08:46:58', '2024-09-22 12:07:08', 0, 'III', 'Frente Decisivo', 'iii', 'Frente Decisivo', '<p>Frente Decisivo</p>\n', 1, 1),
+('2024-09-22 12:06:42', '2024-09-22 12:06:42', 0, 'IV', 'Victorias estratégicas', 'victorias-estrategicas', 'Victorias estratégicas.', '<p><span style=\"color: rgb(0,0,0);background-color: transparent;font-size: 12pt;font-family: Arial, sans-serif;\">Victorias estratégicas.</span>&nbsp;</p>\n', 1, 1),
+('2024-09-22 12:07:35', '2024-09-22 12:07:35', 0, 'V', 'Lecciones de una guerrilla', 'lecciones-de-una-guerrilla', 'Lecciones de una guerrilla', '<p><span style=\"color: rgb(0,0,0);background-color: transparent;font-size: 12pt;font-family: Arial, sans-serif;\">Lecciones de una guerrilla</span>&nbsp;</p>\n', 1, 1),
+('2024-09-22 12:11:44', '2024-09-22 12:11:44', 0, 'VI', 'Promesas cumplidas', 'promesas-cumplidas', 'Promesas cumplidas', '<p><span style=\"color: rgb(0,0,0);background-color: transparent;font-size: 12pt;font-family: Arial, sans-serif;\">Promesas cumplidas</span>&nbsp;</p>\n', 1, 1),
+('2024-09-22 12:11:57', '2024-09-22 12:11:57', 0, 'VII', 'Ni olvidados, ni muertos', 'ni-olvidados-ni-muertos', 'Ni olvidados, ni muertos', '<p><span style=\"color: rgb(0,0,0);background-color: transparent;font-size: 12pt;font-family: Arial, sans-serif;\">Ni olvidados, ni muertos</span>&nbsp;</p>\n', 1, 1),
+('2024-09-22 12:12:09', '2024-09-22 12:12:09', 0, 'VIII', 'Triunfo', 'triunfo', 'Triunfo', '<p><span style=\"color: rgb(0,0,0);background-color: transparent;font-size: 12pt;font-family: Arial, sans-serif;\">Triunfo</span>&nbsp;</p>\n', 1, 1),
+('2024-09-22 12:16:44', '2024-09-22 12:16:44', 0, 'Transitoria', 'Celia Sánchez Manduley', 'celia-sanchez-manduley', 'Sala Transitoria Celia Sánchez Manduley', '<p>Sala Transitoria Celia Sánchez Manduley</p>\n', 1, 2),
+('2024-09-22 12:18:31', '2024-09-22 12:18:31', 0, '', 'Centro de Información y Documentación', 'centro-de-informacion-y-documentacion', 'Centro de Información y Documentación', '<p>Centro de Información y Documentación</p>\n', 1, 3),
+('2024-09-22 12:22:42', '2024-09-22 12:22:42', 0, '', 'Librería. El Cubano Libre.', 'libreria-el-cubano-libre', 'Librería. El Cubano Libre.', '<p><span style=\"color: rgb(0,0,0);background-color: transparent;font-size: 12pt;font-family: Arial, sans-serif;\">Librería. El Cubano Libre.</span>&nbsp;</p>\n', 1, 3),
+('2024-09-22 12:22:54', '2024-09-22 12:22:54', 0, '', 'Sala Teatro Celia Sánchez Manduley', 'sala-teatro-celia-sanchez-manduley', 'Sala Teatro Celia Sánchez Manduley', '<p><span style=\"color: rgb(0,0,0);background-color: transparent;font-size: 12pt;font-family: Arial, sans-serif;\">Sala Teatro Celia Sánchez Manduley</span>&nbsp;</p>\n', 1, 3),
+('2024-09-22 12:23:58', '2024-09-22 12:23:58', 0, '', 'Sala Interactiva', 'sala-interactiva', 'Sala Interactiva', '<p><span style=\"color: rgb(0,0,0);background-color: transparent;font-size: 12pt;font-family: Arial, sans-serif;\">Sala Interactiva</span>&nbsp;</p>\n', 1, 3),
+('2024-09-22 12:25:32', '2024-09-22 12:25:32', 0, '', 'Sala Polifuncional', 'sala-polifuncional', 'Sala Polifuncional', '<p><span style=\"color: rgb(0,0,0);background-color: transparent;font-size: 12pt;font-family: Arial, sans-serif;\">Sala Polifuncional</span>&nbsp;</p>\n', 1, 3);
