@@ -67,7 +67,6 @@ import { LangTranslationModule } from "./langTranslation/lang-translation.module
       synchronize: true,
     }),
     AppModule,
-
     AppsModule,
     AppTranslationModule,
     ActivityModule,
