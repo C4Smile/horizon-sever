@@ -47,7 +47,7 @@ export class RoomService extends CrudService<Room, AddRoomDto, UpdateRoomDto> {
     };
   };
 
-  async getHomeSlider() {
+  async getHomeSlider(type: number = 0) {
     const list = await this.entityService.find({
       take: 10,
       relations: ["roomHasImage"],
@@ -56,19 +56,22 @@ export class RoomService extends CrudService<Room, AddRoomDto, UpdateRoomDto> {
       },
       where: {
         statusId: RoomStatus.Active,
-        typeId: RoomType.Museable,
+        typeId: type,
       },
     });
 
     return this.mapper.mapArrayAsync(list, Room, RoomHomeDto);
   }
 
-  async getForGallery({ count }) {
+  async getForGallery({ count }, type?: number) {
     const list = await this.entityService.find({
       take: count,
       relations: ["roomHasImage"],
       order: {
         lastUpdate: "ASC",
+      },
+      where: {
+        typeId: type,
       },
     });
 
