@@ -30,7 +30,7 @@ INSERT INTO `room-status` (`dateOfCreation`, `lastUpdate`, `deleted`, `name`) VA
 ('2024-08-27 10:36:58', '2024-08-27 10:36:58', 0, 'Inhabilitada');
 
 INSERT INTO `room-type` (`dateOfCreation`, `lastUpdate`, `deleted`, `name`) VALUES
-('2024-08-27 10:39:36', '2024-08-27 10:39:36', 0, 'Museable');
+('2024-08-27 10:39:36', '2024-08-27 10:39:36', 0, 'Salas de exposición permanente');
 
 INSERT INTO `tags` (`dateOfCreation`, `lastUpdate`, `deleted`, `name`) VALUES
 ('2024-08-27 10:41:21', '2024-08-27 10:41:21', 0, 'Cultural'),
