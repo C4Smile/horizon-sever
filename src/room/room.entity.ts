@@ -17,7 +17,7 @@ import { RoomArea } from "src/roomArea/room-area.entity";
 @Entity({ name: "room" })
 export class Room extends Model {
   @AutoMap()
-  @Column({ type: "text", unique: true })
+  @Column({ type: "text" })
   number: string = "";
 
   @AutoMap()
