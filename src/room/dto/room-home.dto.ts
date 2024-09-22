@@ -5,7 +5,13 @@ export class RoomHomeDto {
   urlName: string;
 
   @AutoMap()
+  number: string;
+
+  @AutoMap()
   name: string;
+
+  @AutoMap()
+  description: string;
 
   @AutoMap()
   image: string;
