@@ -1,8 +1,9 @@
 export interface MessageDto {
   id?: number;
   message: string;
-  targetId: number; // 0 if is the bot
-  senderId: number; // 0 if is the bot
+  targetId: number;
+  senderId: number;
   fromApp: string;
   sentDate: Date;
+  history?: any[];
 }

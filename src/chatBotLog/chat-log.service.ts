@@ -58,11 +58,13 @@ export class ChatLogService extends CrudService<ChatLog, LogDto, LogDto> {
   }
 
   async sendMessage(message: MessageDto): Promise<MessageDto> {
-    const history = [];
+    const history = message.history ?? [];
+
+    if (message.history) delete message.history;
     const bot = await this.getBotId();
 
     // save new message to history here
-    const newEntity = this.entityService.create(message as any);
+    const newEntity = this.entityService.create({ ...message, targetId: bot.id } as any);
     await this.entityService.save(newEntity);
 
     // load history here
@@ -71,7 +73,7 @@ export class ChatLogService extends CrudService<ChatLog, LogDto, LogDto> {
       const response = await this.httpService.axiosRef.post<BotAnswerDto[]>(
         `${config.chatbot.api}ia-message/public-send`,
         {
-          tenantId: "hoteles",
+          tenantId: "museo",
           message: message.message,
           history,
         },
@@ -112,9 +114,7 @@ export class ChatLogService extends CrudService<ChatLog, LogDto, LogDto> {
     try {
       const read = JSON.parse(fs.readFileSync("ia-instructions.json", "utf8")) as SavedInstructionDto;
 
-      return {
-        instructions: [read.instructions],
-      };
+      return [{ ...read }];
     } catch (err) {
       console.error(err);
       throw new HttpException(String(err), HttpStatus.INTERNAL_SERVER_ERROR);
