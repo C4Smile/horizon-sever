@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { InjectMapper } from "@automapper/nestjs";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Mapper } from "@automapper/core";
@@ -11,12 +11,10 @@ import { CSVToArray } from "src/utils/csv";
 import { CrudService } from "src/models/service/CrudService";
 
 // entity
+import { App } from "src/app/app.entity";
 import { Lang } from "src/lang/lang.entity";
 import { AppTranslation } from "./app-translation.entity";
 import { LangTranslation } from "src/langTranslation/lang-translation.entity";
-
-// service
-import { LangTranslationService } from "src/langTranslation/lang-translation.service";
 
 // dto
 import { AppTranslationDto } from "./dto/app-translation.dto";
@@ -32,12 +30,45 @@ export class AppTranslationService extends CrudService<
 > {
   constructor(
     @InjectMapper() mapper: Mapper,
-    @InjectRepository(Lang) private langService: Repository<Lang>,
     @InjectRepository(AppTranslation) appTranslationService: Repository<AppTranslation>,
+    @InjectRepository(App) private appService: Repository<App>,
+    @InjectRepository(Lang) private langService: Repository<Lang>,
     @InjectRepository(LangTranslation) private langTranslationService: Repository<LangTranslation>,
   ) {
     const relationships = ["lang-translations"];
     super(appTranslationService, mapper, relationships);
+  }
+
+  async getByApp(app: string, lang: string) {
+    // validating app
+    const application = await this.appService.findOne({
+      where: {
+        name: app,
+      },
+    });
+
+    if (application) {
+      const langTranslations = await this.langTranslationService.find({
+        relations: ["lang", "appTranslation"],
+      });
+
+      const toFetch = langTranslations.filter(
+        (translation) =>
+          translation.appTranslation.appId === application.id && translation.lang.code === lang,
+      );
+      // formatting to lang => translation => content
+      const result = {
+        [lang]: {},
+      };
+
+      toFetch.forEach((translation) => {
+        const key = translation.appTranslation.name;
+        result[lang][key] = translation.content;
+      });
+      return result;
+    }
+
+    throw new HttpException("Application not Found", HttpStatus.NOT_FOUND);
   }
 
   async getByAppId(appId: number) {

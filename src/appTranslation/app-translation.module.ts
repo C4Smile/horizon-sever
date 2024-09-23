@@ -10,6 +10,7 @@ import { AppTranslationController } from "./app-translation.controller";
 import { AppTranslationService } from "./app-translation.service";
 
 // entities
+import { App } from "src/app/app.entity";
 import { Lang } from "src/lang/lang.entity";
 import { AppTranslation } from "./app-translation.entity";
 import { LangTranslation } from "src/langTranslation/lang-translation.entity";
@@ -19,7 +20,7 @@ import { AppTranslationAutomapper } from "./app-translation.automapper";
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([AppTranslation, LangTranslation, Lang]),
+    TypeOrmModule.forFeature([AppTranslation, LangTranslation, Lang, App]),
     AutomapperModule.forRoot({ strategyInitializer: classes() }),
   ],
   controllers: [AppTranslationController],

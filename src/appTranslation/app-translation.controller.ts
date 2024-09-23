@@ -49,6 +49,12 @@ export class AppTranslationController {
     return this.appTranslationService.getById(id);
   }
 
+  @Get("byApp/:app")
+  async getByApp(@Param("app") app: string, @Query() query) {
+    const { lang } = query;
+    return this.appTranslationService.getByApp(app, lang);
+  }
+
   @Get("byApplicationId/:appId")
   async getByAppId(@Param("appId", ParseIntPipe) appId: number) {
     return this.appTranslationService.getByAppId(appId);
