@@ -40,7 +40,6 @@ export class RoomController {
   }
 
   @Get("home-slider")
-  @UseInterceptors(MapInterceptor(Room, RoomDto, { isArray: true }))
   getHomeSlider(@Query() query): Promise<RoomHomeDto[]> {
     const { type } = query;
     return this.roomService.getHomeSlider(type);
