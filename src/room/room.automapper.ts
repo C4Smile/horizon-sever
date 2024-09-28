@@ -28,18 +28,20 @@ export class RoomAutomapper extends AutomapperProfile {
         RoomDto,
         forMember(
           (dest) => dest.roomHasImage,
-          mapFrom((source) =>
-            source.roomHasImage?.map((image) => ({
-              imageId: { id: image.id, url: image.url, fileName: image.fileName } as BlobDto,
-            })),
+          mapFrom(
+            (source) =>
+              source.roomHasImage?.map((image) => ({
+                imageId: { id: image.id, url: image.url, fileName: image.fileName } as BlobDto,
+              })),
           ),
         ),
         forMember(
           (dest) => dest.roomHasImage360,
-          mapFrom((source) =>
-            source.roomHasImage360?.map((image) => ({
-              imageId: { id: image.id, url: image.url, fileName: image.fileName } as BlobDto,
-            })),
+          mapFrom(
+            (source) =>
+              source.roomHasImage360?.map((image) => ({
+                imageId: { id: image.id, url: image.url, fileName: image.fileName } as BlobDto,
+              })),
           ),
         ),
       );
