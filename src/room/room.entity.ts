@@ -25,7 +25,7 @@ export class Room extends Model {
   name: string = "";
 
   @AutoMap()
-  @Column({ type: "text", unique: true })
+  @Column({ type: "text" })
   urlName: string = "";
 
   @AutoMap()
