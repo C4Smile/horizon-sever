@@ -17,6 +17,10 @@ import { PagedResult, QueryFilter } from "src/models/types";
 import { ActivityDto } from "./dto/activity.dto";
 import { AddActivityDto } from "./dto/add-activity.dto";
 import { UpdateActivityDto } from "./dto/update-activity.dto";
+import { LastActivityDto } from "./dto/LastActivityDto";
+
+// utils
+import { filterByTags } from "src/tags/utils";
 
 @Injectable()
 export class ActivityService extends CrudService<Activity, AddActivityDto, UpdateActivityDto> {
@@ -36,4 +40,29 @@ export class ActivityService extends CrudService<Activity, AddActivityDto, Updat
       total: result.total,
     };
   };
+
+  async lasts() {
+    const list = await this.entityService.find({
+      take: 6,
+      relations: this.relationships,
+      order: {
+        lastUpdate: "ASC",
+      },
+    });
+
+    return this.mapper.mapArrayAsync(list, Activity, LastActivityDto);
+  }
+
+  async list({ sort = "lastUpdate", order = "DESC", page = 0, count = 9, tags = "" }) {
+    const list = await this.entityService.find({
+      skip: page * count,
+      take: count,
+      relations: this.relationships,
+      order: {
+        [sort]: order,
+      },
+    });
+
+    return this.mapper.mapArrayAsync(filterByTags(list, tags), Activity, LastActivityDto);
+  }
 }
