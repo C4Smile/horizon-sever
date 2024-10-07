@@ -25,6 +25,7 @@ import { AddActivityDto } from "./dto/add-activity.dto";
 
 // services
 import { ActivityService } from "./activity.service";
+import { LastActivityDto } from "./dto/LastActivityDto";
 import { UpdateActivityDto } from "./dto/update-activity.dto";
 
 // guard
@@ -37,6 +38,17 @@ export class ActivityController {
   @Get()
   get(@Query() query: QueryFilter): Promise<PagedResult<ActivityDto>> {
     return this.activityService.mappedGet(query);
+  }
+
+  @Get("lasts")
+  last(): Promise<LastActivityDto[]> {
+    return this.activityService.lasts();
+  }
+
+  @Get("list")
+  list(@Query() query): Promise<LastActivityDto[]> {
+    const { sort = "lastUpdate", order = "DESC", page = 0, count = 9, tags = "" } = query;
+    return this.activityService.list({ sort, order, page, count, tags });
   }
 
   @Get(":id")
