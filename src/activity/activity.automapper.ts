@@ -7,6 +7,7 @@ import { Activity } from "./activity.entity";
 
 // dto
 import { ActivityDto } from "./dto/activity.dto";
+import { LastActivityDto } from "./dto/LastActivityDto";
 
 @Injectable()
 export class ActivityAutomapper extends AutomapperProfile {
@@ -28,6 +29,20 @@ export class ActivityAutomapper extends AutomapperProfile {
             url: source.image.url,
             fileName: source.image.fileName,
           })),
+        ),
+      );
+      /* LAST ACTIVITIES DTO */
+      createMap(
+        mapper,
+        Activity,
+        LastActivityDto,
+        forMember(
+          (dest) => dest.image,
+          mapFrom((source) => source.image?.url ?? null),
+        ),
+        forMember(
+          (dest) => dest.tag,
+          mapFrom((source) => source.activityHasTag[0]?.name ?? null),
         ),
       );
     };
