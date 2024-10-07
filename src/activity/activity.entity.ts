@@ -1,9 +1,10 @@
-import { Column, Entity, ManyToOne } from "typeorm";
+import { Column, Entity, JoinTable, ManyToMany, ManyToOne } from "typeorm";
 import { AutoMap } from "@automapper/classes";
 
 // entities
 import { Model } from "src/models/model";
 import { Photo } from "src/image/image.entity";
+import { Tag } from "src/tags/tag.entity";
 
 /**
  * @class Activity
@@ -16,8 +17,16 @@ export class Activity extends Model {
   title: string = "";
 
   @AutoMap()
+  @Column({ type: "text", unique: true })
+  urlName: string = "";
+
+  @AutoMap()
   @Column({ type: "text" })
   description: string = "";
+
+  @AutoMap()
+  @Column({ type: "text" })
+  content: string = "";
 
   @AutoMap()
   @Column({ type: "text" })
@@ -28,4 +37,21 @@ export class Activity extends Model {
 
   @ManyToOne(() => Photo)
   image: Photo;
+
+  @ManyToMany(() => Tag, (activityTag) => activityTag.News, { cascade: true })
+  @AutoMap()
+  @JoinTable({
+    name: "activity-has-tag",
+    joinColumn: {
+      name: "activityId",
+      referencedColumnName: "id",
+      foreignKeyConstraintName: "activityTagsActivityId",
+    },
+    inverseJoinColumn: {
+      name: "tagId",
+      referencedColumnName: "id",
+      foreignKeyConstraintName: "activityTagsTagId",
+    },
+  })
+  activityHasTag: Tag[];
 }
