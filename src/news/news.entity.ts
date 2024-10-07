@@ -22,10 +22,6 @@ export class News extends Model {
 
   @AutoMap()
   @Column({ type: "text" })
-  description: string = "";
-
-  @AutoMap()
-  @Column({ type: "text" })
   content: string = "";
 
   @AutoMap()
