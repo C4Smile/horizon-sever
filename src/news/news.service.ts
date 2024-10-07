@@ -62,20 +62,4 @@ export class NewsService extends CrudService<News, AddNewsDto, UpdateNewsDto> {
 
     return this.mapper.mapArrayAsync(filterByTags(list, tags), News, LastNewsDto);
   }
-
-  async getSmallNews(count: number) {
-    const list = await this.entityService.find({
-      take: count,
-      relations: this.relationships,
-      order: {
-        lastUpdate: "ASC",
-      },
-    });
-
-    const parsed = list.map((item) => {
-      const { title, description, newsHasImage, newsHasTag } = item;
-      return { title, description, newsHasImage, newsHasTag };
-    });
-    return { data: parsed };
-  }
 }
