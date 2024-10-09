@@ -17,6 +17,9 @@ export class Photo extends Model {
   fileName: string;
 
   @Column({ type: "text" })
+  alt: string;
+
+  @Column({ type: "text" })
   url: string;
 
   @ManyToMany(() => News, (news) => news.newsHasImage, { cascade: true })
