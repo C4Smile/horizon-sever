@@ -73,7 +73,7 @@ export class ChatLogService extends CrudService<ChatLog, LogDto, LogDto> {
       const response = await this.httpService.axiosRef.post<BotAnswerDto[]>(
         `${config.chatbot.api}ia-message/public-send`,
         {
-          tenantId: "museo",
+          tenantId: "Museo",
           message: message.message,
           history,
         },
