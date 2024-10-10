@@ -12,7 +12,7 @@ import { Photo } from "src/image/image.entity";
 @Entity({ name: "guest-book" })
 export class GuestBook extends Model {
   @AutoMap()
-  @Column({ type: "text", unique: true })
+  @Column({ type: "text",  })
   name: string;
 
   @AutoMap()

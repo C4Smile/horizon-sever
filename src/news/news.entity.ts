@@ -13,11 +13,11 @@ import { Tag } from "src/tags/tag.entity";
 @Entity({ name: "news" })
 export class News extends Model {
   @AutoMap()
-  @Column({ type: "text", unique: true })
+  @Column({ type: "text",  })
   title: string = "";
 
   @AutoMap()
-  @Column({ type: "text", unique: true })
+  @Column({ type: "text",  })
   urlName: string = "";
 
   @AutoMap()

@@ -7,12 +7,12 @@ import { Model } from "src/models/model";
  */
 @Entity({ name: "users" })
 export class User extends Model {
-  @Column({ type: "text", unique: true })
+  @Column({ type: "text",  })
   email: string;
 
   @Column({ type: "text" })
   encrypted_password: string = "";
 
-  @Column({ type: "text", unique: true })
+  @Column({ type: "text",  })
   phone: string;
 }

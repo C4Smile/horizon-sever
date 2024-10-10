@@ -13,7 +13,7 @@ import { Event } from "src/event/event.entity";
 @Entity({ name: "tags" })
 export class Tag extends Model {
   @AutoMap()
-  @Column({ type: "text", unique: true })
+  @Column({ type: "text",  })
   name: string = "";
 
   @ManyToMany(() => News, (news) => news.newsHasTag)

@@ -12,7 +12,7 @@ import { MuseumUser } from "src/museumUser/museum-user.entity";
 @Entity({ name: "museum-role" })
 export class MuseumRole extends Model {
   @AutoMap()
-  @Column({ type: "text", unique: true })
+  @Column({ type: "text",  })
   name: string = "";
 
   @OneToMany(() => MuseumUser, (museumUser) => museumUser.role)

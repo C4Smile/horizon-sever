@@ -14,11 +14,11 @@ import { ServiceHasSchedule } from "src/serviceHasSchedule/service-has-schedule.
 @Entity({ name: "services" })
 export class Service extends Model {
   @AutoMap()
-  @Column({ type: "text", unique: true })
+  @Column({ type: "text",  })
   name: string;
 
   @AutoMap()
-  @Column({ type: "text", unique: true })
+  @Column({ type: "text",  })
   urlName: string;
 
   @AutoMap()

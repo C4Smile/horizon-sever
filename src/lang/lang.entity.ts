@@ -12,11 +12,11 @@ import { LangTranslation } from "src/langTranslation/lang-translation.entity";
 @Entity({ name: "lang" })
 export class Lang extends Model {
   @AutoMap()
-  @Column({ type: "text", unique: true })
+  @Column({ type: "text",  })
   name: string = "";
 
   @AutoMap()
-  @Column({ type: "text", unique: true })
+  @Column({ type: "text",  })
   code: string = "";
 
   @AutoMap()

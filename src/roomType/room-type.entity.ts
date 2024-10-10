@@ -12,7 +12,7 @@ import { Room } from "src/room/room.entity";
 @Entity({ name: "room-type" })
 export class RoomType extends Model {
   @AutoMap()
-  @Column({ type: "text", unique: true })
+  @Column({ type: "text",  })
   name: string = "";
 
   @OneToMany(() => Room, (room) => room.type)

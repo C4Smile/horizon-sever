@@ -7,10 +7,10 @@ import { RoomArea } from "src/roomArea/room-area.entity";
 
 @Entity({ name: "images360" })
 export class Photo360 extends Model {
-  @Column({ type: "text", unique: true })
+  @Column({ type: "text",  })
   fileName: string;
 
-  @Column({ type: "text", unique: true })
+  @Column({ type: "text",  })
   url: string;
 
   @ManyToMany(() => Room, (room) => room.roomHasImage360, { cascade: true })

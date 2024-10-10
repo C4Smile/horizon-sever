@@ -21,7 +21,7 @@ export class Room extends Model {
   number: string = "";
 
   @AutoMap()
-  @Column({ type: "text", unique: true })
+  @Column({ type: "text",  })
   name: string = "";
 
   @AutoMap()

@@ -12,7 +12,7 @@ import { AppTranslation } from "src/appTranslation/app-translation.entity";
 @Entity({ name: "app" })
 export class App extends Model {
   @AutoMap()
-  @Column({ type: "text", unique: true })
+  @Column({ type: "text",  })
   name: string = "";
 
   @AutoMap()

@@ -18,7 +18,7 @@ export class MuseumUser extends Model {
   name: string;
 
   @AutoMap()
-  @Column({ type: "text", unique: true })
+  @Column({ type: "text",  })
   username: string;
 
   @AutoMap()
@@ -26,15 +26,15 @@ export class MuseumUser extends Model {
   address: string = "";
 
   @AutoMap()
-  @Column({ type: "text", unique: true })
+  @Column({ type: "text",  })
   identification: string;
 
   @AutoMap()
-  @Column({ type: "text", unique: true })
+  @Column({ type: "text",  })
   phone: string;
 
   @AutoMap()
-  @Column({ type: "text", unique: true })
+  @Column({ type: "text",  })
   email: string = "";
 
   @Column({ type: "int" })

@@ -11,11 +11,11 @@ import { Model } from "src/models/model";
 @Entity({ name: "app-texts" })
 export class AppText extends Model {
   @AutoMap()
-  @Column({ type: "text", unique: true })
+  @Column({ type: "text",  })
   title: string = "";
 
   @AutoMap()
-  @Column({ type: "text", unique: true })
+  @Column({ type: "text",  })
   urlName: string = "";
 
   @AutoMap()

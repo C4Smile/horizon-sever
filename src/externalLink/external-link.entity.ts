@@ -11,10 +11,10 @@ import { Model } from "src/models/model";
 @Entity({ name: "external-link" })
 export class ExternalLink extends Model {
   @AutoMap()
-  @Column({ type: "text", unique: true })
+  @Column({ type: "text",  })
   name: string = "";
 
   @AutoMap()
-  @Column({ type: "text", unique: true })
+  @Column({ type: "text",  })
   preview: string = "";
 }

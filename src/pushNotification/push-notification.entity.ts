@@ -12,7 +12,7 @@ import { AutoMap } from "@automapper/classes";
 @Entity({ name: "push-notification" })
 export class PushNotification extends Model {
   @AutoMap()
-  @Column({ type: "text", unique: true })
+  @Column({ type: "text",  })
   title: string = "";
 
   @AutoMap()
