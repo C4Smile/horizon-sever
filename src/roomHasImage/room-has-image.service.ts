@@ -8,14 +8,21 @@ import { RoomHasImage } from "./room-has-image.entity";
 
 // dto
 import { AddRoomHasImageDto } from "./dto/add-room-has-image.dto";
+import { Photo } from "src/image/image.entity";
 
 @Injectable()
 export class RoomHasImageService {
-  constructor(@InjectRepository(RoomHasImage) private roomHasImageService: Repository<RoomHasImage>) {}
+  constructor(
+    @InjectRepository(RoomHasImage) private roomHasImageService: Repository<RoomHasImage>,
+    @InjectRepository(Photo) private imageService: Repository<Photo>,
+  ) {}
 
   async create(room: AddRoomHasImageDto) {
     const newRoom = this.roomHasImageService.create(room);
     const saved = await this.roomHasImageService.save(newRoom);
+
+    await this.imageService.update(newRoom.imageId, { alt: room.alt });
+
     return [saved];
   }
 
