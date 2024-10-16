@@ -8,10 +8,11 @@ import { NewsHasImageController } from "./news-has-image.controller";
 import { NewsHasImageService } from "./news-has-image.service";
 
 // entity
+import { Photo } from "src/image/image.entity";
 import { NewsHasImage } from "./news-has-image.entity";
 
 @Module({
-  imports: [TypeOrmModule.forFeature([NewsHasImage])],
+  imports: [TypeOrmModule.forFeature([NewsHasImage, Photo])],
   controllers: [NewsHasImageController],
   providers: [NewsHasImageService],
   exports: [NewsHasImageService],
