@@ -8,10 +8,11 @@ import { RoomHasImage360Controller } from "./room-has-image360.controller";
 import { RoomHasImage360Service } from "./room-has-image360.service";
 
 // entity
+import { Photo } from "src/image/image.entity";
 import { RoomHasImage360 } from "./room-has-image360.entity";
 
 @Module({
-  imports: [TypeOrmModule.forFeature([RoomHasImage360])],
+  imports: [TypeOrmModule.forFeature([RoomHasImage360, Photo])],
   controllers: [RoomHasImage360Controller],
   providers: [RoomHasImage360Service],
   exports: [RoomHasImage360Service],

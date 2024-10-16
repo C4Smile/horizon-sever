@@ -4,6 +4,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 
 // entity
+import { Photo } from "src/image/image.entity";
 import { RoomAreaHasImage } from "./room-area-has-image.entity";
 
 // dto
@@ -13,11 +14,15 @@ import { AddRoomAreaHasImageDto } from "./dto/add-room-area-has-image.dto";
 export class RoomAreaHasImageService {
   constructor(
     @InjectRepository(RoomAreaHasImage) private roomAreaService: Repository<RoomAreaHasImage>,
+    @InjectRepository(Photo) private imageService: Repository<Photo>,
   ) {}
 
   async create(roomArea: AddRoomAreaHasImageDto) {
     const newRoomArea = this.roomAreaService.create(roomArea);
     const saved = await this.roomAreaService.save(newRoomArea);
+
+    await this.imageService.update(newRoomArea.imageId, { alt: roomArea.alt });
+
     return [saved];
   }
 

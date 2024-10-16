@@ -4,11 +4,11 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 
 // entity
+import { Photo } from "src/image/image.entity";
 import { RoomHasImage } from "./room-has-image.entity";
 
 // dto
 import { AddRoomHasImageDto } from "./dto/add-room-has-image.dto";
-import { Photo } from "src/image/image.entity";
 
 @Injectable()
 export class RoomHasImageService {
