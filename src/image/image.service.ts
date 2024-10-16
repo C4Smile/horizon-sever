@@ -17,7 +17,7 @@ export class ImageService {
   constructor(@InjectRepository(Photo) private imageService: Repository<Photo>) {}
 
   async create(image: AddBlobDto) {
-    const { base64, folder, fileName } = image;
+    const { base64, folder, fileName, alt } = image;
     const parts = fileName.split(".");
     let ext = parts.length > 1 ? parts.pop() : "";
     if (ext === "jpg") ext = "jpeg";
@@ -43,9 +43,10 @@ export class ImageService {
     });
 
     if (imageFound !== null && imageFound !== undefined)
+
       throw new HttpException("Image already exists", HttpStatus.CONFLICT);
 
-    const newImage = this.imageService.create({ url, fileName: slugFileName });
+    const newImage = this.imageService.create({ url, fileName: slugFileName, alt });
     const saved = await this.imageService.save(newImage);
     return [saved];
   }
