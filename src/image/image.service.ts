@@ -1,6 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-import { Repository } from "typeorm";
+import { FindOptionsOrder, Not, Repository } from "typeorm";
 import { rmSync, writeFileSync, existsSync, mkdirSync } from "fs";
 import { join } from "path";
 
@@ -11,6 +11,7 @@ import { Photo } from "./image.entity";
 
 // dto
 import { AddBlobDto } from "./dto/add-blob.dto";
+import { QueryFilter, PagedResult } from "src/models/types";
 
 @Injectable()
 export class ImageService {
@@ -43,12 +44,26 @@ export class ImageService {
     });
 
     if (imageFound !== null && imageFound !== undefined)
-
       throw new HttpException("Image already exists", HttpStatus.CONFLICT);
 
     const newImage = this.imageService.create({ url, fileName: slugFileName, alt });
     const saved = await this.imageService.save(newImage);
     return [saved];
+  }
+
+  async getAll(query?: QueryFilter): Promise<PagedResult<Photo>> {
+    const { page, count, sort, order } = query;
+
+    const list = await this.imageService.find({
+      skip: page * count,
+      take: count,
+      where: {
+        alt: Not(""),
+      },
+    });
+
+    const total = await this.imageService.count();
+    return { items: list.filter((image) => image.alt.length), total: total };
   }
 
   async remove(id: number) {
