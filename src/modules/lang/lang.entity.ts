@@ -3,7 +3,7 @@ import { AutoMap } from "@automapper/classes";
 
 // entities
 import { Model } from "src/modules/models/model";
-import { LangTranslation } from "src/langTranslation/lang-translation.entity";
+import { LangTranslation } from "../langTranslation/lang-translation.entity";
 
 /**
  * @class Lang

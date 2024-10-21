@@ -4,7 +4,7 @@ import { AutoMap } from "@automapper/classes";
 // entities
 import { Model } from "src/modules/models/model";
 import { App } from "src/modules/app/app.entity";
-import { LangTranslation } from "src/langTranslation/lang-translation.entity";
+import { LangTranslation } from "../langTranslation/lang-translation.entity";
 
 /**
  * @class App
@@ -13,7 +13,7 @@ import { LangTranslation } from "src/langTranslation/lang-translation.entity";
 @Entity({ name: "app-translation" })
 export class AppTranslation extends Model {
   @AutoMap()
-  @Column({ type: "text",  })
+  @Column({ type: "text" })
   name: string = "";
 
   @Column({ type: "int" })

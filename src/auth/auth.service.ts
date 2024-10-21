@@ -4,19 +4,19 @@ import { JwtService } from "@nestjs/jwt";
 import { Repository } from "typeorm";
 import { hash, compare } from "bcrypt";
 
-// service
-import { User } from "src/user/user.entity";
+// entity
+import { User } from "src/modules/user/user.entity";
+import { HorizonUser } from "src/modules/horizonUser/horizon-user.entity";
 
 // dto
 import { LoginUserDto } from "./dto/login-user.dto";
-import { AddUserDto } from "src/user/dto/add-user.dto";
-import { LoggedUserDto } from "./dto/logged-user.dt";
-import { MuseumUser } from "src/horizonUser/horizon-user.entity";
+import { LoggedUserDto } from "./dto/logged-user.dto";
+import { AddUserDto } from "src/modules/user/dto/add-user.dto";
 
 @Injectable()
 export class AuthService {
   constructor(
-    @InjectRepository(MuseumUser) private museumUserService: Repository<MuseumUser>,
+    @InjectRepository(HorizonUser) private HorizonUserService: Repository<HorizonUser>,
     @InjectRepository(User) private userService: Repository<User>,
     private jwtAuthService: JwtService,
   ) {}
@@ -26,7 +26,7 @@ export class AuthService {
   }
 
   async login(loginUserDto: LoginUserDto) {
-    const userFound = await this.museumUserService.findOne({
+    const userFound = await this.HorizonUserService.findOne({
       where: [
         {
           email: loginUserDto.username,
@@ -50,7 +50,7 @@ export class AuthService {
     const loggedUser = {
       user: {
         id: userFound.user.id,
-        museumUserId: userFound.id,
+        horizonUserId: userFound.id,
       },
       token: "",
     };

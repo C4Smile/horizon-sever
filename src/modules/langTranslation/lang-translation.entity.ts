@@ -2,7 +2,7 @@ import { AutoMap } from "@automapper/classes";
 import { Column, Entity, ManyToOne, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
 
 // entity
-import { Lang } from "src/lang/lang.entity";
+import { Lang } from "../lang/lang.entity";
 import { AppTranslation } from "src/modules/appTranslation/app-translation.entity";
 
 /**

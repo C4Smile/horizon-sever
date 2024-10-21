@@ -24,7 +24,7 @@ import { UploadContentDto } from "./dto/upload-content.dto";
 import { AppTranslationDto } from "./dto/app-translation.dto";
 import { AddAppTranslationDto } from "./dto/add-app-translation.dto";
 import { UpdateAppTranslationDto } from "./dto/update-app-translation.dto";
-import { LangTranslationDto } from "src/langTranslation/dto/lang-translation.dto";
+import { LangTranslationDto } from "../langTranslation/dto/lang-translation.dto";
 
 // services
 import { AppTranslationService } from "./app-translation.service";

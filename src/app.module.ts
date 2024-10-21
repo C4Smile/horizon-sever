@@ -1,5 +1,6 @@
 import { Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
+import { SequelizeModule } from "@nestjs/sequelize";
 import { ServeStaticModule } from "@nestjs/serve-static";
 
 import { join } from "path";
@@ -30,7 +31,6 @@ import config from "./config/configuration";
       rootPath: join(__dirname, "..", "public"),
       serveRoot: "/public/",
     }),
-
     TypeOrmModule.forRoot({
       type: "mysql",
       username: config.db.user,

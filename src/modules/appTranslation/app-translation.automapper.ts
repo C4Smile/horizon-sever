@@ -7,7 +7,6 @@ import { AppTranslation } from "./app-translation.entity";
 
 // dto
 import { AppTranslationDto } from "./dto/app-translation.dto";
-import { LangTranslationDto } from "src/langTranslation/dto/lang-translation.dto";
 
 @Injectable()
 export class AppTranslationAutomapper extends AutomapperProfile {

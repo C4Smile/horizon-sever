@@ -10,10 +10,10 @@ import { AppTranslationController } from "./app-translation.controller";
 import { AppTranslationService } from "./app-translation.service";
 
 // entities
+import { Lang } from "../lang/lang.entity";
 import { App } from "src/modules/app/app.entity";
-import { Lang } from "src/lang/lang.entity";
 import { AppTranslation } from "./app-translation.entity";
-import { LangTranslation } from "src/langTranslation/lang-translation.entity";
+import { LangTranslation } from "../langTranslation/lang-translation.entity";
 
 // automapper
 import { AppTranslationAutomapper } from "./app-translation.automapper";

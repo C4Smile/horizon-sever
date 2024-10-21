@@ -3,12 +3,12 @@ import { JwtModule } from "@nestjs/jwt";
 import { TypeOrmModule } from "@nestjs/typeorm";
 
 // module
-import { UserModule } from "src/user/user.module";
-import { MuseumUserModule } from "src/horizonUser/horizon-user.module";
+import { UserModule } from "src/modules/user/user.module";
+import { HorizonUserModule } from "src/modules/horizonUser/horizon-user.module";
 
 // entity
-import { User } from "src/user/user.entity";
-import { MuseumUser } from "src/horizonUser/horizon-user.entity";
+import { User } from "src/modules/user/user.entity";
+import { HorizonUser } from "src/modules/horizonUser/horizon-user.entity";
 
 // controller
 import { AuthController } from "./auth.controller";
@@ -24,9 +24,9 @@ import { jwtConstant } from "./dto/jwtConstant";
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([User, MuseumUser]),
+    TypeOrmModule.forFeature([User, HorizonUser]),
     UserModule,
-    MuseumUserModule,
+    HorizonUserModule,
     JwtModule.register({ secret: jwtConstant.secret, signOptions: { expiresIn: "24h" } }),
   ],
   controllers: [AuthController],

@@ -1,7 +1,7 @@
 export type LoggedUserDto = {
   user: {
     id: number;
-    museumUserId: number;
+    horizonUserId: number;
   };
   token: string;
 };

@@ -11,16 +11,16 @@ import { CSVToArray } from "src/utils/csv";
 import { CrudService } from "src/modules/models/service/CrudService";
 
 // entity
+import { Lang } from "../lang/lang.entity";
 import { App } from "src/modules/app/app.entity";
-import { Lang } from "src/lang/lang.entity";
 import { AppTranslation } from "./app-translation.entity";
-import { LangTranslation } from "src/langTranslation/lang-translation.entity";
+import { LangTranslation } from "../langTranslation/lang-translation.entity";
 
 // dto
 import { AppTranslationDto } from "./dto/app-translation.dto";
 import { AddAppTranslationDto } from "./dto/add-app-translation.dto";
 import { UpdateAppTranslationDto } from "./dto/update-app-translation.dto";
-import { LangTranslationDto } from "src/langTranslation/dto/lang-translation.dto";
+import { LangTranslationDto } from "../langTranslation/dto/lang-translation.dto";
 
 @Injectable()
 export class AppTranslationService extends CrudService<
