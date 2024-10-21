@@ -4,11 +4,11 @@ import { TypeOrmModule } from "@nestjs/typeorm";
 
 // module
 import { UserModule } from "src/user/user.module";
-import { MuseumUserModule } from "src/museumUser/museum-user.module";
+import { MuseumUserModule } from "src/horizonUser/horizon-user.module";
 
 // entity
 import { User } from "src/user/user.entity";
-import { MuseumUser } from "src/museumUser/museum-user.entity";
+import { MuseumUser } from "src/horizonUser/horizon-user.entity";
 
 // controller
 import { AuthController } from "./auth.controller";

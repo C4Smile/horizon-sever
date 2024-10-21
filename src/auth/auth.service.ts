@@ -11,7 +11,7 @@ import { User } from "src/user/user.entity";
 import { LoginUserDto } from "./dto/login-user.dto";
 import { AddUserDto } from "src/user/dto/add-user.dto";
 import { LoggedUserDto } from "./dto/logged-user.dt";
-import { MuseumUser } from "src/museumUser/museum-user.entity";
+import { MuseumUser } from "src/horizonUser/horizon-user.entity";
 
 @Injectable()
 export class AuthService {

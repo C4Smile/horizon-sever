@@ -12,14 +12,16 @@ type DatabaseConfigurationType = {
   password: string;
 };
 
-type ChatbotConfigurationType = {
-  api: string;
-  token: string;
+type GameFactorSettings = {
+  crewUpkeep: number;
+  captainUpkeep: number;
+  shipUpkeep: number;
+  shipSpeed: number;
 };
 
 type ConfigurationType = {
   db: DatabaseConfigurationType;
-  chatbot: ChatbotConfigurationType;
+  game: GameFactorSettings;
 };
 
 const configuration = () => {

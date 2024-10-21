@@ -9,45 +9,20 @@ import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
 
 // modules
-import { UserModule } from "./user/user.module";
-import { RoomModule } from "./room/room.module";
+import { UserModule } from "./modules/user/user.module";
 import { AuthModule } from "./auth/auth.module";
-import { EventModule } from "./event/event.module";
-import { TagModule } from "./tags/tag.module";
-import { NewsModule } from "./news/news.module";
-import { ExternalLinkModule } from "./externalLink/external-link.module";
-import { EventHasLinkModule } from "./eventHasLink/event-has-link.module";
-import { EventHasScheduleModule } from "./eventHasSchedule/event-has-schedule.module";
-import { AppTextModule } from "./appTexts/app-text.module";
-import { RoomAreaModule } from "./roomArea/room-area.module";
-import { RoomHasScheduleModule } from "./roomHasSchedule/room-has-schedule.module";
-import { RoomStatusModule } from "./roomStatus/room-status.module";
-import { RoomTypeModule } from "./roomType/room-type.module";
-import { ActivityModule } from "./activity/activity.module";
-import { MuseumRoleModule } from "./museumRole/museum-role.module";
-import { MuseumUserModule } from "./museumUser/museum-user.module";
-import { PushNotificationModule } from "./pushNotification/push-notification.module";
-import { ServiceModule } from "./service/service.module";
-import { ServiceHasScheduleModule } from "./serviceHasSchedule/service-has-schedule.module";
-import { ImageModule } from "./image/image.module";
-import { Image360Module } from "./image360/image-360.module";
-import { GuestBookModule } from "./guestBook/guest-book.module";
-import { RoomHasImageModule } from "./roomHasImage/room-has-image.module";
-import { GuestBookHasImageModule } from "./guestBookHasImage/guest-book-has-image.module";
-import { NewsHasImageModule } from "./newsHasImage/news-has-image.module";
-import { EventHasImageModule } from "./eventHasImage/event-has-image.module";
-import { RoomAreaHasImageModule } from "./roomAreaHasImage/room-area-has-image.module";
-import { RoomHasImage360Module } from "./roomHasImage360/room-has-image360.module";
-import { RoomAreaHasImage360Module } from "./roomAreaHasImage360/room-area-has-image360.module";
-import { ChatLogModule } from "./chatBotLog/chat-log.module";
+import { AppTextModule } from "./modules/appTexts/app-text.module";
+import { HorizonRoleModule } from "./modules/horizonRole/horizon-role.module";
+import { HorizonUserModule } from "./modules/horizonUser/horizon-user.module";
+import { PushNotificationModule } from "./modules/pushNotification/push-notification.module";
+import { ImageModule } from "./modules/image/image.module";
+import { AppTranslationModule } from "./modules/appTranslation/app-translation.module";
+import { AppsModule } from "./modules/app/app.module";
+import { LangsModule } from "./modules/lang/lang.module";
+import { LangTranslationModule } from "./modules/langTranslation/lang-translation.module";
 
 // config
-
 import config from "./config/configuration";
-import { AppTranslationModule } from "./appTranslation/app-translation.module";
-import { AppsModule } from "./app/app.module";
-import { LangsModule } from "./lang/lang.module";
-import { LangTranslationModule } from "./langTranslation/lang-translation.module";
 
 @Module({
   imports: [
@@ -69,38 +44,14 @@ import { LangTranslationModule } from "./langTranslation/lang-translation.module
     AppModule,
     AppsModule,
     AppTranslationModule,
-    ActivityModule,
     AuthModule,
     AppTextModule,
-    ChatLogModule,
-    EventModule,
-    EventHasImageModule,
-    EventHasLinkModule,
-    EventHasScheduleModule,
-    ExternalLinkModule,
-    GuestBookModule,
-    GuestBookHasImageModule,
+    HorizonRoleModule,
+    HorizonUserModule,
     ImageModule,
-    Image360Module,
     LangsModule,
     LangTranslationModule,
-    MuseumRoleModule,
-    MuseumUserModule,
-    NewsModule,
-    NewsHasImageModule,
     PushNotificationModule,
-    RoomAreaModule,
-    RoomAreaHasImage360Module,
-    RoomAreaHasImageModule,
-    RoomModule,
-    RoomHasImageModule,
-    RoomHasImage360Module,
-    RoomHasScheduleModule,
-    RoomStatusModule,
-    RoomTypeModule,
-    TagModule,
-    ServiceHasScheduleModule,
-    ServiceModule,
     UserModule,
   ],
   controllers: [AppController],
