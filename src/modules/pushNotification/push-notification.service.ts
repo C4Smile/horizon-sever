@@ -1,8 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
-import { InjectMapper } from "@automapper/nestjs";
-import { Mapper } from "@automapper/core";
 
 // base
 import { CrudService } from "src/modules/models/service/CrudService";
@@ -26,21 +24,22 @@ export class PushNotificationService extends CrudService<
 > {
   constructor(
     @InjectRepository(PushNotification) pushNotificationService: Repository<PushNotification>,
-    @InjectMapper() mapper: Mapper,
   ) {
     const relationships = ["image"];
-    super(pushNotificationService, mapper, relationships);
+    super(pushNotificationService, relationships);
   }
 
   mappedGet = async (query: QueryFilter): Promise<PagedResult<PushNotificationDto>> => {
     const result = await this.get(query);
-    const mappedItems = await this.mapper.mapArrayAsync(
-      result.items,
-      PushNotification,
-      PushNotificationDto,
-    );
     return {
-      items: mappedItems,
+      items: result.items.map((notification) => ({
+        ...notification,
+        imageId: {
+          id: notification.image.id,
+          url: notification.image.url,
+          fileName: notification.image.fileName,
+        },
+      })),
       total: result.total,
     };
   };

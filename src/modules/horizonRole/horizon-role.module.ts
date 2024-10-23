@@ -1,7 +1,5 @@
 import { Module } from "@nestjs/common";
-import { classes } from "@automapper/classes";
 import { TypeOrmModule } from "@nestjs/typeorm";
-import { AutomapperModule } from "@automapper/nestjs";
 
 // controller
 import { HorizonRoleController } from "./horizon-role.controller";
@@ -10,19 +8,15 @@ import { HorizonRoleController } from "./horizon-role.controller";
 import { HorizonRoleService } from "./horizon-role.service";
 
 // entities
-import { HorizonRole } from "./horizon-role.entity";
+import { HorizonRole } from "./entities/horizon-role.entity";
 
 // automapper
-import { HorizonRoleAutomapper } from "./horizon-role.automapper";
-import { HorizonUser } from "../horizonUser/horizon-user.entity";
+import { HorizonUser } from "../horizonUser/entities/horizon-user.entity";
 
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([HorizonRole, HorizonUser]),
-    AutomapperModule.forRoot({ strategyInitializer: classes() }),
-  ],
+  imports: [TypeOrmModule.forFeature([HorizonRole, HorizonUser])],
   controllers: [HorizonRoleController],
-  providers: [HorizonRoleService, HorizonRoleAutomapper],
-  exports: [HorizonRoleService, HorizonRoleAutomapper],
+  providers: [HorizonRoleService],
+  exports: [HorizonRoleService],
 })
 export class HorizonRoleModule {}

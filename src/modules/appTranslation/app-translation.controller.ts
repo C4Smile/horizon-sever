@@ -11,10 +11,9 @@ import {
   UseGuards,
   UseInterceptors,
 } from "@nestjs/common";
-import { MapInterceptor } from "@automapper/nestjs";
 
 // entity
-import { AppTranslation } from "./app-translation.entity";
+import { AppTranslation } from "./entities/app-translation.entity";
 
 // utils
 import { PagedResult } from "src/modules/models/types";
@@ -37,14 +36,12 @@ export class AppTranslationController {
   constructor(private appTranslationService: AppTranslationService) {}
 
   @Get()
-  @UseInterceptors(MapInterceptor(AppTranslation, AppTranslationDto, { isArray: true }))
   get(@Query() query): Promise<PagedResult<AppTranslation>> {
     const { sort = "lastUpdate", order = "DESC", page = 0, count = 20 } = query;
     return this.appTranslationService.get({ sort, order, page, count });
   }
 
   @Get(":id")
-  @UseInterceptors(MapInterceptor(AppTranslation, AppTranslationDto, { isArray: true }))
   getById(@Param("id", ParseIntPipe) id: number) {
     return this.appTranslationService.getById(id);
   }

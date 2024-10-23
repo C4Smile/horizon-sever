@@ -1,5 +1,4 @@
 import { Column, Entity } from "typeorm";
-import { AutoMap } from "@automapper/classes";
 
 // entities
 import { Model } from "src/modules/models/model";
@@ -10,15 +9,12 @@ import { Model } from "src/modules/models/model";
  */
 @Entity({ name: "app-texts" })
 export class AppText extends Model {
-  @AutoMap()
-  @Column({ type: "text",  })
+  @Column({ type: "text" })
   title: string = "";
 
-  @AutoMap()
-  @Column({ type: "text",  })
+  @Column({ type: "text" })
   urlName: string = "";
 
-  @AutoMap()
   @Column({ type: "text" })
   content: string = "";
 }

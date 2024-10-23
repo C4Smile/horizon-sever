@@ -8,7 +8,7 @@ import { LangTranslationController } from "./lang-translation.controller";
 import { LangTranslationService } from "./lang-translation.service";
 
 // entity
-import { LangTranslation } from "./lang-translation.entity";
+import { LangTranslation } from "./entities/lang-translation.entity";
 
 @Module({
   imports: [TypeOrmModule.forFeature([LangTranslation])],

@@ -14,13 +14,10 @@ import { PushNotification } from "./push-notification.entity";
 // base
 import { CrudService } from "src/modules/models/service/CrudService";
 
-// automapper
-import { PushNotificationAutomapper } from "./push-notification.automapper";
-
 @Module({
   imports: [TypeOrmModule.forFeature([PushNotification])],
   controllers: [PushNotificationController],
-  providers: [Repository, Array, CrudService, PushNotificationService, PushNotificationAutomapper],
+  providers: [Repository, Array, CrudService, PushNotificationService],
   exports: [PushNotificationService],
 })
 export class PushNotificationModule {}

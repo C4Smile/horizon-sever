@@ -4,7 +4,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { FindOneOptions, Repository } from "typeorm";
 
 // entity
-import { LangTranslation } from "./lang-translation.entity";
+import { LangTranslation } from "./entities/lang-translation.entity";
 
 // dto
 import { LangTranslationDto } from "./dto/lang-translation.dto";

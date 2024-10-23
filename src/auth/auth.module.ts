@@ -8,7 +8,7 @@ import { HorizonUserModule } from "src/modules/horizonUser/horizon-user.module";
 
 // entity
 import { User } from "src/modules/user/user.entity";
-import { HorizonUser } from "src/modules/horizonUser/horizon-user.entity";
+import { HorizonUser } from "src/modules/horizonUser/entities/horizon-user.entity";
 
 // controller
 import { AuthController } from "./auth.controller";

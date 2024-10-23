@@ -11,7 +11,6 @@ import {
   UseGuards,
   UseInterceptors,
 } from "@nestjs/common";
-import { MapInterceptor } from "@automapper/nestjs";
 
 // entity
 import { PushNotification } from "./push-notification.entity";
@@ -40,7 +39,6 @@ export class PushNotificationController {
   }
 
   @Get(":id")
-  @UseInterceptors(MapInterceptor(PushNotification, PushNotificationDto, { isArray: true }))
   getById(@Param("id", ParseIntPipe) id: number) {
     return this.pushNotificationService.getById(id);
   }

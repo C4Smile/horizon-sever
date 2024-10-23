@@ -1,7 +1,5 @@
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
-import { InjectMapper } from "@automapper/nestjs";
 import { InjectRepository } from "@nestjs/typeorm";
-import { Mapper } from "@automapper/core";
 import { Repository } from "typeorm";
 
 // utils
@@ -12,12 +10,11 @@ import { CrudService } from "src/modules/models/service/CrudService";
 
 // entity
 import { Lang } from "../lang/lang.entity";
-import { App } from "src/modules/app/app.entity";
-import { AppTranslation } from "./app-translation.entity";
-import { LangTranslation } from "../langTranslation/lang-translation.entity";
+import { App } from "src/modules/app/entities/app.entity";
+import { AppTranslation } from "./entities/app-translation.entity";
+import { LangTranslation } from "../langTranslation/entities/lang-translation.entity";
 
 // dto
-import { AppTranslationDto } from "./dto/app-translation.dto";
 import { AddAppTranslationDto } from "./dto/add-app-translation.dto";
 import { UpdateAppTranslationDto } from "./dto/update-app-translation.dto";
 import { LangTranslationDto } from "../langTranslation/dto/lang-translation.dto";
@@ -29,14 +26,13 @@ export class AppTranslationService extends CrudService<
   UpdateAppTranslationDto
 > {
   constructor(
-    @InjectMapper() mapper: Mapper,
     @InjectRepository(AppTranslation) appTranslationService: Repository<AppTranslation>,
     @InjectRepository(App) private appService: Repository<App>,
     @InjectRepository(Lang) private langService: Repository<Lang>,
     @InjectRepository(LangTranslation) private langTranslationService: Repository<LangTranslation>,
   ) {
     const relationships = ["lang-translations"];
-    super(appTranslationService, mapper, relationships);
+    super(appTranslationService, relationships);
   }
 
   async getByApp(app: string, lang: string) {
@@ -78,7 +74,7 @@ export class AppTranslationService extends CrudService<
       },
       relations: ["langTranslations"],
     });
-    return this.mapper.mapArrayAsync(translations, AppTranslation, AppTranslationDto);
+    return translations;
   }
 
   async updateLangTranslation(langTranslation: LangTranslationDto) {

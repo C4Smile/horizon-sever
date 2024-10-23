@@ -11,10 +11,9 @@ import {
   UseGuards,
   UseInterceptors,
 } from "@nestjs/common";
-import { MapInterceptor } from "@automapper/nestjs";
 
 // entity
-import { HorizonRole } from "./horizon-role.entity";
+import { HorizonRole } from "./entities/horizon-role.entity";
 import { PagedResult } from "src/modules/models/types";
 
 // dto
@@ -33,14 +32,12 @@ export class HorizonRoleController {
   constructor(private HorizonRoleService: HorizonRoleService) {}
 
   @Get()
-  @UseInterceptors(MapInterceptor(HorizonRole, HorizonRoleDto, { isArray: true }))
   get(@Query() query): Promise<PagedResult<HorizonRoleDto>> {
     const { sort = "lastUpdate", order = "DESC", page = 0, count = 20 } = query;
     return this.HorizonRoleService.get({ sort, order, page, count });
   }
 
   @Get(":id")
-  @UseInterceptors(MapInterceptor(HorizonRole, HorizonRoleDto, { isArray: true }))
   getById(@Param("id", ParseIntPipe) id: number) {
     return this.HorizonRoleService.getById(id);
   }

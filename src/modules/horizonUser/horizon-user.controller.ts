@@ -11,10 +11,9 @@ import {
   UseGuards,
   UseInterceptors,
 } from "@nestjs/common";
-import { MapInterceptor } from "@automapper/nestjs";
 
 // entity
-import { HorizonUser } from "./horizon-user.entity";
+import { HorizonUser } from "./entities/horizon-user.entity";
 
 // entities
 import { PagedResult, QueryFilter } from "src/modules/models/types";
@@ -46,7 +45,6 @@ export class HorizonUserController {
   }
 
   @Get(":id")
-  @UseInterceptors(MapInterceptor(HorizonUser, HorizonUserDto, { isArray: true }))
   getById(@Param("id", ParseIntPipe) id: number) {
     return this.horizonUserService.getById(id);
   }

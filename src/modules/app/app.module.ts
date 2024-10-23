@@ -1,7 +1,5 @@
 import { Module } from "@nestjs/common";
-import { classes } from "@automapper/classes";
 import { TypeOrmModule } from "@nestjs/typeorm";
-import { AutomapperModule } from "@automapper/nestjs";
 
 // controller
 import { AppController } from "./app.controller";
@@ -10,18 +8,12 @@ import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
 
 // entities
-import { App } from "./app.entity";
-
-// automapper
-import { AppAutomapper } from "./app.automapper";
+import { App } from "./entities/app.entity";
 
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([App]),
-    AutomapperModule.forRoot({ strategyInitializer: classes() }),
-  ],
+  imports: [TypeOrmModule.forFeature([App])],
   controllers: [AppController],
-  providers: [AppService, AppAutomapper],
-  exports: [AppService, AppAutomapper],
+  providers: [AppService],
+  exports: [AppService],
 })
 export class AppsModule {}

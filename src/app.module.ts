@@ -1,6 +1,5 @@
 import { Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
-import { SequelizeModule } from "@nestjs/sequelize";
 import { ServeStaticModule } from "@nestjs/serve-static";
 
 import { join } from "path";
@@ -21,6 +20,10 @@ import { AppTranslationModule } from "./modules/appTranslation/app-translation.m
 import { AppsModule } from "./modules/app/app.module";
 import { LangsModule } from "./modules/lang/lang.module";
 import { LangTranslationModule } from "./modules/langTranslation/lang-translation.module";
+import { BuildingCostModule } from "./modules/buildingCost/building-cost.module";
+import { BuildingUpkeepModule } from "./modules/buildingUpkeep/building-upkeep.module";
+import { BuildingTechReqModule } from "./modules/buildingTechReq/building-tech-req.module";
+import { BuildingModule } from "./modules/building/building.module";
 
 // config
 import config from "./config/configuration";
@@ -53,6 +56,10 @@ import config from "./config/configuration";
     LangTranslationModule,
     PushNotificationModule,
     UserModule,
+    BuildingModule,
+    BuildingCostModule,
+    BuildingTechReqModule,
+    BuildingUpkeepModule,
   ],
   controllers: [AppController],
   providers: [AppService],

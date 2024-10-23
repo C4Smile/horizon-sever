@@ -1,7 +1,5 @@
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-import { InjectMapper } from "@automapper/nestjs";
-import { Mapper } from "@automapper/core";
 import { Repository } from "typeorm";
 import { hash } from "bcrypt";
 
@@ -10,7 +8,7 @@ import { CrudService } from "src/modules/models/service/CrudService";
 
 // entity
 import { User } from "../user/user.entity";
-import { HorizonUser } from "./horizon-user.entity";
+import { HorizonUser } from "./entities/horizon-user.entity";
 
 // utils
 import { QueryFilter, PagedResult } from "src/modules/models/types";
@@ -29,10 +27,9 @@ export class HorizonUserService extends CrudService<
   constructor(
     @InjectRepository(HorizonUser) horizonUserService: Repository<HorizonUser>,
     @InjectRepository(User) private readonly userService: Repository<User>,
-    @InjectMapper() mapper: Mapper,
   ) {
     const relationships = ["user", "role", "image"];
-    super(horizonUserService, mapper, relationships);
+    super(horizonUserService, relationships);
   }
 
   override async create(user: AddHorizonUserDto) {
@@ -58,9 +55,16 @@ export class HorizonUserService extends CrudService<
 
   mappedGet = async (query: QueryFilter): Promise<PagedResult<HorizonUserDto>> => {
     const result = await this.get(query);
-    const mappedItems = await this.mapper.mapArrayAsync(result.items, HorizonUser, HorizonUserDto);
     return {
-      items: mappedItems,
+      items: result.items.map((horizonUser) => ({
+        ...horizonUser,
+        roleId: {
+          ...horizonUser.role,
+        },
+        imageId: {
+          ...horizonUser.image,
+        },
+      })),
       total: result.total,
     };
   };

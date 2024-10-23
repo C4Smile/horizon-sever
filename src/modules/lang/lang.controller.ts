@@ -11,7 +11,6 @@ import {
   UseGuards,
   UseInterceptors,
 } from "@nestjs/common";
-import { MapInterceptor } from "@automapper/nestjs";
 
 // entity
 import { Lang } from "./lang.entity";
@@ -35,14 +34,12 @@ export class LangController {
   constructor(private roomStatusService: LangService) {}
 
   @Get()
-  @UseInterceptors(MapInterceptor(Lang, LangDto, { isArray: true }))
   get(@Query() query): Promise<PagedResult<LangDto>> {
     const { sort = "lastUpdate", order = "DESC", page = 0, count = 20 } = query;
     return this.roomStatusService.get({ sort, order, page, count });
   }
 
   @Get(":id")
-  @UseInterceptors(MapInterceptor(Lang, LangDto, { isArray: true }))
   getById(@Param("id", ParseIntPipe) id: number) {
     return this.roomStatusService.getById(id);
   }

@@ -3,7 +3,6 @@ import { Column, Entity, ManyToOne } from "typeorm";
 // entities
 import { Model } from "src/modules/models/model";
 import { Photo } from "src/modules/image/image.entity";
-import { AutoMap } from "@automapper/classes";
 
 /**
  * @class PushNotification
@@ -11,22 +10,18 @@ import { AutoMap } from "@automapper/classes";
  */
 @Entity({ name: "push-notification" })
 export class PushNotification extends Model {
-  @AutoMap()
-  @Column({ type: "text",  })
+  @Column({ type: "text" })
   title: string = "";
 
-  @AutoMap()
   @Column({ type: "text" })
   description: string = "";
 
-  @AutoMap()
   @Column({ type: "text" })
   action: string = "";
 
   @Column({ type: "int" })
   imageId: number = 0;
 
-  @AutoMap()
   @Column({
     nullable: true,
     type: "datetime",

@@ -9,12 +9,9 @@ import {
   Post,
   Query,
   UseGuards,
-  UseInterceptors,
 } from "@nestjs/common";
-import { MapInterceptor } from "@automapper/nestjs";
 
 // entity
-import { AppText } from "./app-text.entity";
 import { PagedResult } from "src/modules/models/types";
 
 // dto
@@ -33,14 +30,12 @@ export class AppTextController {
   constructor(private newsAppTextService: AppTextService) {}
 
   @Get()
-  @UseInterceptors(MapInterceptor(AppText, AppTextDto, { isArray: true }))
   get(@Query() query): Promise<PagedResult<AppTextDto>> {
     const { sort = "lastUpdate", order = "DESC", page = 0, count = 20 } = query;
     return this.newsAppTextService.get({ sort, order, page, count });
   }
 
   @Get(":id")
-  @UseInterceptors(MapInterceptor(AppText, AppTextDto, { isArray: true }))
   getById(@Param("id", ParseIntPipe) id: number) {
     return this.newsAppTextService.getById(id);
   }

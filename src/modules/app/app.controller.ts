@@ -11,10 +11,6 @@ import {
   UseGuards,
   UseInterceptors,
 } from "@nestjs/common";
-import { MapInterceptor } from "@automapper/nestjs";
-
-// entity
-import { App } from "./app.entity";
 
 // utils
 import { PagedResult } from "src/modules/models/types";
@@ -35,14 +31,12 @@ export class AppController {
   constructor(private roomStatusService: AppService) {}
 
   @Get()
-  @UseInterceptors(MapInterceptor(App, AppDto, { isArray: true }))
   get(@Query() query): Promise<PagedResult<AppDto>> {
     const { sort = "lastUpdate", order = "DESC", page = 0, count = 20 } = query;
     return this.roomStatusService.get({ sort, order, page, count });
   }
 
   @Get(":id")
-  @UseInterceptors(MapInterceptor(App, AppDto, { isArray: true }))
   getById(@Param("id", ParseIntPipe) id: number) {
     return this.roomStatusService.getById(id);
   }

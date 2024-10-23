@@ -1,6 +1,4 @@
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
-import { InjectMapper } from "@automapper/nestjs";
-import { Mapper } from "@automapper/core";
 import { FindOptionsOrder, Repository } from "typeorm";
 
 // dto
@@ -9,15 +7,12 @@ import { PagedResult, QueryFilter } from "../types";
 @Injectable()
 export class CrudService<Entity, AddDto, UpdateDto> {
   protected entityService: Repository<Entity>;
-  protected mapper: Mapper;
   protected relationships: string[];
 
   constructor(
     entityService: Repository<Entity>,
-    @InjectMapper() mapper: Mapper,
     relationships?: string[],
   ) {
-    this.mapper = mapper;
     this.entityService = entityService;
     this.relationships = relationships;
   }

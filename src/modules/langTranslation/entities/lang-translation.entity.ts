@@ -1,9 +1,9 @@
-import { AutoMap } from "@automapper/classes";
 import { Column, Entity, ManyToOne, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
 
 // entity
-import { Lang } from "../lang/lang.entity";
-import { AppTranslation } from "src/modules/appTranslation/app-translation.entity";
+import { Lang } from "src/modules/lang/lang.entity";
+import { AppTranslation } from "src/modules/appTranslation/entities/app-translation.entity";
+
 
 /**
  * @class LangTranslation
@@ -11,7 +11,6 @@ import { AppTranslation } from "src/modules/appTranslation/app-translation.entit
  */
 @Entity({ name: "lang-translations" })
 export class LangTranslation {
-  @AutoMap()
   @PrimaryColumn({ type: "int" })
   langId: number;
 
@@ -20,17 +19,14 @@ export class LangTranslation {
   })
   lang: Lang;
 
-  @AutoMap()
   @PrimaryColumn({ type: "int" })
   appTranslationId: number;
 
-  @AutoMap()
   @ManyToOne(() => AppTranslation, (appTranslation) => appTranslation.langTranslations, {
     cascade: true,
   })
   appTranslation: AppTranslation;
 
-  @AutoMap()
   @Column({ type: "text" })
   content: string;
 }

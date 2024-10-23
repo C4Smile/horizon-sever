@@ -6,7 +6,7 @@ import { hash, compare } from "bcrypt";
 
 // entity
 import { User } from "src/modules/user/user.entity";
-import { HorizonUser } from "src/modules/horizonUser/horizon-user.entity";
+import { HorizonUser } from "src/modules/horizonUser/entities/horizon-user.entity";
 
 // dto
 import { LoginUserDto } from "./dto/login-user.dto";

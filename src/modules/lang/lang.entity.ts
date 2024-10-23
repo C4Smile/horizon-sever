@@ -1,9 +1,8 @@
-import { Column, Entity, ManyToOne, OneToMany } from "typeorm";
-import { AutoMap } from "@automapper/classes";
+import { Column, Entity, OneToMany } from "typeorm";
 
 // entities
 import { Model } from "src/modules/models/model";
-import { LangTranslation } from "../langTranslation/lang-translation.entity";
+import { LangTranslation } from "../langTranslation/entities/lang-translation.entity";
 
 /**
  * @class Lang
@@ -11,15 +10,12 @@ import { LangTranslation } from "../langTranslation/lang-translation.entity";
  */
 @Entity({ name: "lang" })
 export class Lang extends Model {
-  @AutoMap()
-  @Column({ type: "text",  })
+  @Column({ type: "text" })
   name: string = "";
 
-  @AutoMap()
-  @Column({ type: "text",  })
+  @Column({ type: "text" })
   code: string = "";
 
-  @AutoMap()
   @OneToMany(() => LangTranslation, (langTranslation) => langTranslation.lang)
   langTranslations: LangTranslation[];
 }
