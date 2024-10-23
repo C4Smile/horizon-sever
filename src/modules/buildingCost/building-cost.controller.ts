@@ -25,7 +25,7 @@ import { UpdateBuildingCostDto } from "./dto/update-building-cost.dto";
 // guard
 import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
 
-@Controller("appText")
+@Controller("buildingCost")
 export class BuildingCostController {
   constructor(private newsBuildingCostService: BuildingCostService) {}
 

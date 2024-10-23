@@ -25,7 +25,7 @@ import { BuildingUpkeepService } from "./building-upkeep.service";
 // guard
 import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
 
-@Controller("appText")
+@Controller("buildingUpkeep")
 export class BuildingUpkeepController {
   constructor(private newsBuildingUpkeepService: BuildingUpkeepService) {}
 

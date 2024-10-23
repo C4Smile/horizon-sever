@@ -25,7 +25,7 @@ import { UpdateBuildingDto } from "./dto/update-building.dto";
 // guard
 import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
 
-@Controller("appText")
+@Controller("building")
 export class BuildingController {
   constructor(private newsBuildingService: BuildingService) {}
 

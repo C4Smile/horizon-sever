@@ -25,7 +25,7 @@ import { BuildingTechReqService } from "./building-tech-req.service";
 // guard
 import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
 
-@Controller("appText")
+@Controller("buildingTechReq")
 export class BuildingTechReqController {
   constructor(private newsBuildingTechReqService: BuildingTechReqService) {}
 
