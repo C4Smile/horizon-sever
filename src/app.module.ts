@@ -27,6 +27,7 @@ import { BuildingModule } from "./modules/building/building.module";
 
 // config
 import config from "./config/configuration";
+import { ResourceModule } from "./modules/resource/resource.module";
 
 @Module({
   imports: [
@@ -60,6 +61,7 @@ import config from "./config/configuration";
     BuildingCostModule,
     BuildingTechReqModule,
     BuildingUpkeepModule,
+    ResourceModule,
   ],
   controllers: [AppController],
   providers: [AppService],
