@@ -1,4 +1,7 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+
+// entities
+import { Building } from "src/modules/building/entities/building.entity";
 
 @Entity({ name: "building-tech-req" })
 export class BuildingTechReq {
@@ -13,4 +16,7 @@ export class BuildingTechReq {
 
   @Column({ type: "int" })
   level: number;
+
+  @ManyToOne(() => Building, (building) => building.techRequirements, { cascade: true })
+  building: Building[];
 }
