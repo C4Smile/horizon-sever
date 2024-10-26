@@ -10,6 +10,9 @@ export class Resource extends Model {
   name: string = "";
 
   @Column({ type: "int" })
+  imageId: number;
+
+  @Column({ type: "int" })
   baseFactor: number = 0;
 
   @Column({ type: "text" })
