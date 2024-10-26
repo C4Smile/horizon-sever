@@ -14,7 +14,7 @@ import { UpdateBuildingDto } from "./dto/update-building.dto";
 
 @Injectable()
 export class BuildingService extends CrudService<Building, AddBuildingDto, UpdateBuildingDto> {
-  constructor(@InjectRepository(Building) appTextService: Repository<Building>) {
-    super(appTextService);
+  constructor(@InjectRepository(Building) buildingService: Repository<Building>) {
+    super(buildingService);
   }
 }

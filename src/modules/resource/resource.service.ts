@@ -14,7 +14,7 @@ import { UpdateResourceDto } from "./dto/update-resource.dto";
 
 @Injectable()
 export class ResourceService extends CrudService<Resource, AddResourceDto, UpdateResourceDto> {
-  constructor(@InjectRepository(Resource) appTextService: Repository<Resource>) {
-    super(appTextService);
+  constructor(@InjectRepository(Resource) resourceService: Repository<Resource>) {
+    super(resourceService);
   }
 }

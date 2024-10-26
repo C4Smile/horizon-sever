@@ -25,7 +25,7 @@ import { ResourceService } from "./resource.service";
 // guard
 import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
 
-@Controller("appText")
+@Controller("resource")
 export class ResourceController {
   constructor(private newsResourceService: ResourceService) {}
 

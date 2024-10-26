@@ -18,7 +18,7 @@ export class BuildingTechReqService extends CrudService<
   AddBuildingTechReqDto,
   UpdateBuildingTechReqDto
 > {
-  constructor(@InjectRepository(BuildingTechReq) appTextService: Repository<BuildingTechReq>) {
-    super(appTextService);
+  constructor(@InjectRepository(BuildingTechReq) buildingTechReqService: Repository<BuildingTechReq>) {
+    super(buildingTechReqService);
   }
 }

@@ -14,7 +14,7 @@ import { UpdateBuildingCostDto } from "./dto/update-building-cost.dto";
 
 @Injectable()
 export class BuildingCostService extends CrudService<BuildingCost, AddBuildingCostDto, UpdateBuildingCostDto> {
-  constructor(@InjectRepository(BuildingCost) appTextService: Repository<BuildingCost>) {
-    super(appTextService);
+  constructor(@InjectRepository(BuildingCost) buildingCostService: Repository<BuildingCost>) {
+    super(buildingCostService);
   }
 }

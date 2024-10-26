@@ -18,7 +18,7 @@ export class BuildingUpkeepService extends CrudService<
   AddBuildingUpkeepDto,
   UpdateBuildingUpkeepDto
 > {
-  constructor(@InjectRepository(BuildingUpkeep) appTextService: Repository<BuildingUpkeep>) {
-    super(appTextService);
+  constructor(@InjectRepository(BuildingUpkeep) buildingUpkeepService: Repository<BuildingUpkeep>) {
+    super(buildingUpkeepService);
   }
 }
