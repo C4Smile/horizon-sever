@@ -5,6 +5,7 @@ import { Model } from "src/modules/models/model";
 import { BuildingCost } from "src/modules/buildingCost/entities/building-cost.entity";
 import { BuildingTechReq } from "src/modules/buildingTechReq/entities/building-tech-req.entity";
 import { BuildingUpkeep } from "src/modules/buildingUpkeep/entities/building-upkeep.entity";
+import { BuildingProduce } from "src/modules/buildingProduce/entities/building-produce.entity";
 
 @Entity({ name: "buildings" })
 export class Building extends Model {
@@ -31,4 +32,7 @@ export class Building extends Model {
 
   @OneToMany(() => BuildingUpkeep, (upkeep) => upkeep.building)
   upkeeps: BuildingUpkeep[];
+
+  @OneToMany(() => BuildingProduce, (production) => production.building)
+  produces: BuildingProduce;
 }
