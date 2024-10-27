@@ -18,5 +18,5 @@ export class BuildingReqTech {
   level: number;
 
   @ManyToOne(() => Building, (building) => building.techRequirements, { cascade: true })
-  building: Building[];
+  building: Building;
 }
