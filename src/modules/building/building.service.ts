@@ -15,6 +15,7 @@ import { UpdateBuildingDto } from "./dto/update-building.dto";
 @Injectable()
 export class BuildingService extends CrudService<Building, AddBuildingDto, UpdateBuildingDto> {
   constructor(@InjectRepository(Building) buildingService: Repository<Building>) {
-    super(buildingService);
+    const relationships = ["image"];
+    super(buildingService, relationships);
   }
 }

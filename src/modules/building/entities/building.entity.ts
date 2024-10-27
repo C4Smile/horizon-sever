@@ -1,4 +1,4 @@
-import { Column, Entity, OneToMany } from "typeorm";
+import { Column, Entity, ManyToOne, OneToMany } from "typeorm";
 
 // dto
 import { Model } from "src/modules/models/model";
@@ -6,6 +6,7 @@ import { BuildingCost } from "src/modules/buildingCost/entities/building-cost.en
 import { BuildingTechReq } from "src/modules/buildingTechReq/entities/building-tech-req.entity";
 import { BuildingUpkeep } from "src/modules/buildingUpkeep/entities/building-upkeep.entity";
 import { BuildingProduce } from "src/modules/buildingProduce/entities/building-produce.entity";
+import { Photo } from "src/modules/image/image.entity";
 
 @Entity({ name: "buildings" })
 export class Building extends Model {
@@ -35,4 +36,7 @@ export class Building extends Model {
 
   @OneToMany(() => BuildingProduce, (production) => production.building)
   produces: BuildingProduce;
+
+  @ManyToOne(() => Photo)
+  image: Photo;
 }
