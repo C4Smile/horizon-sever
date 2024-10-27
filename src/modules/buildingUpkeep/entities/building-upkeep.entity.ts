@@ -15,7 +15,10 @@ export class BuildingUpkeep {
   resourceId: number;
 
   @Column({ type: "float" })
-  cost: number;
+  factor: number;
+
+  @Column({ type: "float" })
+  baseUpkeep: number;
 
   @ManyToOne(() => Building, (building) => building.upkeeps, { cascade: true })
   building: Building;

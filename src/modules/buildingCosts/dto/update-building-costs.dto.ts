@@ -1,7 +1,7 @@
-export type UpdateBuildingUpkeepDto = {
+export interface UpdateBuildingCostsDto {
   id: number;
   buildingId: number;
   resourceId: number;
   factor: number;
-  baseUpkeep: number;
-};
+  baseCost: number;
+}

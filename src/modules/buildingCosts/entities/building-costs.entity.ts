@@ -5,7 +5,7 @@ import { Building } from "src/modules/building/entities/building.entity";
 import { Resource } from "src/modules/resource/entities/resource.entity";
 
 @Entity({ name: "building-cost" })
-export class BuildingCost {
+export class BuildingCosts {
   @PrimaryGeneratedColumn("increment")
   id: number;
 
@@ -16,7 +16,10 @@ export class BuildingCost {
   resourceId: number;
 
   @Column({ type: "float" })
-  cost: number;
+  factor: number;
+
+  @Column({ type: "float" })
+  baseCost: number;
 
   @ManyToOne(() => Building, (building) => building.costs, { cascade: true })
   building: Building;

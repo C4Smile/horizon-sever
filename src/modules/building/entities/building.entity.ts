@@ -2,10 +2,10 @@ import { Column, Entity, ManyToOne, OneToMany } from "typeorm";
 
 // dto
 import { Model } from "src/modules/models/model";
-import { BuildingCost } from "src/modules/buildingCost/entities/building-cost.entity";
+import { BuildingCosts } from "src/modules/buildingCosts/entities/building-costs.entity";
 import { BuildingTechReq } from "src/modules/buildingTechReq/entities/building-tech-req.entity";
 import { BuildingUpkeep } from "src/modules/buildingUpkeep/entities/building-upkeep.entity";
-import { BuildingProduce } from "src/modules/buildingProduce/entities/building-produce.entity";
+import { BuildingProduce } from "src/modules/buildingProduces/entities/building-produces.entity";
 import { Photo } from "src/modules/image/image.entity";
 
 @Entity({ name: "buildings" })
@@ -16,17 +16,11 @@ export class Building extends Model {
   @Column({ type: "int" })
   imageId: number;
 
-  @Column({ type: "int" })
-  baseFactor: number = 0;
-
-  @Column({ type: "int" })
-  baseUpkeep: number = 0;
-
   @Column({ type: "text" })
   description: string = "";
 
-  @OneToMany(() => BuildingCost, (cost) => cost.building)
-  costs: BuildingCost[];
+  @OneToMany(() => BuildingCosts, (cost) => cost.building)
+  costs: BuildingCosts[];
 
   @OneToMany(() => BuildingTechReq, (techReq) => techReq.building)
   techRequirements: BuildingTechReq[];
