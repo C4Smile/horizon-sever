@@ -2,6 +2,7 @@ import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 // entities
 import { Building } from "src/modules/building/entities/building.entity";
+import { Resource } from "src/modules/resource/entities/resource.entity";
 
 @Entity({ name: "building-upkeep" })
 export class BuildingUpkeep {
@@ -22,4 +23,7 @@ export class BuildingUpkeep {
 
   @ManyToOne(() => Building, (building) => building.upkeeps, { cascade: true })
   building: Building;
+
+  @ManyToOne(() => Resource, (resource) => resource.buildingsUpkeepThis, { cascade: true })
+  resource: Resource;
 }

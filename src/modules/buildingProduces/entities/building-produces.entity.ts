@@ -2,6 +2,7 @@ import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 // entities
 import { Building } from "src/modules/building/entities/building.entity";
+import { Resource } from "src/modules/resource/entities/resource.entity";
 
 @Entity({ name: "building-produce" })
 export class BuildingProduces {
@@ -21,5 +22,8 @@ export class BuildingProduces {
   baseProduction: number;
 
   @ManyToOne(() => Building, (building) => building.produces, { cascade: true })
-  building: Building[];
+  building: Building;
+
+  @ManyToOne(() => Resource, (resource) => resource.buildingsProduceThis, { cascade: true })
+  resource: Resource;
 }
