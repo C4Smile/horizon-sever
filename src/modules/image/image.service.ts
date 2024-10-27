@@ -27,12 +27,12 @@ export class ImageService {
 
     const base64Data = base64.replace(`data:image\/${ext};base64,`, "");
 
-    if (!existsSync(join(__dirname, "../../", `public/images`)))
-      mkdirSync(join(__dirname, "../../", `public/images`));
-    if (!existsSync(join(__dirname, "../../", `public/images/${folder}`)))
-      mkdirSync(join(__dirname, "../../", `public/images/${folder}`));
+    if (!existsSync(join(__dirname, "../../../", `public/images`)))
+      mkdirSync(join(__dirname, "../../../", `public/images`));
+    if (!existsSync(join(__dirname, "../../../", `public/images/${folder}`)))
+      mkdirSync(join(__dirname, "../../../", `public/images/${folder}`));
     writeFileSync(
-      join(__dirname, "../../", `public/images/${folder}/${slugFileName}.${ext}`),
+      join(__dirname, "../../../", `public/images/${folder}/${slugFileName}.${ext}`),
       base64Data,
       "base64",
     );
