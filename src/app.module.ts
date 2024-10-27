@@ -24,6 +24,7 @@ import { BuildingCostModule } from "./modules/buildingCost/building-cost.module"
 import { BuildingUpkeepModule } from "./modules/buildingUpkeep/building-upkeep.module";
 import { BuildingTechReqModule } from "./modules/buildingTechReq/building-tech-req.module";
 import { BuildingModule } from "./modules/building/building.module";
+import { TechTypeModule } from "./modules/techType/tech-type.module";
 
 // config
 import config from "./config/configuration";
@@ -62,6 +63,7 @@ import { ResourceModule } from "./modules/resource/resource.module";
     BuildingTechReqModule,
     BuildingUpkeepModule,
     ResourceModule,
+    TechTypeModule
   ],
   controllers: [AppController],
   providers: [AppService],
