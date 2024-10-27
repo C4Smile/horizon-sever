@@ -20,16 +20,18 @@ import { AppTranslationModule } from "./modules/appTranslation/app-translation.m
 import { AppsModule } from "./modules/app/app.module";
 import { LangsModule } from "./modules/lang/lang.module";
 import { LangTranslationModule } from "./modules/langTranslation/lang-translation.module";
-import { BuildingCostModule } from "./modules/buildingCost/building-cost.module";
+import { BuildingCostsModule } from "./modules/buildingCosts/building-costs.module";
 import { BuildingUpkeepModule } from "./modules/buildingUpkeep/building-upkeep.module";
-import { BuildingTechReqModule } from "./modules/buildingTechReq/building-tech-req.module";
+import { BuildingReqTechModule } from "./modules/buildingReqTech/building-req-tech.module";
 import { BuildingModule } from "./modules/building/building.module";
 import { TechTypeModule } from "./modules/techType/tech-type.module";
+import { TechModule } from "./modules/tech/tech.module";
+import { TechCostsModule } from "./modules/techCosts/tech-costs.module";
+import { TechProducesModule } from "./modules/techProduces/tech-produces.module";
+import { ResourceModule } from "./modules/resource/resource.module";
 
 // config
 import config from "./config/configuration";
-import { ResourceModule } from "./modules/resource/resource.module";
-import { TechModule } from "./modules/tech/tech.module";
 
 @Module({
   imports: [
@@ -60,12 +62,14 @@ import { TechModule } from "./modules/tech/tech.module";
     PushNotificationModule,
     UserModule,
     BuildingModule,
-    BuildingCostModule,
-    BuildingTechReqModule,
+    BuildingCostsModule,
+    BuildingReqTechModule,
     BuildingUpkeepModule,
     ResourceModule,
     TechModule,
-    TechTypeModule
+    TechCostsModule,
+    TechProducesModule,
+    TechTypeModule,
   ],
   controllers: [AppController],
   providers: [AppService],

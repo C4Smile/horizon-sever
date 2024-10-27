@@ -4,7 +4,7 @@ import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Building } from "src/modules/building/entities/building.entity";
 
 @Entity({ name: "building-tech-req" })
-export class BuildingTechReq {
+export class BuildingReqTech {
   @PrimaryGeneratedColumn("increment")
   id: number;
 
@@ -12,7 +12,7 @@ export class BuildingTechReq {
   buildingId: number;
 
   @Column({ type: "int" })
-  techId: number;
+  techReqId: number;
 
   @Column({ type: "int" })
   level: number;
