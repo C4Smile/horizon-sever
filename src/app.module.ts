@@ -29,6 +29,7 @@ import { TechTypeModule } from "./modules/techType/tech-type.module";
 // config
 import config from "./config/configuration";
 import { ResourceModule } from "./modules/resource/resource.module";
+import { TechModule } from "./modules/tech/tech.module";
 
 @Module({
   imports: [
@@ -63,6 +64,7 @@ import { ResourceModule } from "./modules/resource/resource.module";
     BuildingTechReqModule,
     BuildingUpkeepModule,
     ResourceModule,
+    TechModule,
     TechTypeModule
   ],
   controllers: [AppController],
