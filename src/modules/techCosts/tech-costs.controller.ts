@@ -11,16 +11,11 @@ import {
   UseGuards,
 } from "@nestjs/common";
 
-// entity
-import { PagedResult } from "src/modules/models/types";
-
 // dto
-import { TechCostsDto } from "./dto/tech-costs.dto";
 import { AddTechCostsDto } from "./dto/add-tech-costs.dto";
 
 // services
 import { TechCostsService } from "./tech-costs.service";
-import { UpdateTechCostsDto } from "./dto/update-tech-costs.dto";
 
 // guard
 import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
