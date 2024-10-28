@@ -29,38 +29,20 @@ import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
 export class TechCostsController {
   constructor(private newsTechCostsService: TechCostsService) {}
 
-  @Get()
-  get(@Query() query): Promise<PagedResult<TechCostsDto>> {
-    const { sort = "lastUpdate", order = "DESC", page = 0, count = 20 } = query;
-    return this.newsTechCostsService.get({ sort, order, page, count });
-  }
-
   @Get(":id")
-  getById(@Param("id", ParseIntPipe) id: number) {
-    return this.newsTechCostsService.getById(id);
+  getByTechId(@Param("id", ParseIntPipe) id: number) {
+    return this.newsTechCostsService.getByTechId(id);
   }
 
   @UseGuards(JwtAuthGuard)
-  @Post()
-  create(@Body() newTechCosts: AddTechCostsDto) {
-    return this.newsTechCostsService.create(newTechCosts);
+  @Post(":id")
+  create(@Param("id", ParseIntPipe) id: number, @Body() newTechCosts: AddTechCostsDto[]) {
+    return this.newsTechCostsService.create(id, newTechCosts);
   }
 
   @UseGuards(JwtAuthGuard)
   @Delete()
   remove(@Body() ids: number[]) {
     return this.newsTechCostsService.remove(ids);
-  }
-
-  @UseGuards(JwtAuthGuard)
-  @Patch("restore")
-  restore(@Body() ids: number[]) {
-    return this.newsTechCostsService.restore(ids);
-  }
-
-  @UseGuards(JwtAuthGuard)
-  @Patch(":id")
-  update(@Param("id", ParseIntPipe) id: number, @Body() data: UpdateTechCostsDto) {
-    return this.newsTechCostsService.update(id, data);
   }
 }
