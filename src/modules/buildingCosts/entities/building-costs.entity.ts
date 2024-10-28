@@ -4,7 +4,7 @@ import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Building } from "src/modules/building/entities/building.entity";
 import { Resource } from "src/modules/resource/entities/resource.entity";
 
-@Entity({ name: "building-cost" })
+@Entity({ name: "building-costs" })
 export class BuildingCosts {
   @PrimaryGeneratedColumn("increment")
   id: number;
