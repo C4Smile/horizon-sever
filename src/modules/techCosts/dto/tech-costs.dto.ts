@@ -3,5 +3,5 @@ export interface TechCostsDto {
   techId: number;
   resourceId: number;
   factor: number;
-  baseCost: number;
+  base: number;
 }

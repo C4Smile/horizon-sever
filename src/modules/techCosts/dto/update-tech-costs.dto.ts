@@ -3,5 +3,5 @@ export interface UpdateTechCostsDto {
   techId: number;
   resourceId: number;
   factor: number;
-  baseCost: number;
+  base: number;
 }

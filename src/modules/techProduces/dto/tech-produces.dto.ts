@@ -1,7 +1,7 @@
 export interface TechProducesDto {
   id: number;
   factor: number;
-  baseProduction: number;
+  base: number;
   techId: number;
   resourceId: number;
 }

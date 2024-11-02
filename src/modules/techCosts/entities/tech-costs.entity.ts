@@ -19,7 +19,7 @@ export class TechCosts {
   factor: number;
 
   @Column({ type: "float" })
-  baseCost: number;
+  base: number;
 
   @ManyToOne(() => Tech, (tech) => tech.costs, { cascade: true })
   tech: Tech;
