@@ -20,7 +20,7 @@ import { TechProducesService } from "./tech-produces.service";
 // guard
 import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
 
-@Controller("techProduce")
+@Controller("techProduces")
 export class TechProducesController {
   constructor(private newsTechCostsService: TechProducesService) {}
 

@@ -4,7 +4,7 @@ import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Tech } from "src/modules/tech/entities/tech.entity";
 import { Resource } from "src/modules/resource/entities/resource.entity";
 
-@Entity({ name: "tech-produce" })
+@Entity({ name: "tech-produces" })
 export class TechProduces {
   @PrimaryGeneratedColumn("increment")
   id: number;
