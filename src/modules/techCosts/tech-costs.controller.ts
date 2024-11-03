@@ -26,7 +26,7 @@ export class TechCostsController {
 
   @Get(":id")
   getByTechId(@Param("id", ParseIntPipe) id: number) {
-    return this.newsTechCostsService.getByTechId(id);
+    return this.newsTechCostsService.getByEntityId(id);
   }
 
   @UseGuards(JwtAuthGuard)

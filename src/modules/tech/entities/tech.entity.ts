@@ -6,7 +6,7 @@ import { Photo } from "src/modules/image/image.entity";
 import { TechType } from "src/modules/techType/entities/tech-type.entity";
 import { TechCosts } from "src/modules/techCosts/entities/tech-costs.entity";
 import { TechProduces } from "src/modules/techProduces/entities/tech-produces.entity";
-import { TechReqTech } from "src/modules/techReqTechs/entities/tech-req-techs.entity";
+import { TechReqTechs } from "src/modules/techReqTechs/entities/tech-req-techs.entity";
 import { BuildingReqTech } from "src/modules/buildingReqTech/entities/building-req-tech.entity";
 import { Building } from "src/modules/building/entities/building.entity";
 
@@ -39,8 +39,8 @@ export class Tech extends Model {
   @OneToMany(() => TechCosts, (cost) => cost.tech)
   costs: TechCosts[];
 
-  @OneToMany(() => TechReqTech, (techReq) => techReq.tech)
-  techRequirements: TechReqTech[];
+  @OneToMany(() => TechReqTechs, (techReq) => techReq.tech)
+  techRequirements: TechReqTechs[];
 
   @OneToMany(() => BuildingReqTech, (building) => building.tech)
   buildingsRequireThis: Building[];
