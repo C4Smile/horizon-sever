@@ -6,7 +6,7 @@ import { Photo } from "src/modules/image/image.entity";
 import { TechType } from "src/modules/techType/entities/tech-type.entity";
 import { TechCosts } from "src/modules/techCosts/entities/tech-costs.entity";
 import { TechProduces } from "src/modules/techProduces/entities/tech-produces.entity";
-import { TechReqTech } from "src/modules/techReqTech/entities/tech-req-tech.entity";
+import { TechReqTech } from "src/modules/techReqTechs/entities/tech-req-techs.entity";
 import { BuildingReqTech } from "src/modules/buildingReqTech/entities/building-req-tech.entity";
 import { Building } from "src/modules/building/entities/building.entity";
 

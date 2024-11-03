@@ -1,4 +1,4 @@
-export interface UpdateTechReqTechDto {
+export interface UpdateTechReqTechsDto {
   id: number;
   techId: number;
   techReqId: number;

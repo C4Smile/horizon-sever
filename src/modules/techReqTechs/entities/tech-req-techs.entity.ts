@@ -3,8 +3,8 @@ import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 // entities
 import { Tech } from "src/modules/tech/entities/tech.entity";
 
-@Entity({ name: "building-tech-req" })
-export class TechReqTech {
+@Entity({ name: "tech-req-techs" })
+export class TechReqTechs {
   @PrimaryGeneratedColumn("increment")
   id: number;
 

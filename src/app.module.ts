@@ -28,7 +28,7 @@ import { TechTypeModule } from "./modules/techType/tech-type.module";
 import { TechModule } from "./modules/tech/tech.module";
 import { TechCostsModule } from "./modules/techCosts/tech-costs.module";
 import { TechProducesModule } from "./modules/techProduces/tech-produces.module";
-import { TechReqTechModule } from "./modules/techReqTech/tech-req-tech.module";
+import { TechReqTechModule } from "./modules/techReqTechs/tech-req-tech.module";
 import { TechReqBuildingModule } from "./modules/techReqBuilding/tech-req-building.module";
 import { ResourceModule } from "./modules/resource/resource.module";
 

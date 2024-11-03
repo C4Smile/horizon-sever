@@ -1,4 +1,4 @@
-export interface TechReqTechDto {
+export interface TechReqTechsDto {
   id: number;
   techId: number;
   techReqId: number;
