@@ -18,6 +18,6 @@ export class TechReqTechService extends CrudManyService<
 > {
   constructor(@InjectRepository(TechReqTechs) techCostsService: Repository<TechReqTechs>) {
     const relationships = ["tech"];
-    super(techCostsService, "techId", relationships);
+    super(techCostsService, "techId","techRedId", relationships);
   }
 }

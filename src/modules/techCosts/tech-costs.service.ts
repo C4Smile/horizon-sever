@@ -11,13 +11,9 @@ import { UpdateTechCostsDto } from "./dto/update-tech-costs.dto";
 import { CrudManyService } from "../models/service/CrudManyService";
 
 @Injectable()
-export class TechCostsService extends CrudManyService<
-  TechCosts,
-  AddTechCostsDto,
-  UpdateTechCostsDto
-> {
+export class TechCostsService extends CrudManyService<TechCosts, AddTechCostsDto, UpdateTechCostsDto> {
   constructor(@InjectRepository(TechCosts) techCostsService: Repository<TechCosts>) {
-    const relationships = ["tech"];
-    super(techCostsService, "techId", relationships);
+    const relationships = ["tech", "resource"];
+    super(techCostsService, "techId", "resourceId", relationships);
   }
 }

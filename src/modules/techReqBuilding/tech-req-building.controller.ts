@@ -1,23 +1,7 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  Param,
-  ParseIntPipe,
-  Patch,
-  Post,
-  Query,
-  UseGuards,
-} from "@nestjs/common";
-
-// entity
-import { PagedResult } from "src/modules/models/types";
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, UseGuards } from "@nestjs/common";
 
 // dto
-import { TechReqBuildingDto } from "./dto/tech-req-building.dto";
 import { AddTechReqBuildingDto } from "./dto/add-tech-req-building.dto";
-import { UpdateTechReqBuildingDto } from "./dto/update-tech-req-building.dto";
 
 // services
 import { TechReqBuildingService } from "./tech-req-building.service";
@@ -25,42 +9,33 @@ import { TechReqBuildingService } from "./tech-req-building.service";
 // guard
 import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
 
-@Controller("TechReqBuilding")
+@Controller("reqBuildings")
 export class TechReqBuildingController {
-  constructor(private newsTechReqBuildingService: TechReqBuildingService) {}
-
-  @Get()
-  get(@Query() query): Promise<PagedResult<TechReqBuildingDto>> {
-    const { sort = "lastUpdate", order = "DESC", page = 0, count = 20 } = query;
-    return this.newsTechReqBuildingService.get({ sort, order, page, count });
-  }
+  constructor(private newsReqBuildingService: TechReqBuildingService) {}
 
   @Get(":id")
-  getById(@Param("id", ParseIntPipe) id: number) {
-    return this.newsTechReqBuildingService.getById(id);
+  getByTechId(@Param("id", ParseIntPipe) id: number) {
+    return this.newsReqBuildingService.getByEntityId(id);
   }
 
   @UseGuards(JwtAuthGuard)
-  @Post()
-  create(@Body() newTechReqBuilding: AddTechReqBuildingDto) {
-    return this.newsTechReqBuildingService.create(newTechReqBuilding);
+  @Post(":id")
+  create(@Param("id", ParseIntPipe) id: number, @Body() newTechReqBuilding: AddTechReqBuildingDto) {
+    return this.newsReqBuildingService.create(id, newTechReqBuilding);
   }
 
   @UseGuards(JwtAuthGuard)
   @Delete()
-  remove(@Body() ids: number[]) {
-    return this.newsTechReqBuildingService.remove(ids);
+  remove(@Param("id", ParseIntPipe) id: number, @Body() ids: number[]) {
+    return this.newsReqBuildingService.remove(id, ids);
   }
 
   @UseGuards(JwtAuthGuard)
-  @Patch("restore")
-  restore(@Body() ids: number[]) {
-    return this.newsTechReqBuildingService.restore(ids);
-  }
-
-  @UseGuards(JwtAuthGuard)
-  @Patch(":id")
-  update(@Param("id", ParseIntPipe) id: number, @Body() data: UpdateTechReqBuildingDto) {
-    return this.newsTechReqBuildingService.update(id, data);
+  @Delete(":entityId/:remoteId")
+  removeSingle(
+    @Param("entityId", ParseIntPipe) entityId: number,
+    @Param("remoteId", ParseIntPipe) remoteId: number,
+  ) {
+    return this.newsReqBuildingService.removeSingle(entityId, remoteId);
   }
 }

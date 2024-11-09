@@ -31,13 +31,22 @@ export class TechCostsController {
 
   @UseGuards(JwtAuthGuard)
   @Post(":id")
-  create(@Param("id", ParseIntPipe) id: number, @Body() newTechCosts: AddTechCostsDto[]) {
-    return this.newsTechCostsService.create(id, newTechCosts);
+  create(@Param("id", ParseIntPipe) id: number, @Body() newTechCost: AddTechCostsDto) {
+    return this.newsTechCostsService.create(id, newTechCost);
   }
 
   @UseGuards(JwtAuthGuard)
-  @Delete()
-  remove(@Body() ids: number[]) {
-    return this.newsTechCostsService.remove(ids);
+  @Delete(":id")
+  remove(@Param("id", ParseIntPipe) id: number, @Body() ids: number[]) {
+    return this.newsTechCostsService.remove(id, ids);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Delete(":entityId/:remoteId")
+  removeSingle(
+    @Param("entityId", ParseIntPipe) entityId: number,
+    @Param("remoteId", ParseIntPipe) remoteId: number,
+  ) {
+    return this.newsTechCostsService.removeSingle(entityId, remoteId);
   }
 }

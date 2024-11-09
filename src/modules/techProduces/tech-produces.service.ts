@@ -17,7 +17,7 @@ export class TechProducesService extends CrudManyService<
   UpdateTechProducesDto
 > {
   constructor(@InjectRepository(TechProduces) techCostsService: Repository<TechProduces>) {
-    const relationships = ["tech"];
-    super(techCostsService, "techId", relationships);
+    const relationships = ["tech", "resource"];
+    super(techCostsService, "techId", "resourceId", relationships);
   }
 }
