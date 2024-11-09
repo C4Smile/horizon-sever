@@ -6,10 +6,17 @@ export class CrudManyService<Entity, AddDto, UpdateDto> {
   protected entityService: Repository<Entity>;
   protected relationships: string[];
   protected attributeId: string;
+  protected remoteId: string;
 
-  constructor(entityService: Repository<Entity>, attributeId: string, relationships?: string[]) {
+  constructor(
+    entityService: Repository<Entity>,
+    attributeId: string,
+    remoteId: string,
+    relationships?: string[],
+  ) {
     this.entityService = entityService;
     this.attributeId = attributeId;
+    this.remoteId = remoteId;
     this.relationships = relationships;
   }
 
@@ -24,24 +31,30 @@ export class CrudManyService<Entity, AddDto, UpdateDto> {
     return list;
   }
 
-  async create(entityId: number, adds: AddDto[]) {
-    const aSaved = [];
-    for (const add of adds) {
-      const newAdd = this.entityService.create({
-        ...add,
-        [this.attributeId as keyof Entity]: entityId,
-      } as DeepPartial<Entity>);
-      const saved = await this.entityService.save(newAdd);
-      aSaved.push(saved);
-    }
-
-    return aSaved;
+  async create(entityId: number, add: AddDto) {
+    const newAdd = this.entityService.create({
+      ...add,
+      [this.attributeId as keyof Entity]: entityId,
+    } as DeepPartial<Entity>);
+    return await this.entityService.save(newAdd);
   }
 
-  async remove(ids: number[]) {
-    const result = await this.entityService.update(ids, { deleted: true } as any);
-    if (result.affected === 0) throw new HttpException("Entity not Found", HttpStatus.NOT_FOUND);
-    return { count: result.affected };
+  async remove(entityId: number, ids: number[]) {
+    for (const itemId of ids) {
+      const condition = {};
+      condition[this.attributeId] = entityId;
+      condition[this.remoteId] = itemId;
+      await this.entityService.delete(condition);
+    }
+
+    return { count: ids.length };
+  }
+
+  async removeSingle(entityId: number, remoteId: number) {
+    const condition = {};
+    condition[this.attributeId] = entityId;
+    condition[this.remoteId] = remoteId;
+    return await this.entityService.delete(condition);
   }
 
   async update(id: number, data: UpdateDto) {
