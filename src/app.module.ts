@@ -9,28 +9,29 @@ import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
 
 // modules
-import { UserModule } from "./modules/user/user.module";
 import { AuthModule } from "./auth/auth.module";
+import { AppsModule } from "./modules/app/app.module";
 import { AppTextModule } from "./modules/appTexts/app-text.module";
+import { AppTranslationModule } from "./modules/appTranslation/app-translation.module";
+import { BuildingModule } from "./modules/building/building.module";
+import { BuildingCostModule } from "./modules/buildingCost/building-cost.module";
+import { BuildingReqTechModule } from "./modules/buildingReqTech/building-req-tech.module";
+import { BuildingType } from "./modules/buildingType/entities/building-type.entity";
+import { BuildingUpkeepModule } from "./modules/buildingUpkeep/building-upkeep.module";
 import { HorizonRoleModule } from "./modules/horizonRole/horizon-role.module";
 import { HorizonUserModule } from "./modules/horizonUser/horizon-user.module";
-import { PushNotificationModule } from "./modules/pushNotification/push-notification.module";
 import { ImageModule } from "./modules/image/image.module";
-import { AppTranslationModule } from "./modules/appTranslation/app-translation.module";
-import { AppsModule } from "./modules/app/app.module";
 import { LangsModule } from "./modules/lang/lang.module";
 import { LangTranslationModule } from "./modules/langTranslation/lang-translation.module";
-import { BuildingCostsModule } from "./modules/buildingCosts/building-costs.module";
-import { BuildingUpkeepModule } from "./modules/buildingUpkeep/building-upkeep.module";
-import { BuildingReqTechModule } from "./modules/buildingReqTech/building-req-tech.module";
-import { BuildingModule } from "./modules/building/building.module";
-import { TechTypeModule } from "./modules/techType/tech-type.module";
-import { TechModule } from "./modules/tech/tech.module";
-import { TechCostsModule } from "./modules/techCosts/tech-costs.module";
-import { TechProducesModule } from "./modules/techProduces/tech-produces.module";
-import { TechReqTechModule } from "./modules/techReqTechs/tech-req-tech.module";
-import { TechReqBuildingModule } from "./modules/techReqBuilding/tech-req-building.module";
+import { PushNotificationModule } from "./modules/pushNotification/push-notification.module";
 import { ResourceModule } from "./modules/resource/resource.module";
+import { TechModule } from "./modules/tech/tech.module";
+import { TechCostModule } from "./modules/techCost/tech-cost.module";
+import { TechProducesModule } from "./modules/techProduces/tech-produces.module";
+import { TechReqBuildingModule } from "./modules/techReqBuilding/tech-req-building.module";
+import { TechReqTechModule } from "./modules/techReqTech/tech-req-tech.module";
+import { TechTypeModule } from "./modules/techType/tech-type.module";
+import { UserModule } from "./modules/user/user.module";
 
 // config
 import config from "./config/configuration";
@@ -63,13 +64,14 @@ import config from "./config/configuration";
     LangTranslationModule,
     PushNotificationModule,
     UserModule,
+    BuildingType,
     BuildingModule,
-    BuildingCostsModule,
+    BuildingCostModule,
     BuildingReqTechModule,
     BuildingUpkeepModule,
     ResourceModule,
     TechModule,
-    TechCostsModule,
+    TechCostModule,
     TechProducesModule,
     TechReqTechModule,
     TechReqBuildingModule,

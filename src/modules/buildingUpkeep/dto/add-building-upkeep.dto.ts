@@ -1,6 +1,6 @@
 export type AddBuildingUpkeepDto = {
-  buildingId: number;
   resourceId: number;
+  buildingId: number;
   factor: number;
-  baseUpkeep: number;
+  base: number;
 };

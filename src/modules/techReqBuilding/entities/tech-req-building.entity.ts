@@ -2,8 +2,9 @@ import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 // entities
 import { Tech } from "src/modules/tech/entities/tech.entity";
+import { Building } from "src/modules/building/entities/building.entity";
 
-@Entity({ name: "building-tech-req" })
+@Entity({ name: "tech-req-buildings" })
 export class TechReqBuilding {
   @PrimaryGeneratedColumn("increment")
   id: number;
@@ -19,4 +20,7 @@ export class TechReqBuilding {
 
   @ManyToOne(() => Tech, (tech) => tech.techRequirements, { cascade: true })
   tech: Tech;
+
+  @ManyToOne(() => Building, (building) => building.techsRequireThis, { cascade: true })
+  buildingReq: Building;
 }

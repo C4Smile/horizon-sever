@@ -1,10 +1,10 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 // entities
-import { Building } from "src/modules/building/entities/building.entity";
 import { Resource } from "src/modules/resource/entities/resource.entity";
+import { Building } from "src/modules/building/entities/building.entity";
 
-@Entity({ name: "building-upkeep" })
+@Entity({ name: "building-upkeeps" })
 export class BuildingUpkeep {
   @PrimaryGeneratedColumn("increment")
   id: number;
@@ -19,7 +19,7 @@ export class BuildingUpkeep {
   factor: number;
 
   @Column({ type: "float" })
-  baseUpkeep: number;
+  base: number;
 
   @ManyToOne(() => Building, (building) => building.upkeeps, { cascade: true })
   building: Building;

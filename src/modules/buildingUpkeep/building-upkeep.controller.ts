@@ -1,23 +1,7 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  Param,
-  ParseIntPipe,
-  Patch,
-  Post,
-  Query,
-  UseGuards,
-} from "@nestjs/common";
-
-// entity
-import { PagedResult } from "src/modules/models/types";
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, UseGuards } from "@nestjs/common";
 
 // dto
-import { BuildingUpkeepDto } from "./dto/building-upkeep.dto";
 import { AddBuildingUpkeepDto } from "./dto/add-building-upkeep.dto";
-import { UpdateBuildingUpkeepDto } from "./dto/update-building-upkeep.dto";
 
 // services
 import { BuildingUpkeepService } from "./building-upkeep.service";
@@ -25,42 +9,33 @@ import { BuildingUpkeepService } from "./building-upkeep.service";
 // guard
 import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
 
-@Controller("buildingUpkeep")
+@Controller("buildingUpkeeps")
 export class BuildingUpkeepController {
-  constructor(private newsBuildingUpkeepService: BuildingUpkeepService) {}
-
-  @Get()
-  get(@Query() query): Promise<PagedResult<BuildingUpkeepDto>> {
-    const { sort = "lastUpdate", order = "DESC", page = 0, count = 20 } = query;
-    return this.newsBuildingUpkeepService.get({ sort, order, page, count });
-  }
+  constructor(private newsBuildingUpkeepsService: BuildingUpkeepService) {}
 
   @Get(":id")
-  getById(@Param("id", ParseIntPipe) id: number) {
-    return this.newsBuildingUpkeepService.getById(id);
+  getByBuildingId(@Param("id", ParseIntPipe) id: number) {
+    return this.newsBuildingUpkeepsService.getByEntityId(id);
   }
 
   @UseGuards(JwtAuthGuard)
-  @Post()
-  create(@Body() newBuildingUpkeep: AddBuildingUpkeepDto) {
-    return this.newsBuildingUpkeepService.create(newBuildingUpkeep);
+  @Post(":id")
+  create(@Param("id", ParseIntPipe) id: number, @Body() newBuildingUpkeep: AddBuildingUpkeepDto) {
+    return this.newsBuildingUpkeepsService.create(id, newBuildingUpkeep);
   }
 
   @UseGuards(JwtAuthGuard)
-  @Delete()
-  remove(@Body() ids: number[]) {
-    return this.newsBuildingUpkeepService.remove(ids);
+  @Delete(":id")
+  remove(@Param("id", ParseIntPipe) id: number, @Body() ids: number[]) {
+    return this.newsBuildingUpkeepsService.remove(id, ids);
   }
 
   @UseGuards(JwtAuthGuard)
-  @Patch("restore")
-  restore(@Body() ids: number[]) {
-    return this.newsBuildingUpkeepService.restore(ids);
-  }
-
-  @UseGuards(JwtAuthGuard)
-  @Patch(":id")
-  update(@Param("id", ParseIntPipe) id: number, @Body() data: UpdateBuildingUpkeepDto) {
-    return this.newsBuildingUpkeepService.update(id, data);
+  @Delete(":entityId/:remoteId")
+  removeSingle(
+    @Param("entityId", ParseIntPipe) entityId: number,
+    @Param("remoteId", ParseIntPipe) remoteId: number,
+  ) {
+    return this.newsBuildingUpkeepsService.removeSingle(entityId, remoteId);
   }
 }

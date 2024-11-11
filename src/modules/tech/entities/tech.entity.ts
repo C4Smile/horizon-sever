@@ -4,11 +4,11 @@ import { Column, Entity, ManyToOne, OneToMany } from "typeorm";
 import { Model } from "src/modules/models/model";
 import { Photo } from "src/modules/image/image.entity";
 import { TechType } from "src/modules/techType/entities/tech-type.entity";
-import { TechCosts } from "src/modules/techCosts/entities/tech-costs.entity";
+import { TechCost } from "src/modules/techCost/entities/tech-cost.entity";
 import { TechProduces } from "src/modules/techProduces/entities/tech-produces.entity";
-import { TechReqTechs } from "src/modules/techReqTechs/entities/tech-req-techs.entity";
+import { TechReqTech } from "src/modules/techReqTech/entities/tech-req-tech.entity";
+import { TechReqBuilding } from "src/modules/techReqBuilding/entities/tech-req-building.entity";
 import { BuildingReqTech } from "src/modules/buildingReqTech/entities/building-req-tech.entity";
-import { Building } from "src/modules/building/entities/building.entity";
 
 @Entity({ name: "techs" })
 export class Tech extends Model {
@@ -36,12 +36,18 @@ export class Tech extends Model {
   @OneToMany(() => TechProduces, (production) => production.tech)
   produces: TechProduces;
 
-  @OneToMany(() => TechCosts, (cost) => cost.tech)
-  costs: TechCosts[];
+  @OneToMany(() => TechCost, (cost) => cost.tech)
+  costs: TechCost[];
 
-  @OneToMany(() => TechReqTechs, (techReq) => techReq.tech)
-  techRequirements: TechReqTechs[];
+  @OneToMany(() => TechReqTech, (techReq) => techReq.tech)
+  techRequirements: TechReqTech[];
 
-  @OneToMany(() => BuildingReqTech, (building) => building.tech)
-  buildingsRequireThis: Building[];
+  @OneToMany(() => TechReqTech, (techReq) => techReq.techReq)
+  techsRequireThis: TechReqTech[];
+
+  @OneToMany(() => TechReqBuilding, (buildingReq) => buildingReq.tech)
+  buildingRequirements: TechReqBuilding[];
+
+  @OneToMany(() => BuildingReqTech, (buildingReq) => buildingReq.techReq)
+  buildingsRequireThis: BuildingReqTech[];
 }

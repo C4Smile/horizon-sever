@@ -2,14 +2,14 @@ import { Column, Entity, ManyToOne, OneToMany } from "typeorm";
 
 // entities
 import { Model } from "src/modules/models/model";
-import { BuildingCosts } from "src/modules/buildingCosts/entities/building-costs.entity";
-import { BuildingProduces } from "src/modules/buildingProduces/entities/building-produces.entity";
 import { Building } from "src/modules/building/entities/building.entity";
-import { TechCosts } from "src/modules/techCosts/entities/tech-costs.entity";
 import { Photo } from "src/modules/image/image.entity";
 import { Tech } from "src/modules/tech/entities/tech.entity";
 import { TechProduces } from "src/modules/techProduces/entities/tech-produces.entity";
+import { BuildingCost } from "src/modules/buildingCost/entities/building-cost.entity";
 import { BuildingUpkeep } from "src/modules/buildingUpkeep/entities/building-upkeep.entity";
+import { TechCost } from "src/modules/techCost/entities/tech-cost.entity";
+import { BuildingProduces } from "src/modules/buildingProduces/entities/building-produces.entity";
 
 @Entity({ name: "resources" })
 export class Resource extends Model {
@@ -25,8 +25,8 @@ export class Resource extends Model {
   @Column({ type: "text" })
   description: string = "";
 
-  @OneToMany(() => BuildingCosts, (cost) => cost.resource)
-  buildingCosts: BuildingCosts[];
+  @OneToMany(() => BuildingCost, (cost) => cost.resource)
+  buildingsCostThis: BuildingCost[];
 
   @OneToMany(() => BuildingProduces, (produce) => produce.resource)
   buildingsProduceThis: Building[];
@@ -34,8 +34,8 @@ export class Resource extends Model {
   @OneToMany(() => BuildingUpkeep, (produce) => produce.resource)
   buildingsUpkeepThis: Building[];
 
-  @OneToMany(() => TechCosts, (cost) => cost.resource)
-  techCosts: TechCosts[];
+  @OneToMany(() => TechCost, (cost) => cost.resource)
+  techCosts: TechCost[];
 
   @OneToMany(() => TechProduces, (produce) => produce.resource)
   techsProduceThis: Tech[];

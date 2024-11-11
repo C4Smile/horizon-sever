@@ -16,4 +16,4 @@ import { BuildingProduces } from "./entities/building-produces.entity";
   providers: [BuildingProducesService],
   exports: [BuildingProducesService],
 })
-export class BuildingProduceModule {}
+export class BuildingProducesModule {}

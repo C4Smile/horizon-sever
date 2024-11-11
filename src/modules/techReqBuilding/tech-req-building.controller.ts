@@ -9,7 +9,7 @@ import { TechReqBuildingService } from "./tech-req-building.service";
 // guard
 import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
 
-@Controller("reqBuildings")
+@Controller("techReqBuildings")
 export class TechReqBuildingController {
   constructor(private newsReqBuildingService: TechReqBuildingService) {}
 
