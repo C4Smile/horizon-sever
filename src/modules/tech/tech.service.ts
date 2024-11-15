@@ -15,7 +15,14 @@ import { UpdateTechDto } from "./dto/update-tech.dto";
 @Injectable()
 export class TechService extends CrudService<Tech, AddTechDto, UpdateTechDto> {
   constructor(@InjectRepository(Tech) techService: Repository<Tech>) {
-    const relationships = ["image", "type"];
+    const relationships = [
+      "image",
+      "type",
+      "produces",
+      "costs",
+      "techRequirements",
+      "buildingRequirements",
+    ];
     super(techService, relationships);
   }
 }
