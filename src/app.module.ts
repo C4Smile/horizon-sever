@@ -16,8 +16,10 @@ import { AppTranslationModule } from "./modules/appTranslation/app-translation.m
 import { BuildingModule } from "./modules/building/building.module";
 import { BuildingCostModule } from "./modules/buildingCost/building-cost.module";
 import { BuildingReqTechModule } from "./modules/buildingReqTech/building-req-tech.module";
-import { BuildingType } from "./modules/buildingType/entities/building-type.entity";
+import { BuildingTypeModule } from "./modules/buildingType/building-type.module";
 import { BuildingUpkeepModule } from "./modules/buildingUpkeep/building-upkeep.module";
+import { BuildingProducesModule } from "./modules/buildingProduces/building-produces.module";
+import { BuildingReqBuildingModule } from "./modules/buildingReqBuilding/building-req-building.module";
 import { HorizonRoleModule } from "./modules/horizonRole/horizon-role.module";
 import { HorizonUserModule } from "./modules/horizonUser/horizon-user.module";
 import { ImageModule } from "./modules/image/image.module";
@@ -35,6 +37,7 @@ import { UserModule } from "./modules/user/user.module";
 
 // config
 import config from "./config/configuration";
+
 
 @Module({
   imports: [
@@ -64,11 +67,13 @@ import config from "./config/configuration";
     LangTranslationModule,
     PushNotificationModule,
     UserModule,
-    BuildingType,
+    BuildingTypeModule,
     BuildingModule,
     BuildingCostModule,
     BuildingReqTechModule,
+    BuildingReqBuildingModule,
     BuildingUpkeepModule,
+    BuildingProducesModule,
     ResourceModule,
     TechModule,
     TechCostModule,
