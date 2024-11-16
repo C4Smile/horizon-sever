@@ -16,8 +16,10 @@ export class BuildingReqTechService extends CrudManyService<
   AddBuildingReqTechDto,
   UpdateBuildingReqTechDto
 > {
-  constructor(@InjectRepository(BuildingReqTech) buildingReqTechsService: Repository<BuildingReqTech>) {
+  constructor(
+    @InjectRepository(BuildingReqTech) private buildingReqTechsService: Repository<BuildingReqTech>,
+  ) {
     const relationships = ["building", "techReq"];
-    super(buildingReqTechsService, "buildingId", "techRedId", relationships);
+    super(buildingReqTechsService, "buildingId", "techReqId", relationships);
   }
 }
