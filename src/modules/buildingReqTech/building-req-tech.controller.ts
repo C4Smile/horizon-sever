@@ -11,23 +11,23 @@ import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
 
 @Controller("buildingReqTechs")
 export class BuildingReqTechController {
-  constructor(private newsTechReqTechService: BuildingReqTechService) {}
+  constructor(private buildingBuildingReqTechService: BuildingReqTechService) {}
 
   @Get(":id")
   getByTechId(@Param("id", ParseIntPipe) id: number) {
-    return this.newsTechReqTechService.getByEntityId(id);
+    return this.buildingBuildingReqTechService.getByEntityId(id);
   }
 
   @UseGuards(JwtAuthGuard)
   @Post(":id")
-  create(@Param("id", ParseIntPipe) id: number, @Body() newTechReqTech: AddBuildingReqTechDto) {
-    return this.newsTechReqTechService.create(id, newTechReqTech);
+  create(@Param("id", ParseIntPipe) id: number, @Body() newBuildingReqTech: AddBuildingReqTechDto) {
+    return this.buildingBuildingReqTechService.create(id, newBuildingReqTech);
   }
 
   @UseGuards(JwtAuthGuard)
   @Delete()
   remove(@Param("id", ParseIntPipe) id: number, @Body() ids: number[]) {
-    return this.newsTechReqTechService.remove(id, ids);
+    return this.buildingBuildingReqTechService.remove(id, ids);
   }
 
   @UseGuards(JwtAuthGuard)
@@ -36,6 +36,6 @@ export class BuildingReqTechController {
     @Param("entityId", ParseIntPipe) entityId: number,
     @Param("remoteId", ParseIntPipe) remoteId: number,
   ) {
-    return this.newsTechReqTechService.removeSingle(entityId, remoteId);
+    return this.buildingBuildingReqTechService.removeSingle(entityId, remoteId);
   }
 }
