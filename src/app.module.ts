@@ -34,10 +34,10 @@ import { TechReqBuildingModule } from "./modules/techReqBuilding/tech-req-buildi
 import { TechReqTechModule } from "./modules/techReqTech/tech-req-tech.module";
 import { TechTypeModule } from "./modules/techType/tech-type.module";
 import { UserModule } from "./modules/user/user.module";
+import { SkillModule } from "./modules/skills/skill.module";
 
 // config
 import config from "./config/configuration";
-
 
 @Module({
   imports: [
@@ -81,6 +81,7 @@ import config from "./config/configuration";
     TechReqTechModule,
     TechReqBuildingModule,
     TechTypeModule,
+    SkillModule,
   ],
   controllers: [AppController],
   providers: [AppService],

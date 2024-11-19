@@ -1,8 +1,7 @@
 import { UpdateModelDto } from "src/modules/models/dto/update-model.dto";
 
-export interface UpdateResourceDto extends UpdateModelDto {
+export interface UpdateSkillDto extends UpdateModelDto {
   name: string;
-  imageId: number;
-  baseFactor: number;
+  image: object;
   description: string;
 }
