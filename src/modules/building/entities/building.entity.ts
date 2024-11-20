@@ -19,6 +19,9 @@ export class Building extends Model {
   @Column({ type: "int" })
   imageId: number;
 
+  @Column({ type: "double" })
+  creationTime: number;
+
   @Column({ type: "int" })
   typeId: number = 0;
 
