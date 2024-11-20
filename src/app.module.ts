@@ -35,6 +35,11 @@ import { TechReqTechModule } from "./modules/techReqTech/tech-req-tech.module";
 import { TechTypeModule } from "./modules/techType/tech-type.module";
 import { UserModule } from "./modules/user/user.module";
 import { SkillModule } from "./modules/skills/skill.module";
+import { ShipModule } from "./modules/ship/ship.module";
+import { ShipCostModule } from "./modules/shipCost/ship-cost.module";
+import { ShipReqBuildingModule } from "./modules/shipReqBuilding/ship-req-building.module";
+import { ShipReqTechModule } from "./modules/shipReqTech/ship-req-tech.module";
+import { ShipUpkeepModule } from "./modules/shipUpkeep/ship-upkeep.module";
 
 // config
 import config from "./config/configuration";
@@ -82,6 +87,11 @@ import config from "./config/configuration";
     TechReqBuildingModule,
     TechTypeModule,
     SkillModule,
+    ShipModule,
+    ShipCostModule,
+    ShipUpkeepModule,
+    ShipReqBuildingModule,
+    ShipReqTechModule,
   ],
   controllers: [AppController],
   providers: [AppService],

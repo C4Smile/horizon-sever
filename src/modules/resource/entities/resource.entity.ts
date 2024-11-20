@@ -10,6 +10,9 @@ import { BuildingCost } from "src/modules/buildingCost/entities/building-cost.en
 import { BuildingUpkeep } from "src/modules/buildingUpkeep/entities/building-upkeep.entity";
 import { TechCost } from "src/modules/techCost/entities/tech-cost.entity";
 import { BuildingProduces } from "src/modules/buildingProduces/entities/building-produces.entity";
+import { Ship } from "src/modules/ship/entities/ship.entity";
+import { ShipCost } from "src/modules/shipCost/entities/ship-cost.entity";
+import { ShipUpkeep } from "src/modules/shipUpkeep/entities/ship-upkeep.entity";
 
 @Entity({ name: "resources" })
 export class Resource extends Model {
@@ -39,6 +42,12 @@ export class Resource extends Model {
 
   @OneToMany(() => TechProduces, (produce) => produce.resource)
   techsProduceThis: Tech[];
+
+  @OneToMany(() => ShipCost, (cost) => cost.resource)
+  shipsCostThis: Ship[];
+
+  @OneToMany(() => ShipUpkeep, (produce) => produce.resource)
+  shipsUpkeepThis: Ship[];
 
   @ManyToOne(() => Photo)
   image: Photo;

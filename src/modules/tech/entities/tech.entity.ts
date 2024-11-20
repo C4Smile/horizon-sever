@@ -9,6 +9,7 @@ import { TechProduces } from "src/modules/techProduces/entities/tech-produces.en
 import { TechReqTech } from "src/modules/techReqTech/entities/tech-req-tech.entity";
 import { TechReqBuilding } from "src/modules/techReqBuilding/entities/tech-req-building.entity";
 import { BuildingReqTech } from "src/modules/buildingReqTech/entities/building-req-tech.entity";
+import { ShipReqTech } from "src/modules/shipReqTech/entities/ship-req-tech.entity";
 
 @Entity({ name: "techs" })
 export class Tech extends Model {
@@ -50,4 +51,7 @@ export class Tech extends Model {
 
   @OneToMany(() => BuildingReqTech, (buildingReq) => buildingReq.techReq)
   buildingsRequireThis: BuildingReqTech[];
+
+  @OneToMany(() => ShipReqTech, (shipReq) => shipReq.techReq)
+  shipsRequireThis: ShipReqTech[];
 }
