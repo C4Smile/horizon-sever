@@ -3,23 +3,32 @@ import { FindOptionsOrder, Repository } from "typeorm";
 
 // dto
 import { PagedResult, QueryFilter } from "../types";
+import { ImageService } from "src/modules/image/image.service";
+import { AddBlobDto } from "src/modules/image/dto/add-blob.dto";
 
 @Injectable()
 export class CrudService<Entity, AddDto, UpdateDto> {
+  protected imageService: ImageService;
   protected entityService: Repository<Entity>;
   protected relationships: string[];
 
-  constructor(
-    entityService: Repository<Entity>,
-    relationships?: string[],
-  ) {
+  constructor(entityService: Repository<Entity>, relationships?: string[]) {
     this.entityService = entityService;
     this.relationships = relationships;
   }
 
   async create(entity: AddDto) {
+    const image = (entity as any).image;
+    if (image) {
+      const resultImage = await this.imageService.create(image as AddBlobDto);
+      delete (entity as any).image;
+      (entity as any).imageId = resultImage.id;
+    }
+
     const newEntity = this.entityService.create(entity as any);
+
     const saved = await this.entityService.save(newEntity);
+
     return [saved] as unknown as Promise<Entity[]>;
   }
 
