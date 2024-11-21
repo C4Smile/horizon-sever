@@ -10,7 +10,7 @@ export class ShipReqBuilding {
   id: number;
 
   @Column({ type: "int" })
-  buildingId: number;
+  shipId: number;
 
   @Column({ type: "int" })
   buildingReqId: number;
