@@ -48,7 +48,7 @@ export class ImageService {
 
     const newImage = this.imageService.create({ url, fileName: slugFileName, alt });
     const saved = await this.imageService.save(newImage);
-    return [saved];
+    return saved;
   }
 
   async getAll(query?: QueryFilter): Promise<PagedResult<Photo>> {
