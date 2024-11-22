@@ -40,6 +40,9 @@ import { ShipCostModule } from "./modules/shipCost/ship-cost.module";
 import { ShipReqBuildingModule } from "./modules/shipReqBuilding/ship-req-building.module";
 import { ShipReqTechModule } from "./modules/shipReqTech/ship-req-tech.module";
 import { ShipUpkeepModule } from "./modules/shipUpkeep/ship-upkeep.module";
+import { CannonModule } from "./modules/cannon/cannon.module";
+import { CannonCostModule } from "./modules/cannonCost/cannon-cost.module";
+import { CannonReqTechModule } from "./modules/cannonReqTech/cannon-req-tech.module";
 
 // config
 import config from "./config/configuration";
@@ -92,6 +95,9 @@ import config from "./config/configuration";
     ShipUpkeepModule,
     ShipReqBuildingModule,
     ShipReqTechModule,
+    CannonModule,
+    CannonCostModule,
+    CannonReqTechModule,
   ],
   controllers: [AppController],
   providers: [AppService],

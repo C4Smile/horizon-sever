@@ -51,4 +51,7 @@ export class Resource extends Model {
 
   @ManyToOne(() => Photo)
   image: Photo;
+
+  @OneToMany(() => ShipCost, (cost) => cost.resource)
+  cannonsCostThis: Ship[];
 }
