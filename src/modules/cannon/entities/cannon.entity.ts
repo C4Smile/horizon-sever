@@ -5,6 +5,7 @@ import { Model } from "src/modules/models/model";
 import { Photo } from "src/modules/image/image.entity";
 import { CannonCost } from "src/modules/cannonCost/entities/cannon-cost.entity";
 import { CannonReqTech } from "src/modules/cannonReqTech/entities/cannon-req-tech.entity";
+import { CannonReqBuilding } from "src/modules/cannonReqBuilding/entities/cannon-req-building.entity";
 
 @Entity({ name: "cannons" })
 export class Cannon extends Model {
@@ -34,4 +35,7 @@ export class Cannon extends Model {
 
   @OneToMany(() => CannonReqTech, (cost) => cost.cannon)
   techRequirements: CannonReqTech[];
+
+  @OneToMany(() => CannonReqBuilding, (cost) => cost.cannon)
+  buildingRequirements: CannonReqBuilding[];
 }
