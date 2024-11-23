@@ -15,7 +15,7 @@ export class Cannon extends Model {
   @Column({ type: "int" })
   imageId: number;
 
-  @Column({ type: "int" })
+  @Column({ type: "double" })
   baseDamage: number = 0;
 
   @Column({ type: "text" })
