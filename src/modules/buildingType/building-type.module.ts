@@ -9,9 +9,10 @@ import { BuildingTypeService } from "./building-type.service";
 
 // entities
 import { BuildingType } from "./entities/building-type.entity";
+import { Photo } from "../image/image.entity";
 
 @Module({
-  imports: [TypeOrmModule.forFeature([BuildingType])],
+  imports: [TypeOrmModule.forFeature([BuildingType, Photo])],
   controllers: [BuildingTypeController],
   providers: [BuildingTypeService],
   exports: [BuildingTypeService],

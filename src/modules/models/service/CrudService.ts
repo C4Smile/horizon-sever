@@ -21,12 +21,12 @@ export class CrudService<Entity, AddDto, UpdateDto> {
 
   constructor(
     entityService: Repository<Entity>,
-    imageRepository: Repository<Photo>,
-    relationships?: string[],
+    imageRepository?: Repository<Photo>,
+    relationships: string[] = [],
   ) {
     this.entityService = entityService;
     this.relationships = relationships;
-    this.imageService = new ImageService(imageRepository);
+    if (imageRepository) this.imageService = new ImageService(imageRepository);
   }
 
   async create(entity: AddDto) {

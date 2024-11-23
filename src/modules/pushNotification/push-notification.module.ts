@@ -9,13 +9,14 @@ import { PushNotificationController } from "./push-notification.controller";
 import { PushNotificationService } from "./push-notification.service";
 
 // entities
+import { Photo } from "../image/image.entity";
 import { PushNotification } from "./push-notification.entity";
 
 // base
 import { CrudService } from "src/modules/models/service/CrudService";
 
 @Module({
-  imports: [TypeOrmModule.forFeature([PushNotification])],
+  imports: [TypeOrmModule.forFeature([PushNotification, Photo])],
   controllers: [PushNotificationController],
   providers: [Repository, Array, CrudService, PushNotificationService],
   exports: [PushNotificationService],

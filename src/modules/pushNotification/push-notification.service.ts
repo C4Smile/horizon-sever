@@ -7,6 +7,7 @@ import { CrudService } from "src/modules/models/service/CrudService";
 
 // entity
 import { PushNotification } from "./push-notification.entity";
+import { Photo } from "../image/image.entity";
 
 // utils
 import { QueryFilter, PagedResult } from "src/modules/models/types";
@@ -24,9 +25,10 @@ export class PushNotificationService extends CrudService<
 > {
   constructor(
     @InjectRepository(PushNotification) pushNotificationService: Repository<PushNotification>,
+    @InjectRepository(Photo) imageService: Repository<Photo>,
   ) {
     const relationships = ["image"];
-    super(pushNotificationService, relationships);
+    super(pushNotificationService, imageService, relationships);
   }
 
   mappedGet = async (query: QueryFilter): Promise<PagedResult<PushNotificationDto>> => {

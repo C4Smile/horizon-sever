@@ -9,9 +9,10 @@ import { BuildingService } from "./building.service";
 
 // entities
 import { Building } from "./entities/building.entity";
+import { Photo } from "../image/image.entity";
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Building])],
+  imports: [TypeOrmModule.forFeature([Building, Photo])],
   controllers: [BuildingController],
   providers: [BuildingService],
   exports: [BuildingService],

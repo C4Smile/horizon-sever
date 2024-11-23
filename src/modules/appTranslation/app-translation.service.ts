@@ -32,7 +32,7 @@ export class AppTranslationService extends CrudService<
     @InjectRepository(LangTranslation) private langTranslationService: Repository<LangTranslation>,
   ) {
     const relationships = ["lang-translations"];
-    super(appTranslationService, relationships);
+    super(appTranslationService, null, relationships);
   }
 
   async getByApp(app: string, lang: string) {

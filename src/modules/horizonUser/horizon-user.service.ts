@@ -9,6 +9,7 @@ import { CrudService } from "src/modules/models/service/CrudService";
 // entity
 import { User } from "../user/user.entity";
 import { HorizonUser } from "./entities/horizon-user.entity";
+import { Photo } from "../image/image.entity";
 
 // utils
 import { QueryFilter, PagedResult } from "src/modules/models/types";
@@ -27,9 +28,10 @@ export class HorizonUserService extends CrudService<
   constructor(
     @InjectRepository(HorizonUser) horizonUserService: Repository<HorizonUser>,
     @InjectRepository(User) private readonly userService: Repository<User>,
+    @InjectRepository(Photo) imageService: Repository<Photo>,
   ) {
     const relationships = ["user", "role", "image"];
-    super(horizonUserService, relationships);
+    super(horizonUserService, imageService, relationships);
   }
 
   override async create(user: AddHorizonUserDto) {

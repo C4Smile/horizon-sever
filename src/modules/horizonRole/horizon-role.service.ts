@@ -18,7 +18,7 @@ export class HorizonRoleService extends CrudService<
   AddHorizonRoleDto,
   UpdateHorizonRoleDto
 > {
-  constructor(@InjectRepository(HorizonRole) private horizonRoleService: Repository<HorizonRole>) {
+  constructor(@InjectRepository(HorizonRole) horizonRoleService: Repository<HorizonRole>) {
     super(horizonRoleService);
   }
 }
