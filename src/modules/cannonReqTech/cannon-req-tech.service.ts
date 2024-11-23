@@ -16,8 +16,8 @@ export class CannonReqTechService extends CrudManyService<
   AddCannonReqTechDto,
   UpdateCannonReqTechDto
 > {
-  constructor(@InjectRepository(CannonReqTech) private shipReqTechsService: Repository<CannonReqTech>) {
-    const relationships = ["ship", "techReq"];
-    super(shipReqTechsService, "shipId", "techReqId", relationships);
+  constructor(@InjectRepository(CannonReqTech) shipReqTechsService: Repository<CannonReqTech>) {
+    const relationships = ["cannon", "techReq"];
+    super(shipReqTechsService, "cannonId", "techReqId", relationships);
   }
 }
