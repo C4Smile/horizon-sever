@@ -9,9 +9,10 @@ import { TechService } from "./tech.service";
 
 // entities
 import { Tech } from "./entities/tech.entity";
+import { Photo } from "../image/image.entity";
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Tech])],
+  imports: [TypeOrmModule.forFeature([Tech, Photo])],
   controllers: [TechController],
   providers: [TechService],
   exports: [TechService],

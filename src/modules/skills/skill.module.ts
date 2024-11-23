@@ -9,9 +9,10 @@ import { SkillService } from "./skill.service";
 
 // entities
 import { Skill } from "./entities/skill.entity";
+import { Photo } from "../image/image.entity";
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Skill])],
+  imports: [TypeOrmModule.forFeature([Skill, Photo])],
   controllers: [SkillController],
   providers: [SkillService],
   exports: [SkillService],

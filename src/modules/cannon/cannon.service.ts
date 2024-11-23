@@ -7,6 +7,7 @@ import { CrudService } from "src/modules/models/service/CrudService";
 
 // entity
 import { Cannon } from "./entities/cannon.entity";
+import { Photo } from "../image/image.entity";
 
 // dto
 import { AddCannonDto } from "./dto/add-cannon.dto";
@@ -14,8 +15,11 @@ import { UpdateCannonDto } from "./dto/update-cannon.dto";
 
 @Injectable()
 export class CannonService extends CrudService<Cannon, AddCannonDto, UpdateCannonDto> {
-  constructor(@InjectRepository(Cannon) cannonService: Repository<Cannon>) {
+  constructor(
+    @InjectRepository(Cannon) cannonService: Repository<Cannon>,
+    @InjectRepository(Photo) imageService: Repository<Photo>,
+  ) {
     const relationships = ["image"];
-    super(cannonService, relationships);
+    super(cannonService, imageService, relationships);
   }
 }

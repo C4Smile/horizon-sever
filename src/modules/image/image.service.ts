@@ -1,6 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-import { FindOptionsOrder, Not, Repository } from "typeorm";
+import { Not, Repository } from "typeorm";
 import { rmSync, writeFileSync, existsSync, mkdirSync } from "fs";
 import { join } from "path";
 
@@ -11,6 +11,8 @@ import { Photo } from "./image.entity";
 
 // dto
 import { AddBlobDto } from "./dto/add-blob.dto";
+
+// types
 import { QueryFilter, PagedResult } from "src/modules/models/types";
 
 @Injectable()

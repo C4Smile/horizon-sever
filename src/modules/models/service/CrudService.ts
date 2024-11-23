@@ -1,10 +1,17 @@
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { FindOptionsOrder, Repository } from "typeorm";
 
-// dto
+// types
 import { PagedResult, QueryFilter } from "../types";
-import { ImageService } from "src/modules/image/image.service";
+
+// dto
 import { AddBlobDto } from "src/modules/image/dto/add-blob.dto";
+
+// services
+import { ImageService } from "src/modules/image/image.service";
+
+// entity
+import { Photo } from "src/modules/image/image.entity";
 
 @Injectable()
 export class CrudService<Entity, AddDto, UpdateDto> {
@@ -12,9 +19,14 @@ export class CrudService<Entity, AddDto, UpdateDto> {
   protected entityService: Repository<Entity>;
   protected relationships: string[];
 
-  constructor(entityService: Repository<Entity>, relationships?: string[]) {
+  constructor(
+    entityService: Repository<Entity>,
+    imageRepository: Repository<Photo>,
+    relationships?: string[],
+  ) {
     this.entityService = entityService;
     this.relationships = relationships;
+    this.imageService = new ImageService(imageRepository);
   }
 
   async create(entity: AddDto) {

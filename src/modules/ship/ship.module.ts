@@ -9,9 +9,10 @@ import { ShipService } from "./ship.service";
 
 // entities
 import { Ship } from "./entities/ship.entity";
+import { Photo } from "../image/image.entity";
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Ship])],
+  imports: [TypeOrmModule.forFeature([Ship, Photo])],
   controllers: [ShipController],
   providers: [ShipService],
   exports: [ShipService],
