@@ -22,4 +22,7 @@ export class Model {
 
   @Column({ nullable: true, default: () => false })
   deleted: boolean = false;
+
+  @Column({ default: () => 0, type: "int" })
+  lockedBy: number = 0;
 }
