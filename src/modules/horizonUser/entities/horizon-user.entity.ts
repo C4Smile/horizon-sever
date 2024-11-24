@@ -19,12 +19,6 @@ export class HorizonUser extends Model {
   username: string;
 
   @Column({ type: "text" })
-  address: string = "";
-
-  @Column({ type: "text" })
-  identification: string;
-
-  @Column({ type: "text" })
   phone: string;
 
   @Column({ type: "text" })
