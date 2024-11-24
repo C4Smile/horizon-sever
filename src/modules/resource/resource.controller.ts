@@ -15,6 +15,7 @@ import {
 import { PagedResult } from "src/modules/models/types";
 
 // dto
+import { LockDto } from "../user/dto/lock.dto";
 import { ResourceDto } from "./dto/resource.dto";
 import { AddResourceDto } from "./dto/add-resource.dto";
 import { UpdateResourceDto } from "./dto/update-resource.dto";
@@ -28,6 +29,16 @@ import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
 @Controller("resources")
 export class ResourceController {
   constructor(private newsResourceService: ResourceService) {}
+
+  @Patch(":id/lock")
+  lock(@Param("id", ParseIntPipe) id: number, @Body() user: LockDto) {
+    return this.newsResourceService.lock(id, user);
+  }
+
+  @Patch(":id/release")
+  release(@Param("id", ParseIntPipe) id: number) {
+    return this.newsResourceService.release(id);
+  }
 
   @Get()
   get(@Query() query): Promise<PagedResult<ResourceDto>> {

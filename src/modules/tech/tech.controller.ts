@@ -15,6 +15,7 @@ import {
 import { PagedResult } from "src/modules/models/types";
 
 // dto
+import { LockDto } from "../user/dto/lock.dto";
 import { TechDto } from "./dto/tech.dto";
 import { AddTechDto } from "./dto/add-tech.dto";
 import { UpdateTechDto } from "./dto/update-tech.dto";

@@ -15,12 +15,13 @@ import {
 import { PagedResult } from "src/modules/models/types";
 
 // dto
+import { LockDto } from "../user/dto/lock.dto";
 import { BuildingDto } from "./dto/building.dto";
 import { AddBuildingDto } from "./dto/add-building.dto";
+import { UpdateBuildingDto } from "./dto/update-building.dto";
 
 // services
 import { BuildingService } from "./building.service";
-import { UpdateBuildingDto } from "./dto/update-building.dto";
 
 // guard
 import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
@@ -28,6 +29,16 @@ import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
 @Controller("buildings")
 export class BuildingController {
   constructor(private newsBuildingService: BuildingService) {}
+
+  @Patch(":id/lock")
+  lock(@Param("id", ParseIntPipe) id: number, @Body() user: LockDto) {
+    return this.newsBuildingService.lock(id, user);
+  }
+
+  @Patch(":id/release")
+  release(@Param("id", ParseIntPipe) id: number) {
+    return this.newsBuildingService.release(id);
+  }
 
   @Get()
   get(@Query() query): Promise<PagedResult<BuildingDto>> {

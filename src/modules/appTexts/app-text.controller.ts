@@ -15,12 +15,13 @@ import {
 import { PagedResult } from "src/modules/models/types";
 
 // dto
+import { LockDto } from "../user/dto/lock.dto";
 import { AppTextDto } from "./dto/app-text.dto";
 import { AddAppTextDto } from "./dto/add-app-text.dto";
+import { UpdateAppTextDto } from "./dto/update-app-text.dto";
 
 // services
 import { AppTextService } from "./app-text.service";
-import { UpdateAppTextDto } from "./dto/update-app-text.dto";
 
 // guard
 import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
@@ -28,6 +29,16 @@ import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
 @Controller("appText")
 export class AppTextController {
   constructor(private newsAppTextService: AppTextService) {}
+
+  @Patch(":id/lock")
+  lock(@Param("id", ParseIntPipe) id: number, @Body() user: LockDto) {
+    return this.newsAppTextService.lock(id, user);
+  }
+
+  @Patch(":id/release")
+  release(@Param("id", ParseIntPipe) id: number) {
+    return this.newsAppTextService.release(id);
+  }
 
   @Get()
   get(@Query() query): Promise<PagedResult<AppTextDto>> {

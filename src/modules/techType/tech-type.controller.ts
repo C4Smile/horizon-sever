@@ -15,6 +15,7 @@ import {
 import { PagedResult } from "src/modules/models/types";
 
 // dto
+import { LockDto } from "../user/dto/lock.dto";
 import { TechTypeDto } from "./dto/tech-type.dto";
 import { AddTechTypeDto } from "./dto/add-tech-type.dto";
 import { UpdateTechTypeDto } from "./dto/update-tech-type.dto";
@@ -28,6 +29,16 @@ import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
 @Controller("techTypes")
 export class TechTypeController {
   constructor(private newsTechTypeService: TechTypeService) {}
+
+  @Patch(":id/lock")
+  lock(@Param("id", ParseIntPipe) id: number, @Body() user: LockDto) {
+    return this.newsTechTypeService.lock(id, user);
+  }
+
+  @Patch(":id/release")
+  release(@Param("id", ParseIntPipe) id: number) {
+    return this.newsTechTypeService.release(id);
+  }
 
   @Get()
   get(@Query() query): Promise<PagedResult<TechTypeDto>> {
