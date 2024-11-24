@@ -6,6 +6,7 @@ import { PagedResult, QueryFilter } from "../types";
 
 // dto
 import { AddBlobDto } from "src/modules/image/dto/add-blob.dto";
+import { LockDto } from "src/modules/user/dto/lock.dto";
 
 // services
 import { ImageService } from "src/modules/image/image.service";
@@ -95,6 +96,33 @@ export class CrudService<Entity, AddDto, UpdateDto> {
     if (!entityFound) throw new HttpException("Entity not Found", HttpStatus.NOT_FOUND);
 
     const updatedEntity = Object.assign(entityFound, data);
+    const saved = await this.entityService.save(updatedEntity);
+    return [saved];
+  }
+
+  async lock(id: number, user: LockDto) {
+    const entityFound = await this.entityService.findOne({
+      where: {
+        id,
+      } as any,
+    });
+
+    if (!entityFound) throw new HttpException("Entity not Found", HttpStatus.NOT_FOUND);
+    const updatedEntity = Object.assign(entityFound, { ...entityFound, lockedBy: user.userId });
+    const saved = await this.entityService.save(updatedEntity);
+    return [saved];
+  }
+
+  async release(id: number) {
+    const entityFound = await this.entityService.findOne({
+      where: {
+        id,
+      } as any,
+    });
+
+    if (!entityFound) throw new HttpException("Entity not Found", HttpStatus.NOT_FOUND);
+
+    const updatedEntity = Object.assign(entityFound, { ...entityFound, lockedBy: 0 });
     const saved = await this.entityService.save(updatedEntity);
     return [saved];
   }
