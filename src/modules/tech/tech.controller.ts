@@ -29,6 +29,16 @@ import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
 export class TechController {
   constructor(private newsTechService: TechService) {}
 
+  @Patch(":id/lock")
+  lock(@Param("id", ParseIntPipe) id: number, @Body() user: LockDto) {
+    return this.newsTechService.lock(id, user);
+  }
+
+  @Patch(":id/release")
+  release(@Param("id", ParseIntPipe) id: number) {
+    return this.newsTechService.release(id);
+  }
+
   @Get()
   get(@Query() query): Promise<PagedResult<TechDto>> {
     const { sort = "lastUpdate", order = "DESC", page = 0, count = 20 } = query;

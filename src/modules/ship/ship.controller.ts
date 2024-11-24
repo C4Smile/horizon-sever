@@ -15,6 +15,7 @@ import {
 import { PagedResult } from "src/modules/models/types";
 
 // dto
+import { LockDto } from "../user/dto/lock.dto";
 import { ShipDto } from "./dto/ship.dto";
 import { AddShipDto } from "./dto/add-ship.dto";
 
@@ -28,6 +29,16 @@ import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
 @Controller("ships")
 export class ShipController {
   constructor(private newsShipService: ShipService) {}
+
+  @Patch(":id/lock")
+  lock(@Param("id", ParseIntPipe) id: number, @Body() user: LockDto) {
+    return this.newsShipService.lock(id, user);
+  }
+
+  @Patch(":id/release")
+  release(@Param("id", ParseIntPipe) id: number) {
+    return this.newsShipService.release(id);
+  }
 
   @Get()
   get(@Query() query): Promise<PagedResult<ShipDto>> {

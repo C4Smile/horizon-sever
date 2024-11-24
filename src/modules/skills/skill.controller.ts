@@ -15,6 +15,7 @@ import {
 import { PagedResult } from "src/modules/models/types";
 
 // dto
+import { LockDto } from "../user/dto/lock.dto";
 import { SkillDto } from "./dto/skill.dto";
 import { AddSkillDto } from "./dto/add-skill.dto";
 import { UpdateSkillDto } from "./dto/update-skill.dto";
@@ -28,6 +29,16 @@ import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
 @Controller("skills")
 export class SkillController {
   constructor(private newsSkillService: SkillService) {}
+
+  @Patch(":id/lock")
+  lock(@Param("id", ParseIntPipe) id: number, @Body() user: LockDto) {
+    return this.newsSkillService.lock(id, user);
+  }
+
+  @Patch(":id/release")
+  release(@Param("id", ParseIntPipe) id: number) {
+    return this.newsSkillService.release(id);
+  }
 
   @Get()
   get(@Query() query): Promise<PagedResult<SkillDto>> {

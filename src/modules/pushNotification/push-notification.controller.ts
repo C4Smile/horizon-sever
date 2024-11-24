@@ -9,16 +9,13 @@ import {
   Post,
   Query,
   UseGuards,
-  UseInterceptors,
 } from "@nestjs/common";
-
-// entity
-import { PushNotification } from "./push-notification.entity";
 
 // utils
 import { PagedResult, QueryFilter } from "src/modules/models/types";
 
 // dto
+import { LockDto } from "../user/dto/lock.dto";
 import { PushNotificationDto } from "./dto/push-notification.dto";
 import { AddPushNotificationDto } from "./dto/add-push-notification.dto";
 
@@ -32,6 +29,16 @@ import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
 @Controller("pushNotification")
 export class PushNotificationController {
   constructor(private pushNotificationService: PushNotificationService) {}
+
+  @Patch(":id/lock")
+  lock(@Param("id", ParseIntPipe) id: number, @Body() user: LockDto) {
+    return this.pushNotificationService.lock(id, user);
+  }
+
+  @Patch(":id/release")
+  release(@Param("id", ParseIntPipe) id: number) {
+    return this.pushNotificationService.release(id);
+  }
 
   @Get()
   async get(@Query() query: QueryFilter): Promise<PagedResult<PushNotificationDto>> {

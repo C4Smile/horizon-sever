@@ -15,6 +15,7 @@ import {
 import { PagedResult } from "src/modules/models/types";
 
 // dto
+import { LockDto } from "../user/dto/lock.dto";
 import { CannonDto } from "./dto/cannon.dto";
 import { AddCannonDto } from "./dto/add-cannon.dto";
 import { UpdateCannonDto } from "./dto/update-cannon.dto";
@@ -28,6 +29,16 @@ import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
 @Controller("cannons")
 export class CannonController {
   constructor(private newsCannonService: CannonService) {}
+
+  @Patch(":id/lock")
+  lock(@Param("id", ParseIntPipe) id: number, @Body() user: LockDto) {
+    return this.newsCannonService.lock(id, user);
+  }
+
+  @Patch(":id/release")
+  release(@Param("id", ParseIntPipe) id: number) {
+    return this.newsCannonService.release(id);
+  }
 
   @Get()
   get(@Query() query): Promise<PagedResult<CannonDto>> {
