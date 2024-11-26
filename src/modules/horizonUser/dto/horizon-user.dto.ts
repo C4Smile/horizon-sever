@@ -7,8 +7,6 @@ import { HorizonRoleDto } from "src/modules/horizonRole/dto/horizon-role.dto";
 export class HorizonUserDto extends ModelDto {
   name: string;
   username: string;
-  address: string;
-  identification: string;
   phone: string;
   email: string;
   roleId: HorizonRoleDto;
