@@ -19,7 +19,7 @@ export class CannonService extends CrudService<Cannon, AddCannonDto, UpdateCanno
     @InjectRepository(Cannon) cannonService: Repository<Cannon>,
     @InjectRepository(Photo) imageService: Repository<Photo>,
   ) {
-    const relationships = ["image"];
+    const relationships = [];
     super(cannonService, imageService, relationships);
   }
 }
