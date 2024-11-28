@@ -1,7 +1,18 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, UseGuards } from "@nestjs/common";
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  ParseIntPipe,
+  Patch,
+  Post,
+  UseGuards,
+} from "@nestjs/common";
 
 // dto
 import { AddCannonCostDto } from "./dto/add-cannon-cost.dto";
+import { UpdateCannonCostDto } from "./dto/update-cannon-cost.dto";
 
 // services
 import { CannonCostService } from "./cannon-cost.service";
@@ -22,6 +33,12 @@ export class CannonCostController {
   @Post(":id")
   create(@Param("id", ParseIntPipe) id: number, @Body() newCannonCost: AddCannonCostDto) {
     return this.newsCannonCostsService.create(id, newCannonCost);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Patch(":id")
+  update(@Param("id", ParseIntPipe) id: number, @Body() newTechReqTech: UpdateCannonCostDto) {
+    return this.newsCannonCostsService.update(id, newTechReqTech);
   }
 
   @UseGuards(JwtAuthGuard)

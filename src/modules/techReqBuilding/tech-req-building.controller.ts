@@ -1,7 +1,18 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, UseGuards } from "@nestjs/common";
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  ParseIntPipe,
+  Patch,
+  Post,
+  UseGuards,
+} from "@nestjs/common";
 
 // dto
 import { AddTechReqBuildingDto } from "./dto/add-tech-req-building.dto";
+import { UpdateTechReqBuildingDto } from "./dto/update-tech-req-building.dto";
 
 // services
 import { TechReqBuildingService } from "./tech-req-building.service";
@@ -22,6 +33,12 @@ export class TechReqBuildingController {
   @Post(":id")
   create(@Param("id", ParseIntPipe) id: number, @Body() newTechReqBuilding: AddTechReqBuildingDto) {
     return this.newsReqBuildingService.create(id, newTechReqBuilding);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Patch(":id")
+  update(@Param("id", ParseIntPipe) id: number, @Body() newTechReqTech: UpdateTechReqBuildingDto) {
+    return this.newsReqBuildingService.update(id, newTechReqTech);
   }
 
   @UseGuards(JwtAuthGuard)

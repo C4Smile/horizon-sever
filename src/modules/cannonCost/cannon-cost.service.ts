@@ -7,7 +7,7 @@ import { CannonCost } from "./entities/cannon-cost.entity";
 
 // dto
 import { AddCannonCostDto } from "./dto/add-cannon-cost.dto";
-import { UpdateCannonCostDto } from "./dto/update-cannnon-cost.dto";
+import { UpdateCannonCostDto } from "./dto/update-cannon-cost.dto";
 import { CrudManyService } from "../models/service/CrudManyService";
 
 @Injectable()
