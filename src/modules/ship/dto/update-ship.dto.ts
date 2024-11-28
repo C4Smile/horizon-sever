@@ -7,5 +7,6 @@ export interface UpdateShipDto extends UpdateModelDto {
   description: string;
   baseSpeed: number;
   crew: number;
+  guns: number;
   creationTime: number;
 }

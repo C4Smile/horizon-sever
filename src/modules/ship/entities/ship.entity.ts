@@ -25,6 +25,9 @@ export class Ship extends Model {
   @Column({ type: "int" })
   crew: number;
 
+  @Column({ type: "int" })
+  guns: number;
+
   @Column({ type: "double" })
   creationTime: number;
 
