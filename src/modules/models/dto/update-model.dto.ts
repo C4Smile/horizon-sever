@@ -3,3 +3,7 @@ export type UpdateModelDto = {
   lastUpdate: Date;
   deleted?: boolean;
 };
+
+export type UpdateRelationshipDto = {
+  id: number;
+};

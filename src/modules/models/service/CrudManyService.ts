@@ -1,8 +1,17 @@
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { DeepPartial, FindOptionsWhere, Repository } from "typeorm";
 
+// dto
+import { UpdateRelationshipDto } from "../dto/update-model.dto";
+import { AddRelationshipDto } from "../dto/add-model.dto";
+import { RelationshipDto } from "../dto/model.dto";
+
 @Injectable()
-export class CrudManyService<Entity, AddDto, UpdateDto> {
+export class CrudManyService<
+  Entity,
+  AddDto extends AddRelationshipDto,
+  UpdateDto extends UpdateRelationshipDto,
+> {
   protected entityService: Repository<Entity>;
   protected relationships: string[];
   protected attributeId: string;
@@ -60,7 +69,7 @@ export class CrudManyService<Entity, AddDto, UpdateDto> {
   async update(id: number, data: UpdateDto) {
     const entityFound = await this.entityService.findOne({
       where: {
-        id,
+        id: data.id,
       } as any,
     });
 

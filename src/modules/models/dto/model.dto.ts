@@ -4,3 +4,7 @@ export class ModelDto {
   lastUpdate: Date;
   deleted: boolean;
 }
+
+export class RelationshipDto {
+  id: number;
+}
