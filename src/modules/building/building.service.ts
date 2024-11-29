@@ -19,7 +19,7 @@ export class BuildingService extends CrudService<Building, AddBuildingDto, Updat
     @InjectRepository(Building) buildingService: Repository<Building>,
     @InjectRepository(Photo) imageService: Repository<Photo>,
   ) {
-    const relationships = ["image"];
+    const relationships = ["image", "type"];
     super(buildingService, imageService, relationships);
   }
 }
