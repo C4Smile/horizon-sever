@@ -14,6 +14,9 @@ import { ImageService } from "src/modules/image/image.service";
 // entity
 import { Photo } from "src/modules/image/image.entity";
 
+// utils
+import { parseRelationships } from "../functions/parseRelationships";
+
 @Injectable()
 export class CrudService<Entity, AddDto, UpdateDto> {
   protected imageService: ImageService;
@@ -38,7 +41,7 @@ export class CrudService<Entity, AddDto, UpdateDto> {
       (entity as any).imageId = resultImage.id;
     }
 
-    const newEntity = this.entityService.create(entity as any);
+    const newEntity = this.entityService.create(parseRelationships(entity));
 
     const saved = await this.entityService.save(newEntity);
 
@@ -95,7 +98,7 @@ export class CrudService<Entity, AddDto, UpdateDto> {
 
     if (!entityFound) throw new HttpException("Entity not Found", HttpStatus.NOT_FOUND);
 
-    const updatedEntity = Object.assign(entityFound, data);
+    const updatedEntity = Object.assign(entityFound, parseRelationships(data));
     const saved = await this.entityService.save(updatedEntity);
     return [saved];
   }
