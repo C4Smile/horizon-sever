@@ -1,7 +1,18 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, UseGuards } from "@nestjs/common";
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  ParseIntPipe,
+  Patch,
+  Post,
+  UseGuards,
+} from "@nestjs/common";
 
 // dto
 import { AddBuildingReqBuildingDto } from "./dto/add-building-req-building.dto";
+import { UpdateBuildingReqBuildingDto } from "./dto/update-building-req-building.dto";
 
 // services
 import { BuildingReqBuildingService } from "./building-req-building.service";
@@ -25,6 +36,15 @@ export class BuildingReqBuildingController {
     @Body() newBuildingReqBuilding: AddBuildingReqBuildingDto,
   ) {
     return this.buildingReqBuildingService.create(id, newBuildingReqBuilding);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Patch(":id")
+  update(
+    @Param("id", ParseIntPipe) id: number,
+    @Body() updateBuildingUpkeep: UpdateBuildingReqBuildingDto,
+  ) {
+    return this.buildingReqBuildingService.update(id, updateBuildingUpkeep);
   }
 
   @UseGuards(JwtAuthGuard)

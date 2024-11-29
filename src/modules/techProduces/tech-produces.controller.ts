@@ -12,29 +12,29 @@ import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
 
 @Controller("techProduces")
 export class TechProducesController {
-  constructor(private newsTechProducesService: TechProducesService) {}
+  constructor(private techProducesService: TechProducesService) {}
 
   @Get(":id")
   getByTechId(@Param("id", ParseIntPipe) id: number) {
-    return this.newsTechProducesService.getByEntityId(id);
+    return this.techProducesService.getByEntityId(id);
   }
 
   @UseGuards(JwtAuthGuard)
   @Post(":id")
   create(@Param("id", ParseIntPipe) id: number, @Body() newTechProduce: AddTechProducesDto) {
-    return this.newsTechProducesService.create(id, newTechProduce);
+    return this.techProducesService.create(id, newTechProduce);
   }
 
   @UseGuards(JwtAuthGuard)
   @Patch(":id")
-  update(@Param("id", ParseIntPipe) id: number, @Body() newTechReqTech: UpdateTechProducesDto) {
-    return this.newsTechProducesService.update(id, newTechReqTech);
+  update(@Param("id", ParseIntPipe) id: number, @Body() updateTechProduces: UpdateTechProducesDto) {
+    return this.techProducesService.update(id, updateTechProduces);
   }
 
   @UseGuards(JwtAuthGuard)
   @Delete(":id")
   remove(@Param("id", ParseIntPipe) id: number, @Body() ids: number[]) {
-    return this.newsTechProducesService.remove(id, ids);
+    return this.techProducesService.remove(id, ids);
   }
 
   @UseGuards(JwtAuthGuard)
@@ -43,6 +43,6 @@ export class TechProducesController {
     @Param("entityId", ParseIntPipe) entityId: number,
     @Param("remoteId", ParseIntPipe) remoteId: number,
   ) {
-    return this.newsTechProducesService.removeSingle(entityId, remoteId);
+    return this.techProducesService.removeSingle(entityId, remoteId);
   }
 }

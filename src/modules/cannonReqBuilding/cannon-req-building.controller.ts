@@ -1,7 +1,8 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, UseGuards } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, UseGuards } from "@nestjs/common";
 
 // dto
 import { AddCannonReqBuildingDto } from "./dto/add-cannon-req-building.dto";
+import { UpdateCannonReqBuildingDto } from "./dto/update-cannon-req-building.dto";
 
 // services
 import { CannonReqBuildingService } from "./cannon-req-building.service";
@@ -22,6 +23,15 @@ export class CannonReqBuildingController {
   @Post(":id")
   create(@Param("id", ParseIntPipe) id: number, @Body() newCannonReqBuilding: AddCannonReqBuildingDto) {
     return this.cannonReqBuildingService.create(id, newCannonReqBuilding);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Patch(":id")
+  update(
+    @Param("id", ParseIntPipe) id: number,
+    @Body() updateCannonReqBuilding: UpdateCannonReqBuildingDto,
+  ) {
+    return this.cannonReqBuildingService.update(id, updateCannonReqBuilding);
   }
 
   @UseGuards(JwtAuthGuard)

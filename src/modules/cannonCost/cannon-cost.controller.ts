@@ -22,29 +22,29 @@ import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
 
 @Controller("cannonCosts")
 export class CannonCostController {
-  constructor(private newsCannonCostsService: CannonCostService) {}
+  constructor(private cannonCostsService: CannonCostService) {}
 
   @Get(":id")
   getByCannonId(@Param("id", ParseIntPipe) id: number) {
-    return this.newsCannonCostsService.getByEntityId(id);
+    return this.cannonCostsService.getByEntityId(id);
   }
 
   @UseGuards(JwtAuthGuard)
   @Post(":id")
   create(@Param("id", ParseIntPipe) id: number, @Body() newCannonCost: AddCannonCostDto) {
-    return this.newsCannonCostsService.create(id, newCannonCost);
+    return this.cannonCostsService.create(id, newCannonCost);
   }
 
   @UseGuards(JwtAuthGuard)
   @Patch(":id")
-  update(@Param("id", ParseIntPipe) id: number, @Body() newTechReqTech: UpdateCannonCostDto) {
-    return this.newsCannonCostsService.update(id, newTechReqTech);
+  update(@Param("id", ParseIntPipe) id: number, @Body() updateCannonCost: UpdateCannonCostDto) {
+    return this.cannonCostsService.update(id, updateCannonCost);
   }
 
   @UseGuards(JwtAuthGuard)
   @Delete(":id")
   remove(@Param("id", ParseIntPipe) id: number, @Body() ids: number[]) {
-    return this.newsCannonCostsService.remove(id, ids);
+    return this.cannonCostsService.remove(id, ids);
   }
 
   @UseGuards(JwtAuthGuard)
@@ -53,6 +53,6 @@ export class CannonCostController {
     @Param("entityId", ParseIntPipe) entityId: number,
     @Param("remoteId", ParseIntPipe) remoteId: number,
   ) {
-    return this.newsCannonCostsService.removeSingle(entityId, remoteId);
+    return this.cannonCostsService.removeSingle(entityId, remoteId);
   }
 }

@@ -1,7 +1,18 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, UseGuards } from "@nestjs/common";
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  ParseIntPipe,
+  Patch,
+  Post,
+  UseGuards,
+} from "@nestjs/common";
 
 // dto
 import { AddBuildingProducesDto } from "./dto/add-building-produces.dto";
+import { UpdateBuildingProducesDto } from "./dto/update-building-produces.dto";
 
 // services
 import { BuildingProducesService } from "./building-produces.service";
@@ -11,23 +22,32 @@ import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
 
 @Controller("buildingProduces")
 export class BuildingProducesController {
-  constructor(private newsBuildingProducesService: BuildingProducesService) {}
+  constructor(private buildingProducesService: BuildingProducesService) {}
 
   @Get(":id")
   getByBuildingId(@Param("id", ParseIntPipe) id: number) {
-    return this.newsBuildingProducesService.getByEntityId(id);
+    return this.buildingProducesService.getByEntityId(id);
   }
 
   @UseGuards(JwtAuthGuard)
   @Post(":id")
   create(@Param("id", ParseIntPipe) id: number, @Body() newBuildingProduce: AddBuildingProducesDto) {
-    return this.newsBuildingProducesService.create(id, newBuildingProduce);
+    return this.buildingProducesService.create(id, newBuildingProduce);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Patch(":id")
+  update(
+    @Param("id", ParseIntPipe) id: number,
+    @Body() updateBuildingProduces: UpdateBuildingProducesDto,
+  ) {
+    return this.buildingProducesService.update(id, updateBuildingProduces);
   }
 
   @UseGuards(JwtAuthGuard)
   @Delete(":id")
   remove(@Param("id", ParseIntPipe) id: number, @Body() ids: number[]) {
-    return this.newsBuildingProducesService.remove(id, ids);
+    return this.buildingProducesService.remove(id, ids);
   }
 
   @UseGuards(JwtAuthGuard)
@@ -36,6 +56,6 @@ export class BuildingProducesController {
     @Param("entityId", ParseIntPipe) entityId: number,
     @Param("remoteId", ParseIntPipe) remoteId: number,
   ) {
-    return this.newsBuildingProducesService.removeSingle(entityId, remoteId);
+    return this.buildingProducesService.removeSingle(entityId, remoteId);
   }
 }
