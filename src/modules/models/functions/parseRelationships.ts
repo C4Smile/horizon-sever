@@ -9,7 +9,7 @@ export const parseRelationships = (entity: any) => {
     switch (key) {
       case "type": {
         if (entity.type) {
-          newEntity.typeId = entity.type.id;
+          newEntity.typeId = entity.type?.id ?? entity.type;
           delete entity.type;
         }
         break;
