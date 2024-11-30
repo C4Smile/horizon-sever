@@ -23,7 +23,13 @@ export class Ship extends Model {
   baseSpeed: number;
 
   @Column({ type: "int" })
-  crew: number;
+  minCrew: number;
+
+  @Column({ type: "int" })
+  bestCrew: number;
+
+  @Column({ type: "int" })
+  maxCrew: number;
 
   @Column({ type: "int" })
   guns: number;

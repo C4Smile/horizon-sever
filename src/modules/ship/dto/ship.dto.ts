@@ -6,7 +6,9 @@ export interface ShipDto extends ModelDto {
   image: object;
   description: string;
   baseSpeed: number;
-  crew: number;
+  minCrew: number;
+  bestCrew: number;
+  maxCrew: number;
   guns: number;
   creationTime: number;
 }

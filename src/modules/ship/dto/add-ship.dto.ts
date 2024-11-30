@@ -6,7 +6,9 @@ export interface AddShipDto extends AddModelDto {
   imageId: number;
   description: string;
   baseSpeed: number;
-  crew: number;
+  minCrew: number;
+  bestCrew: number;
+  maxCrew: number;
   guns: number;
   creationTime: number;
 }
