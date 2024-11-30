@@ -20,10 +20,7 @@ export class Ship extends Model {
   capacity: number;
 
   @Column({ type: "double" })
-  minKnots: number;
-
-  @Column({ type: "double" })
-  maxKnots: number;
+  knots: number;
 
   @Column({ type: "int" })
   minCrew: number;
