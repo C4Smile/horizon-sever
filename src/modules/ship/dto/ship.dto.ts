@@ -11,4 +11,5 @@ export interface ShipDto extends ModelDto {
   maxCrew: number;
   guns: number;
   creationTime: number;
+  hull: number;
 }

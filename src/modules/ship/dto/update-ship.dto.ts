@@ -11,4 +11,5 @@ export interface UpdateShipDto extends UpdateModelDto {
   maxCrew: number;
   guns: number;
   creationTime: number;
+  hull: number;
 }
