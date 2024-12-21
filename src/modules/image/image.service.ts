@@ -68,6 +68,17 @@ export class ImageService {
     return { items: list.filter((image) => image.alt.length), total: total };
   }
 
+  async getById(id: number): Promise<Photo> {
+    const entityFound = await this.imageService.findOne({
+      where: {
+        id,
+      },
+    });
+
+    if (!entityFound) throw new HttpException("Entity not Found", HttpStatus.NOT_FOUND);
+    return entityFound;
+  }
+
   async remove(id: number) {
     const imageFound = await this.imageService.findOne({
       where: { id },
@@ -76,7 +87,7 @@ export class ImageService {
     if (!imageFound) throw new HttpException("Image not found", HttpStatus.NOT_FOUND);
 
     try {
-      const path = join(__dirname, "../../", `public/images/${imageFound.url}`);
+      const path = join(__dirname, "../../../", `public/images/${imageFound.url}`);
       rmSync(path);
       return this.imageService.delete({ id });
     } catch (err) {

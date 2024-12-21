@@ -74,7 +74,7 @@ export class CrudService<Entity, AddDto, UpdateDto> {
     });
 
     if (!entityFound) throw new HttpException("Entity not Found", HttpStatus.NOT_FOUND);
-    return [entityFound];
+    return entityFound;
   }
 
   async remove(ids: number[]) {
@@ -98,8 +98,24 @@ export class CrudService<Entity, AddDto, UpdateDto> {
 
     if (!entityFound) throw new HttpException("Entity not Found", HttpStatus.NOT_FOUND);
 
+    // searching for existing image
+    const oldImageId = (entityFound as any).imageId;
+
+    const image = (data as any).image;
+    if (image) {
+      const resultImage = await this.imageService.create(image as AddBlobDto);
+      delete (data as any).image;
+      (data as any).imageId = resultImage.id;
+    }
+
     const updatedEntity = Object.assign(entityFound, parseRelationships(data));
     const saved = await this.entityService.save(updatedEntity);
+
+    if (oldImageId > 1) {
+      // deleting old image
+      await this.imageService.remove(oldImageId);
+    }
+
     return [saved];
   }
 
