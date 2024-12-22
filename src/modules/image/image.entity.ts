@@ -18,3 +18,7 @@ export class Photo extends Model {
   @OneToMany(() => PushNotification, (pushNotification) => pushNotification.image, { cascade: true })
   pushNotifications: PushNotification;
 }
+
+export enum ImageEnum {
+  NoUserImage = 1,
+}

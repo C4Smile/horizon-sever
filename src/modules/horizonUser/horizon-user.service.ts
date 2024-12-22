@@ -18,6 +18,7 @@ import { QueryFilter, PagedResult } from "src/modules/models/types";
 import { HorizonUserDto } from "./dto/horizon-user.dto";
 import { AddHorizonUserDto } from "./dto/add-horizon-user.dto";
 import { UpdateHorizonUserDto } from "./dto/update-horizon-user.dto";
+import { AddBlobDto } from "../image/dto/add-blob.dto";
 
 @Injectable()
 export class HorizonUserService extends CrudService<
@@ -81,5 +82,28 @@ export class HorizonUserService extends CrudService<
     if (!horizonUserFound) throw new HttpException("HorizonUser not Found", HttpStatus.NOT_FOUND);
 
     return horizonUserFound;
+  }
+
+  async uploadPhoto(horizonUserId: number, photo: AddBlobDto) {
+    const userData = await this.entityService.findOne({
+      where: {
+        id: horizonUserId,
+      },
+    });
+
+    if (!userData) throw new HttpException("Entity not Found", HttpStatus.NOT_FOUND);
+
+    const oldImageId = userData.imageId;
+
+    const resultImage = await this.imageService.create(photo);
+
+    await this.entityService.update(horizonUserId, { imageId: resultImage.id });
+
+    if (oldImageId > 1) {
+      // deleting old image
+      await this.imageService.remove(oldImageId);
+    }
+
+    return resultImage;
   }
 }

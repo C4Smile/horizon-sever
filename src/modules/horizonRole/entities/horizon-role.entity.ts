@@ -16,3 +16,8 @@ export class HorizonRole extends Model {
   @OneToMany(() => HorizonUser, (horizonUser) => horizonUser.role)
   horizonUsers: HorizonUser[];
 }
+
+export enum HorizonRoleEnum {
+  Admin = 1,
+  Player = 2,
+}

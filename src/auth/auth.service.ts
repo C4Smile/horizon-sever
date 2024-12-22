@@ -12,6 +12,8 @@ import { HorizonUser } from "src/modules/horizonUser/entities/horizon-user.entit
 import { LoginUserDto } from "./dto/login-user.dto";
 import { LoggedUserDto } from "./dto/logged-user.dto";
 import { AddUserDto } from "src/modules/user/dto/add-user.dto";
+import { HorizonRoleEnum } from "src/modules/horizonRole/entities/horizon-role.entity";
+import { ImageEnum } from "src/modules/image/image.entity";
 
 @Injectable()
 export class AuthService {
@@ -71,8 +73,20 @@ export class AuthService {
 
     const hashedPassword = await hash(user.encrypted_password, 10);
 
+    // registering basic user
     const newUser = this.userService.create({ ...user, encrypted_password: hashedPassword });
     const resultUser = await this.userService.save(newUser);
-    return [resultUser];
+
+    // registering horizon user
+    const newHorizonUser = this.HorizonUserService.create({
+      email: user.email,
+      phone: user.phone,
+      roleId: HorizonRoleEnum.Player,
+      imageId: ImageEnum.NoUserImage,
+      userId: resultUser.id,
+    });
+    const resultHorizonUser = await this.HorizonUserService.save(newHorizonUser);
+
+    return [newHorizonUser];
   }
 }
