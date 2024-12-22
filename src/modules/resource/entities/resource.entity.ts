@@ -1,16 +1,25 @@
-import { Column, Entity } from "typeorm";
+import { Column, Entity, ManyToOne, PrimaryColumn } from "typeorm";
 
 // entities
-import { Model } from "src/modules/models/model";
+import { HorizonUser } from "src/modules/horizonUser/entities/horizon-user.entity";
 
 @Entity({ name: "resources" })
-export class Resource extends Model {
-  @Column({ type: "int" })
+export class Resource {
+  @PrimaryColumn({ type: "int" })
+  id: number;
+
+  @PrimaryColumn({ type: "int" })
   playerId: number;
 
-  @Column({ type: "int" })
-  resourceId: number;
+  @ManyToOne(() => HorizonUser, (horizonRole) => horizonRole.resources, { cascade: true })
+  player: HorizonUser;
 
   @Column({ type: "float" })
-  quantity: number = 0;
+  inStock: number = 0;
+
+  @Column({ type: "float" })
+  maxCapacity: number = 0;
+
+  @Column({ type: "float" })
+  currentFactor: number;
 }

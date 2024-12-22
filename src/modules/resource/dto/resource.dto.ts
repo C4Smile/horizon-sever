@@ -1,4 +1,6 @@
 export interface ResourceDto {
-  resourceId: number;
-  quantity: number;
+  id: number;
+  inStock: number;
+  maxCapacity: number;
+  currentFactor: number;
 }

@@ -1,5 +1,6 @@
 import { Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
+import { ScheduleModule } from "@nestjs/schedule";
 import { ServeStaticModule } from "@nestjs/serve-static";
 
 import { join } from "path";
@@ -16,12 +17,15 @@ import { ImageModule } from "./modules/image/image.module";
 import { PushNotificationModule } from "./modules/pushNotification/push-notification.module";
 import { ResourceModule } from "./modules/resource/resource.module";
 import { UserModule } from "./modules/user/user.module";
+import { JobsModule } from "./modules/jobs/JobsModule";
 
 // config
 import config from "./config/configuration";
 
 @Module({
   imports: [
+    ScheduleModule.forRoot(),
+    JobsModule,
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, "..", "public"),
       serveRoot: "/public/",

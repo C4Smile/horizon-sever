@@ -1,10 +1,11 @@
-import { Column, Entity, JoinColumn, ManyToOne, OneToOne } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne } from "typeorm";
 
 // entities
 import { User } from "../../user/user.entity";
 import { Model } from "src/modules/models/model";
 import { Photo } from "src/modules/image/image.entity";
 import { HorizonRole } from "src/modules/horizonRole/entities/horizon-role.entity";
+import { Resource } from "src/modules/resource/entities/resource.entity";
 
 /**
  * @class HorizonUser
@@ -29,6 +30,9 @@ export class HorizonUser extends Model {
 
   @ManyToOne(() => HorizonRole, (horizonRole) => horizonRole.horizonUsers, { cascade: true })
   role: HorizonRole;
+
+  @OneToMany(() => Resource, (resource) => resource.player)
+  resources: Resource[];
 
   @Column({ type: "int" })
   userId: number;
