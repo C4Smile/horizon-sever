@@ -4,6 +4,11 @@ import { join } from "path";
 
 const YAML_CONFIG_FILENAME = "config.yaml";
 
+type HostType = {
+  host: string;
+  port: number;
+};
+
 type DatabaseConfigurationType = {
   url: string;
   port: number;
@@ -20,6 +25,7 @@ type GameFactorSettings = {
 };
 
 type ConfigurationType = {
+  http: HostType;
   db: DatabaseConfigurationType;
   game: GameFactorSettings;
 };

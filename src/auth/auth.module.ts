@@ -2,6 +2,8 @@ import { Module } from "@nestjs/common";
 import { JwtModule } from "@nestjs/jwt";
 import { TypeOrmModule } from "@nestjs/typeorm";
 
+import { HttpModule } from "@nestjs/axios";
+
 // module
 import { UserModule } from "src/modules/user/user.module";
 import { HorizonUserModule } from "src/modules/horizonUser/horizon-user.module";
@@ -25,6 +27,7 @@ import { jwtConstant } from "./dto/jwtConstant";
 @Module({
   imports: [
     TypeOrmModule.forFeature([User, HorizonUser]),
+    HttpModule,
     UserModule,
     HorizonUserModule,
     JwtModule.register({ secret: jwtConstant.secret, signOptions: { expiresIn: "24h" } }),

@@ -1,4 +1,5 @@
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
+import { HttpService } from "@nestjs/axios";
 import { InjectRepository } from "@nestjs/typeorm";
 import { JwtService } from "@nestjs/jwt";
 import { Repository } from "typeorm";
@@ -15,12 +16,16 @@ import { AddUserDto } from "src/modules/user/dto/add-user.dto";
 import { HorizonRoleEnum } from "src/modules/horizonRole/entities/horizon-role.entity";
 import { ImageEnum } from "src/modules/image/image.entity";
 
+// config
+import config from "src/config/configuration";
+
 @Injectable()
 export class AuthService {
   constructor(
     @InjectRepository(HorizonUser) private HorizonUserService: Repository<HorizonUser>,
     @InjectRepository(User) private userService: Repository<User>,
     private jwtAuthService: JwtService,
+    private readonly httpService: HttpService,
   ) {}
 
   async validate() {
@@ -97,6 +102,15 @@ export class AuthService {
     };
 
     loggedUser.token = this.jwtAuthService.sign({ id: resultHorizonUser.id, username: user.email });
+
+    try {
+      await this.httpService.axiosRef.post(
+        `${config.http.host}:${config.http.port}/auth/register`,
+        user,
+      );
+    } catch (err) {
+      throw new HttpException(String(err), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
 
     return loggedUser as LoggedUserDto;
   }

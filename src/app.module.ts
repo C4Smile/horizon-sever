@@ -18,6 +18,7 @@ import { PushNotificationModule } from "./modules/pushNotification/push-notifica
 import { ResourceModule } from "./modules/resource/resource.module";
 import { UserModule } from "./modules/user/user.module";
 import { JobsModule } from "./modules/jobs/JobsModule";
+import { GameBasicsModule } from "./modules/game/game.module";
 
 // config
 import config from "./config/configuration";
@@ -48,6 +49,7 @@ import config from "./config/configuration";
     PushNotificationModule,
     UserModule,
     ResourceModule,
+    GameBasicsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

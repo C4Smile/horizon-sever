@@ -1,56 +1,19 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  Param,
-  ParseIntPipe,
-  Patch,
-  Post,
-  UseGuards,
-} from "@nestjs/common";
+import { Controller, Get, UseGuards } from "@nestjs/common";
 
 // guard
 import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
 
-// dto
-import { UserDto } from "./dto/user.dto";
-import { AddUserDto } from "./dto/add-user.dto";
-
 // services
-import { UserService } from "./game.service";
-import { UpdateUserDto } from "./dto/update-user.dto";
+import { GameService } from "./game.service";
+import { GameBasicsDto } from "./dto/game-basics.dto";
 
-@Controller("user")
-export class UserController {
-  constructor(private userService: UserService) {}
+@Controller("game")
+export class GameController {
+  constructor(private gameService: GameService) {}
 
   @UseGuards(JwtAuthGuard)
   @Get()
-  get(): Promise<UserDto[]> {
-    return this.userService.get();
-  }
-
-  @Get(":id")
-  getById(@Param("id", ParseIntPipe) id: number) {
-    return this.userService.getById(id);
-  }
-
-  @UseGuards(JwtAuthGuard)
-  @Post()
-  create(@Body() newUser: AddUserDto) {
-    return this.userService.create(newUser);
-  }
-
-  @UseGuards(JwtAuthGuard)
-  @Delete(":id")
-  remove(@Param("id", ParseIntPipe) id: number) {
-    return this.userService.remove(id);
-  }
-
-  @UseGuards(JwtAuthGuard)
-  @Patch(":id")
-  update(@Param("id", ParseIntPipe) id: number, @Body() data: UpdateUserDto) {
-    return this.userService.update(id, data);
+  getBasics(): GameBasicsDto {
+    return this.gameService.get();
   }
 }
