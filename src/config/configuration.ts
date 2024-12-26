@@ -17,6 +17,8 @@ type GameFactorSettings = {
   captainUpkeep: number;
   shipUpkeep: number;
   shipSpeed: number;
+  patch: string;
+  realm: string;
 };
 
 type ConfigurationType = {

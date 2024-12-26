@@ -44,6 +44,7 @@ import { CannonModule } from "./modules/cannon/cannon.module";
 import { CannonCostModule } from "./modules/cannonCost/cannon-cost.module";
 import { CannonReqTechModule } from "./modules/cannonReqTech/cannon-req-tech.module";
 import { CannonReqBuildingModule } from "./modules/cannonReqBuilding/cannon-req-building.module";
+import { GameBasicsModule } from "./modules/game/game.module";
 
 // config
 import config from "./config/configuration";
@@ -100,6 +101,7 @@ import config from "./config/configuration";
     CannonCostModule,
     CannonReqTechModule,
     CannonReqBuildingModule,
+    GameBasicsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
