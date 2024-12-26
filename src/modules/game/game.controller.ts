@@ -11,7 +11,6 @@ import { GameBasicsDto } from "./dto/game-basics.dto";
 export class GameController {
   constructor(private gameService: GameService) {}
 
-  @UseGuards(JwtAuthGuard)
   @Get()
   getBasics(): GameBasicsDto {
     return this.gameService.get();

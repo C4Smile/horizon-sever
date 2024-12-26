@@ -14,10 +14,6 @@ export class GameService {
         `${config.http.host}:${config.http.port}/game`,
       );
 
-      console.log(`${config.http.host}:${config.http.port}/game`);
-
-      console.log(response);
-
       if (response.data) this.gameBasics = response.data;
     } catch (err) {
       throw new HttpException(String(err), HttpStatus.INTERNAL_SERVER_ERROR);
