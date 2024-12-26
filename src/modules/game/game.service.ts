@@ -130,6 +130,49 @@ export class GameService {
     const techReqTechs = await this.techReqTechService.find();
     const techTypes = await this.techTypeService.find();
     console.info(`${techs.length} techs fetched`);
+    // parsing
+    // resource
+    this.gameBasics.resources = resources.map(({ id, name, imageId, baseFactor, description }) => {
+      const urlImage = photos.find((img) => img.id === imageId);
+      return { image: urlImage.url, id, name, baseFactor, description };
+    });
+    // buildings
+    this.gameBasics.buildings = buildings.map(
+      ({ id, name, imageId, creationTime, description, typeId }) => {
+        const urlImage = photos.find((img) => img.id === imageId);
+        return { image: urlImage.url, id, name, creationTime, typeId, description };
+      },
+    );
+    this.gameBasics.buildingCosts = buildingCosts.map((rel) => {
+      const entityId = rel.buildingId;
+      delete rel.buildingId;
+      return { ...rel, entityId };
+    });
+    this.gameBasics.buildingProduces = buildingProduces.map((rel) => {
+      const entityId = rel.buildingId;
+      delete rel.buildingId;
+      return { ...rel, entityId };
+    });
+    this.gameBasics.buildingReqBuildings = buildingReqBuildings.map((rel) => {
+      const entityId = rel.buildingId;
+      delete rel.buildingId;
+      return { ...rel, entityId };
+    });
+    this.gameBasics.buildingReqTechs = buildingReqTechs.map((rel) => {
+      const entityId = rel.buildingId;
+      delete rel.buildingId;
+      return { ...rel, entityId };
+    });
+    this.gameBasics.buildingTypes = buildingTypes.map(({ id, name, imageId }) => {
+      const urlImage = photos.find((img) => img.id === imageId);
+      return { image: urlImage.url, id, name };
+    });
+    this.gameBasics.buildingUpkeeps = buildingUpkeeps.map((rel) => {
+      const entityId = rel.buildingId;
+      delete rel.buildingId;
+      return { ...rel, entityId };
+    });
+    // cannons
   }
 
   constructor(
