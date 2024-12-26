@@ -1,14 +1,17 @@
-import { Column, Entity, ManyToOne, PrimaryColumn } from "typeorm";
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 // entities
 import { HorizonUser } from "src/modules/horizonUser/entities/horizon-user.entity";
 
 @Entity({ name: "resources" })
 export class Resource {
-  @PrimaryColumn({ type: "int" })
-  id: number;
+  @PrimaryGeneratedColumn("increment")
+  id: number = 0;
 
-  @PrimaryColumn({ type: "int" })
+  @Column({ type: "int" })
+  resourceId: number;
+
+  @Column({ type: "int" })
   playerId: number;
 
   @ManyToOne(() => HorizonUser, (horizonRole) => horizonRole.resources, { cascade: true })

@@ -57,7 +57,7 @@ export class ResourceService extends CrudService<Resource, AddModelDto, UpdateMo
           if (resource.inStock < resource.maxCapacity) {
             resourcesHarvested++;
             resource.inStock += resource.currentFactor;
-            await this.entityService.update(resource.id, { ...resource });
+            await this.entityService.update({ resourceId: resource.id }, { ...resource });
           }
         }
         playersHarvesting++;

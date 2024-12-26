@@ -79,6 +79,7 @@ export class AuthService {
 
     // registering horizon user
     const newHorizonUser = this.HorizonUserService.create({
+      username: user.email.split("@")[0],
       email: user.email,
       phone: user.phone,
       roleId: HorizonRoleEnum.Player,
@@ -87,6 +88,16 @@ export class AuthService {
     });
     const resultHorizonUser = await this.HorizonUserService.save(newHorizonUser);
 
-    return [newHorizonUser];
+    const loggedUser = {
+      user: {
+        id: resultUser.id,
+        horizonUserId: resultHorizonUser.id,
+      },
+      token: "",
+    };
+
+    loggedUser.token = this.jwtAuthService.sign({ id: resultHorizonUser.id, username: user.email });
+
+    return loggedUser as LoggedUserDto;
   }
 }
