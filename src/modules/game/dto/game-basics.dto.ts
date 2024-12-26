@@ -21,7 +21,7 @@ export type GameBasicsDto = {
   cannons: GameCannonDto[];
   cannonCosts: GameResourceRelationshipDto[];
   cannonReqBuildings: GameEntityReqBuildingDto[];
-  cannonReqTech: GameEntityReqTechDto[];
+  cannonReqTechs: GameEntityReqTechDto[];
   ships: GameShipDto[];
   shipCosts: GameResourceRelationshipDto[];
   shipUpkeeps: GameResourceRelationshipDto[];

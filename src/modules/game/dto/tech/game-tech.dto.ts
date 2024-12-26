@@ -3,6 +3,6 @@ export type GameTechDto = {
   name: string;
   image: string;
   typeId: number;
-  description: number;
+  description: string;
   creationTime: number;
 };

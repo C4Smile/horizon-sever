@@ -52,7 +52,7 @@ export class GameService {
       cannons: [],
       cannonCosts: [],
       cannonReqBuildings: [],
-      cannonReqTech: [],
+      cannonReqTechs: [],
       ships: [],
       shipCosts: [],
       shipUpkeeps: [],
@@ -112,9 +112,9 @@ export class GameService {
         deleted: false,
       },
     });
-    const shipsCosts = await this.shipCostService.find();
-    const shipsReqBuildings = await this.shipReqBuildingService.find();
-    const shipsReqTechs = await this.shipReqTechService.find();
+    const shipCosts = await this.shipCostService.find();
+    const shipReqBuildings = await this.shipReqBuildingService.find();
+    const shipReqTechs = await this.shipReqTechService.find();
     const shipUpkeeps = await this.shipUpkeepService.find();
     console.info(`${ships.length} ships fetched`);
     // techs
@@ -131,7 +131,7 @@ export class GameService {
     const techTypes = await this.techTypeService.find();
     console.info(`${techs.length} techs fetched`);
     // parsing
-    // resource
+    // resources
     this.gameBasics.resources = resources.map(({ id, name, imageId, baseFactor, description }) => {
       const urlImage = photos.find((img) => img.id === imageId);
       return { image: urlImage.url, id, name, baseFactor, description };
@@ -173,6 +173,114 @@ export class GameService {
       return { ...rel, entityId };
     });
     // cannons
+    this.gameBasics.cannons = cannons.map(
+      ({ id, name, creationTime, description, baseDamage, weight }) => ({
+        id,
+        name,
+        creationTime,
+        description,
+        baseDamage,
+        weight,
+      }),
+    );
+    this.gameBasics.cannonCosts = cannonCosts.map((rel) => {
+      const entityId = rel.cannonId;
+      delete rel.cannonId;
+      return { ...rel, entityId };
+    });
+    this.gameBasics.cannonReqBuildings = cannonReqBuildings.map((rel) => {
+      const entityId = rel.cannonId;
+      delete rel.cannonId;
+      return { ...rel, entityId };
+    });
+    this.gameBasics.cannonReqTechs = cannonReqTechs.map((rel) => {
+      const entityId = rel.cannonId;
+      delete rel.cannonId;
+      return { ...rel, entityId };
+    });
+    // ships
+    this.gameBasics.ships = ships.map(
+      ({
+        id,
+        name,
+        creationTime,
+        description,
+        imageId,
+        capacity,
+        knots,
+        minCrew,
+        bestCrew,
+        maxCrew,
+        guns,
+        hull,
+      }) => {
+        const urlImage = photos.find((img) => img.id === imageId);
+        return {
+          image: urlImage.url,
+          id,
+          name,
+          creationTime,
+          description,
+          imageId,
+          capacity,
+          knots,
+          minCrew,
+          bestCrew,
+          maxCrew,
+          guns,
+          hull,
+        };
+      },
+    );
+    this.gameBasics.shipCosts = shipCosts.map((rel) => {
+      const entityId = rel.shipId;
+      delete rel.shipId;
+      return { ...rel, entityId };
+    });
+    this.gameBasics.shipReqBuildings = shipReqBuildings.map((rel) => {
+      const entityId = rel.shipId;
+      delete rel.shipId;
+      return { ...rel, entityId };
+    });
+    this.gameBasics.shipReqTechs = shipReqTechs.map((rel) => {
+      const entityId = rel.shipId;
+      delete rel.shipId;
+      return { ...rel, entityId };
+    });
+    this.gameBasics.shipUpkeeps = shipUpkeeps.map((rel) => {
+      const entityId = rel.shipId;
+      delete rel.shipId;
+      return { ...rel, entityId };
+    });
+    // techs
+    this.gameBasics.techs = techs.map(({ id, name, imageId, typeId, description, creationTime }) => {
+      const urlImage = photos.find((img) => img.id === imageId);
+      return { image: urlImage.url, id, name, creationTime, typeId, description };
+    });
+    this.gameBasics.techCosts = techCosts.map((rel) => {
+      const entityId = rel.techId;
+      delete rel.techId;
+      return { ...rel, entityId };
+    });
+    this.gameBasics.techProduces = techProduces.map((rel) => {
+      const entityId = rel.techId;
+      delete rel.techId;
+      return { ...rel, entityId };
+    });
+    this.gameBasics.techReqBuildings = techReqBuildings.map((rel) => {
+      const entityId = rel.techId;
+      delete rel.techId;
+      return { ...rel, entityId };
+    });
+    this.gameBasics.techReqTechs = techReqTechs.map((rel) => {
+      const entityId = rel.techId;
+      delete rel.techId;
+      return { ...rel, entityId };
+    });
+    this.gameBasics.techTypes = techTypes.map(({ id, name, imageId }) => {
+      const urlImage = photos.find((img) => img.id === imageId);
+      return { image: urlImage.url, id, name };
+    });
   }
 
   constructor(
