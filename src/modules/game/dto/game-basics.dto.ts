@@ -1,4 +1,3 @@
-import { GameResourceDto } from "src/modules/resource/dto/resource.dto";
 import { GameBuildingDto } from "./building/game-building.dto";
 import { GameEntityReqBuildingDto } from "./game-entity-req-building.dto";
 import { GameResourceRelationshipDto } from "./game-resource-relationship.dto";
@@ -8,6 +7,7 @@ import { GameCannonDto } from "./cannon/game-cannon.dto";
 import { GameShipDto } from "./ship/game-ship.dto";
 import { GameTechDto } from "./tech/game-tech.dto";
 import { GameTechTypeDto } from "./tech/game-tech-type.dto";
+import { GameResourceDto } from "./resource/game-resource.dto";
 
 type Dictionary<data> = {
   [key: number]: data;
