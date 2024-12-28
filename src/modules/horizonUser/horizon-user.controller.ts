@@ -9,11 +9,7 @@ import {
   Post,
   Query,
   UseGuards,
-  UseInterceptors,
 } from "@nestjs/common";
-
-// entity
-import { HorizonUser } from "./entities/horizon-user.entity";
 
 // entities
 import { PagedResult, QueryFilter } from "src/modules/models/types";

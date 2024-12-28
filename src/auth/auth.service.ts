@@ -7,6 +7,7 @@ import { hash, compare } from "bcrypt";
 
 // entity
 import { User } from "src/modules/user/user.entity";
+import { Validation } from "./entities/validation.entity";
 import { HorizonUser } from "src/modules/horizonUser/entities/horizon-user.entity";
 
 // dto
@@ -24,6 +25,7 @@ export class AuthService {
   constructor(
     @InjectRepository(HorizonUser) private HorizonUserService: Repository<HorizonUser>,
     @InjectRepository(User) private userService: Repository<User>,
+    @InjectRepository(Validation) private validationService: Repository<Validation>,
     private jwtAuthService: JwtService,
     private readonly httpService: HttpService,
   ) {}
@@ -99,6 +101,14 @@ export class AuthService {
         status: 200,
       },
     };
+
+    const token = this.jwtAuthService.sign({ id: resultHorizonUser.id, username: user.email });
+
+    const newValidation = this.validationService.create({
+      userId: resultHorizonUser.id,
+      token,
+    });
+    await this.validationService.save(newValidation);
 
     try {
       await this.httpService.axiosRef.post(

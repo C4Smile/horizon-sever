@@ -23,10 +23,11 @@ import { JwtStrategy } from "./jwt.strategy";
 
 // constants
 import { jwtConstant } from "./dto/jwtConstant";
+import { Validation } from "./entities/validation.entity";
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([User, HorizonUser]),
+    TypeOrmModule.forFeature([User, HorizonUser, Validation]),
     HttpModule,
     UserModule,
     HorizonUserModule,
