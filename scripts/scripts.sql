@@ -14,5 +14,5 @@ INSERT INTO `horizon-role` (`dateOfCreation`, `lastUpdate`, `deleted`, `name`) V
 
 -- HORIZON USER
 INSERT INTO `horizon-user` (`dateOfCreation`, `lastUpdate`, `deleted`, `name`, `username`, `phone`, `email`, `roleId`, `userId`, `imageId`) VALUES
-('2024-08-12 10:34:55', '2024-08-13 09:37:16', 0, 'administrador', 'administrador', 'administrador', 'aministrador@email.com', 1, 1, 1),
-('2024-08-12 10:34:55', '2024-08-13 09:37:16', 0, 'player', 'player', 'player', 'player@email.com', 1, 2, 1)
+('2024-08-12 10:34:55', '2024-08-13 09:37:16', 0, 'administrador', 'administrador', 'administrador', 'aministrador@email.com', 1, 1, 1, 2),
+('2024-08-12 10:34:55', '2024-08-13 09:37:16', 0, 'player', 'player', 'player', 'player@email.com', 1, 2, 1, 2)

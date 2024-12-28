@@ -26,6 +26,9 @@ export class HorizonUser extends Model {
   email: string = "";
 
   @Column({ type: "int" })
+  status: number = 0;
+
+  @Column({ type: "int" })
   roleId: number;
 
   @ManyToOne(() => HorizonRole, (horizonRole) => horizonRole.horizonUsers, { cascade: true })

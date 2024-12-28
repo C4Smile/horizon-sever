@@ -70,13 +70,14 @@ export class AuthService {
   async register(user: AddUserDto) {
     const phoneFound = await this.userService.findOne({ where: { phone: user.phone } });
 
-    if (phoneFound) throw new HttpException("Phone is being used", HttpStatus.CONFLICT);
+    if (phoneFound && user.phone?.length)
+      throw new HttpException("Phone is being used", HttpStatus.CONFLICT);
 
     const emailFound = await this.userService.findOne({ where: { email: user.email } });
 
     if (emailFound) throw new HttpException("Email is being used", HttpStatus.CONFLICT);
 
-    const hashedPassword = await hash(user.encrypted_password, 10);
+    const hashedPassword = await hash(user.password, 10);
 
     // registering basic user
     const newUser = this.userService.create({ ...user, encrypted_password: hashedPassword });
@@ -93,15 +94,11 @@ export class AuthService {
     });
     const resultHorizonUser = await this.HorizonUserService.save(newHorizonUser);
 
-    const loggedUser = {
+    const registeredUser = {
       user: {
-        id: resultUser.id,
-        horizonUserId: resultHorizonUser.id,
+        status: 200,
       },
-      token: "",
     };
-
-    loggedUser.token = this.jwtAuthService.sign({ id: resultHorizonUser.id, username: user.email });
 
     try {
       await this.httpService.axiosRef.post(
@@ -112,6 +109,6 @@ export class AuthService {
       throw new HttpException(String(err), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    return loggedUser as LoggedUserDto;
+    return registeredUser;
   }
 }
