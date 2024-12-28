@@ -16,7 +16,7 @@ export class UserService {
   constructor(@InjectRepository(User) private userService: Repository<User>) {}
 
   async create(user: AddUserDto) {
-    const hashedPassword = await hash(user.encrypted_password, 10);
+    const hashedPassword = await hash(user.password, 10);
 
     const newUser = this.userService.create({ ...user, encrypted_password: hashedPassword });
     const resultUser = await this.userService.save(newUser);

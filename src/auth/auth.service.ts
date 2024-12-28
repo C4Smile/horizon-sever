@@ -63,13 +63,14 @@ export class AuthService {
   async register(user: AddUserDto) {
     const phoneFound = await this.userService.findOne({ where: { phone: user.phone } });
 
-    if (phoneFound) throw new HttpException("Phone is being used", HttpStatus.CONFLICT);
+    if (phoneFound && user.phone?.length)
+      throw new HttpException("Phone is being used", HttpStatus.CONFLICT);
 
     const emailFound = await this.userService.findOne({ where: { email: user.email } });
 
     if (emailFound) throw new HttpException("Email is being used", HttpStatus.CONFLICT);
 
-    const hashedPassword = await hash(user.encrypted_password, 10);
+    const hashedPassword = await hash(user.password, 10);
 
     const newUser = this.userService.create({ ...user, encrypted_password: hashedPassword });
     const resultUser = await this.userService.save(newUser);
