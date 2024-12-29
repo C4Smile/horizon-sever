@@ -4,18 +4,22 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { JwtService } from "@nestjs/jwt";
 import { Repository } from "typeorm";
 import { hash, compare } from "bcrypt";
+import { v4 } from "uuid";
 
 // entity
 import { User } from "src/modules/user/user.entity";
 import { Validation } from "./entities/validation.entity";
+import { ImageEnum } from "src/modules/image/image.entity";
 import { HorizonUser } from "src/modules/horizonUser/entities/horizon-user.entity";
+import { HorizonRoleEnum } from "src/modules/horizonRole/entities/horizon-role.entity";
 
 // dto
 import { LoginUserDto } from "./dto/login-user.dto";
 import { LoggedUserDto } from "./dto/logged-user.dto";
 import { AddUserDto } from "src/modules/user/dto/add-user.dto";
-import { HorizonRoleEnum } from "src/modules/horizonRole/entities/horizon-role.entity";
-import { ImageEnum } from "src/modules/image/image.entity";
+
+import { UserStatus } from "src/modules/horizonUser/entities/user-status";
+import { TokenDto } from "./dto/token.dto";
 
 // config
 import config from "src/config/configuration";
@@ -69,7 +73,38 @@ export class AuthService {
     return loggedUser as LoggedUserDto;
   }
 
+  async validateEmail(dto: TokenDto) {
+    const { token } = dto;
+
+    const decode = this.jwtAuthService.decode(token);
+
+    if (!decode.id) throw new HttpException("User not found", HttpStatus.NOT_FOUND);
+
+    const validation = await this.validationService.findOneBy({ userId: decode.id });
+
+    if (!validation) throw new HttpException("Invalid validation", HttpStatus.BAD_REQUEST);
+
+    if (decode.token === validation.token && validation.expireAt > new Date()) {
+      this.HorizonUserService.update(decode.id, { status: UserStatus.Validated });
+
+      return {
+        status: 200,
+      };
+    }
+    throw new HttpException("Invalid validation", HttpStatus.BAD_REQUEST);
+  }
+
   async register(user: AddUserDto) {
+    try {
+      await this.httpService.axiosRef.post(
+        `${config.http.host}:${config.http.port}/auth/register`,
+        user,
+      );
+    } catch (err) {
+      console.error(err);
+      throw new HttpException(String(err), err.response.status);
+    }
+
     const phoneFound = await this.userService.findOne({ where: { phone: user.phone } });
 
     if (phoneFound && user.phone?.length)
@@ -102,22 +137,18 @@ export class AuthService {
       },
     };
 
-    const token = this.jwtAuthService.sign({ id: resultHorizonUser.id, username: user.email });
+    const token = v4();
+    this.jwtAuthService.sign({ id: resultHorizonUser, token });
+
+    const expireAt = new Date();
+    expireAt.setHours(expireAt.getHours() + 1);
 
     const newValidation = this.validationService.create({
       userId: resultHorizonUser.id,
-      token,
+      token: token,
+      expireAt,
     });
     await this.validationService.save(newValidation);
-
-    try {
-      await this.httpService.axiosRef.post(
-        `${config.http.host}:${config.http.port}/auth/register`,
-        user,
-      );
-    } catch (err) {
-      throw new HttpException(String(err), HttpStatus.INTERNAL_SERVER_ERROR);
-    }
 
     return registeredUser;
   }
