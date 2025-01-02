@@ -91,6 +91,7 @@ export class AuthService {
         status: 200,
       };
     }
+
     throw new HttpException("Invalid validation", HttpStatus.BAD_REQUEST);
   }
 

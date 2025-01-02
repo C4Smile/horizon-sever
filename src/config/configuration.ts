@@ -17,11 +17,18 @@ type DatabaseConfigurationType = {
   password: string;
 };
 
+type ResourceSettings = {
+  basicStart: {
+    [key: number]: number;
+  };
+};
+
 type GameFactorSettings = {
   crewUpkeep: number;
   captainUpkeep: number;
   shipUpkeep: number;
   shipSpeed: number;
+  resources: ResourceSettings;
 };
 
 type ConfigurationType = {

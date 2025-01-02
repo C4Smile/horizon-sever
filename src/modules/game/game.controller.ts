@@ -12,7 +12,7 @@ export class GameController {
   constructor(private gameService: GameService) {}
 
   @Get()
-  getBasics(): GameBasicsDto {
-    return this.gameService.get();
+  async getBasics(playerId: number): Promise<GameBasicsDto> {
+    return await this.gameService.get(playerId);
   }
 }

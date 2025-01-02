@@ -7,9 +7,15 @@ import { CrudService } from "src/modules/models/service/CrudService";
 
 // entity
 import { Resource } from "./entities/resource.entity";
+
+// dto
 import { AddModelDto } from "../models/dto/add-model.dto";
 import { UpdateModelDto } from "../models/dto/update-model.dto";
 import { Stock } from "./jobs/stock.dto";
+import { GameResourceDto } from "../game/dto/resource/game-resource.dto";
+
+// config
+import config from "src/config/configuration";
 
 @Injectable()
 export class ResourceService extends CrudService<Resource, AddModelDto, UpdateModelDto> {
@@ -28,7 +34,7 @@ export class ResourceService extends CrudService<Resource, AddModelDto, UpdateMo
     });
   }
 
-  constructor(@InjectRepository(Resource) resourceService: Repository<Resource>) {
+  constructor(@InjectRepository(Resource) private resourceService: Repository<Resource>) {
     const relationships = [""];
     super(resourceService, null, relationships);
 
@@ -44,6 +50,19 @@ export class ResourceService extends CrudService<Resource, AddModelDto, UpdateMo
 
     if (!playerResources) throw new HttpException("Resources not Found", HttpStatus.NOT_FOUND);
     return playerResources;
+  }
+
+  public async initialize(playerId: number, resource: GameResourceDto) {
+    const newResource = this.resourceService.create({
+      playerId,
+      resourceId: resource.id,
+      inStock: config.game.resources[resource.id],
+      currentFactor: resource.baseFactor,
+    });
+    const saved = await this.entityService.save(newResource);
+
+    // grouping by player
+    this.stockCached[playerId].push(saved);
   }
 
   public async doProduction() {
