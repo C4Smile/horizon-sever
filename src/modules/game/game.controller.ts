@@ -1,4 +1,4 @@
-import { Controller, Get, UseGuards } from "@nestjs/common";
+import { Controller, Get, Param, ParseIntPipe, UseGuards } from "@nestjs/common";
 
 // guard
 import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
@@ -11,8 +11,9 @@ import { GameBasicsDto } from "./dto/game-basics.dto";
 export class GameController {
   constructor(private gameService: GameService) {}
 
-  @Get()
-  async getBasics(playerId: number): Promise<GameBasicsDto> {
-    return await this.gameService.get(playerId);
+  @UseGuards(JwtAuthGuard)
+  @Get(":userId")
+  async getBasics(@Param("userId", ParseIntPipe) userId: number): Promise<GameBasicsDto> {
+    return await this.gameService.get(userId);
   }
 }

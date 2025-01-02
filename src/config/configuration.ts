@@ -18,6 +18,9 @@ type DatabaseConfigurationType = {
 };
 
 type ResourceSettings = {
+  startCapacity: {
+    [key: number]: number;
+  };
   basicStart: {
     [key: number]: number;
   };
