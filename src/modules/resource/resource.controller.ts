@@ -39,7 +39,8 @@ export class ResourceController {
     return this.newsResourceService.getById(id);
   }
 
-  @Get(":id")
+  @Get("/player/:id")
+  @UseGuards(JwtAuthGuard)
   getByPlayerId(@Param("id", ParseIntPipe) id: number) {
     return this.newsResourceService.getByPlayerId(id);
   }

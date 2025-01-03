@@ -49,6 +49,7 @@ export class ResourceService extends CrudService<Resource, AddModelDto, UpdateMo
     });
 
     if (!playerResources) throw new HttpException("Resources not Found", HttpStatus.NOT_FOUND);
+
     return playerResources;
   }
 
