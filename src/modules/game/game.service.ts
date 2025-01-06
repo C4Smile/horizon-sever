@@ -42,11 +42,10 @@ export class GameService {
 
   async get(playerId: number) {
     const haveResource = await this.resourceService.getByPlayerId(playerId);
-
     if (haveResource.length === 0) {
       // create stock row
       for (const resource of this.gameBasics.resources) {
-        const newResource = this.resourceService.initialize(playerId, resource);
+        const newResource = await this.resourceService.initialize(playerId, resource);
       }
     }
 
