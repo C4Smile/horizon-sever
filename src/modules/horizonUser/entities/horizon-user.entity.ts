@@ -6,6 +6,7 @@ import { Model } from "src/modules/models/model";
 import { Photo } from "src/modules/image/image.entity";
 import { HorizonRole } from "src/modules/horizonRole/entities/horizon-role.entity";
 import { Resource } from "src/modules/resource/entities/resource.entity";
+import { Building } from "src/modules/building/entities/building.entity";
 
 /**
  * @class HorizonUser
@@ -36,6 +37,9 @@ export class HorizonUser extends Model {
 
   @OneToMany(() => Resource, (resource) => resource.player)
   resources: Resource[];
+
+  @OneToMany(() => Resource, (building) => building.player)
+  buildings: Building[];
 
   @Column({ type: "int" })
   userId: number;
