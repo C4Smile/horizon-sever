@@ -103,7 +103,8 @@ export class ResourceService extends CrudService<Resource, AddModelDto, UpdateMo
       for (const bP of buildingProduction) {
         const currentResource = playerStock.findIndex((r) => r.resourceId === bP.resourceId);
         if (currentResource >= 0) {
-          playerStock[currentResource].currentFactor += bP.factor * bi.level;
+          // update directly
+          ResourceService.StockCached[playerId][currentResource].currentFactor += bP.factor * bi.level;
         }
       }
     }
