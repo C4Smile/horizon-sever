@@ -32,6 +32,6 @@ export class BuildingQueueService {
     const startAt = Date.now();
     await this.buildingService.checkQueue();
     const duration = Date.now() - startAt;
-    this.logger.debug(`Building queue reviewed completed: ${duration / 1000}, seconds`);
+    // this.logger.debug(`Building queue reviewed completed: ${duration / 1000}, seconds`);
   }
 }

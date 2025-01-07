@@ -25,6 +25,6 @@ export class ResourceProductionService {
     const startAt = Date.now();
     await this.resourceService.doProduction();
     const duration = Date.now() - startAt;
-    this.logger.debug(`Resource harvesting completed: ${duration / 1000}, seconds`);
+    // this.logger.debug(`Resource harvesting completed: ${duration / 1000}, seconds`);
   }
 }

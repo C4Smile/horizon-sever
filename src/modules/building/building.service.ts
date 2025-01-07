@@ -25,8 +25,9 @@ import { EnqueueDto } from "./dto/enqueue.dto";
 
 // config
 import config from "src/config/configuration";
+
+// game service
 import { GameService } from "../game/game.service";
-import { AddBuildingQueueDto } from "./dto/add-building-queue.dto";
 
 @Injectable()
 export class BuildingService {
@@ -47,7 +48,7 @@ export class BuildingService {
 
   constructor(
     @InjectRepository(Building) private buildingService: Repository<Building>,
-    @InjectRepository(Building) private buildingQueueService: Repository<BuildingQueue>,
+    @InjectRepository(BuildingQueue) private buildingQueueService: Repository<BuildingQueue>,
   ) {
     this.init();
   }
@@ -59,21 +60,17 @@ export class BuildingService {
       },
     });
 
-    if (!playerQueue) throw new HttpException("Buildings not Found", HttpStatus.NOT_FOUND);
-
     return playerQueue;
   }
 
   async getBuildingByPlayerId(id: number) {
-    const playerQueue = await this.buildingService.find({
+    const playerBuildings = await this.buildingService.find({
       where: {
         playerId: id,
       },
     });
 
-    if (!this.buildingService) throw new HttpException("Buildings not Found", HttpStatus.NOT_FOUND);
-
-    return this.buildingService;
+    return playerBuildings;
   }
 
   public async enqueue(dto: EnqueueDto) {
@@ -85,12 +82,13 @@ export class BuildingService {
     if (building) {
       // creating queue
       const today = new Date();
-      const ends = today;
-      ends.setSeconds(
-        ((playerCurrentBuilding ? playerCurrentBuilding.level : 1) + building.creationTime) *
-          config.game.dayInSeconds +
-          ends.getSeconds(),
-      );
+      const secondsToAdd =
+        (playerCurrentBuilding?.level > 0 ? playerCurrentBuilding.level : 1) *
+        building.creationTime *
+        config.game.dayInSeconds;
+
+      const ends = new Date(today.getTime() + secondsToAdd * 1000);
+
       const newQueueEntity = this.buildingQueueService.create({
         ...dto,
         startedAt: today,
@@ -113,13 +111,16 @@ export class BuildingService {
 
       const savedBuilding = await this.buildingService.save(newBuildingEntity);
 
+      // linking relationship
+      newQueueEntity.buildingId = savedBuilding.id;
+      newQueueEntity.building = savedBuilding;
+
       // inserting queue in db
       const savedQueue = await this.buildingQueueService.save(newQueueEntity);
-      // linking relationship
-      savedQueue.buildingId = savedBuilding.id;
-      savedQueue.building = savedBuilding;
+
       // enqueueing
       BuildingService.Queue[dto.playerId].push(savedQueue);
+      return { status: 200 };
     } else throw new HttpException("Building not Found", HttpStatus.NOT_FOUND);
   }
 
