@@ -32,6 +32,7 @@ type GameFactorSettings = {
   shipUpkeep: number;
   shipSpeed: number;
   resources: ResourceSettings;
+  dayInSeconds: number;
 };
 
 type ConfigurationType = {

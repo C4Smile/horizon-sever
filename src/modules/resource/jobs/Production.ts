@@ -5,6 +5,9 @@ import { Resource } from "../entities/resource.entity";
 import { Repository } from "typeorm/repository/Repository";
 import { InjectRepository } from "@nestjs/typeorm";
 
+// config
+import config from "src/config/configuration";
+
 @Injectable()
 export class ResourceProductionService {
   private readonly logger = new Logger(ResourceProductionService.name);
@@ -17,7 +20,7 @@ export class ResourceProductionService {
     this.resourceService = new ResourceService(resourceRepository);
   }
 
-  @Interval(3000)
+  @Interval(config.game.dayInSeconds * 100)
   async handleInterval() {
     const startAt = Date.now();
     await this.resourceService.doProduction();

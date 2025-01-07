@@ -17,7 +17,7 @@ import { ResourceService } from "../resource/resource.service";
 
 @Injectable()
 export class GameService {
-  private gameBasics: GameBasicsDto;
+  static GameBasics: GameBasicsDto;
   private readonly resourceService: ResourceService;
 
   async init() {
@@ -26,7 +26,7 @@ export class GameService {
         `${config.http.host}:${config.http.port}/game`,
       );
 
-      if (response.data) this.gameBasics = response.data;
+      if (response.data) GameService.GameBasics = response.data;
     } catch (err) {
       throw new HttpException(String(err), HttpStatus.INTERNAL_SERVER_ERROR);
     }
@@ -44,11 +44,11 @@ export class GameService {
     const haveResource = await this.resourceService.getByPlayerId(playerId);
     if (haveResource.length === 0) {
       // create stock row
-      for (const resource of this.gameBasics.resources) {
+      for (const resource of GameService.GameBasics.resources) {
         const newResource = await this.resourceService.initialize(playerId, resource);
       }
     }
 
-    return this.gameBasics;
+    return GameService.GameBasics;
   }
 }

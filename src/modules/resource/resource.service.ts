@@ -16,6 +16,8 @@ import { GameResourceDto } from "../game/dto/resource/game-resource.dto";
 
 // config
 import config from "src/config/configuration";
+import { Building } from "../building/entities/building.entity";
+import { GameService } from "../game/game.service";
 
 @Injectable()
 export class ResourceService extends CrudService<Resource, AddModelDto, UpdateModelDto> {
@@ -90,5 +92,20 @@ export class ResourceService extends CrudService<Resource, AddModelDto, UpdateMo
       resourcesHarvested,
       playersHarvesting,
     };
+  }
+
+  public static async modifiedBuilding(playerId: number, bi: Building) {
+    const playerStock = ResourceService.StockCached[playerId];
+    const buildingProduction = GameService.GameBasics.buildingProduces.filter(
+      (b) => b.entityId === bi.id,
+    );
+    if (playerStock && buildingProduction.length) {
+      for (const bP of buildingProduction) {
+        const currentResource = playerStock.findIndex((r) => r.resourceId === bP.resourceId);
+        if (currentResource >= 0) {
+          playerStock[currentResource].currentFactor += bP.factor * bi.level;
+        }
+      }
+    }
   }
 }

@@ -3,6 +3,13 @@ import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 // entities
 import { HorizonUser } from "src/modules/horizonUser/entities/horizon-user.entity";
 
+export enum BuildingState {
+  Constructing,
+  Working,
+  Demolished,
+  Inactive,
+}
+
 @Entity({ name: "buildings" })
 export class Building {
   @PrimaryGeneratedColumn("increment")
@@ -19,4 +26,7 @@ export class Building {
 
   @Column({ type: "int" })
   level: number = 0;
+
+  @Column({ type: "int" })
+  state: BuildingState;
 }
