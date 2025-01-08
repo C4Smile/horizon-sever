@@ -28,6 +28,6 @@ export class BuildingController {
   @Post("/enqueue")
   @UseGuards(JwtAuthGuard)
   enqueue(@Body() dto: EnqueueDto) {
-    return this.buildingService.enqueue(dto);
+    return this.buildingService.doEnqueue(dto);
   }
 }

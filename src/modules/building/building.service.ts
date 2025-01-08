@@ -1,13 +1,7 @@
-import { EventEmitter2 } from "@nestjs/event-emitter";
-import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
+import { EventEmitter2, OnEvent } from "@nestjs/event-emitter";
+import { HttpException, HttpStatus, Injectable, Logger } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
-
-// base
-import { CrudService } from "src/modules/models/service/CrudService";
-
-// service
-import { ResourceService } from "../resource/resource.service";
 
 // entity
 import { Building, BuildingState } from "./entities/building.entity";
@@ -18,10 +12,7 @@ import {
 } from "./entities/building-queue.entity";
 
 // dto
-import { AddModelDto } from "../models/dto/add-model.dto";
-import { UpdateModelDto } from "../models/dto/update-model.dto";
 import { Queue } from "./jobs/queue.dto";
-import { GameBuildingDto } from "../game/dto/building/game-building.dto";
 import { EnqueueDto } from "./dto/enqueue.dto";
 
 // config
@@ -32,29 +23,27 @@ import { GameService } from "../game/game.service";
 
 @Injectable()
 export class BuildingService {
+  private readonly logger = new Logger(BuildingService.name);
   private queue: Queue;
 
   private async init() {
     this.queue = {};
     const allQueue = await this.buildingQueueService.find({
       relations: ["building"],
-      where: [
-        {
-          state: BuildingQueueState.Enqueued,
-        },
-        {
-          state: BuildingQueueState.Started,
-        },
-      ],
     });
 
     // grouping by player
-    allQueue.forEach((queue) => {
-      if (!this.queue[queue.playerId]) {
-        this.queue[queue.playerId] = [];
-      }
-      this.queue[queue.playerId].push(queue);
-    });
+    allQueue
+      .filter(
+        (queue) =>
+          queue.state === BuildingQueueState.Enqueued || queue.state === BuildingQueueState.Started,
+      )
+      .forEach((queue) => {
+        if (!this.queue[queue.playerId]) {
+          this.queue[queue.playerId] = [];
+        }
+        this.queue[queue.playerId].push(queue);
+      });
   }
 
   constructor(
@@ -85,7 +74,7 @@ export class BuildingService {
     return playerBuildings;
   }
 
-  public async enqueue(dto: EnqueueDto) {
+  public async doEnqueue(dto: EnqueueDto) {
     let playerQueue = this.queue[dto.playerId];
     const building = GameService.GameBasics.buildings.find((b) => b.id === dto.buildingId);
     const playerCurrentBuilding = await this.buildingService.findOneBy({
@@ -131,11 +120,27 @@ export class BuildingService {
       const savedQueue = await this.buildingQueueService.save(newQueueEntity);
 
       // enqueueing
-      this.queue[dto.playerId].push(savedQueue);
+      this.logger.debug(
+        `Enqueueing building ${savedQueue.buildingId}, action ${String(BuildingQueueActions[savedQueue.action])}`,
+      );
+      this.eventEmitter.emit("building.enqueued", savedQueue);
+
       return { status: 200 };
     } else throw new HttpException("Building not Found", HttpStatus.NOT_FOUND);
   }
 
+  @OnEvent("building.enqueued")
+  async enqueue(payload: BuildingQueue) {
+    try {
+      this.queue[payload.playerId].push(payload);
+      this.logger.debug("Enqueuing correctly");
+    } catch (err) {
+      this.logger.error("Enqueuing error");
+      this.logger.error(err);
+    }
+  }
+
+  @OnEvent("building.check")
   public async checkQueue() {
     let playersWithQueue = 0;
     const today = Date.now();

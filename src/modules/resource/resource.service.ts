@@ -68,22 +68,29 @@ export class ResourceService extends CrudService<Resource, AddModelDto, UpdateMo
     const { playerId, resources } = payload;
 
     for (const resource of resources) {
-      const newResource = this.resourceService.create({
+      const alreadyInitialized = await this.resourceService.findBy({
         playerId,
         resourceId: resource.id,
-        inStock: config.game.resources.basicStart[resource.id],
-        maxCapacity: config.game.resources.startCapacity[resource.id],
-        currentFactor: resource.baseFactor,
       });
+      if (!alreadyInitialized.length) {
+        const newResource = this.resourceService.create({
+          playerId,
+          resourceId: resource.id,
+          inStock: config.game.resources.basicStart[resource.id],
+          maxCapacity: config.game.resources.startCapacity[resource.id],
+          currentFactor: resource.baseFactor,
+        });
 
-      const saved = await this.entityService.save(newResource);
+        const saved = await this.entityService.save(newResource);
 
-      // grouping by player
-      if (!this.stockCached[playerId]) this.stockCached[playerId] = [];
-      this.stockCached[playerId].push(saved);
+        // grouping by player
+        if (!this.stockCached[playerId]) this.stockCached[playerId] = [];
+        this.stockCached[playerId].push(saved);
+      }
     }
   }
 
+  @OnEvent("resource.production")
   public async doProduction() {
     let resourcesHarvested = 0;
     let playersHarvesting = 0;
@@ -109,11 +116,12 @@ export class ResourceService extends CrudService<Resource, AddModelDto, UpdateMo
 
   @OnEvent("building.completed")
   async handleBuildingCompleted(payload: BuildingQueue) {
+    console.log(payload);
     const playerStock = this.stockCached[payload.playerId];
     const buildingProduction = GameService.GameBasics.buildingProduces.filter(
       (b) => b.entityId === payload.building.buildingId,
     );
-    console.log(payload);
+
     if (playerStock?.length && buildingProduction.length) {
       for (const bP of buildingProduction) {
         const currentResource = playerStock.findIndex((r) => r.resourceId === bP.resourceId);
