@@ -2,6 +2,7 @@ import { Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { ScheduleModule } from "@nestjs/schedule";
 import { ServeStaticModule } from "@nestjs/serve-static";
+import { EventEmitterModule } from "@nestjs/event-emitter";
 
 import { join } from "path";
 
@@ -26,6 +27,7 @@ import config from "./config/configuration";
 
 @Module({
   imports: [
+    EventEmitterModule.forRoot(),
     ScheduleModule.forRoot(),
     JobsModule,
     ServeStaticModule.forRoot({

@@ -2,6 +2,7 @@ import { Injectable, Logger } from "@nestjs/common";
 import { Interval } from "@nestjs/schedule";
 import { Repository } from "typeorm/repository/Repository";
 import { InjectRepository } from "@nestjs/typeorm";
+import { EventEmitter2 } from "@nestjs/event-emitter";
 
 // service
 import { BuildingService } from "../building.service";
@@ -12,7 +13,6 @@ import { BuildingQueue } from "../entities/building-queue.entity";
 
 // config
 import config from "src/config/configuration";
-
 @Injectable()
 export class BuildingQueueService {
   private readonly logger = new Logger(BuildingQueueService.name);
@@ -23,11 +23,16 @@ export class BuildingQueueService {
     buildingRepository: Repository<Building>,
     @InjectRepository(BuildingQueue)
     buildingQueueRepository: Repository<BuildingQueue>,
+    eventEmitter: EventEmitter2,
   ) {
-    this.buildingService = new BuildingService(buildingRepository, buildingQueueRepository);
+    this.buildingService = new BuildingService(
+      buildingRepository,
+      buildingQueueRepository,
+      eventEmitter,
+    );
   }
 
-  @Interval(config.game.dayInSeconds * 100)
+  @Interval(config.game.dayInSeconds * 1000)
   async handleInterval() {
     const startAt = Date.now();
     await this.buildingService.checkQueue();

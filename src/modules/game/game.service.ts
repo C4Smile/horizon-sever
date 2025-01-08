@@ -1,10 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { HttpService } from "@nestjs/axios";
-import { InjectRepository } from "@nestjs/typeorm";
-import { Repository } from "typeorm";
 
-// entity
-import { Resource } from "../resource/entities/resource.entity";
+import { EventEmitter2 } from "@nestjs/event-emitter";
 
 // dto
 import { GameBasicsDto } from "./dto/game-basics.dto";
@@ -12,13 +9,9 @@ import { GameBasicsDto } from "./dto/game-basics.dto";
 // config
 import config from "src/config/configuration";
 
-// service
-import { ResourceService } from "../resource/resource.service";
-
 @Injectable()
 export class GameService {
   static GameBasics: GameBasicsDto;
-  private readonly resourceService: ResourceService;
 
   async init() {
     try {
@@ -34,20 +27,13 @@ export class GameService {
 
   constructor(
     private readonly httpService: HttpService,
-    @InjectRepository(Resource) resourceRepo: Repository<Resource>,
+    private eventEmitter: EventEmitter2,
   ) {
     this.init();
-    this.resourceService = new ResourceService(resourceRepo);
   }
 
   async get(playerId: number) {
-    const haveResource = await this.resourceService.getByPlayerId(playerId);
-    if (haveResource.length === 0) {
-      // create stock row
-      for (const resource of GameService.GameBasics.resources) {
-        const newResource = await this.resourceService.initialize(playerId, resource);
-      }
-    }
+    this.eventEmitter.emit("player.created", { playerId, resources: GameService.GameBasics.resources });
 
     return GameService.GameBasics;
   }

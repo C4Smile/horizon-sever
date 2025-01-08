@@ -1,4 +1,5 @@
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
+import { EventEmitter2, OnEvent } from "@nestjs/event-emitter";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 
@@ -7,36 +8,43 @@ import { CrudService } from "src/modules/models/service/CrudService";
 
 // entity
 import { Resource } from "./entities/resource.entity";
+import { Building } from "../building/entities/building.entity";
 
 // dto
 import { AddModelDto } from "../models/dto/add-model.dto";
 import { UpdateModelDto } from "../models/dto/update-model.dto";
 import { Stock } from "./jobs/stock.dto";
 import { GameResourceDto } from "../game/dto/resource/game-resource.dto";
+import { BuildingQueue } from "../building/entities/building-queue.entity";
 
 // config
 import config from "src/config/configuration";
-import { Building } from "../building/entities/building.entity";
+
+// service
 import { GameService } from "../game/game.service";
+import { InitializeDto } from "./dto/initialize.dto";
 
 @Injectable()
 export class ResourceService extends CrudService<Resource, AddModelDto, UpdateModelDto> {
-  static StockCached: Stock;
-
+  private stockCached: Stock;
   private async init() {
-    ResourceService.StockCached = {};
+    this.stockCached = {};
     const allStock = await this.entityService.find();
 
     // grouping by player
     allStock.forEach((stock) => {
-      if (!ResourceService.StockCached[stock.playerId]) {
-        ResourceService.StockCached[stock.playerId] = [];
+      if (!this.stockCached[stock.playerId]) {
+        this.stockCached[stock.playerId] = [];
       }
-      ResourceService.StockCached[stock.playerId].push(stock);
+      if (!this.stockCached[stock.playerId].find((stk) => stock.id === stk.id))
+        this.stockCached[stock.playerId].push(stock);
     });
   }
 
-  constructor(@InjectRepository(Resource) private resourceService: Repository<Resource>) {
+  constructor(
+    @InjectRepository(Resource) private resourceService: Repository<Resource>,
+    private eventEmitter: EventEmitter2,
+  ) {
     const relationships = [""];
     super(resourceService, null, relationships);
 
@@ -55,29 +63,34 @@ export class ResourceService extends CrudService<Resource, AddModelDto, UpdateMo
     return playerResources;
   }
 
-  public async initialize(playerId: number, resource: GameResourceDto) {
-    const newResource = this.resourceService.create({
-      playerId,
-      resourceId: resource.id,
-      inStock: config.game.resources.basicStart[resource.id],
-      maxCapacity: config.game.resources.startCapacity[resource.id],
-      currentFactor: resource.baseFactor,
-    });
+  @OnEvent("player.created")
+  public async initialize(payload: InitializeDto) {
+    const { playerId, resources } = payload;
 
-    const saved = await this.entityService.save(newResource);
+    for (const resource of resources) {
+      const newResource = this.resourceService.create({
+        playerId,
+        resourceId: resource.id,
+        inStock: config.game.resources.basicStart[resource.id],
+        maxCapacity: config.game.resources.startCapacity[resource.id],
+        currentFactor: resource.baseFactor,
+      });
 
-    // grouping by player
-    if (!ResourceService.StockCached[playerId]) ResourceService.StockCached[playerId] = [];
-    ResourceService.StockCached[playerId].push(saved);
+      const saved = await this.entityService.save(newResource);
+
+      // grouping by player
+      if (!this.stockCached[playerId]) this.stockCached[playerId] = [];
+      this.stockCached[playerId].push(saved);
+    }
   }
 
   public async doProduction() {
     let resourcesHarvested = 0;
     let playersHarvesting = 0;
-    if (ResourceService.StockCached) {
-      const keys = Object.keys(ResourceService.StockCached);
+    if (this.stockCached) {
+      const keys = Object.keys(this.stockCached);
       for (const player of keys) {
-        const currentPlayer = ResourceService.StockCached[player];
+        const currentPlayer = this.stockCached[player];
         for (const resource of currentPlayer) {
           if (resource.inStock < resource.maxCapacity) {
             resourcesHarvested++;
@@ -94,17 +107,27 @@ export class ResourceService extends CrudService<Resource, AddModelDto, UpdateMo
     };
   }
 
-  public static async modifiedBuilding(playerId: number, bi: Building) {
-    const playerStock = ResourceService.StockCached[playerId];
+  @OnEvent("building.completed")
+  async handleBuildingCompleted(payload: BuildingQueue) {
+    const playerStock = this.stockCached[payload.playerId];
     const buildingProduction = GameService.GameBasics.buildingProduces.filter(
-      (b) => b.entityId === bi.id,
+      (b) => b.entityId === payload.building.buildingId,
     );
-    if (playerStock && buildingProduction.length) {
+    console.log(payload);
+    if (playerStock?.length && buildingProduction.length) {
       for (const bP of buildingProduction) {
         const currentResource = playerStock.findIndex((r) => r.resourceId === bP.resourceId);
         if (currentResource >= 0) {
           // update directly
-          ResourceService.StockCached[playerId][currentResource].currentFactor += bP.factor * bi.level;
+          const { id, currentFactor } = this.stockCached[payload.playerId][currentResource];
+          this.stockCached[payload.playerId][currentResource] = {
+            ...this.stockCached[payload.playerId][currentResource],
+            currentFactor: currentFactor + bP.factor * payload.building.level,
+          };
+          //* updating in db
+          await this.entityService.update(id, {
+            currentFactor: currentFactor + bP.factor * payload.building.level,
+          });
         }
       }
     }
