@@ -10,9 +10,10 @@ import { BuildingService } from "./building.service";
 // entities
 import { Building } from "./entities/building.entity";
 import { BuildingQueue } from "./entities/building-queue.entity";
+import { Resource } from "../resource/entities/resource.entity";
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Building, BuildingQueue])],
+  imports: [TypeOrmModule.forFeature([Building, BuildingQueue, Resource])],
   controllers: [BuildingController],
   providers: [BuildingService],
   exports: [BuildingService],

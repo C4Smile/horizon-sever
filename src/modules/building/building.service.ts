@@ -20,6 +20,7 @@ import config from "src/config/configuration";
 
 // game service
 import { GameService } from "../game/game.service";
+import { Resource } from "../resource/entities/resource.entity";
 
 @Injectable()
 export class BuildingService {
@@ -50,6 +51,7 @@ export class BuildingService {
     @InjectRepository(Building) private buildingService: Repository<Building>,
     @InjectRepository(BuildingQueue) private buildingQueueService: Repository<BuildingQueue>,
     private eventEmitter: EventEmitter2,
+    @InjectRepository(Resource) private resourceService: Repository<Resource>,
   ) {
     this.init();
   }
@@ -86,8 +88,6 @@ export class BuildingService {
       // creating queue
       const today = new Date();
 
-      console.log(playerCurrentBuilding, dto.action);
-
       let levelToMultiply = playerCurrentBuilding?.level > 0 ? playerCurrentBuilding.level : 0;
 
       switch (dto.action) {
@@ -98,9 +98,24 @@ export class BuildingService {
           levelToMultiply = 1;
       }
 
-      const secondsToAdd = levelToMultiply * building.creationTime * config.game.dayInSeconds;
+      const costs = GameService.GameBasics.buildingCosts.filter((b) => b.entityId === dto.buildingId);
 
-      console.log(secondsToAdd, levelToMultiply);
+      if (costs.length) {
+        // checking for each cost
+        for (const cost of costs) {
+          const resourceInStock = await this.resourceService.findOneBy({
+            resourceId: cost.resourceId,
+          });
+
+          if (resourceInStock.inStock < cost.base + cost.base * cost.factor * levelToMultiply) {
+            return {
+              status: 422,
+            };
+          }
+        }
+      }
+
+      const secondsToAdd = levelToMultiply * building.creationTime * config.game.dayInSeconds;
 
       const ends = new Date(today.getTime() + secondsToAdd * 1000);
 
