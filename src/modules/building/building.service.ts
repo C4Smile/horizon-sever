@@ -79,14 +79,34 @@ export class BuildingService {
     const building = GameService.GameBasics.buildings.find((b) => b.id === dto.buildingId);
     const playerCurrentBuilding = await this.buildingService.findOneBy({
       playerId: dto.playerId,
+      buildingId: dto.buildingId,
     });
     if (building) {
       // creating queue
       const today = new Date();
-      const secondsToAdd =
-        (playerCurrentBuilding?.level > 0 ? playerCurrentBuilding.level : 1) *
-        building.creationTime *
-        config.game.dayInSeconds;
+
+      console.log(playerCurrentBuilding, dto.action);
+
+      let levelToMultiply = playerCurrentBuilding?.level > 0 ? playerCurrentBuilding.level : 0;
+
+      switch (dto.action) {
+        case BuildingQueueActions.Upgrading:
+          levelToMultiply += 1;
+          break;
+        case BuildingQueueActions.Downgrading:
+          levelToMultiply -= 1;
+          break;
+        case BuildingQueueActions.Demolishing:
+          levelToMultiply = 0;
+          break;
+        case BuildingQueueActions.Building:
+        default:
+          levelToMultiply = 1;
+      }
+
+      const secondsToAdd = levelToMultiply * building.creationTime * config.game.dayInSeconds;
+
+      console.log(secondsToAdd, levelToMultiply);
 
       const ends = new Date(today.getTime() + secondsToAdd * 1000);
 
@@ -103,14 +123,17 @@ export class BuildingService {
       }
 
       // creating default building row
-      const newBuildingEntity = this.buildingService.create({
-        buildingId: dto.buildingId,
-        playerId: dto.playerId,
-        level: 0,
-        state: BuildingState.Constructing,
-      });
+      let savedBuilding: Building = null;
+      if (!playerCurrentBuilding) {
+        const newBuildingEntity = this.buildingService.create({
+          buildingId: dto.buildingId,
+          playerId: dto.playerId,
+          level: 0,
+          state: BuildingState.Constructing,
+        });
 
-      const savedBuilding = await this.buildingService.save(newBuildingEntity);
+        savedBuilding = await this.buildingService.save(newBuildingEntity);
+      } else savedBuilding = playerCurrentBuilding;
 
       // linking relationship
       newQueueEntity.buildingId = savedBuilding.id;
@@ -121,7 +144,7 @@ export class BuildingService {
 
       // enqueueing
       this.logger.debug(
-        `Enqueueing building ${savedQueue.buildingId}, action ${String(BuildingQueueActions[savedQueue.action])}`,
+        `Enqueueing building ${dto.buildingId}, action ${String(BuildingQueueActions[savedQueue.action])}`,
       );
       this.eventEmitter.emit("building.enqueued", savedQueue);
 
@@ -187,7 +210,10 @@ export class BuildingService {
                 });
                 break;
             }
-            console.log("call");
+
+            this.logger.debug(
+              `Building ${currentQueue.building.buildingId}, action ${String(BuildingQueueActions[currentQueue.action])} completed`,
+            );
             this.eventEmitter.emit("building.completed", currentQueue);
 
             outTheQueue.push(i);

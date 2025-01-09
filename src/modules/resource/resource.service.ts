@@ -102,6 +102,7 @@ export class ResourceService extends CrudService<Resource, AddModelDto, UpdateMo
           if (resource.inStock < resource.maxCapacity) {
             resourcesHarvested++;
             resource.inStock += resource.currentFactor;
+            if (resource.inStock > resource.maxCapacity) resource.inStock = resource.maxCapacity;
             await this.entityService.update(resource.id, { ...resource });
           }
         }
@@ -116,7 +117,6 @@ export class ResourceService extends CrudService<Resource, AddModelDto, UpdateMo
 
   @OnEvent("building.completed")
   async handleBuildingCompleted(payload: BuildingQueue) {
-    console.log(payload);
     const playerStock = this.stockCached[payload.playerId];
     const buildingProduction = GameService.GameBasics.buildingProduces.filter(
       (b) => b.entityId === payload.building.buildingId,
@@ -130,11 +130,11 @@ export class ResourceService extends CrudService<Resource, AddModelDto, UpdateMo
           const { id, currentFactor } = this.stockCached[payload.playerId][currentResource];
           this.stockCached[payload.playerId][currentResource] = {
             ...this.stockCached[payload.playerId][currentResource],
-            currentFactor: currentFactor + bP.factor * payload.building.level,
+            currentFactor: currentFactor + bP.factor,
           };
           //* updating in db
           await this.entityService.update(id, {
-            currentFactor: currentFactor + bP.factor * payload.building.level,
+            currentFactor: currentFactor + bP.factor,
           });
         }
       }
