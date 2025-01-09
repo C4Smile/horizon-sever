@@ -1,7 +1,7 @@
 import { EventEmitter2, OnEvent } from "@nestjs/event-emitter";
 import { HttpException, HttpStatus, Injectable, Logger } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-import { Repository } from "typeorm";
+import { Not, Repository } from "typeorm";
 
 // entity
 import { Building, BuildingState } from "./entities/building.entity";
@@ -68,6 +68,7 @@ export class BuildingService {
     const playerBuildings = await this.buildingService.find({
       where: {
         playerId: id,
+        state: Not(BuildingState.Demolished),
       },
     });
 
@@ -93,14 +94,7 @@ export class BuildingService {
         case BuildingQueueActions.Upgrading:
           levelToMultiply += 1;
           break;
-        case BuildingQueueActions.Downgrading:
-          levelToMultiply -= 1;
-          break;
-        case BuildingQueueActions.Demolishing:
-          levelToMultiply = 0;
-          break;
         case BuildingQueueActions.Building:
-        default:
           levelToMultiply = 1;
       }
 

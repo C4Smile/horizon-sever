@@ -15,7 +15,7 @@ import { AddModelDto } from "../models/dto/add-model.dto";
 import { UpdateModelDto } from "../models/dto/update-model.dto";
 import { Stock } from "./jobs/stock.dto";
 import { GameResourceDto } from "../game/dto/resource/game-resource.dto";
-import { BuildingQueue } from "../building/entities/building-queue.entity";
+import { BuildingQueue, BuildingQueueActions } from "../building/entities/building-queue.entity";
 
 // config
 import config from "src/config/configuration";
@@ -128,13 +128,28 @@ export class ResourceService extends CrudService<Resource, AddModelDto, UpdateMo
         if (currentResource >= 0) {
           // update directly
           const { id, currentFactor } = this.stockCached[payload.playerId][currentResource];
+
+          let toSave = currentFactor;
+
+          switch (payload.action) {
+            case BuildingQueueActions.Building:
+            case BuildingQueueActions.Upgrading: {
+              toSave += bP.factor;
+              break;
+            }
+            case BuildingQueueActions.Demolishing:
+            case BuildingQueueActions.Downgrading:
+              toSave -= bP.factor;
+              break;
+          }
+
           this.stockCached[payload.playerId][currentResource] = {
             ...this.stockCached[payload.playerId][currentResource],
-            currentFactor: currentFactor + bP.factor,
+            currentFactor: toSave,
           };
           //* updating in db
           await this.entityService.update(id, {
-            currentFactor: currentFactor + bP.factor,
+            currentFactor: toSave,
           });
         }
       }
