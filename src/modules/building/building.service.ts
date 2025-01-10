@@ -26,6 +26,7 @@ import { Resource } from "../resource/entities/resource.entity";
 export class BuildingService {
   private readonly logger = new Logger(BuildingService.name);
   private queue: Queue;
+  private inProcess: Queue;
 
   private async init() {
     this.queue = {};
