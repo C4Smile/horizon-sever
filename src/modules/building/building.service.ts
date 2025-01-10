@@ -99,19 +99,14 @@ export class BuildingService {
       }
 
       const costs = GameService.GameBasics.buildingCosts.filter((b) => b.entityId === dto.buildingId);
-
       if (costs.length) {
         // checking for each cost
         for (const cost of costs) {
           const resourceInStock = await this.resourceService.findOneBy({
             resourceId: cost.resourceId,
           });
-
-          if (resourceInStock.inStock < cost.base + cost.base * cost.factor * levelToMultiply) {
-            return {
-              status: 422,
-            };
-          }
+          if (resourceInStock.inStock < cost.base + cost.base * cost.factor * levelToMultiply)
+            throw new HttpException("Not enough resources", HttpStatus.NOT_ACCEPTABLE);
         }
       }
 
