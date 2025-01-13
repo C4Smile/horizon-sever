@@ -33,6 +33,11 @@ type GameFactorSettings = {
   shipSpeed: number;
   resources: ResourceSettings;
   dayInSeconds: number;
+  queue: Queue;
+};
+
+type Queue = {
+  building: number;
 };
 
 type ConfigurationType = {

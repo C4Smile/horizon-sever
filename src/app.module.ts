@@ -21,12 +21,14 @@ import { UserModule } from "./modules/user/user.module";
 import { JobsModule } from "./modules/jobs/JobsModule";
 import { GameBasicsModule } from "./modules/game/game.module";
 import { BuildingModule } from "./modules/building/building.module";
+import { WebsocketsModule } from "./modules/websockets/websockets.module";
 
 // config
 import config from "./config/configuration";
 
 @Module({
   imports: [
+    WebsocketsModule,
     EventEmitterModule.forRoot(),
     ScheduleModule.forRoot(),
     JobsModule,

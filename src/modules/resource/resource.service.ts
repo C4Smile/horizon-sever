@@ -115,6 +115,11 @@ export class ResourceService extends CrudService<Resource, AddModelDto, UpdateMo
     };
   }
 
+  @OnEvent("building.started")
+  async handleBuildingStarted(payload: BuildingQueue) {
+
+  }
+
   @OnEvent("building.completed")
   async handleBuildingCompleted(payload: BuildingQueue) {
     const playerStock = this.stockCached[payload.playerId];

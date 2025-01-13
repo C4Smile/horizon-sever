@@ -28,14 +28,16 @@
     "@nestjs/event-emitter": "^2.1.1",
     "@nestjs/mapped-types": "*",
     "@nestjs/platform-express": "^10.0.0",
+    "@nestjs/platform-socket.io": "^10.4.15",
     "@nestjs/schedule": "^4.1.2",
     "@nestjs/sequelize": "^10.0.1",
+    "@nestjs/websockets": "^10.4.15",
     "bcrypt": "^5.1.1",
     "mysql2": "^3.11.3",
     "reflect-metadata": "^0.2.0",
     "rxjs": "^7.8.1",
     "sequelize": "^6.37.4",
-    "some-javascript-utils": "^1.0.1",
+    "some-javascript-utils": "^0.10.6",
     "uuid": "^11.0.3"
   },
   "devDependencies": {
