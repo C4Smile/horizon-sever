@@ -117,7 +117,31 @@ export class ResourceService extends CrudService<Resource, AddModelDto, UpdateMo
 
   @OnEvent("building.started")
   async handleBuildingStarted(payload: BuildingQueue) {
+    const costs = GameService.GameBasics.buildingCosts.filter(
+      (b) => b.entityId === payload.building.buildingId,
+    );
+    if (costs.length) {
+      let levelToMultiply = payload.building.level;
 
+      switch (payload.action) {
+        case BuildingQueueActions.Upgrading:
+          levelToMultiply += 1;
+          break;
+        case BuildingQueueActions.Building:
+          levelToMultiply = 1;
+      }
+
+      // checking for each cost
+      for (const cost of costs) {
+        const resourceInStock = await this.resourceService.findOneBy({
+          resourceId: cost.resourceId,
+        });
+        const toExtract = cost.base + cost.base * cost.factor * levelToMultiply;
+        await this.entityService.update(resourceInStock.id, {
+          inStock: resourceInStock.inStock - toExtract,
+        });
+      }
+    }
   }
 
   @OnEvent("building.completed")

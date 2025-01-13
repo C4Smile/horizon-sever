@@ -5,14 +5,14 @@ import {
   SubscribeMessage,
   WebSocketGateway,
   WebSocketServer,
-  WsResponse,
 } from "@nestjs/websockets";
-import { from, Observable } from "rxjs";
-import { map } from "rxjs/operators";
 import { Server, Socket } from "socket.io";
 
 // entities
 import { BuildingQueue } from "../building/entities/building-queue.entity";
+
+// dto
+import { NotResourcesDto } from "../resource/dto/not-resources.dto";
 
 @WebSocketGateway({
   cors: {
@@ -22,20 +22,21 @@ import { BuildingQueue } from "../building/entities/building-queue.entity";
 export class WebsocketsGateway {
   constructor(private eventEmitter: EventEmitter2) {}
 
-  clients = {};
+  clients: { [key: number]: Socket } = {};
 
   @WebSocketServer()
   server: Server;
 
-  @SubscribeMessage("events")
-  findAll(@MessageBody() data: any): Observable<WsResponse<number>> {
-    return from([1, 2, 3]).pipe(map((item) => ({ event: "events", data: item })));
-  }
-
   @SubscribeMessage("identity")
   async identity(@MessageBody() data: number, @ConnectedSocket() client: Socket): Promise<number> {
-    this.clients[data] = client
+    this.clients[data] = client;
     return data;
+  }
+
+  @OnEvent("not.resources")
+  async notResources(payload: NotResourcesDto) {
+    if (this.clients[payload.playerId]?.connected)
+      this.clients[payload.playerId].emit("not.resources", payload);
   }
 
   @OnEvent("building.completed")

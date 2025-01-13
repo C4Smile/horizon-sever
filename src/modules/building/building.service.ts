@@ -22,6 +22,7 @@ import config from "src/config/configuration";
 // game service
 import { GameService } from "../game/game.service";
 import { Resource } from "../resource/entities/resource.entity";
+import { CancelQueueDto } from "./dto/cancel-queue.dto";
 
 @Injectable()
 export class BuildingService {
@@ -65,10 +66,49 @@ export class BuildingService {
     this.inProcess[playerId] = payload;
   }
 
-  private enqueueToPlayer(playerId: number, payload: BuildingQueue) {
+  private async doCosts(payload: BuildingQueue) {
+    const costs = GameService.GameBasics.buildingCosts.filter(
+      (b) => b.entityId === payload.building.buildingId,
+    );
+    if (costs.length) {
+      let levelToMultiply = payload.building.level;
+
+      switch (payload.action) {
+        case BuildingQueueActions.Upgrading:
+          levelToMultiply += 1;
+          break;
+        case BuildingQueueActions.Building:
+          levelToMultiply = 1;
+      }
+
+      // checking for each cost
+      for (const cost of costs) {
+        const resourceInStock = await this.resourceService.findOneBy({
+          resourceId: cost.resourceId,
+        });
+        if (resourceInStock.inStock < cost.base + cost.base * cost.factor * levelToMultiply)
+          return false;
+      }
+    }
+    return true;
+  }
+
+  private async enqueueToPlayer(playerId: number, payload: BuildingQueue) {
     if (!this.inProcess[playerId]) {
       this.inProcess[playerId] = payload;
-      this.eventEmitter.emit("building.started", payload);
+      const canBuild = await this.doCosts(payload);
+      if (canBuild) {
+        this.logger.debug(
+          `Building ${payload.building.buildingId}, action ${String(BuildingQueueActions[payload.action])} started`,
+        );
+        this.eventEmitter.emit("building.started", payload);
+      } else
+        await this.cancelQueue({
+          buildingId: payload.building.buildingId,
+          playerId: payload.playerId,
+          queueId: payload.id,
+          action: payload.action,
+        });
     } else {
       this.addToTheQueue(playerId, payload);
       payload.state = BuildingQueueState.Enqueued;
@@ -138,6 +178,18 @@ export class BuildingService {
     return playerBuildings;
   }
 
+  async cancelQueue(dto: CancelQueueDto) {
+    this.logger.debug(
+      `Building ${dto.buildingId}, action ${String(BuildingQueueActions[dto.action])} could not be started, not enough resources`,
+    );
+    await this.buildingQueueService.delete(dto.queueId);
+    this.eventEmitter.emit("not.resources", {
+      playerId: dto.playerId,
+      collection: "building",
+      entityId: dto.buildingId,
+    });
+  }
+
   public async doEnqueue(dto: EnqueueDto) {
     const building = GameService.GameBasics.buildings.find((b) => b.id === dto.buildingId);
     const playerCurrentBuilding = await this.buildingService.findOneBy({
@@ -160,18 +212,6 @@ export class BuildingService {
           break;
         case BuildingQueueActions.Building:
           levelToMultiply = 1;
-      }
-
-      const costs = GameService.GameBasics.buildingCosts.filter((b) => b.entityId === dto.buildingId);
-      if (costs.length) {
-        // checking for each cost
-        for (const cost of costs) {
-          const resourceInStock = await this.resourceService.findOneBy({
-            resourceId: cost.resourceId,
-          });
-          if (resourceInStock.inStock < cost.base + cost.base * cost.factor * levelToMultiply)
-            throw new HttpException("Not enough resources", HttpStatus.NOT_ACCEPTABLE);
-        }
       }
 
       const secondsToAdd = levelToMultiply * building.creationTime * config.game.dayInSeconds;
@@ -221,7 +261,7 @@ export class BuildingService {
   @OnEvent("building.enqueued")
   async enqueue(payload: BuildingQueue) {
     try {
-      this.enqueueToPlayer(payload.playerId, payload);
+      await this.enqueueToPlayer(payload.playerId, payload);
       this.logger.debug("Enqueuing correctly");
     } catch (err) {
       this.logger.error("Enqueuing error");
