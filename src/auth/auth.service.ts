@@ -27,7 +27,7 @@ import config from "src/config/configuration";
 @Injectable()
 export class AuthService {
   constructor(
-    @InjectRepository(HorizonUser) private HorizonUserService: Repository<HorizonUser>,
+    @InjectRepository(HorizonUser) private horizonUserService: Repository<HorizonUser>,
     @InjectRepository(User) private userService: Repository<User>,
     @InjectRepository(Validation) private validationService: Repository<Validation>,
     private jwtAuthService: JwtService,
@@ -39,7 +39,7 @@ export class AuthService {
   }
 
   async login(loginUserDto: LoginUserDto) {
-    const userFound = await this.HorizonUserService.findOne({
+    const userFound = await this.horizonUserService.findOne({
       where: [
         {
           email: loginUserDto.username,
@@ -85,7 +85,7 @@ export class AuthService {
     if (!validation) throw new HttpException("Invalid validation", HttpStatus.BAD_REQUEST);
 
     if (decode.token === validation.token && validation.expireAt > new Date()) {
-      this.HorizonUserService.update(decode.id, { status: UserStatus.Validated });
+      this.horizonUserService.update(decode.id, { status: UserStatus.Validated });
 
       return {
         status: 200,
@@ -122,7 +122,7 @@ export class AuthService {
     const resultUser = await this.userService.save(newUser);
 
     // registering horizon user
-    const newHorizonUser = this.HorizonUserService.create({
+    const newHorizonUser = this.horizonUserService.create({
       username: user.email.split("@")[0],
       email: user.email,
       phone: user.phone,
@@ -130,7 +130,7 @@ export class AuthService {
       imageId: ImageEnum.NoUserImage,
       userId: resultUser.id,
     });
-    const resultHorizonUser = await this.HorizonUserService.save(newHorizonUser);
+    const resultHorizonUser = await this.horizonUserService.save(newHorizonUser);
 
     const registeredUser = {
       user: {
