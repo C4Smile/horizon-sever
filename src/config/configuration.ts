@@ -17,6 +17,7 @@ type GameFactorSettings = {
   captainUpkeep: number;
   shipUpkeep: number;
   shipSpeed: number;
+  maxBuildingQueue: number;
   patch: string;
   realm: string;
 };
