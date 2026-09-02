@@ -102,6 +102,7 @@ export class CrudService<Entity, AddDto, UpdateDto> {
     const oldImageId = (entityFound as any).imageId;
 
     const image = (data as any).image;
+    const replacesImage = !!image;
     if (image) {
       const resultImage = await this.imageService.create(image as AddBlobDto);
       delete (data as any).image;
@@ -111,8 +112,8 @@ export class CrudService<Entity, AddDto, UpdateDto> {
     const updatedEntity = Object.assign(entityFound, parseRelationships(data));
     const saved = await this.entityService.save(updatedEntity);
 
-    if (oldImageId > 1) {
-      // deleting old image
+    // only when a new image took its place, the default one (1) is shared and never dropped
+    if (replacesImage && oldImageId > 1) {
       await this.imageService.remove(oldImageId);
     }
 

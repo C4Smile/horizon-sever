@@ -48,7 +48,12 @@ export class ImageService {
     if (imageFound !== null && imageFound !== undefined)
       throw new HttpException("Image already exists", HttpStatus.CONFLICT);
 
-    const newImage = this.imageService.create({ url, fileName: slugFileName, alt });
+    // alt is not nullable, fall back to the file name when the caller sends none
+    const newImage = this.imageService.create({
+      url,
+      fileName: slugFileName,
+      alt: alt ?? slugFileName,
+    });
     const saved = await this.imageService.save(newImage);
     return saved;
   }
