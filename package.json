@@ -4,6 +4,7 @@
   "description": "",
   "author": "",
   "private": true,
+  "packageManager": "pnpm@10.33.1",
   "license": "UNLICENSED",
   "scripts": {
     "build": "nest build",
@@ -28,6 +29,8 @@
     "@nestjs/platform-express": "^10.0.0",
     "@nestjs/sequelize": "^10.0.1",
     "bcrypt": "^5.1.1",
+    "express": "^4.21.1",
+    "js-yaml": "^4.1.0",
     "mysql2": "^3.11.3",
     "reflect-metadata": "^0.2.0",
     "rxjs": "^7.8.1",
@@ -79,5 +82,12 @@
     ],
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "@nestjs/core",
+      "bcrypt",
+      "esbuild"
+    ]
   }
 }
