@@ -7,6 +7,7 @@ async function bootstrap() {
   app.enableCors();
   app.use(json({ limit: "50mb" }));
   app.use(urlencoded({ extended: true, limit: "50mb" }));
-  await app.listen(3000);
+  // el puerto 3000 suele estar ocupado en local, PORT lo sobreescribe
+  await app.listen(process.env.PORT ?? 3000);
 }
 bootstrap();
