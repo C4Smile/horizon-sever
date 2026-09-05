@@ -59,11 +59,11 @@ export class ImageService {
   }
 
   async getAll(query?: QueryFilter): Promise<PagedResult<Photo>> {
-    const { page, count, sort, order } = query;
+    const { page, pageSize, sort, order } = query;
 
     const list = await this.imageService.find({
-      skip: page * count,
-      take: count,
+      skip: page * pageSize,
+      take: pageSize,
       where: {
         alt: Not(""),
       },

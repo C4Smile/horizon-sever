@@ -42,8 +42,8 @@ export class CannonController {
 
   @Get()
   get(@Query() query): Promise<PagedResult<CannonDto>> {
-    const { sort = "lastUpdate", order = "DESC", page = 0, count = 20 } = query;
-    return this.newsCannonService.get({ sort, order, page, count });
+    const { sort = "updatedAt", order = "DESC", page = 0, pageSize = 20 } = query;
+    return this.newsCannonService.get({ sort, order, page, pageSize });
   }
 
   @Get(":id")

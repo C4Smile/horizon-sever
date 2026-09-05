@@ -10,7 +10,7 @@ export class Model {
   id: number = 0;
 
   @Column({ nullable: true, type: "datetime", default: () => "CURRENT_TIMESTAMP" })
-  dateOfCreation: Date;
+  createdAt: Date;
 
   @Column({
     nullable: true,
@@ -18,7 +18,7 @@ export class Model {
     default: () => "CURRENT_TIMESTAMP",
     onUpdate: "CURRENT_TIMESTAMP",
   })
-  lastUpdate: Date;
+  updatedAt: Date;
 
   /** when the row was soft deleted, null while it is active */
   @Column({ nullable: true, type: "datetime", default: null })

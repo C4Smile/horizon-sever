@@ -29,7 +29,7 @@ export enum SortOrder {
   DESC = "DESC",
 }
 
-export type QueryFilter = { sort: string; order: SortOrder; page: number; count: number };
+export type QueryFilter = { sort: string; order: SortOrder; page: number; pageSize: number };
 
 export type PagedResult<TDto> = {
   items: TDto[];

@@ -35,8 +35,8 @@ export class LangController {
 
   @Get()
   get(@Query() query): Promise<PagedResult<LangDto>> {
-    const { sort = "lastUpdate", order = "DESC", page = 0, count = 20 } = query;
-    return this.roomStatusService.get({ sort, order, page, count });
+    const { sort = "updatedAt", order = "DESC", page = 0, pageSize = 20 } = query;
+    return this.roomStatusService.get({ sort, order, page, pageSize });
   }
 
   @Get(":id")

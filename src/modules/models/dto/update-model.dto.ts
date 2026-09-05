@@ -1,6 +1,6 @@
 export type UpdateModelDto = {
   id: number;
-  lastUpdate: Date;
+  updatedAt: Date;
   deletedAt?: Date | null;
 };
 

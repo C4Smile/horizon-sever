@@ -1,6 +1,6 @@
 export type AddModelDto = {
-  dateOfCreation?: Date;
-  lastUpdate?: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
   deletedAt?: Date | null;
 };
 

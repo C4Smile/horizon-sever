@@ -16,7 +16,7 @@ import {
 import { HorizonUser } from "./entities/horizon-user.entity";
 
 // entities
-import { PagedResult, QueryFilter } from "src/modules/models/types";
+import { PagedResult, QueryFilter, SortOrder } from "src/modules/models/types";
 
 // dto
 import { HorizonUserDto } from "./dto/horizon-user.dto";
@@ -35,7 +35,14 @@ export class HorizonUserController {
 
   @Get()
   get(@Query() query: QueryFilter): Promise<PagedResult<HorizonUserDto>> {
-    return this.horizonUserService.mappedGet(query);
+    // without defaults a bare call multiplies undefined into the offset
+    const { sort = "updatedAt", order, page = 0, pageSize = 20 } = query;
+    return this.horizonUserService.mappedGet({
+      sort,
+      order: order ?? SortOrder.DESC,
+      page,
+      pageSize,
+    });
   }
 
   @UseGuards(JwtAuthGuard)

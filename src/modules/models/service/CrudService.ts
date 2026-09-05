@@ -49,11 +49,11 @@ export class CrudService<Entity, AddDto, UpdateDto> {
   }
 
   async get(query?: QueryFilter): Promise<PagedResult<Entity>> {
-    const { page, count, sort, order } = query;
+    const { page, pageSize, sort, order } = query;
 
     const list = await this.entityService.find({
-      skip: page * count,
-      take: count,
+      skip: page * pageSize,
+      take: pageSize,
       order: {
         [sort as keyof Entity]: order,
       } as FindOptionsOrder<Entity>,

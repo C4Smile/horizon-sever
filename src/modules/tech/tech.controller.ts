@@ -42,8 +42,8 @@ export class TechController {
 
   @Get()
   get(@Query() query): Promise<PagedResult<TechDto>> {
-    const { sort = "lastUpdate", order = "DESC", page = 0, count = 20 } = query;
-    return this.newsTechService.get({ sort, order, page, count });
+    const { sort = "updatedAt", order = "DESC", page = 0, pageSize = 20 } = query;
+    return this.newsTechService.get({ sort, order, page, pageSize });
   }
 
   @Get(":id")

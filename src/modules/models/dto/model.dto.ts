@@ -1,7 +1,7 @@
 export class ModelDto {
   id: number;
-  dateOfCreation: Date;
-  lastUpdate: Date;
+  createdAt: Date;
+  updatedAt: Date;
   deletedAt: Date | null;
 }
 
