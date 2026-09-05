@@ -11,13 +11,6 @@ INSERT INTO `images` (`id`, `fileName`, `alt`, `url`)
   SELECT 1, 'user-no-image.webp', 'No user image', '/user-no-image.webp'
   FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `id` = 1);
 
-INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'armeria', 'armeria', 'buildingTypes/armeria.png' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'buildingTypes/armeria.png');
-INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'astillero', 'astillero', 'buildingTypes/astillero.png' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'buildingTypes/astillero.png');
-INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'construccion', 'construccion', 'buildingTypes/construccion.png' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'buildingTypes/construccion.png');
-INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'investigacion', 'investigacion', 'buildingTypes/investigacion.png' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'buildingTypes/investigacion.png');
-INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'mejora', 'mejora', 'buildingTypes/mejora.png' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'buildingTypes/mejora.png');
-INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'naval', 'naval', 'buildingTypes/naval.png' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'buildingTypes/naval.png');
-INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'observatorio', 'observatorio', 'buildingTypes/observatorio.png' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'buildingTypes/observatorio.png');
 INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'academia', 'academia', 'buildings/academia.png' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'buildings/academia.png');
 INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'aserradero', 'aserradero', 'buildings/aserradero.png' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'buildings/aserradero.png');
 INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'astillero', 'astillero', 'buildings/astillero.png' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'buildings/astillero.png');
@@ -82,9 +75,27 @@ INSERT INTO `horizon-user` (`name`, `username`, `phone`, `email`, `roleId`, `use
   WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `horizon-user` WHERE `username` = 'player') AS x);
 
 -- ─── types, needed before the rows that point at them ──────────────────────
+-- The icons these types are drawn with live in the website, which is what
+-- paints the buttons, so every type here carries the placeholder image.
+--
+-- Naval, Militar and Investigacion are named after those icons. Produccion and
+-- Civil are a guess at what the remaining buildings have in common: rename
+-- either and the buildings below follow, they look the type up by name.
+INSERT INTO `building-types` (`name`, `imageId`)
+  SELECT 'Naval', 1 FROM DUAL
+  WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `building-types` WHERE `name` = 'Naval') AS x);
 INSERT INTO `building-types` (`name`, `imageId`)
   SELECT 'Militar', 1 FROM DUAL
   WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `building-types` WHERE `name` = 'Militar') AS x);
+INSERT INTO `building-types` (`name`, `imageId`)
+  SELECT 'Investigacion', 1 FROM DUAL
+  WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `building-types` WHERE `name` = 'Investigacion') AS x);
+INSERT INTO `building-types` (`name`, `imageId`)
+  SELECT 'Produccion', 1 FROM DUAL
+  WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `building-types` WHERE `name` = 'Produccion') AS x);
+INSERT INTO `building-types` (`name`, `imageId`)
+  SELECT 'Civil', 1 FROM DUAL
+  WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `building-types` WHERE `name` = 'Civil') AS x);
 INSERT INTO `tech-types` (`name`, `imageId`)
   SELECT 'Naval', 1 FROM DUAL
   WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `tech-types` WHERE `name` = 'Naval') AS x);
@@ -122,25 +133,25 @@ INSERT INTO `ships` (`name`, `imageId`, `iconId`, `capacity`, `knots`, `minCrew`
 
 -- ─── buildings ─────────────────────────────────────────────────────────────
 INSERT INTO `buildings` (`name`, `imageId`, `creationTime`, `typeId`, `description`)
-  SELECT 'Astillero', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'buildings/astillero.png' LIMIT 1) AS i), 10, (SELECT id FROM (SELECT id FROM `building-types` WHERE `name` = 'Militar' LIMIT 1) AS t), '' FROM DUAL
+  SELECT 'Astillero', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'buildings/astillero.png' LIMIT 1) AS i), 10, (SELECT id FROM (SELECT id FROM `building-types` WHERE `name` = 'Naval' LIMIT 1) AS t), '' FROM DUAL
   WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `buildings` WHERE `name` = 'Astillero') AS x);
 INSERT INTO `buildings` (`name`, `imageId`, `creationTime`, `typeId`, `description`)
-  SELECT 'Academia', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'buildings/academia.png' LIMIT 1) AS i), 0, (SELECT id FROM (SELECT id FROM `building-types` WHERE `name` = 'Militar' LIMIT 1) AS t), '' FROM DUAL
+  SELECT 'Academia', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'buildings/academia.png' LIMIT 1) AS i), 0, (SELECT id FROM (SELECT id FROM `building-types` WHERE `name` = 'Investigacion' LIMIT 1) AS t), '' FROM DUAL
   WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `buildings` WHERE `name` = 'Academia') AS x);
 INSERT INTO `buildings` (`name`, `imageId`, `creationTime`, `typeId`, `description`)
-  SELECT 'Aserradero', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'buildings/aserradero.png' LIMIT 1) AS i), 0, (SELECT id FROM (SELECT id FROM `building-types` WHERE `name` = 'Militar' LIMIT 1) AS t), '' FROM DUAL
+  SELECT 'Aserradero', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'buildings/aserradero.png' LIMIT 1) AS i), 0, (SELECT id FROM (SELECT id FROM `building-types` WHERE `name` = 'Produccion' LIMIT 1) AS t), '' FROM DUAL
   WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `buildings` WHERE `name` = 'Aserradero') AS x);
 INSERT INTO `buildings` (`name`, `imageId`, `creationTime`, `typeId`, `description`)
   SELECT 'Forja', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'buildings/forja.png' LIMIT 1) AS i), 0, (SELECT id FROM (SELECT id FROM `building-types` WHERE `name` = 'Militar' LIMIT 1) AS t), '' FROM DUAL
   WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `buildings` WHERE `name` = 'Forja') AS x);
 INSERT INTO `buildings` (`name`, `imageId`, `creationTime`, `typeId`, `description`)
-  SELECT 'Granja', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'buildings/granja.png' LIMIT 1) AS i), 0, (SELECT id FROM (SELECT id FROM `building-types` WHERE `name` = 'Militar' LIMIT 1) AS t), '' FROM DUAL
+  SELECT 'Granja', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'buildings/granja.png' LIMIT 1) AS i), 0, (SELECT id FROM (SELECT id FROM `building-types` WHERE `name` = 'Produccion' LIMIT 1) AS t), '' FROM DUAL
   WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `buildings` WHERE `name` = 'Granja') AS x);
 INSERT INTO `buildings` (`name`, `imageId`, `creationTime`, `typeId`, `description`)
-  SELECT 'Mercado', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'buildings/mercado.png' LIMIT 1) AS i), 0, (SELECT id FROM (SELECT id FROM `building-types` WHERE `name` = 'Militar' LIMIT 1) AS t), '' FROM DUAL
+  SELECT 'Mercado', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'buildings/mercado.png' LIMIT 1) AS i), 0, (SELECT id FROM (SELECT id FROM `building-types` WHERE `name` = 'Civil' LIMIT 1) AS t), '' FROM DUAL
   WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `buildings` WHERE `name` = 'Mercado') AS x);
 INSERT INTO `buildings` (`name`, `imageId`, `creationTime`, `typeId`, `description`)
-  SELECT 'Vivienda', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'buildings/vivienda.png' LIMIT 1) AS i), 0, (SELECT id FROM (SELECT id FROM `building-types` WHERE `name` = 'Militar' LIMIT 1) AS t), '' FROM DUAL
+  SELECT 'Vivienda', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'buildings/vivienda.png' LIMIT 1) AS i), 0, (SELECT id FROM (SELECT id FROM `building-types` WHERE `name` = 'Civil' LIMIT 1) AS t), '' FROM DUAL
   WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `buildings` WHERE `name` = 'Vivienda') AS x);
 
 -- ─── the rest of the seed ──────────────────────────────────────────────────

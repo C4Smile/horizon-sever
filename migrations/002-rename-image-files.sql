@@ -63,19 +63,6 @@ UPDATE `images` SET `url` = 'techs/mejora.png', `fileName` = 'mejora'
   WHERE `url` IN ('techs/upgrade.png', '/techs/upgrade.png');
 UPDATE `images` SET `url` = 'skills/navegacion.jpeg', `fileName` = 'navegacion'
   WHERE `url` IN ('skills/steelwind.jpeg', '/skills/steelwind.jpeg');
-UPDATE `images` SET `url` = 'buildingTypes/construccion.png', `fileName` = 'construccion'
-  WHERE `url` IN ('buildingTypes/buildings.png', '/buildingTypes/buildings.png');
-UPDATE `images` SET `url` = 'buildingTypes/armeria.png', `fileName` = 'armeria'
-  WHERE `url` IN ('buildingTypes/guns.png', '/buildingTypes/guns.png',
-                  'buildingTypes/artilleria.png', '/buildingTypes/artilleria.png');
-UPDATE `images` SET `url` = 'buildingTypes/naval.png', `fileName` = 'naval'
-  WHERE `url` IN ('buildingTypes/ships.png', '/buildingTypes/ships.png');
-UPDATE `images` SET `url` = 'buildingTypes/investigacion.png', `fileName` = 'investigacion'
-  WHERE `url` IN ('buildingTypes/research.png', '/buildingTypes/research.png');
-UPDATE `images` SET `url` = 'buildingTypes/observatorio.png', `fileName` = 'observatorio'
-  WHERE `url` IN ('buildingTypes/researches.png', '/buildingTypes/researches.png');
-UPDATE `images` SET `url` = 'buildingTypes/mejora.png', `fileName` = 'mejora'
-  WHERE `url` IN ('buildingTypes/upgrade.png', '/buildingTypes/upgrade.png');
 UPDATE `images` SET `url` = 'techTypes/investigacion.png', `fileName` = 'investigacion'
   WHERE `url` IN ('techTypes/research.png', '/techTypes/research.png');
 UPDATE `images` SET `url` = 'techTypes/mejora.png', `fileName` = 'mejora'
@@ -84,5 +71,3 @@ UPDATE `images` SET `url` = 'techTypes/mejora.png', `fileName` = 'mejora'
 UPDATE `images` SET `url` = 'cannons/canon.png', `fileName` = 'canon'
   WHERE `url` IN ('cannons/canon.jpeg', '/cannons/canon.jpeg');
 
-UPDATE `images` SET `url` = 'buildingTypes/astillero.png', `fileName` = 'astillero'
-  WHERE `url` IN ('buildingTypes/astillero.jpeg', '/buildingTypes/astillero.jpeg');
