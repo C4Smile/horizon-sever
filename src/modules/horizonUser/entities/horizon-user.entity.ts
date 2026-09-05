@@ -5,6 +5,7 @@ import { User } from "../../user/user.entity";
 import { Model } from "src/modules/models/model";
 import { Photo } from "src/modules/image/image.entity";
 import { HorizonRole } from "src/modules/horizonRole/entities/horizon-role.entity";
+import { UserStatus } from "./user-status";
 
 /**
  * @class HorizonUser
@@ -26,6 +27,10 @@ export class HorizonUser extends Model {
 
   @Column({ type: "int" })
   roleId: number;
+
+  /** nullable: the accounts that predate sign up validation have no status */
+  @Column({ type: "int", nullable: true, default: UserStatus.Inactive })
+  status: UserStatus;
 
   @ManyToOne(() => HorizonRole, (horizonRole) => horizonRole.horizonUsers, { cascade: true })
   role: HorizonRole;

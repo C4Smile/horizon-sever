@@ -61,7 +61,7 @@ INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'mejora', 'mejora', 'tech
 INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'navegacion', 'navegacion', 'techs/navegacion.jpeg' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'techs/navegacion.jpeg');
 INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'vivienda', 'vivienda', 'techs/vivienda.jpeg' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'techs/vivienda.jpeg');
 
--- ─── accounts ──────────────────────────────────────────────────────────────
+-- ─── accounts, seeded already validated ──────────────────────────────────────────────────────────────
 INSERT INTO `horizon-role` (`name`)
   SELECT 'Administrador' FROM DUAL
   WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `horizon-role` WHERE `name` = 'Administrador') AS x);
@@ -74,11 +74,11 @@ INSERT INTO `users` (`email`, `encrypted_password`, `phone`)
 INSERT INTO `users` (`email`, `encrypted_password`, `phone`)
   SELECT 'player@email.com', '$2b$10$/6GY3X8iIwkmbLNloI4BUuYAnXdbs5DVyOTkyLOLTmPCSTmgQkfGy', 'player' FROM DUAL
   WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `users` WHERE `email` = 'player@email.com') AS x);
-INSERT INTO `horizon-user` (`name`, `username`, `phone`, `email`, `roleId`, `userId`, `imageId`)
-  SELECT 'administrador', 'administrador', 'administrador', 'administrador@email.com', (SELECT id FROM (SELECT id FROM `horizon-role` WHERE `name` = 'Administrador' LIMIT 1) AS r), (SELECT id FROM (SELECT id FROM `users` WHERE `email` = 'administrador@email.com' LIMIT 1) AS u), 1 FROM DUAL
+INSERT INTO `horizon-user` (`name`, `username`, `phone`, `email`, `roleId`, `userId`, `imageId`, `status`)
+  SELECT 'administrador', 'administrador', 'administrador', 'administrador@email.com', (SELECT id FROM (SELECT id FROM `horizon-role` WHERE `name` = 'Administrador' LIMIT 1) AS r), (SELECT id FROM (SELECT id FROM `users` WHERE `email` = 'administrador@email.com' LIMIT 1) AS u), 1, 2 FROM DUAL
   WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `horizon-user` WHERE `username` = 'administrador') AS x);
-INSERT INTO `horizon-user` (`name`, `username`, `phone`, `email`, `roleId`, `userId`, `imageId`)
-  SELECT 'player', 'player', 'player', 'player@email.com', (SELECT id FROM (SELECT id FROM `horizon-role` WHERE `name` = 'Player' LIMIT 1) AS r), (SELECT id FROM (SELECT id FROM `users` WHERE `email` = 'player@email.com' LIMIT 1) AS u), 1 FROM DUAL
+INSERT INTO `horizon-user` (`name`, `username`, `phone`, `email`, `roleId`, `userId`, `imageId`, `status`)
+  SELECT 'player', 'player', 'player', 'player@email.com', (SELECT id FROM (SELECT id FROM `horizon-role` WHERE `name` = 'Player' LIMIT 1) AS r), (SELECT id FROM (SELECT id FROM `users` WHERE `email` = 'player@email.com' LIMIT 1) AS u), 1, 2 FROM DUAL
   WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `horizon-user` WHERE `username` = 'player') AS x);
 
 -- ─── types, needed before the rows that point at them ──────────────────────

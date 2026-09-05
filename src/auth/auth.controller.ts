@@ -9,6 +9,7 @@ import { AuthService } from "./auth.service";
 // dto
 import { LoginUserDto } from "./dto/login-user.dto";
 import { AddUserDto } from "src/modules/user/dto/add-user.dto";
+import { TokenDto } from "./dto/token.dto";
 
 @Controller("auth")
 export class AuthController {
@@ -28,5 +29,10 @@ export class AuthController {
   @Post("register")
   async register(@Body() addUserDto: AddUserDto) {
     return this.authService.register(addUserDto);
+  }
+
+  @Post("validate-email")
+  async validateEmail(@Body() tokenDto: TokenDto) {
+    return this.authService.validateEmail(tokenDto);
   }
 }
