@@ -22,24 +22,42 @@ export class CrudService<Entity, AddDto, UpdateDto> {
   protected imageService: ImageService;
   protected entityService: Repository<Entity>;
   protected relationships: string[];
+  protected photoFields: string[];
 
   constructor(
     entityService: Repository<Entity>,
     imageRepository?: Repository<Photo>,
     relationships: string[] = [],
+    photoFields: string[] = ["image"],
   ) {
     this.entityService = entityService;
     this.relationships = relationships;
+    this.photoFields = photoFields;
     if (imageRepository) this.imageService = new ImageService(imageRepository);
   }
 
-  async create(entity: AddDto) {
-    const image = (entity as any).image;
-    if (image) {
-      const resultImage = await this.imageService.create(image as AddBlobDto);
-      delete (entity as any).image;
-      (entity as any).imageId = resultImage.id;
+  /**
+   * Turns the blobs the client sends into image rows, one per photo field. The
+   * field name doubles as the column, so `icon` writes `iconId`, and a field
+   * the caller left out is not touched.
+   * @param data - add or update payload, mutated in place
+   * @returns the fields that got a new image
+   */
+  private async storeBlobs(data: any): Promise<string[]> {
+    const stored: string[] = [];
+    for (const field of this.photoFields) {
+      const blob = data[field];
+      if (!blob) continue;
+      const saved = await this.imageService.create(blob as AddBlobDto);
+      delete data[field];
+      data[`${field}Id`] = saved.id;
+      stored.push(field);
     }
+    return stored;
+  }
+
+  async create(entity: AddDto) {
+    await this.storeBlobs(entity);
 
     const newEntity = this.entityService.create(parseRelationships(entity));
 
@@ -102,23 +120,20 @@ export class CrudService<Entity, AddDto, UpdateDto> {
 
     if (!entityFound) throw new HttpException("Entity not Found", HttpStatus.NOT_FOUND);
 
-    // searching for existing image
-    const oldImageId = (entityFound as any).imageId;
+    // the ids to drop once their replacement is in place
+    const oldIds = new Map<string, number>(
+      this.photoFields.map((field) => [field, (entityFound as any)[`${field}Id`]]),
+    );
 
-    const image = (data as any).image;
-    const replacesImage = !!image;
-    if (image) {
-      const resultImage = await this.imageService.create(image as AddBlobDto);
-      delete (data as any).image;
-      (data as any).imageId = resultImage.id;
-    }
+    const replaced = await this.storeBlobs(data);
 
     const updatedEntity = Object.assign(entityFound, parseRelationships(data));
     const saved = await this.entityService.save(updatedEntity);
 
     // only when a new image took its place, the default one (1) is shared and never dropped
-    if (replacesImage && oldImageId > 1) {
-      await this.imageService.remove(oldImageId);
+    for (const field of replaced) {
+      const oldId = oldIds.get(field);
+      if (oldId > 1) await this.imageService.remove(oldId);
     }
 
     return [saved];

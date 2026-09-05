@@ -19,7 +19,7 @@ export class ResourceService extends CrudService<Resource, AddResourceDto, Updat
     @InjectRepository(Resource) resourceService: Repository<Resource>,
     @InjectRepository(Photo) imageService: Repository<Photo>,
   ) {
-    const relationships = ["image"];
-    super(resourceService, imageService, relationships);
+    const relationships = ["image", "icon"];
+    super(resourceService, imageService, relationships, relationships);
   }
 }

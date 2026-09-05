@@ -19,7 +19,7 @@ export class ShipService extends CrudService<Ship, AddShipDto, UpdateShipDto> {
     @InjectRepository(Ship) shipService: Repository<Ship>,
     @InjectRepository(Photo) imageService: Repository<Photo>,
   ) {
-    const relationships = ["image"];
-    super(shipService, imageService, relationships);
+    const relationships = ["image", "icon"];
+    super(shipService, imageService, relationships, relationships);
   }
 }

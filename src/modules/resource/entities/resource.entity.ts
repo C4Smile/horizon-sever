@@ -22,6 +22,10 @@ export class Resource extends Model {
   @Column({ type: "int" })
   imageId: number;
 
+  // nullable: the rows that predate the icon have none
+  @Column({ type: "int", nullable: true })
+  iconId: number;
+
   @Column({ type: "int" })
   baseFactor: number = 0;
 
@@ -51,6 +55,9 @@ export class Resource extends Model {
 
   @ManyToOne(() => Photo)
   image: Photo;
+
+  @ManyToOne(() => Photo)
+  icon: Photo;
 
   @OneToMany(() => ShipCost, (cost) => cost.resource)
   cannonsCostThis: Ship[];

@@ -16,6 +16,10 @@ export class Ship extends Model {
   @Column({ type: "int" })
   imageId: number;
 
+  // nullable: the rows that predate the icon have none
+  @Column({ type: "int", nullable: true })
+  iconId: number;
+
   @Column({ type: "double" })
   capacity: number;
 
@@ -45,6 +49,9 @@ export class Ship extends Model {
 
   @ManyToOne(() => Photo)
   image: Photo;
+
+  @ManyToOne(() => Photo)
+  icon: Photo;
 
   @OneToMany(() => ShipCost, (cost) => cost.ship)
   costs: ShipCost[];
