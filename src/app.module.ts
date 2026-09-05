@@ -1,6 +1,8 @@
 import { Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { ServeStaticModule } from "@nestjs/serve-static";
+import { EventEmitterModule } from "@nestjs/event-emitter";
+import { ScheduleModule } from "@nestjs/schedule";
 
 import { join } from "path";
 
@@ -45,6 +47,7 @@ import { CannonCostModule } from "./modules/cannonCost/cannon-cost.module";
 import { CannonReqTechModule } from "./modules/cannonReqTech/cannon-req-tech.module";
 import { CannonReqBuildingModule } from "./modules/cannonReqBuilding/cannon-req-building.module";
 import { GameBasicsModule } from "./modules/game/game.module";
+import { PlayerResourceModule } from "./modules/playerResource/player-resource.module";
 
 // config
 import config from "./config/configuration";
@@ -55,6 +58,9 @@ import config from "./config/configuration";
       rootPath: join(__dirname, "..", "public"),
       serveRoot: "/public/",
     }),
+    // the game side talks to itself through events and runs on a timer
+    EventEmitterModule.forRoot(),
+    ScheduleModule.forRoot(),
     TypeOrmModule.forRoot({
       type: "mysql",
       username: config.db.user,
@@ -102,6 +108,7 @@ import config from "./config/configuration";
     CannonReqTechModule,
     CannonReqBuildingModule,
     GameBasicsModule,
+    PlayerResourceModule,
   ],
   controllers: [AppController],
   providers: [AppService],

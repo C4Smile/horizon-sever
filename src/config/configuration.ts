@@ -12,6 +12,16 @@ type DatabaseConfigurationType = {
   password: string;
 };
 
+/** what a player starts with, and how much they can hold, per resource id */
+type ResourceSettings = {
+  startCapacity: Record<number, number>;
+  basicStart: Record<number, number>;
+};
+
+type QueueSettings = {
+  building: number;
+};
+
 type GameFactorSettings = {
   crewUpkeep: number;
   captainUpkeep: number;
@@ -20,6 +30,10 @@ type GameFactorSettings = {
   maxBuildingQueue: number;
   patch: string;
   realm: string;
+  /** how long a game day lasts in real seconds, the tick every job runs on */
+  dayInSeconds: number;
+  resources: ResourceSettings;
+  queue: QueueSettings;
 };
 
 type ConfigurationType = {
