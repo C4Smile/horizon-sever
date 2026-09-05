@@ -82,3 +82,6 @@ UPDATE `images` SET `url` = 'techTypes/mejora.png', `fileName` = 'mejora'
 
 UPDATE `images` SET `url` = 'cannons/canon.png', `fileName` = 'canon'
   WHERE `url` IN ('cannons/canon.jpeg', '/cannons/canon.jpeg');
+
+UPDATE `images` SET `url` = 'buildingTypes/astillero.png', `fileName` = 'astillero'
+  WHERE `url` IN ('buildingTypes/astillero.jpeg', '/buildingTypes/astillero.jpeg');
