@@ -11,7 +11,7 @@ INSERT INTO `images` (`id`, `fileName`, `alt`, `url`)
   SELECT 1, 'user-no-image.webp', 'No user image', '/user-no-image.webp'
   FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `id` = 1);
 
-INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'artilleria', 'artilleria', 'buildingTypes/artilleria.png' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'buildingTypes/artilleria.png');
+INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'armeria', 'armeria', 'buildingTypes/armeria.png' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'buildingTypes/armeria.png');
 INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'astillero', 'astillero', 'buildingTypes/astillero.png' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'buildingTypes/astillero.png');
 INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'construccion', 'construccion', 'buildingTypes/construccion.png' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'buildingTypes/construccion.png');
 INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'investigacion', 'investigacion', 'buildingTypes/investigacion.png' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'buildingTypes/investigacion.png');
