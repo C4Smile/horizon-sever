@@ -20,8 +20,9 @@ export class Model {
   })
   lastUpdate: Date;
 
-  @Column({ nullable: true, default: () => false })
-  deleted: boolean = false;
+  /** when the row was soft deleted, null while it is active */
+  @Column({ nullable: true, type: "datetime", default: null })
+  deletedAt: Date | null = null;
 
   @Column({ default: () => 0, type: "int" })
   lockedBy: number = 0;

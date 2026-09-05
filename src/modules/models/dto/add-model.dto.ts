@@ -1,7 +1,7 @@
 export type AddModelDto = {
   dateOfCreation?: Date;
   lastUpdate?: Date;
-  deleted?: boolean;
+  deletedAt?: Date | null;
 };
 
 export type AddRelationshipDto = {};

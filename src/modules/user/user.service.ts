@@ -40,7 +40,7 @@ export class UserService {
   }
 
   async remove(id: number) {
-    const result = await this.userService.update({ id }, { deleted: true });
+    const result = await this.userService.update({ id }, { deletedAt: new Date() });
     if (result.affected === 0) throw new HttpException("User not Found", HttpStatus.NOT_FOUND);
 
     return result;

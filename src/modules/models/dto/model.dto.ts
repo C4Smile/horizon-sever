@@ -2,7 +2,7 @@ export class ModelDto {
   id: number;
   dateOfCreation: Date;
   lastUpdate: Date;
-  deleted: boolean;
+  deletedAt: Date | null;
 }
 
 export class RelationshipDto {

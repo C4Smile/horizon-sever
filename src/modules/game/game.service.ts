@@ -1,6 +1,7 @@
 import { Repository } from "typeorm";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Injectable } from "@nestjs/common";
+import { IsNull } from "typeorm";
 import { GameBasicsDto } from "./dto/game-basics.dto";
 
 // building
@@ -72,7 +73,7 @@ export class GameService {
     console.info("Fetching resources for game");
     const resources = await this.resourceService.find({
       where: {
-        deleted: false,
+        deletedAt: IsNull(),
       },
     });
     console.info(`${resources.length} resources fetched`);
@@ -80,7 +81,7 @@ export class GameService {
     console.info("Fetching buildings for game");
     const buildings = await this.buildingService.find({
       where: {
-        deleted: false,
+        deletedAt: IsNull(),
       },
     });
     const buildingCosts = await this.buildingCostService.find();
@@ -98,7 +99,7 @@ export class GameService {
     console.info("Fetching cannons for game");
     const cannons = await this.cannonService.find({
       where: {
-        deleted: false,
+        deletedAt: IsNull(),
       },
     });
     const cannonCosts = await this.cannonCostService.find();
@@ -109,7 +110,7 @@ export class GameService {
     console.info("Fetching ships for game");
     const ships = await this.shipService.find({
       where: {
-        deleted: false,
+        deletedAt: IsNull(),
       },
     });
     const shipCosts = await this.shipCostService.find();
@@ -121,7 +122,7 @@ export class GameService {
     console.info("Fetching techs for game");
     const techs = await this.techService.find({
       where: {
-        deleted: false,
+        deletedAt: IsNull(),
       },
     });
     const techCosts = await this.techCostService.find();
