@@ -33,5 +33,6 @@ export type QueryFilter = { sort: string; order: SortOrder; page: number; pageSi
 
 export type PagedResult<TDto> = {
   items: TDto[];
-  total: number;
+  totalElements: number;
+  totalPages: number;
 };

@@ -67,7 +67,8 @@ export class HorizonUserService extends CrudService<
           ...horizonUser.image,
         },
       })),
-      total: result.total,
+      totalElements: result.totalElements,
+      totalPages: result.totalPages,
     };
   };
 

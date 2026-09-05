@@ -69,8 +69,12 @@ export class ImageService {
       },
     });
 
-    const total = await this.imageService.count();
-    return { items: list.filter((image) => image.alt.length), total: total };
+    const totalElements = await this.imageService.count();
+    return {
+      items: list.filter((image) => image.alt.length),
+      totalElements,
+      totalPages: pageSize > 0 ? Math.ceil(totalElements / pageSize) : 0,
+    };
   }
 
   async getById(id: number): Promise<Photo> {

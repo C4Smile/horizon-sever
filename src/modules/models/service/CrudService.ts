@@ -60,9 +60,13 @@ export class CrudService<Entity, AddDto, UpdateDto> {
       relations: this.relationships,
     });
 
-    const total = await this.entityService.count();
+    const totalElements = await this.entityService.count();
 
-    return { items: list, total: total };
+    return {
+      items: list,
+      totalElements,
+      totalPages: pageSize > 0 ? Math.ceil(totalElements / pageSize) : 0,
+    };
   }
 
   async getById(id: number) {

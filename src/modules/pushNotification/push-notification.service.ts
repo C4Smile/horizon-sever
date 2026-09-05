@@ -42,7 +42,8 @@ export class PushNotificationService extends CrudService<
           fileName: notification.image.fileName,
         },
       })),
-      total: result.total,
+      totalElements: result.totalElements,
+      totalPages: result.totalPages,
     };
   };
 }
