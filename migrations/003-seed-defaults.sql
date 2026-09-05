@@ -25,7 +25,7 @@ INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'forja', 'forja', 'buildi
 INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'granja', 'granja', 'buildings/granja.png' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'buildings/granja.png');
 INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'mercado', 'mercado', 'buildings/mercado.png' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'buildings/mercado.png');
 INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'vivienda', 'vivienda', 'buildings/vivienda.png' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'buildings/vivienda.png');
-INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'canon', 'canon', 'cannons/canon.jpeg' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'cannons/canon.jpeg');
+INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'canon', 'canon', 'cannons/canon.png' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'cannons/canon.png');
 INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'madera', 'madera', 'resources/iconos/madera.png' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'resources/iconos/madera.png');
 INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'monedas', 'monedas', 'resources/iconos/monedas.png' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'resources/iconos/monedas.png');
 INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'poblacion', 'poblacion', 'resources/iconos/poblacion.png' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'resources/iconos/poblacion.png');
@@ -144,7 +144,7 @@ INSERT INTO `buildings` (`name`, `imageId`, `creationTime`, `typeId`, `descripti
   WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `buildings` WHERE `name` = 'Vivienda') AS x);
 
 -- ─── the rest of the seed ──────────────────────────────────────────────────
--- cannons carry no image column, so canon.jpeg has no owner
+-- cannons carry no image column, so cannons/canon.png has no owner
 INSERT INTO `cannons` (`name`, `baseDamage`, `weight`, `creationTime`, `description`)
   SELECT 'Culebrina', 30, 900, 8, '' FROM DUAL
   WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `cannons` WHERE `name` = 'Culebrina') AS x);
