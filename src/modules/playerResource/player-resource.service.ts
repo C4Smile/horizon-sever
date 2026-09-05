@@ -13,6 +13,13 @@ import { InitializeDto } from "./dto/initialize.dto";
 // config
 import config from "src/config/configuration";
 
+// game
+import { GameService } from "../game/game.service";
+import {
+  BuildingQueue,
+  BuildingQueueActions,
+} from "../playerBuilding/entities/building-queue.entity";
+
 @Injectable()
 export class PlayerResourceService {
   /** every player's stock, so a production tick never reads the table */
@@ -21,6 +28,7 @@ export class PlayerResourceService {
   constructor(
     @InjectRepository(PlayerResource)
     private playerResourceService: Repository<PlayerResource>,
+    private gameService: GameService,
   ) {
     void this.init();
   }
@@ -98,5 +106,81 @@ export class PlayerResourceService {
     }
 
     return { resourcesHarvested, playersHarvesting };
+  }
+
+  /** takes what the action costs out of the player's stock */
+  @OnEvent("building.started")
+  async handleBuildingStarted(payload: BuildingQueue) {
+    const costs = this.gameService.get().buildingCosts.filter(
+      (b) => b.entityId === payload.building.buildingId,
+    );
+    if (!costs.length) return;
+
+    let levelToMultiply = payload.building.level;
+    switch (payload.action) {
+      case BuildingQueueActions.Upgrading:
+        levelToMultiply += 1;
+        break;
+      case BuildingQueueActions.Building:
+        levelToMultiply = 1;
+    }
+
+    for (const cost of costs) {
+      const resourceInStock = await this.playerResourceService.findOneBy({
+        playerId: payload.playerId,
+        resourceId: cost.resourceId,
+      });
+      if (!resourceInStock) continue;
+
+      const toExtract = cost.base + cost.base * cost.factor * levelToMultiply;
+      const left = resourceInStock.inStock - toExtract;
+      await this.playerResourceService.update(resourceInStock.id, { inStock: left });
+      this.syncCache(payload.playerId, resourceInStock.id, { inStock: left });
+    }
+  }
+
+  /**
+   * A finished building changes how fast its resources come in, up when it went
+   * up a level and down when it came down.
+   */
+  @OnEvent("building.completed")
+  async handleBuildingCompleted(payload: BuildingQueue) {
+    const playerStock = this.stockCached[payload.playerId];
+    const buildingProduction = this.gameService.get().buildingProduces.filter(
+      (b) => b.entityId === payload.building.buildingId,
+    );
+    if (!playerStock?.length || !buildingProduction.length) return;
+
+    for (const produces of buildingProduction) {
+      const current = playerStock.find((r) => r.resourceId === produces.resourceId);
+      if (!current) continue;
+
+      let currentFactor = current.currentFactor;
+      switch (payload.action) {
+        case BuildingQueueActions.Building:
+        case BuildingQueueActions.Upgrading:
+          currentFactor += produces.factor;
+          break;
+        case BuildingQueueActions.Demolishing:
+        case BuildingQueueActions.Downgrading:
+          currentFactor -= produces.factor;
+          break;
+      }
+
+      await this.playerResourceService.update(current.id, { currentFactor });
+      this.syncCache(payload.playerId, current.id, { currentFactor });
+    }
+  }
+
+  /**
+   * Keeps the cached stock in step with what just went to the table, so the
+   * next production tick harvests the new numbers.
+   * @param playerId - whose stock
+   * @param id - the row that changed
+   * @param changes - the fields that changed
+   */
+  private syncCache(playerId: number, id: number, changes: Partial<PlayerResource>) {
+    const cached = this.stockCached[playerId]?.find((r) => r.id === id);
+    if (cached) Object.assign(cached, changes);
   }
 }

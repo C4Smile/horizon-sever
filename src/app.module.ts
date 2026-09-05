@@ -48,6 +48,8 @@ import { CannonReqTechModule } from "./modules/cannonReqTech/cannon-req-tech.mod
 import { CannonReqBuildingModule } from "./modules/cannonReqBuilding/cannon-req-building.module";
 import { GameBasicsModule } from "./modules/game/game.module";
 import { PlayerResourceModule } from "./modules/playerResource/player-resource.module";
+import { PlayerBuildingModule } from "./modules/playerBuilding/player-building.module";
+import { WebsocketsModule } from "./modules/websockets/websockets.module";
 
 // config
 import config from "./config/configuration";
@@ -109,6 +111,8 @@ import config from "./config/configuration";
     CannonReqBuildingModule,
     GameBasicsModule,
     PlayerResourceModule,
+    PlayerBuildingModule,
+    WebsocketsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
