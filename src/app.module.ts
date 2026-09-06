@@ -20,6 +20,7 @@ import { BuildingCostModule } from "./modules/buildingCost/building-cost.module"
 import { BuildingReqTechModule } from "./modules/buildingReqTech/building-req-tech.module";
 import { BuildingTypeModule } from "./modules/buildingType/building-type.module";
 import { NationModule } from "./modules/nation/nation.module";
+import { MediaModule } from "./modules/media/media.module";
 import { BuildingUpkeepModule } from "./modules/buildingUpkeep/building-upkeep.module";
 import { BuildingProducesModule } from "./modules/buildingProduces/building-produces.module";
 import { BuildingReqBuildingModule } from "./modules/buildingReqBuilding/building-req-building.module";
@@ -57,6 +58,8 @@ import config from "./config/configuration";
 
 @Module({
   imports: [
+    // before ServeStaticModule on purpose: its middleware would answer first
+    MediaModule,
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, "..", "public"),
       serveRoot: "/public/",

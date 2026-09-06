@@ -39,6 +39,7 @@
     "reflect-metadata": "^0.2.0",
     "rxjs": "^7.8.1",
     "sequelize": "^6.37.4",
+    "sharp": "^0.35.4",
     "socket.io": "^4.8.1",
     "some-javascript-utils": "^1.0.1"
   },
