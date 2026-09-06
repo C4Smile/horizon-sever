@@ -96,6 +96,30 @@ INSERT INTO `tech-types` (`name`)
   SELECT 'Investigación' FROM DUAL
   WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `tech-types` WHERE `name` = 'Investigación') AS x);
 
+-- ─── nations ───────────────────────────────────────────────────────────────
+-- Lifted from Horizon/game.sqlite3, the only place they ever lived. The five
+-- european powers are playable; the caribs and taínos are there as a presence
+-- in the world, not as a choice. Inglaterra is spelled properly here.
+
+INSERT INTO `nations` (`name`, `description`, `playable`)
+  SELECT 'Inglaterra', 'Un reino en ascenso que busca expandir su influencia y riqueza a través del comercio marítimo y la colonización. Inglaterra está empezando a establecer sus primeras colonias en América del Norte y las Indias Occidentales, con una creciente flota naval y ambiciones comerciales.', 1 FROM DUAL
+  WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `nations` WHERE `name` = 'Inglaterra') AS x);
+INSERT INTO `nations` (`name`, `description`, `playable`)
+  SELECT 'España', 'El imperio más grande del mundo, con vastos territorios en América, Filipinas y Europa. España controla minas de plata en el Nuevo Mundo y mantiene una poderosa flota, aunque se enfrenta a desafíos económicos y amenazas de piratas y rivales europeos.', 1 FROM DUAL
+  WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `nations` WHERE `name` = 'España') AS x);
+INSERT INTO `nations` (`name`, `description`, `playable`)
+  SELECT 'Francia', 'Una potencia emergente con intereses coloniales en Canadá y el Caribe. Francia busca consolidar su posición en el Nuevo Mundo y aumentar su influencia comercial en el Atlántico. Su fuerza militar y diplomática son claves para su expansión.', 1 FROM DUAL
+  WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `nations` WHERE `name` = 'Francia') AS x);
+INSERT INTO `nations` (`name`, `description`, `playable`)
+  SELECT 'Holanda', 'Una república mercantil en pleno auge, conocida por su poderosa flota comercial y sus compañías de comercio en Asia y América. Holanda compite ferozmente con otras potencias europeas por el control de las rutas comerciales y las colonias.', 1 FROM DUAL
+  WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `nations` WHERE `name` = 'Holanda') AS x);
+INSERT INTO `nations` (`name`, `description`, `playable`)
+  SELECT 'Portugal', 'Un imperio marítimo con enclaves estratégicos en África, Asia y América del Sur. Portugal busca mantener su monopolio sobre el comercio de especias y expandir sus rutas comerciales, enfrentando desafíos de sus vecinos y rivales europeos.', 1 FROM DUAL
+  WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `nations` WHERE `name` = 'Portugal') AS x);
+INSERT INTO `nations` (`name`, `description`, `playable`)
+  SELECT 'Caribes y taínos en el Caribe', 'Aunque los taínos habían sido casi completamente sometidos tras la llegada de los españoles, los caribes aún habitaban algunas islas y luchaban contra la colonización. Eran conocidos por su feroz resistencia a la dominación europea', 0 FROM DUAL
+  WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `nations` WHERE `name` = 'Caribes y taínos en el Caribe') AS x);
+
 -- ─── resources ─────────────────────────────────────────────────────────────
 -- baseFactor 1: what a player harvests before owning a single building
 INSERT INTO `resources` (`name`, `imageId`, `iconId`, `baseFactor`, `description`)

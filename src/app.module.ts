@@ -19,6 +19,7 @@ import { BuildingModule } from "./modules/building/building.module";
 import { BuildingCostModule } from "./modules/buildingCost/building-cost.module";
 import { BuildingReqTechModule } from "./modules/buildingReqTech/building-req-tech.module";
 import { BuildingTypeModule } from "./modules/buildingType/building-type.module";
+import { NationModule } from "./modules/nation/nation.module";
 import { BuildingUpkeepModule } from "./modules/buildingUpkeep/building-upkeep.module";
 import { BuildingProducesModule } from "./modules/buildingProduces/building-produces.module";
 import { BuildingReqBuildingModule } from "./modules/buildingReqBuilding/building-req-building.module";
@@ -86,6 +87,7 @@ import config from "./config/configuration";
     PushNotificationModule,
     UserModule,
     BuildingTypeModule,
+    NationModule,
     BuildingModule,
     BuildingCostModule,
     BuildingReqTechModule,
