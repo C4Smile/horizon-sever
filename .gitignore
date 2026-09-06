@@ -58,3 +58,4 @@ config.yaml
 # art dropped in src/ while it waits to be placed under public/images
 src/**/*.png
 test-results
+.gstack/

@@ -15,9 +15,10 @@ import { ResourceProductionService } from "./jobs/Production";
 
 // entities
 import { PlayerResource } from "./entities/player-resource.entity";
+import { PlayerBuilding } from "../playerBuilding/entities/player-building.entity";
 
 @Module({
-  imports: [TypeOrmModule.forFeature([PlayerResource]), GameBasicsModule],
+  imports: [TypeOrmModule.forFeature([PlayerResource, PlayerBuilding]), GameBasicsModule],
   controllers: [PlayerResourceController],
   providers: [PlayerResourceService, ResourceProductionService],
   exports: [PlayerResourceService],

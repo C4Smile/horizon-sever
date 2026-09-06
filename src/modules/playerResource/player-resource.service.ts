@@ -5,6 +5,10 @@ import { Repository } from "typeorm";
 
 // entity
 import { PlayerResource } from "./entities/player-resource.entity";
+import {
+  BuildingState,
+  PlayerBuilding,
+} from "../playerBuilding/entities/player-building.entity";
 
 // dto
 import { Stock } from "./dto/stock.dto";
@@ -28,6 +32,8 @@ export class PlayerResourceService {
   constructor(
     @InjectRepository(PlayerResource)
     private playerResourceService: Repository<PlayerResource>,
+    @InjectRepository(PlayerBuilding)
+    private playerBuildingService: Repository<PlayerBuilding>,
     private gameService: GameService,
   ) {
     void this.init();
@@ -85,27 +91,60 @@ export class PlayerResourceService {
     }
   }
 
-  /** one game day of harvesting, capped at what the player can hold */
+  /**
+   * What a player's standing buildings eat every game day, per resource.
+   * A building only eats while it works: one under construction or demolished
+   * costs nothing.
+   */
+  private async upkeepOf(playerId: number): Promise<Record<number, number>> {
+    const upkeeps = this.gameService.get().buildingUpkeeps;
+    if (!upkeeps.length) return {};
+
+    const standing = await this.playerBuildingService.find({
+      where: { playerId, state: BuildingState.Working },
+    });
+    if (!standing.length) return {};
+
+    const bill: Record<number, number> = {};
+    for (const building of standing) {
+      for (const upkeep of upkeeps.filter((u) => u.entityId === building.buildingId)) {
+        // same shape the costs use: a level makes the building hungrier
+        const due = upkeep.base + upkeep.base * upkeep.factor * building.level;
+        bill[upkeep.resourceId] = (bill[upkeep.resourceId] ?? 0) + due;
+      }
+    }
+    return bill;
+  }
+
+  /** one game day: the buildings harvest, then they eat */
   @OnEvent("resource.production")
   public async doProduction() {
     let resourcesHarvested = 0;
     let playersHarvesting = 0;
+    let resourcesSpent = 0;
 
     if (this.stockCached) {
       for (const player of Object.keys(this.stockCached)) {
+        const bill = await this.upkeepOf(Number(player));
+
         for (const resource of this.stockCached[player]) {
-          if (resource.inStock < resource.maxCapacity) {
-            resourcesHarvested++;
-            resource.inStock += resource.currentFactor;
-            if (resource.inStock > resource.maxCapacity) resource.inStock = resource.maxCapacity;
-            await this.playerResourceService.update(resource.id, { ...resource });
-          }
+          const due = bill[resource.resourceId] ?? 0;
+          const harvest = resource.inStock < resource.maxCapacity ? resource.currentFactor : 0;
+          if (!harvest && !due) continue;
+
+          if (harvest) resourcesHarvested++;
+          if (due) resourcesSpent++;
+
+          // a player who cannot pay the upkeep runs dry, never negative
+          resource.inStock = Math.max(0, resource.inStock + harvest - due);
+          if (resource.inStock > resource.maxCapacity) resource.inStock = resource.maxCapacity;
+          await this.playerResourceService.update(resource.id, { ...resource });
         }
         playersHarvesting++;
       }
     }
 
-    return { resourcesHarvested, playersHarvesting };
+    return { resourcesHarvested, resourcesSpent, playersHarvesting };
   }
 
   /** takes what the action costs out of the player's stock */
