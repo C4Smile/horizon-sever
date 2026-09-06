@@ -53,7 +53,7 @@ INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'navegacion', 'navegacion
 INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'cultivos', 'cultivos', 'techs/cultivos.png' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'techs/cultivos.png');
 INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'silvicultura', 'silvicultura', 'techs/silvicultura.png' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'techs/silvicultura.png');
 INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'comercio', 'comercio', 'techs/comercio.jpeg' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'techs/comercio.jpeg');
-INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'velas', 'velas', 'techs/velas.jpeg' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'techs/velas.jpeg');
+INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'velas', 'velas', 'techs/velas.png' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'techs/velas.png');
 INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'casco', 'casco', 'techs/casco.png' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'techs/casco.png');
 INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'flotas', 'flotas', 'techs/flotas.jpeg' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'techs/flotas.jpeg');
 INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'arquitectura', 'arquitectura', 'techs/arquitectura.png' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'techs/arquitectura.png');
@@ -233,7 +233,7 @@ INSERT INTO `skills` (`name`, `imageId`, `description`)
 -- the sqlite gives them, and the other type it knows, Desbloqueo, is empty.
 
 INSERT INTO `techs` (`name`, `imageId`, `typeId`, `creationTime`, `description`)
-  SELECT 'Innovaciones en Velas', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'techs/velas.jpeg' LIMIT 1) AS i), (SELECT id FROM (SELECT id FROM `tech-types` WHERE `name` = 'Mejora' LIMIT 1) AS q), 1, 'Mediante la investigación y el desarrollo de nuevas formas y materiales para las velas, esta tecnología permite a los barcos alcanzar velocidades superiores.' FROM DUAL
+  SELECT 'Innovaciones en Velas', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'techs/velas.png' LIMIT 1) AS i), (SELECT id FROM (SELECT id FROM `tech-types` WHERE `name` = 'Mejora' LIMIT 1) AS q), 1, 'Mediante la investigación y el desarrollo de nuevas formas y materiales para las velas, esta tecnología permite a los barcos alcanzar velocidades superiores.' FROM DUAL
   WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `techs` WHERE `name` = 'Innovaciones en Velas') AS x);
 INSERT INTO `techs` (`name`, `imageId`, `typeId`, `creationTime`, `description`)
   SELECT 'Casco refinado', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'techs/casco.png' LIMIT 1) AS i), (SELECT id FROM (SELECT id FROM `tech-types` WHERE `name` = 'Mejora' LIMIT 1) AS q), 1, 'El desarrollo de técnicas avanzadas en la construcción de cascos permite crear embarcaciones más resistentes.' FROM DUAL
