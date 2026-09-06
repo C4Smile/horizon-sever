@@ -23,46 +23,46 @@ INSERT INTO `images` (`id`, `fileName`, `alt`, `url`)
   SELECT 1, 'user-no-image.webp', 'No user image', '/user-no-image.webp'
   FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `id` = 1);
 
-INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'aserradero', 'aserradero', 'buildings/aserradero.png' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'buildings/aserradero.png');
-INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'granja', 'granja', 'buildings/granja.png' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'buildings/granja.png');
-INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'vivienda', 'vivienda', 'buildings/vivienda.png' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'buildings/vivienda.png');
-INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'mercado', 'mercado', 'buildings/mercado.png' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'buildings/mercado.png');
-INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'astillero', 'astillero', 'buildings/astillero.png' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'buildings/astillero.png');
-INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'forja', 'forja', 'buildings/forja.png' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'buildings/forja.png');
-INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'academia', 'academia', 'buildings/academia.png' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'buildings/academia.png');
-INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'canon', 'canon', 'cannons/canon.png' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'cannons/canon.png');
-INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'madera', 'madera', 'resources/iconos/madera.png' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'resources/iconos/madera.png');
-INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'suministros', 'suministros', 'resources/iconos/suministros.png' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'resources/iconos/suministros.png');
-INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'monedas', 'monedas', 'resources/iconos/monedas.png' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'resources/iconos/monedas.png');
-INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'poblacion', 'poblacion', 'resources/iconos/poblacion.png' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'resources/iconos/poblacion.png');
-INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'madera', 'madera', 'resources/madera.png' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'resources/madera.png');
-INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'suministros', 'suministros', 'resources/suministros.png' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'resources/suministros.png');
-INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'monedas', 'monedas', 'resources/monedas.png' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'resources/monedas.png');
-INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'poblacion', 'poblacion', 'resources/poblacion.png' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'resources/poblacion.png');
-INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'balandro', 'balandro', 'ships/balandro.png' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'ships/balandro.png');
-INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'goleta', 'goleta', 'ships/goleta.png' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'ships/goleta.png');
-INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'carabela', 'carabela', 'ships/carabela.png' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'ships/carabela.png');
-INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'fragata', 'fragata', 'ships/fragata.png' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'ships/fragata.png');
-INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'galeon', 'galeon', 'ships/galeon.png' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'ships/galeon.png');
-INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'balandro', 'balandro', 'ships/iconos/balandro.png' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'ships/iconos/balandro.png');
-INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'carabela', 'carabela', 'ships/iconos/carabela.png' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'ships/iconos/carabela.png');
-INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'fragata', 'fragata', 'ships/iconos/fragata.png' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'ships/iconos/fragata.png');
-INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'galeon', 'galeon', 'ships/iconos/galeon.png' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'ships/iconos/galeon.png');
-INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'goleta', 'goleta', 'ships/iconos/goleta.png' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'ships/iconos/goleta.png');
-INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'navegacion', 'navegacion', 'skills/navegacion.jpeg' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'skills/navegacion.jpeg');
-INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'cultivos', 'cultivos', 'techs/cultivos.png' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'techs/cultivos.png');
-INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'mulas', 'mulas', 'techs/mulas.png' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'techs/mulas.png');
-INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'comercio', 'comercio', 'techs/comercio.png' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'techs/comercio.png');
-INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'velas', 'velas', 'techs/velas.png' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'techs/velas.png');
-INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'casco', 'casco', 'techs/casco.png' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'techs/casco.png');
-INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'flotas', 'flotas', 'techs/flotas.png' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'techs/flotas.png');
-INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'arquitectura', 'arquitectura', 'techs/arquitectura.png' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'techs/arquitectura.png');
-INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'construccion-naval', 'construccion-naval', 'techs/construccion-naval.png' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'techs/construccion-naval.png');
-INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'artilleria', 'artilleria', 'techs/artilleria.png' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'techs/artilleria.png');
-INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'forja', 'forja', 'techs/forja.png' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'techs/forja.png');
+INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'aserradero', 'aserradero', 'buildings/aserradero.webp' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'buildings/aserradero.webp');
+INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'granja', 'granja', 'buildings/granja.webp' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'buildings/granja.webp');
+INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'vivienda', 'vivienda', 'buildings/vivienda.webp' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'buildings/vivienda.webp');
+INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'mercado', 'mercado', 'buildings/mercado.webp' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'buildings/mercado.webp');
+INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'astillero', 'astillero', 'buildings/astillero.webp' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'buildings/astillero.webp');
+INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'forja', 'forja', 'buildings/forja.webp' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'buildings/forja.webp');
+INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'academia', 'academia', 'buildings/academia.webp' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'buildings/academia.webp');
+INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'canon', 'canon', 'cannons/canon.webp' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'cannons/canon.webp');
+INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'madera', 'madera', 'resources/iconos/madera.webp' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'resources/iconos/madera.webp');
+INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'suministros', 'suministros', 'resources/iconos/suministros.webp' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'resources/iconos/suministros.webp');
+INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'monedas', 'monedas', 'resources/iconos/monedas.webp' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'resources/iconos/monedas.webp');
+INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'poblacion', 'poblacion', 'resources/iconos/poblacion.webp' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'resources/iconos/poblacion.webp');
+INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'madera', 'madera', 'resources/madera.webp' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'resources/madera.webp');
+INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'suministros', 'suministros', 'resources/suministros.webp' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'resources/suministros.webp');
+INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'monedas', 'monedas', 'resources/monedas.webp' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'resources/monedas.webp');
+INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'poblacion', 'poblacion', 'resources/poblacion.webp' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'resources/poblacion.webp');
+INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'balandro', 'balandro', 'ships/balandro.webp' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'ships/balandro.webp');
+INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'goleta', 'goleta', 'ships/goleta.webp' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'ships/goleta.webp');
+INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'carabela', 'carabela', 'ships/carabela.webp' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'ships/carabela.webp');
+INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'fragata', 'fragata', 'ships/fragata.webp' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'ships/fragata.webp');
+INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'galeon', 'galeon', 'ships/galeon.webp' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'ships/galeon.webp');
+INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'balandro', 'balandro', 'ships/iconos/balandro.webp' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'ships/iconos/balandro.webp');
+INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'carabela', 'carabela', 'ships/iconos/carabela.webp' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'ships/iconos/carabela.webp');
+INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'fragata', 'fragata', 'ships/iconos/fragata.webp' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'ships/iconos/fragata.webp');
+INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'galeon', 'galeon', 'ships/iconos/galeon.webp' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'ships/iconos/galeon.webp');
+INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'goleta', 'goleta', 'ships/iconos/goleta.webp' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'ships/iconos/goleta.webp');
+INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'navegacion', 'navegacion', 'skills/navegacion.webp' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'skills/navegacion.webp');
+INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'cultivos', 'cultivos', 'techs/cultivos.webp' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'techs/cultivos.webp');
+INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'mulas', 'mulas', 'techs/mulas.webp' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'techs/mulas.webp');
+INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'comercio', 'comercio', 'techs/comercio.webp' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'techs/comercio.webp');
+INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'velas', 'velas', 'techs/velas.webp' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'techs/velas.webp');
+INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'casco', 'casco', 'techs/casco.webp' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'techs/casco.webp');
+INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'flotas', 'flotas', 'techs/flotas.webp' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'techs/flotas.webp');
+INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'arquitectura', 'arquitectura', 'techs/arquitectura.webp' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'techs/arquitectura.webp');
+INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'construccion-naval', 'construccion-naval', 'techs/construccion-naval.webp' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'techs/construccion-naval.webp');
+INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'artilleria', 'artilleria', 'techs/artilleria.webp' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'techs/artilleria.webp');
+INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'forja', 'forja', 'techs/forja.webp' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'techs/forja.webp');
 
-INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'england', 'england', 'nations/england.png' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'nations/england.png');
-INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'spain', 'spain', 'nations/spain.png' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'nations/spain.png');
+INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'england', 'england', 'nations/england.webp' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'nations/england.webp');
+INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'spain', 'spain', 'nations/spain.webp' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'nations/spain.webp');
 
 -- ─── accounts, seeded already validated ────────────────────────────────────
 INSERT INTO `horizon-role` (`name`)
@@ -112,10 +112,10 @@ INSERT INTO `tech-types` (`name`)
 -- in the world, not as a choice. Inglaterra is spelled properly here.
 
 INSERT INTO `nations` (`name`, `imageId`, `description`, `playable`)
-  SELECT 'Inglaterra', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'nations/england.png' LIMIT 1) AS i), 'Un reino en ascenso que busca expandir su influencia y riqueza a través del comercio marítimo y la colonización. Inglaterra está empezando a establecer sus primeras colonias en América del Norte y las Indias Occidentales, con una creciente flota naval y ambiciones comerciales.', 1 FROM DUAL
+  SELECT 'Inglaterra', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'nations/england.webp' LIMIT 1) AS i), 'Un reino en ascenso que busca expandir su influencia y riqueza a través del comercio marítimo y la colonización. Inglaterra está empezando a establecer sus primeras colonias en América del Norte y las Indias Occidentales, con una creciente flota naval y ambiciones comerciales.', 1 FROM DUAL
   WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `nations` WHERE `name` = 'Inglaterra') AS x);
 INSERT INTO `nations` (`name`, `imageId`, `description`, `playable`)
-  SELECT 'España', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'nations/spain.png' LIMIT 1) AS i), 'El imperio más grande del mundo, con vastos territorios en América, Filipinas y Europa. España controla minas de plata en el Nuevo Mundo y mantiene una poderosa flota, aunque se enfrenta a desafíos económicos y amenazas de piratas y rivales europeos.', 1 FROM DUAL
+  SELECT 'España', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'nations/spain.webp' LIMIT 1) AS i), 'El imperio más grande del mundo, con vastos territorios en América, Filipinas y Europa. España controla minas de plata en el Nuevo Mundo y mantiene una poderosa flota, aunque se enfrenta a desafíos económicos y amenazas de piratas y rivales europeos.', 1 FROM DUAL
   WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `nations` WHERE `name` = 'España') AS x);
 INSERT INTO `nations` (`name`, `description`, `playable`)
   SELECT 'Francia', 'Una potencia emergente con intereses coloniales en Canadá y el Caribe. Francia busca consolidar su posición en el Nuevo Mundo y aumentar su influencia comercial en el Atlántico. Su fuerza militar y diplomática son claves para su expansión.', 1 FROM DUAL
@@ -133,57 +133,57 @@ INSERT INTO `nations` (`name`, `description`, `playable`)
 -- ─── resources ─────────────────────────────────────────────────────────────
 -- baseFactor 1: what a player harvests before owning a single building
 INSERT INTO `resources` (`name`, `imageId`, `iconId`, `baseFactor`, `description`)
-  SELECT 'Madera', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'resources/madera.png' LIMIT 1) AS i), (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'resources/iconos/madera.png' LIMIT 1) AS i), 1, '<p>Recursos esenciales para levantar y mejorar edificios, reparar barcos y fabricar objetos. Incluyen madera, piedra, metal y otros materiales necesarios para la expansión y fortificación</p>\\n' FROM DUAL
+  SELECT 'Madera', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'resources/madera.webp' LIMIT 1) AS i), (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'resources/iconos/madera.webp' LIMIT 1) AS i), 1, '<p>Recursos esenciales para levantar y mejorar edificios, reparar barcos y fabricar objetos. Incluyen madera, piedra, metal y otros materiales necesarios para la expansión y fortificación</p>\\n' FROM DUAL
   WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `resources` WHERE `name` = 'Madera') AS x);
 INSERT INTO `resources` (`name`, `imageId`, `iconId`, `baseFactor`, `description`)
-  SELECT 'Suministros', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'resources/suministros.png' LIMIT 1) AS i), (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'resources/iconos/suministros.png' LIMIT 1) AS i), 1, '<p>Provisiones que mantienen alimentados y saludables a los habitantes y tripulaciones. La disponibilidad de suministros es crucial para sostener la moral y evitar hambrunas durante largos viajes o tiempos difíciles.</p>\\n' FROM DUAL
+  SELECT 'Suministros', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'resources/suministros.webp' LIMIT 1) AS i), (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'resources/iconos/suministros.webp' LIMIT 1) AS i), 1, '<p>Provisiones que mantienen alimentados y saludables a los habitantes y tripulaciones. La disponibilidad de suministros es crucial para sostener la moral y evitar hambrunas durante largos viajes o tiempos difíciles.</p>\\n' FROM DUAL
   WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `resources` WHERE `name` = 'Suministros') AS x);
 INSERT INTO `resources` (`name`, `imageId`, `iconId`, `baseFactor`, `description`)
-  SELECT 'Monedas', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'resources/monedas.png' LIMIT 1) AS i), (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'resources/iconos/monedas.png' LIMIT 1) AS i), 1, '<p>Moneda y bienes valiosos utilizados para comerciar, pagar salarios y financiar proyectos. La riqueza es el motor del crecimiento económico y facilita la adquisición de materiales y otros recursos.</p>\\n' FROM DUAL
+  SELECT 'Monedas', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'resources/monedas.webp' LIMIT 1) AS i), (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'resources/iconos/monedas.webp' LIMIT 1) AS i), 1, '<p>Moneda y bienes valiosos utilizados para comerciar, pagar salarios y financiar proyectos. La riqueza es el motor del crecimiento económico y facilita la adquisición de materiales y otros recursos.</p>\\n' FROM DUAL
   WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `resources` WHERE `name` = 'Monedas') AS x);
 INSERT INTO `resources` (`name`, `imageId`, `iconId`, `baseFactor`, `description`)
-  SELECT 'Poblacion', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'resources/poblacion.png' LIMIT 1) AS i), (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'resources/iconos/poblacion.png' LIMIT 1) AS i), 1, '<p>Personas que realizan tareas esenciales en la construcción, la recolección de recursos y la navegación. Una mayor población permite realizar más actividades, pero también aumenta la necesidad de suministros y vivienda.</p>\\n' FROM DUAL
+  SELECT 'Poblacion', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'resources/poblacion.webp' LIMIT 1) AS i), (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'resources/iconos/poblacion.webp' LIMIT 1) AS i), 1, '<p>Personas que realizan tareas esenciales en la construcción, la recolección de recursos y la navegación. Una mayor población permite realizar más actividades, pero también aumenta la necesidad de suministros y vivienda.</p>\\n' FROM DUAL
   WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `resources` WHERE `name` = 'Poblacion') AS x);
 
 -- ─── buildings ─────────────────────────────────────────────────────────────
 INSERT INTO `buildings` (`name`, `imageId`, `creationTime`, `typeId`, `description`)
-  SELECT 'Aserradero', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'buildings/aserradero.png' LIMIT 1) AS i), 5, (SELECT id FROM (SELECT id FROM `building-types` WHERE `name` = 'Producción' LIMIT 1) AS q), '<p>Destinado a producir recursos madera para la construcción de barcos y otros edificios.&nbsp;</p>\\n' FROM DUAL
+  SELECT 'Aserradero', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'buildings/aserradero.webp' LIMIT 1) AS i), 5, (SELECT id FROM (SELECT id FROM `building-types` WHERE `name` = 'Producción' LIMIT 1) AS q), '<p>Destinado a producir recursos madera para la construcción de barcos y otros edificios.&nbsp;</p>\\n' FROM DUAL
   WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `buildings` WHERE `name` = 'Aserradero') AS x);
 INSERT INTO `buildings` (`name`, `imageId`, `creationTime`, `typeId`, `description`)
-  SELECT 'Granja', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'buildings/granja.png' LIMIT 1) AS i), 10, (SELECT id FROM (SELECT id FROM `building-types` WHERE `name` = 'Producción' LIMIT 1) AS q), '<p>Proporciona suministros necesarios para el consumo de la población y los trabajadores.&nbsp;</p>\\n' FROM DUAL
+  SELECT 'Granja', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'buildings/granja.webp' LIMIT 1) AS i), 10, (SELECT id FROM (SELECT id FROM `building-types` WHERE `name` = 'Producción' LIMIT 1) AS q), '<p>Proporciona suministros necesarios para el consumo de la población y los trabajadores.&nbsp;</p>\\n' FROM DUAL
   WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `buildings` WHERE `name` = 'Granja') AS x);
 INSERT INTO `buildings` (`name`, `imageId`, `creationTime`, `typeId`, `description`)
-  SELECT 'Vivienda', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'buildings/vivienda.png' LIMIT 1) AS i), 15, (SELECT id FROM (SELECT id FROM `building-types` WHERE `name` = 'Producción' LIMIT 1) AS q), '<p>Edificio donde viven los trabajadores, necesario para aumentar la población.&nbsp;</p>\\n' FROM DUAL
+  SELECT 'Vivienda', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'buildings/vivienda.webp' LIMIT 1) AS i), 15, (SELECT id FROM (SELECT id FROM `building-types` WHERE `name` = 'Producción' LIMIT 1) AS q), '<p>Edificio donde viven los trabajadores, necesario para aumentar la población.&nbsp;</p>\\n' FROM DUAL
   WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `buildings` WHERE `name` = 'Vivienda') AS x);
 INSERT INTO `buildings` (`name`, `imageId`, `creationTime`, `typeId`, `description`)
-  SELECT 'Mercado', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'buildings/mercado.png' LIMIT 1) AS i), 30, (SELECT id FROM (SELECT id FROM `building-types` WHERE `name` = 'Producción' LIMIT 1) AS q), '<p>Permite la acumulación de riquezas o la producción de dinero para el jugador.&nbsp;</p>\\n' FROM DUAL
+  SELECT 'Mercado', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'buildings/mercado.webp' LIMIT 1) AS i), 30, (SELECT id FROM (SELECT id FROM `building-types` WHERE `name` = 'Producción' LIMIT 1) AS q), '<p>Permite la acumulación de riquezas o la producción de dinero para el jugador.&nbsp;</p>\\n' FROM DUAL
   WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `buildings` WHERE `name` = 'Mercado') AS x);
 INSERT INTO `buildings` (`name`, `imageId`, `creationTime`, `typeId`, `description`)
-  SELECT 'Astillero', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'buildings/astillero.png' LIMIT 1) AS i), 50, (SELECT id FROM (SELECT id FROM `building-types` WHERE `name` = 'Astillero' LIMIT 1) AS q), '<p>Permite la construcción de barcos, uno de los elementos clave del juego.&nbsp;</p>\\n' FROM DUAL
+  SELECT 'Astillero', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'buildings/astillero.webp' LIMIT 1) AS i), 50, (SELECT id FROM (SELECT id FROM `building-types` WHERE `name` = 'Astillero' LIMIT 1) AS q), '<p>Permite la construcción de barcos, uno de los elementos clave del juego.&nbsp;</p>\\n' FROM DUAL
   WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `buildings` WHERE `name` = 'Astillero') AS x);
 INSERT INTO `buildings` (`name`, `imageId`, `creationTime`, `typeId`, `description`)
-  SELECT 'Forja', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'buildings/forja.png' LIMIT 1) AS i), 40, (SELECT id FROM (SELECT id FROM `building-types` WHERE `name` = 'Forja' LIMIT 1) AS q), '<p>Permite la producción de metales procesados como el hierro, que se utilizan en la construcción de barcos, armas, etc.&nbsp;</p>\\n' FROM DUAL
+  SELECT 'Forja', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'buildings/forja.webp' LIMIT 1) AS i), 40, (SELECT id FROM (SELECT id FROM `building-types` WHERE `name` = 'Forja' LIMIT 1) AS q), '<p>Permite la producción de metales procesados como el hierro, que se utilizan en la construcción de barcos, armas, etc.&nbsp;</p>\\n' FROM DUAL
   WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `buildings` WHERE `name` = 'Forja') AS x);
 INSERT INTO `buildings` (`name`, `imageId`, `creationTime`, `typeId`, `description`)
-  SELECT 'Academia', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'buildings/academia.png' LIMIT 1) AS i), 60, (SELECT id FROM (SELECT id FROM `building-types` WHERE `name` = 'Investigación' LIMIT 1) AS q), '<p>Edificio donde se entrenan los marineros, oficiales o se investigan mejoras tecnológicas.&nbsp;</p>\\n' FROM DUAL
+  SELECT 'Academia', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'buildings/academia.webp' LIMIT 1) AS i), 60, (SELECT id FROM (SELECT id FROM `building-types` WHERE `name` = 'Investigación' LIMIT 1) AS q), '<p>Edificio donde se entrenan los marineros, oficiales o se investigan mejoras tecnológicas.&nbsp;</p>\\n' FROM DUAL
   WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `buildings` WHERE `name` = 'Academia') AS x);
 
 -- ─── ships ─────────────────────────────────────────────────────────────────
 -- Fragata and Galeon have art but never had numbers, so they come in at zero
 INSERT INTO `ships` (`name`, `imageId`, `iconId`, `capacity`, `knots`, `minCrew`, `bestCrew`, `maxCrew`, `guns`, `hull`, `creationTime`, `description`)
-  SELECT 'Balandro', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'ships/balandro.png' LIMIT 1) AS i), (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'ships/iconos/balandro.png' LIMIT 1) AS i), 40, 7, 8, 44, 75, 12, 300, 180, '<p>El balandro es uno de los barcos más maniobrables del juego.&nbsp;</p>\\n' FROM DUAL
+  SELECT 'Balandro', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'ships/balandro.webp' LIMIT 1) AS i), (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'ships/iconos/balandro.webp' LIMIT 1) AS i), 40, 7, 8, 44, 75, 12, 300, 180, '<p>El balandro es uno de los barcos más maniobrables del juego.&nbsp;</p>\\n' FROM DUAL
   WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `ships` WHERE `name` = 'Balandro') AS x);
 INSERT INTO `ships` (`name`, `imageId`, `iconId`, `capacity`, `knots`, `minCrew`, `bestCrew`, `maxCrew`, `guns`, `hull`, `creationTime`, `description`)
-  SELECT 'Goleta', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'ships/goleta.png' LIMIT 1) AS i), (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'ships/iconos/goleta.png' LIMIT 1) AS i), 50, 7, 12, 50, 100, 18, 400, 240, '<p>La goleta es una embarcación ágil y versátil, ideal para maniobras rápidas tanto en aguas tranquilas como en mar abierto. Su diseño, con dos o tres mástiles, le permite adaptarse a diversas condiciones de viento, asegurando un control preciso en los combates y en la navegación costera.&nbsp;</p>\\n' FROM DUAL
+  SELECT 'Goleta', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'ships/goleta.webp' LIMIT 1) AS i), (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'ships/iconos/goleta.webp' LIMIT 1) AS i), 50, 7, 12, 50, 100, 18, 400, 240, '<p>La goleta es una embarcación ágil y versátil, ideal para maniobras rápidas tanto en aguas tranquilas como en mar abierto. Su diseño, con dos o tres mástiles, le permite adaptarse a diversas condiciones de viento, asegurando un control preciso en los combates y en la navegación costera.&nbsp;</p>\\n' FROM DUAL
   WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `ships` WHERE `name` = 'Goleta') AS x);
 INSERT INTO `ships` (`name`, `imageId`, `iconId`, `capacity`, `knots`, `minCrew`, `bestCrew`, `maxCrew`, `guns`, `hull`, `creationTime`, `description`)
-  SELECT 'Carabela', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'ships/carabela.png' LIMIT 1) AS i), (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'ships/iconos/carabela.png' LIMIT 1) AS i), 55, 9, 12, 60, 120, 16, 500, 360, '<p>La carabela es un barco ágil y maniobrable, ideal para la exploración de nuevas rutas marítimas y para comercio.</p>\\n' FROM DUAL
+  SELECT 'Carabela', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'ships/carabela.webp' LIMIT 1) AS i), (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'ships/iconos/carabela.webp' LIMIT 1) AS i), 55, 9, 12, 60, 120, 16, 500, 360, '<p>La carabela es un barco ágil y maniobrable, ideal para la exploración de nuevas rutas marítimas y para comercio.</p>\\n' FROM DUAL
   WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `ships` WHERE `name` = 'Carabela') AS x);
 INSERT INTO `ships` (`name`, `imageId`, `iconId`, `capacity`, `knots`, `minCrew`, `bestCrew`, `maxCrew`, `guns`, `hull`, `creationTime`, `description`)
-  SELECT 'Fragata', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'ships/fragata.png' LIMIT 1) AS i), (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'ships/iconos/fragata.png' LIMIT 1) AS i), 0, 0, 0, 0, 0, 0, 0, 0, '' FROM DUAL
+  SELECT 'Fragata', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'ships/fragata.webp' LIMIT 1) AS i), (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'ships/iconos/fragata.webp' LIMIT 1) AS i), 0, 0, 0, 0, 0, 0, 0, 0, '' FROM DUAL
   WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `ships` WHERE `name` = 'Fragata') AS x);
 INSERT INTO `ships` (`name`, `imageId`, `iconId`, `capacity`, `knots`, `minCrew`, `bestCrew`, `maxCrew`, `guns`, `hull`, `creationTime`, `description`)
-  SELECT 'Galeon', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'ships/galeon.png' LIMIT 1) AS i), (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'ships/iconos/galeon.png' LIMIT 1) AS i), 0, 0, 0, 0, 0, 0, 0, 0, '' FROM DUAL
+  SELECT 'Galeon', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'ships/galeon.webp' LIMIT 1) AS i), (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'ships/iconos/galeon.webp' LIMIT 1) AS i), 0, 0, 0, 0, 0, 0, 0, 0, '' FROM DUAL
   WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `ships` WHERE `name` = 'Galeon') AS x);
 
 -- The Nao comes from Horizon/game.sqlite3, which knows a single crew number
@@ -194,7 +194,7 @@ INSERT INTO `ships` (`name`, `imageId`, `capacity`, `knots`, `minCrew`, `bestCre
   SELECT 'Nao', 1, 22, 5, 0, 55, 0, 0, 550, 60, 'Un nao es un tipo de barco que apareció por primera vez en el siglo X y fue ampliamente utilizado desde alrededor del siglo XII en adelante. Los engranajes se construyeron con clinker, generalmente de roble. Estos barcos estaban equipados con un solo mástil y una sola vela de aparejo cuadrado. Se asociaron principalmente con el comercio marítimo en el noroeste de Europa medieval, especialmente la Liga Hanseática.' FROM DUAL
   WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `ships` WHERE `name` = 'Nao') AS x);
 -- ─── cannons ───────────────────────────────────────────────────────────────
--- the table has no image column, so cannons/canon.png has no owner
+-- the table has no image column, so cannons/canon.webp has no owner
 INSERT INTO `cannons` (`name`, `baseDamage`, `weight`, `creationTime`, `description`)
   SELECT 'Cañón de 12 libras', 100, 0.5, 10, '<p>Este cañón es el más común en barcos de guerra de esa época. Es eficaz a media distancia y tiene una buena tasa de fuego para su tamaño.&nbsp;</p>\\n' FROM DUAL
   WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `cannons` WHERE `name` = 'Cañón de 12 libras') AS x);
@@ -219,16 +219,16 @@ INSERT INTO `cannons` (`name`, `baseDamage`, `weight`, `creationTime`, `descript
 
 -- ─── techs and skills ──────────────────────────────────────────────────────
 INSERT INTO `techs` (`name`, `imageId`, `typeId`, `creationTime`, `description`)
-  SELECT 'Métodos Avanzados de Cultivo', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'techs/cultivos.png' LIMIT 1) AS i), (SELECT id FROM (SELECT id FROM `tech-types` WHERE `name` = 'Mejora' LIMIT 1) AS q), 15, '<p>Aumenta la productividad de las granjas mediante nuevas técnicas agrícolas, lo que permite una mayor cosecha de granos con el mismo espacio de cultivo.&nbsp;</p>\\n' FROM DUAL
+  SELECT 'Métodos Avanzados de Cultivo', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'techs/cultivos.webp' LIMIT 1) AS i), (SELECT id FROM (SELECT id FROM `tech-types` WHERE `name` = 'Mejora' LIMIT 1) AS q), 15, '<p>Aumenta la productividad de las granjas mediante nuevas técnicas agrícolas, lo que permite una mayor cosecha de granos con el mismo espacio de cultivo.&nbsp;</p>\\n' FROM DUAL
   WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `techs` WHERE `name` = 'Métodos Avanzados de Cultivo') AS x);
 INSERT INTO `techs` (`name`, `imageId`, `typeId`, `creationTime`, `description`)
-  SELECT 'Mulas de Tiro', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'techs/mulas.png' LIMIT 1) AS i), (SELECT id FROM (SELECT id FROM `tech-types` WHERE `name` = 'Mejora' LIMIT 1) AS q), 12, '<p>Recuas de mulas de tiro arrastran la madera desde el monte hasta el aserradero. Lo que antes bajaba a hombros baja ahora por carga, y la sierra no espera a que llegue el tronco.</p>\\n' FROM DUAL
+  SELECT 'Mulas de Tiro', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'techs/mulas.webp' LIMIT 1) AS i), (SELECT id FROM (SELECT id FROM `tech-types` WHERE `name` = 'Mejora' LIMIT 1) AS q), 12, '<p>Recuas de mulas de tiro arrastran la madera desde el monte hasta el aserradero. Lo que antes bajaba a hombros baja ahora por carga, y la sierra no espera a que llegue el tronco.</p>\\n' FROM DUAL
   WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `techs` WHERE `name` = 'Mulas de Tiro') AS x);
 INSERT INTO `techs` (`name`, `imageId`, `typeId`, `creationTime`, `description`)
-  SELECT 'Desarrollo de Rutas Comerciales', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'techs/comercio.png' LIMIT 1) AS i), (SELECT id FROM (SELECT id FROM `tech-types` WHERE `name` = 'Mejora' LIMIT 1) AS q), 20, '<p>Desarrolla nuevas rutas comerciales y métodos para expandir la red de comercio, mejorando el flujo de riquezas en el mercado local y marítimo, aumentando la ganancia de recursos.&nbsp;</p>\\n' FROM DUAL
+  SELECT 'Desarrollo de Rutas Comerciales', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'techs/comercio.webp' LIMIT 1) AS i), (SELECT id FROM (SELECT id FROM `tech-types` WHERE `name` = 'Mejora' LIMIT 1) AS q), 20, '<p>Desarrolla nuevas rutas comerciales y métodos para expandir la red de comercio, mejorando el flujo de riquezas en el mercado local y marítimo, aumentando la ganancia de recursos.&nbsp;</p>\\n' FROM DUAL
   WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `techs` WHERE `name` = 'Desarrollo de Rutas Comerciales') AS x);
 INSERT INTO `skills` (`name`, `imageId`, `description`)
-  SELECT 'Navegacion', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'skills/navegacion.jpeg' LIMIT 1) AS i), '' FROM DUAL
+  SELECT 'Navegacion', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'skills/navegacion.webp' LIMIT 1) AS i), '' FROM DUAL
   WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `skills` WHERE `name` = 'Navegacion') AS x);
 -- The seven from Horizon/game.sqlite3. Every one of them already had its
 -- picture sitting unused under public/images/techs; the four above are the
@@ -236,25 +236,25 @@ INSERT INTO `skills` (`name`, `imageId`, `description`)
 -- the sqlite gives them, and the other type it knows, Desbloqueo, is empty.
 
 INSERT INTO `techs` (`name`, `imageId`, `typeId`, `creationTime`, `description`)
-  SELECT 'Innovaciones en Velas', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'techs/velas.png' LIMIT 1) AS i), (SELECT id FROM (SELECT id FROM `tech-types` WHERE `name` = 'Mejora' LIMIT 1) AS q), 1, 'Mediante la investigación y el desarrollo de nuevas formas y materiales para las velas, esta tecnología permite a los barcos alcanzar velocidades superiores.' FROM DUAL
+  SELECT 'Innovaciones en Velas', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'techs/velas.webp' LIMIT 1) AS i), (SELECT id FROM (SELECT id FROM `tech-types` WHERE `name` = 'Mejora' LIMIT 1) AS q), 1, 'Mediante la investigación y el desarrollo de nuevas formas y materiales para las velas, esta tecnología permite a los barcos alcanzar velocidades superiores.' FROM DUAL
   WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `techs` WHERE `name` = 'Innovaciones en Velas') AS x);
 INSERT INTO `techs` (`name`, `imageId`, `typeId`, `creationTime`, `description`)
-  SELECT 'Casco refinado', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'techs/casco.png' LIMIT 1) AS i), (SELECT id FROM (SELECT id FROM `tech-types` WHERE `name` = 'Mejora' LIMIT 1) AS q), 1, 'El desarrollo de técnicas avanzadas en la construcción de cascos permite crear embarcaciones más resistentes.' FROM DUAL
+  SELECT 'Casco refinado', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'techs/casco.webp' LIMIT 1) AS i), (SELECT id FROM (SELECT id FROM `tech-types` WHERE `name` = 'Mejora' LIMIT 1) AS q), 1, 'El desarrollo de técnicas avanzadas en la construcción de cascos permite crear embarcaciones más resistentes.' FROM DUAL
   WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `techs` WHERE `name` = 'Casco refinado') AS x);
 INSERT INTO `techs` (`name`, `imageId`, `typeId`, `creationTime`, `description`)
-  SELECT 'Desarrollo de Flotas', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'techs/flotas.png' LIMIT 1) AS i), (SELECT id FROM (SELECT id FROM `tech-types` WHERE `name` = 'Mejora' LIMIT 1) AS q), 1, 'Sugiere que la investigación tiene como objetivo la expansión y diversificación de la flota disponible.' FROM DUAL
+  SELECT 'Desarrollo de Flotas', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'techs/flotas.webp' LIMIT 1) AS i), (SELECT id FROM (SELECT id FROM `tech-types` WHERE `name` = 'Mejora' LIMIT 1) AS q), 1, 'Sugiere que la investigación tiene como objetivo la expansión y diversificación de la flota disponible.' FROM DUAL
   WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `techs` WHERE `name` = 'Desarrollo de Flotas') AS x);
 INSERT INTO `techs` (`name`, `imageId`, `typeId`, `creationTime`, `description`)
-  SELECT 'Arquitectura', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'techs/arquitectura.png' LIMIT 1) AS i), (SELECT id FROM (SELECT id FROM `tech-types` WHERE `name` = 'Mejora' LIMIT 1) AS q), 1, 'El estudio avanzado de técnicas de construcción y diseño estructural permite a los arquitectos optimizar el uso de materiales y mano de obra.' FROM DUAL
+  SELECT 'Arquitectura', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'techs/arquitectura.webp' LIMIT 1) AS i), (SELECT id FROM (SELECT id FROM `tech-types` WHERE `name` = 'Mejora' LIMIT 1) AS q), 1, 'El estudio avanzado de técnicas de construcción y diseño estructural permite a los arquitectos optimizar el uso de materiales y mano de obra.' FROM DUAL
   WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `techs` WHERE `name` = 'Arquitectura') AS x);
 INSERT INTO `techs` (`name`, `imageId`, `typeId`, `creationTime`, `description`)
-  SELECT 'Construcción Naval Eficiente', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'techs/construccion-naval.png' LIMIT 1) AS i), (SELECT id FROM (SELECT id FROM `tech-types` WHERE `name` = 'Mejora' LIMIT 1) AS q), 1, 'Esta técnica innovadora optimiza el proceso de construcción naval mediante el uso de métodos sistemáticos y herramientas especializadas.' FROM DUAL
+  SELECT 'Construcción Naval Eficiente', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'techs/construccion-naval.webp' LIMIT 1) AS i), (SELECT id FROM (SELECT id FROM `tech-types` WHERE `name` = 'Mejora' LIMIT 1) AS q), 1, 'Esta técnica innovadora optimiza el proceso de construcción naval mediante el uso de métodos sistemáticos y herramientas especializadas.' FROM DUAL
   WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `techs` WHERE `name` = 'Construcción Naval Eficiente') AS x);
 INSERT INTO `techs` (`name`, `imageId`, `typeId`, `creationTime`, `description`)
-  SELECT 'Artillería Mejorada', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'techs/artilleria.png' LIMIT 1) AS i), (SELECT id FROM (SELECT id FROM `tech-types` WHERE `name` = 'Mejora' LIMIT 1) AS q), 1, 'El avance en la ciencia de la artillería permite el diseño de cañones más potentes y precisos.' FROM DUAL
+  SELECT 'Artillería Mejorada', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'techs/artilleria.webp' LIMIT 1) AS i), (SELECT id FROM (SELECT id FROM `tech-types` WHERE `name` = 'Mejora' LIMIT 1) AS q), 1, 'El avance en la ciencia de la artillería permite el diseño de cañones más potentes y precisos.' FROM DUAL
   WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `techs` WHERE `name` = 'Artillería Mejorada') AS x);
 INSERT INTO `techs` (`name`, `imageId`, `typeId`, `creationTime`, `description`)
-  SELECT 'Forja Rápida', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'techs/forja.png' LIMIT 1) AS i), (SELECT id FROM (SELECT id FROM `tech-types` WHERE `name` = 'Mejora' LIMIT 1) AS q), 1, 'Mediante la implementación de técnicas avanzadas de forja y ensamblaje, esta tecnología permite una producción más ágil de cañones.' FROM DUAL
+  SELECT 'Forja Rápida', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'techs/forja.webp' LIMIT 1) AS i), (SELECT id FROM (SELECT id FROM `tech-types` WHERE `name` = 'Mejora' LIMIT 1) AS q), 1, 'Mediante la implementación de técnicas avanzadas de forja y ensamblaje, esta tecnología permite una producción más ágil de cañones.' FROM DUAL
   WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `techs` WHERE `name` = 'Forja Rápida') AS x);
 -- The two naval skills from the sqlite. Neither has art yet, so both fall
 -- back to the placeholder. The column there is spelled `decription`.
