@@ -51,9 +51,16 @@ INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'galeon', 'galeon', 'ship
 INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'goleta', 'goleta', 'ships/iconos/goleta.png' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'ships/iconos/goleta.png');
 INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'navegacion', 'navegacion', 'skills/navegacion.jpeg' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'skills/navegacion.jpeg');
 INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'cultivos', 'cultivos', 'techs/cultivos.png' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'techs/cultivos.png');
-INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'madera', 'madera', 'techs/madera.png' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'techs/madera.png');
+INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'silvicultura', 'silvicultura', 'techs/silvicultura.png' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'techs/silvicultura.png');
 INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'comercio', 'comercio', 'techs/comercio.jpeg' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'techs/comercio.jpeg');
-INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'vivienda', 'vivienda', 'techs/vivienda.jpeg' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'techs/vivienda.jpeg');
+INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'velas', 'velas', 'techs/velas.jpeg' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'techs/velas.jpeg');
+INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'casco', 'casco', 'techs/casco.png' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'techs/casco.png');
+INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'flotas', 'flotas', 'techs/flotas.jpeg' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'techs/flotas.jpeg');
+INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'arquitectura', 'arquitectura', 'techs/arquitectura.png' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'techs/arquitectura.png');
+INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'construccion-naval', 'construccion-naval', 'techs/construccion-naval.jpeg' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'techs/construccion-naval.jpeg');
+INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'artilleria', 'artilleria', 'techs/artilleria.png' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'techs/artilleria.png');
+INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'forja', 'forja', 'techs/forja.png' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'techs/forja.png');
+
 -- ─── accounts, seeded already validated ────────────────────────────────────
 INSERT INTO `horizon-role` (`name`)
   SELECT 'Administrador' FROM DUAL
@@ -176,6 +183,13 @@ INSERT INTO `ships` (`name`, `imageId`, `iconId`, `capacity`, `knots`, `minCrew`
   SELECT 'Galeon', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'ships/galeon.png' LIMIT 1) AS i), (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'ships/iconos/galeon.png' LIMIT 1) AS i), 0, 0, 0, 0, 0, 0, 0, 0, '' FROM DUAL
   WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `ships` WHERE `name` = 'Galeon') AS x);
 
+-- The Nao comes from Horizon/game.sqlite3, which knows a single crew number
+-- rather than the three this schema keeps, so it lands on bestCrew; the
+-- rest are left at zero to be set from the dashboard. It has no art yet, so
+-- it falls back to the placeholder.
+INSERT INTO `ships` (`name`, `imageId`, `capacity`, `knots`, `minCrew`, `bestCrew`, `maxCrew`, `guns`, `hull`, `creationTime`, `description`)
+  SELECT 'Nao', 1, 22, 5, 0, 55, 0, 0, 550, 60, 'Un nao es un tipo de barco que apareció por primera vez en el siglo X y fue ampliamente utilizado desde alrededor del siglo XII en adelante. Los engranajes se construyeron con clinker, generalmente de roble. Estos barcos estaban equipados con un solo mástil y una sola vela de aparejo cuadrado. Se asociaron principalmente con el comercio marítimo en el noroeste de Europa medieval, especialmente la Liga Hanseática.' FROM DUAL
+  WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `ships` WHERE `name` = 'Nao') AS x);
 -- ─── cannons ───────────────────────────────────────────────────────────────
 -- the table has no image column, so cannons/canon.png has no owner
 INSERT INTO `cannons` (`name`, `baseDamage`, `weight`, `creationTime`, `description`)
@@ -205,17 +219,49 @@ INSERT INTO `techs` (`name`, `imageId`, `typeId`, `creationTime`, `description`)
   SELECT 'Métodos Avanzados de Cultivo', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'techs/cultivos.png' LIMIT 1) AS i), (SELECT id FROM (SELECT id FROM `tech-types` WHERE `name` = 'Mejora' LIMIT 1) AS q), 15, '<p>Aumenta la productividad de las granjas mediante nuevas técnicas agrícolas, lo que permite una mayor cosecha de granos con el mismo espacio de cultivo.&nbsp;</p>\\n' FROM DUAL
   WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `techs` WHERE `name` = 'Métodos Avanzados de Cultivo') AS x);
 INSERT INTO `techs` (`name`, `imageId`, `typeId`, `creationTime`, `description`)
-  SELECT 'Técnicas de Silvicultura Eficiente', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'techs/madera.png' LIMIT 1) AS i), (SELECT id FROM (SELECT id FROM `tech-types` WHERE `name` = 'Mejora' LIMIT 1) AS q), 12, '<p>Introduce métodos de cultivo y tala controlada que incrementan la cantidad de madera obtenida por los campamentos de leñadores sin dañar los bosques cercanos.&nbsp;</p>\\n' FROM DUAL
+  SELECT 'Técnicas de Silvicultura Eficiente', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'techs/silvicultura.png' LIMIT 1) AS i), (SELECT id FROM (SELECT id FROM `tech-types` WHERE `name` = 'Mejora' LIMIT 1) AS q), 12, '<p>Introduce métodos de cultivo y tala controlada que incrementan la cantidad de madera obtenida por los campamentos de leñadores sin dañar los bosques cercanos.&nbsp;</p>\\n' FROM DUAL
   WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `techs` WHERE `name` = 'Técnicas de Silvicultura Eficiente') AS x);
 INSERT INTO `techs` (`name`, `imageId`, `typeId`, `creationTime`, `description`)
   SELECT 'Desarrollo de Rutas Comerciales', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'techs/comercio.jpeg' LIMIT 1) AS i), (SELECT id FROM (SELECT id FROM `tech-types` WHERE `name` = 'Mejora' LIMIT 1) AS q), 20, '<p>Desarrolla nuevas rutas comerciales y métodos para expandir la red de comercio, mejorando el flujo de riquezas en el mercado local y marítimo, aumentando la ganancia de recursos.&nbsp;</p>\\n' FROM DUAL
   WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `techs` WHERE `name` = 'Desarrollo de Rutas Comerciales') AS x);
-INSERT INTO `techs` (`name`, `imageId`, `typeId`, `creationTime`, `description`)
-  SELECT 'Técnicas de Construcción Avanzada', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'techs/vivienda.jpeg' LIMIT 1) AS i), (SELECT id FROM (SELECT id FROM `tech-types` WHERE `name` = 'Mejora' LIMIT 1) AS q), 18, '<p>Implementa nuevas tecnologías en construcción para mejorar la calidad y durabilidad de las viviendas, aumentando la moral de los habitantes y reduciendo el desgaste con el tiempo.&nbsp;</p>\\n' FROM DUAL
-  WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `techs` WHERE `name` = 'Técnicas de Construcción Avanzada') AS x);
 INSERT INTO `skills` (`name`, `imageId`, `description`)
   SELECT 'Navegacion', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'skills/navegacion.jpeg' LIMIT 1) AS i), '' FROM DUAL
   WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `skills` WHERE `name` = 'Navegacion') AS x);
+-- The seven from Horizon/game.sqlite3. Every one of them already had its
+-- picture sitting unused under public/images/techs; the four above are the
+-- ones the December dump carried. All of them are Mejora: that is the type
+-- the sqlite gives them, and the other type it knows, Desbloqueo, is empty.
+
+INSERT INTO `techs` (`name`, `imageId`, `typeId`, `creationTime`, `description`)
+  SELECT 'Innovaciones en Velas', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'techs/velas.jpeg' LIMIT 1) AS i), (SELECT id FROM (SELECT id FROM `tech-types` WHERE `name` = 'Mejora' LIMIT 1) AS q), 1, 'Mediante la investigación y el desarrollo de nuevas formas y materiales para las velas, esta tecnología permite a los barcos alcanzar velocidades superiores.' FROM DUAL
+  WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `techs` WHERE `name` = 'Innovaciones en Velas') AS x);
+INSERT INTO `techs` (`name`, `imageId`, `typeId`, `creationTime`, `description`)
+  SELECT 'Casco refinado', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'techs/casco.png' LIMIT 1) AS i), (SELECT id FROM (SELECT id FROM `tech-types` WHERE `name` = 'Mejora' LIMIT 1) AS q), 1, 'El desarrollo de técnicas avanzadas en la construcción de cascos permite crear embarcaciones más resistentes.' FROM DUAL
+  WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `techs` WHERE `name` = 'Casco refinado') AS x);
+INSERT INTO `techs` (`name`, `imageId`, `typeId`, `creationTime`, `description`)
+  SELECT 'Desarrollo de Flotas', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'techs/flotas.jpeg' LIMIT 1) AS i), (SELECT id FROM (SELECT id FROM `tech-types` WHERE `name` = 'Mejora' LIMIT 1) AS q), 1, 'Sugiere que la investigación tiene como objetivo la expansión y diversificación de la flota disponible.' FROM DUAL
+  WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `techs` WHERE `name` = 'Desarrollo de Flotas') AS x);
+INSERT INTO `techs` (`name`, `imageId`, `typeId`, `creationTime`, `description`)
+  SELECT 'Arquitectura', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'techs/arquitectura.png' LIMIT 1) AS i), (SELECT id FROM (SELECT id FROM `tech-types` WHERE `name` = 'Mejora' LIMIT 1) AS q), 1, 'El estudio avanzado de técnicas de construcción y diseño estructural permite a los arquitectos optimizar el uso de materiales y mano de obra.' FROM DUAL
+  WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `techs` WHERE `name` = 'Arquitectura') AS x);
+INSERT INTO `techs` (`name`, `imageId`, `typeId`, `creationTime`, `description`)
+  SELECT 'Construcción Naval Eficiente', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'techs/construccion-naval.jpeg' LIMIT 1) AS i), (SELECT id FROM (SELECT id FROM `tech-types` WHERE `name` = 'Mejora' LIMIT 1) AS q), 1, 'Esta técnica innovadora optimiza el proceso de construcción naval mediante el uso de métodos sistemáticos y herramientas especializadas.' FROM DUAL
+  WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `techs` WHERE `name` = 'Construcción Naval Eficiente') AS x);
+INSERT INTO `techs` (`name`, `imageId`, `typeId`, `creationTime`, `description`)
+  SELECT 'Artillería Mejorada', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'techs/artilleria.png' LIMIT 1) AS i), (SELECT id FROM (SELECT id FROM `tech-types` WHERE `name` = 'Mejora' LIMIT 1) AS q), 1, 'El avance en la ciencia de la artillería permite el diseño de cañones más potentes y precisos.' FROM DUAL
+  WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `techs` WHERE `name` = 'Artillería Mejorada') AS x);
+INSERT INTO `techs` (`name`, `imageId`, `typeId`, `creationTime`, `description`)
+  SELECT 'Forja Rápida', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'techs/forja.png' LIMIT 1) AS i), (SELECT id FROM (SELECT id FROM `tech-types` WHERE `name` = 'Mejora' LIMIT 1) AS q), 1, 'Mediante la implementación de técnicas avanzadas de forja y ensamblaje, esta tecnología permite una producción más ágil de cañones.' FROM DUAL
+  WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `techs` WHERE `name` = 'Forja Rápida') AS x);
+-- The two naval skills from the sqlite. Neither has art yet, so both fall
+-- back to the placeholder. The column there is spelled `decription`.
+INSERT INTO `skills` (`name`, `imageId`, `description`)
+  SELECT 'Disparo de cadenas', 1, 'Permite que la nave dispare Disparos en cadena durante el combate. Impidiendo que el enemigo escape' FROM DUAL
+  WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `skills` WHERE `name` = 'Disparo de cadenas') AS x);
+INSERT INTO `skills` (`name`, `imageId`, `description`)
+  SELECT 'Disparo de metrallas', 1, 'Permite que la nave dispare metrallas durante el combate. Disminuyendo rápidamente la tripulación enemiga' FROM DUAL
+  WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `skills` WHERE `name` = 'Disparo de metrallas') AS x);
+
 -- ─── what each thing costs, eats and makes ─────────────────────────────────
 -- These are the rows the game has been missing. Without them canPayFor
 -- returns true on an empty list, so every building went up for free, and
@@ -546,18 +592,6 @@ INSERT INTO `tech-costs` (`techId`, `resourceId`, `factor`, `base`)
   SELECT (SELECT id FROM (SELECT id FROM `techs` WHERE `name` = 'Desarrollo de Rutas Comerciales' LIMIT 1) AS q), (SELECT id FROM (SELECT id FROM `resources` WHERE `name` = 'Poblacion' LIMIT 1) AS q), 0, 4 FROM DUAL
   WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `tech-costs`
     WHERE `techId` = (SELECT id FROM (SELECT id FROM `techs` WHERE `name` = 'Desarrollo de Rutas Comerciales' LIMIT 1) AS q) AND `resourceId` = (SELECT id FROM (SELECT id FROM `resources` WHERE `name` = 'Poblacion' LIMIT 1) AS q)) AS x);
-INSERT INTO `tech-costs` (`techId`, `resourceId`, `factor`, `base`)
-  SELECT (SELECT id FROM (SELECT id FROM `techs` WHERE `name` = 'Técnicas de Construcción Avanzada' LIMIT 1) AS q), (SELECT id FROM (SELECT id FROM `resources` WHERE `name` = 'Suministros' LIMIT 1) AS q), 0.3, 3 FROM DUAL
-  WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `tech-costs`
-    WHERE `techId` = (SELECT id FROM (SELECT id FROM `techs` WHERE `name` = 'Técnicas de Construcción Avanzada' LIMIT 1) AS q) AND `resourceId` = (SELECT id FROM (SELECT id FROM `resources` WHERE `name` = 'Suministros' LIMIT 1) AS q)) AS x);
-INSERT INTO `tech-costs` (`techId`, `resourceId`, `factor`, `base`)
-  SELECT (SELECT id FROM (SELECT id FROM `techs` WHERE `name` = 'Técnicas de Construcción Avanzada' LIMIT 1) AS q), (SELECT id FROM (SELECT id FROM `resources` WHERE `name` = 'Monedas' LIMIT 1) AS q), 0.5, 10 FROM DUAL
-  WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `tech-costs`
-    WHERE `techId` = (SELECT id FROM (SELECT id FROM `techs` WHERE `name` = 'Técnicas de Construcción Avanzada' LIMIT 1) AS q) AND `resourceId` = (SELECT id FROM (SELECT id FROM `resources` WHERE `name` = 'Monedas' LIMIT 1) AS q)) AS x);
-INSERT INTO `tech-costs` (`techId`, `resourceId`, `factor`, `base`)
-  SELECT (SELECT id FROM (SELECT id FROM `techs` WHERE `name` = 'Técnicas de Construcción Avanzada' LIMIT 1) AS q), (SELECT id FROM (SELECT id FROM `resources` WHERE `name` = 'Poblacion' LIMIT 1) AS q), 0, 3 FROM DUAL
-  WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `tech-costs`
-    WHERE `techId` = (SELECT id FROM (SELECT id FROM `techs` WHERE `name` = 'Técnicas de Construcción Avanzada' LIMIT 1) AS q) AND `resourceId` = (SELECT id FROM (SELECT id FROM `resources` WHERE `name` = 'Poblacion' LIMIT 1) AS q)) AS x);
 
 INSERT INTO `tech-produces` (`techId`, `resourceId`, `factor`, `base`)
   SELECT (SELECT id FROM (SELECT id FROM `techs` WHERE `name` = 'Métodos Avanzados de Cultivo' LIMIT 1) AS q), (SELECT id FROM (SELECT id FROM `resources` WHERE `name` = 'Suministros' LIMIT 1) AS q), 0.5, 2 FROM DUAL
@@ -571,10 +605,6 @@ INSERT INTO `tech-produces` (`techId`, `resourceId`, `factor`, `base`)
   SELECT (SELECT id FROM (SELECT id FROM `techs` WHERE `name` = 'Desarrollo de Rutas Comerciales' LIMIT 1) AS q), (SELECT id FROM (SELECT id FROM `resources` WHERE `name` = 'Monedas' LIMIT 1) AS q), 0.3, 5 FROM DUAL
   WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `tech-produces`
     WHERE `techId` = (SELECT id FROM (SELECT id FROM `techs` WHERE `name` = 'Desarrollo de Rutas Comerciales' LIMIT 1) AS q) AND `resourceId` = (SELECT id FROM (SELECT id FROM `resources` WHERE `name` = 'Monedas' LIMIT 1) AS q)) AS x);
-INSERT INTO `tech-produces` (`techId`, `resourceId`, `factor`, `base`)
-  SELECT (SELECT id FROM (SELECT id FROM `techs` WHERE `name` = 'Técnicas de Construcción Avanzada' LIMIT 1) AS q), (SELECT id FROM (SELECT id FROM `resources` WHERE `name` = 'Poblacion' LIMIT 1) AS q), 0.5, 1 FROM DUAL
-  WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `tech-produces`
-    WHERE `techId` = (SELECT id FROM (SELECT id FROM `techs` WHERE `name` = 'Técnicas de Construcción Avanzada' LIMIT 1) AS q) AND `resourceId` = (SELECT id FROM (SELECT id FROM `resources` WHERE `name` = 'Poblacion' LIMIT 1) AS q)) AS x);
 
 INSERT INTO `tech-req-buildings` (`techId`, `buildingReqId`, `level`)
   SELECT (SELECT id FROM (SELECT id FROM `techs` WHERE `name` = 'Métodos Avanzados de Cultivo' LIMIT 1) AS q), (SELECT id FROM (SELECT id FROM `buildings` WHERE `name` = 'Academia' LIMIT 1) AS q), 1 FROM DUAL
@@ -593,10 +623,6 @@ INSERT INTO `tech-req-buildings` (`techId`, `buildingReqId`, `level`)
   WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `tech-req-buildings`
     WHERE `techId` = (SELECT id FROM (SELECT id FROM `techs` WHERE `name` = 'Desarrollo de Rutas Comerciales' LIMIT 1) AS q) AND `buildingReqId` = (SELECT id FROM (SELECT id FROM `buildings` WHERE `name` = 'Academia' LIMIT 1) AS q)) AS x);
 INSERT INTO `tech-req-buildings` (`techId`, `buildingReqId`, `level`)
-  SELECT (SELECT id FROM (SELECT id FROM `techs` WHERE `name` = 'Técnicas de Construcción Avanzada' LIMIT 1) AS q), (SELECT id FROM (SELECT id FROM `buildings` WHERE `name` = 'Academia' LIMIT 1) AS q), 1 FROM DUAL
-  WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `tech-req-buildings`
-    WHERE `techId` = (SELECT id FROM (SELECT id FROM `techs` WHERE `name` = 'Técnicas de Construcción Avanzada' LIMIT 1) AS q) AND `buildingReqId` = (SELECT id FROM (SELECT id FROM `buildings` WHERE `name` = 'Academia' LIMIT 1) AS q)) AS x);
-INSERT INTO `tech-req-buildings` (`techId`, `buildingReqId`, `level`)
   SELECT (SELECT id FROM (SELECT id FROM `techs` WHERE `name` = 'Métodos Avanzados de Cultivo' LIMIT 1) AS q), (SELECT id FROM (SELECT id FROM `buildings` WHERE `name` = 'Granja' LIMIT 1) AS q), 1 FROM DUAL
   WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `tech-req-buildings`
     WHERE `techId` = (SELECT id FROM (SELECT id FROM `techs` WHERE `name` = 'Métodos Avanzados de Cultivo' LIMIT 1) AS q) AND `buildingReqId` = (SELECT id FROM (SELECT id FROM `buildings` WHERE `name` = 'Granja' LIMIT 1) AS q)) AS x);
@@ -604,10 +630,6 @@ INSERT INTO `tech-req-buildings` (`techId`, `buildingReqId`, `level`)
   SELECT (SELECT id FROM (SELECT id FROM `techs` WHERE `name` = 'Técnicas de Silvicultura Eficiente' LIMIT 1) AS q), (SELECT id FROM (SELECT id FROM `buildings` WHERE `name` = 'Aserradero' LIMIT 1) AS q), 1 FROM DUAL
   WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `tech-req-buildings`
     WHERE `techId` = (SELECT id FROM (SELECT id FROM `techs` WHERE `name` = 'Técnicas de Silvicultura Eficiente' LIMIT 1) AS q) AND `buildingReqId` = (SELECT id FROM (SELECT id FROM `buildings` WHERE `name` = 'Aserradero' LIMIT 1) AS q)) AS x);
-INSERT INTO `tech-req-buildings` (`techId`, `buildingReqId`, `level`)
-  SELECT (SELECT id FROM (SELECT id FROM `techs` WHERE `name` = 'Técnicas de Construcción Avanzada' LIMIT 1) AS q), (SELECT id FROM (SELECT id FROM `buildings` WHERE `name` = 'Vivienda' LIMIT 1) AS q), 1 FROM DUAL
-  WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `tech-req-buildings`
-    WHERE `techId` = (SELECT id FROM (SELECT id FROM `techs` WHERE `name` = 'Técnicas de Construcción Avanzada' LIMIT 1) AS q) AND `buildingReqId` = (SELECT id FROM (SELECT id FROM `buildings` WHERE `name` = 'Vivienda' LIMIT 1) AS q)) AS x);
 
 -- cannons
 INSERT INTO `cannon-costs` (`cannonId`, `resourceId`, `factor`, `base`)
