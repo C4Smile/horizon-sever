@@ -50,8 +50,8 @@ INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'fragata', 'fragata', 'sh
 INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'galeon', 'galeon', 'ships/iconos/galeon.png' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'ships/iconos/galeon.png');
 INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'goleta', 'goleta', 'ships/iconos/goleta.png' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'ships/iconos/goleta.png');
 INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'navegacion', 'navegacion', 'skills/navegacion.jpeg' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'skills/navegacion.jpeg');
-INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'cultivos', 'cultivos', 'techs/cultivos.jpeg' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'techs/cultivos.jpeg');
-INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'madera', 'madera', 'techs/madera.jpeg' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'techs/madera.jpeg');
+INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'cultivos', 'cultivos', 'techs/cultivos.png' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'techs/cultivos.png');
+INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'madera', 'madera', 'techs/madera.png' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'techs/madera.png');
 INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'comercio', 'comercio', 'techs/comercio.jpeg' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'techs/comercio.jpeg');
 INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'vivienda', 'vivienda', 'techs/vivienda.jpeg' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'techs/vivienda.jpeg');
 -- ─── accounts, seeded already validated ────────────────────────────────────
@@ -178,10 +178,10 @@ INSERT INTO `cannons` (`name`, `baseDamage`, `weight`, `creationTime`, `descript
 
 -- ─── techs and skills ──────────────────────────────────────────────────────
 INSERT INTO `techs` (`name`, `imageId`, `typeId`, `creationTime`, `description`)
-  SELECT 'Métodos Avanzados de Cultivo', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'techs/cultivos.jpeg' LIMIT 1) AS i), (SELECT id FROM (SELECT id FROM `tech-types` WHERE `name` = 'Mejora' LIMIT 1) AS q), 15, '<p>Aumenta la productividad de las granjas mediante nuevas técnicas agrícolas, lo que permite una mayor cosecha de granos con el mismo espacio de cultivo.&nbsp;</p>\\n' FROM DUAL
+  SELECT 'Métodos Avanzados de Cultivo', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'techs/cultivos.png' LIMIT 1) AS i), (SELECT id FROM (SELECT id FROM `tech-types` WHERE `name` = 'Mejora' LIMIT 1) AS q), 15, '<p>Aumenta la productividad de las granjas mediante nuevas técnicas agrícolas, lo que permite una mayor cosecha de granos con el mismo espacio de cultivo.&nbsp;</p>\\n' FROM DUAL
   WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `techs` WHERE `name` = 'Métodos Avanzados de Cultivo') AS x);
 INSERT INTO `techs` (`name`, `imageId`, `typeId`, `creationTime`, `description`)
-  SELECT 'Técnicas de Silvicultura Eficiente', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'techs/madera.jpeg' LIMIT 1) AS i), (SELECT id FROM (SELECT id FROM `tech-types` WHERE `name` = 'Mejora' LIMIT 1) AS q), 12, '<p>Introduce métodos de cultivo y tala controlada que incrementan la cantidad de madera obtenida por los campamentos de leñadores sin dañar los bosques cercanos.&nbsp;</p>\\n' FROM DUAL
+  SELECT 'Técnicas de Silvicultura Eficiente', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'techs/madera.png' LIMIT 1) AS i), (SELECT id FROM (SELECT id FROM `tech-types` WHERE `name` = 'Mejora' LIMIT 1) AS q), 12, '<p>Introduce métodos de cultivo y tala controlada que incrementan la cantidad de madera obtenida por los campamentos de leñadores sin dañar los bosques cercanos.&nbsp;</p>\\n' FROM DUAL
   WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `techs` WHERE `name` = 'Técnicas de Silvicultura Eficiente') AS x);
 INSERT INTO `techs` (`name`, `imageId`, `typeId`, `creationTime`, `description`)
   SELECT 'Desarrollo de Rutas Comerciales', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'techs/comercio.jpeg' LIMIT 1) AS i), (SELECT id FROM (SELECT id FROM `tech-types` WHERE `name` = 'Mejora' LIMIT 1) AS q), 20, '<p>Desarrolla nuevas rutas comerciales y métodos para expandir la red de comercio, mejorando el flujo de riquezas en el mercado local y marítimo, aumentando la ganancia de recursos.&nbsp;</p>\\n' FROM DUAL
