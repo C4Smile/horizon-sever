@@ -88,7 +88,8 @@ export class GameService {
     const buildingProduces = await this.buildingProduceService.find();
     const buildingReqBuildings = await this.buildingReqBuildingService.find();
     const buildingReqTechs = await this.buildingReqTechService.find();
-    const buildingTypes = await this.buildingTypeService.find();
+    // the tabs render these: a type the dashboard deleted must not come back
+    const buildingTypes = await this.buildingTypeService.find({ where: { deletedAt: IsNull() } });
     const buildingUpkeeps = await this.buildingUpkeepService.find();
     console.info(`${buildings.length} buildings fetched`);
     // photos
@@ -129,7 +130,7 @@ export class GameService {
     const techProduces = await this.techProduceService.find();
     const techReqBuildings = await this.techReqBuildingService.find();
     const techReqTechs = await this.techReqTechService.find();
-    const techTypes = await this.techTypeService.find();
+    const techTypes = await this.techTypeService.find({ where: { deletedAt: IsNull() } });
     console.info(`${techs.length} techs fetched`);
     // parsing
     // resources
