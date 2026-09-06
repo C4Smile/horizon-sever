@@ -61,6 +61,9 @@ INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'construccion-naval', 'co
 INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'artilleria', 'artilleria', 'techs/artilleria.png' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'techs/artilleria.png');
 INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'forja', 'forja', 'techs/forja.png' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'techs/forja.png');
 
+INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'england', 'england', 'nations/england.png' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'nations/england.png');
+INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'spain', 'spain', 'nations/spain.png' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'nations/spain.png');
+
 -- ─── accounts, seeded already validated ────────────────────────────────────
 INSERT INTO `horizon-role` (`name`)
   SELECT 'Administrador' FROM DUAL
@@ -108,11 +111,11 @@ INSERT INTO `tech-types` (`name`)
 -- european powers are playable; the caribs and taínos are there as a presence
 -- in the world, not as a choice. Inglaterra is spelled properly here.
 
-INSERT INTO `nations` (`name`, `description`, `playable`)
-  SELECT 'Inglaterra', 'Un reino en ascenso que busca expandir su influencia y riqueza a través del comercio marítimo y la colonización. Inglaterra está empezando a establecer sus primeras colonias en América del Norte y las Indias Occidentales, con una creciente flota naval y ambiciones comerciales.', 1 FROM DUAL
+INSERT INTO `nations` (`name`, `imageId`, `description`, `playable`)
+  SELECT 'Inglaterra', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'nations/england.png' LIMIT 1) AS i), 'Un reino en ascenso que busca expandir su influencia y riqueza a través del comercio marítimo y la colonización. Inglaterra está empezando a establecer sus primeras colonias en América del Norte y las Indias Occidentales, con una creciente flota naval y ambiciones comerciales.', 1 FROM DUAL
   WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `nations` WHERE `name` = 'Inglaterra') AS x);
-INSERT INTO `nations` (`name`, `description`, `playable`)
-  SELECT 'España', 'El imperio más grande del mundo, con vastos territorios en América, Filipinas y Europa. España controla minas de plata en el Nuevo Mundo y mantiene una poderosa flota, aunque se enfrenta a desafíos económicos y amenazas de piratas y rivales europeos.', 1 FROM DUAL
+INSERT INTO `nations` (`name`, `imageId`, `description`, `playable`)
+  SELECT 'España', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'nations/spain.png' LIMIT 1) AS i), 'El imperio más grande del mundo, con vastos territorios en América, Filipinas y Europa. España controla minas de plata en el Nuevo Mundo y mantiene una poderosa flota, aunque se enfrenta a desafíos económicos y amenazas de piratas y rivales europeos.', 1 FROM DUAL
   WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `nations` WHERE `name` = 'España') AS x);
 INSERT INTO `nations` (`name`, `description`, `playable`)
   SELECT 'Francia', 'Una potencia emergente con intereses coloniales en Canadá y el Caribe. Francia busca consolidar su posición en el Nuevo Mundo y aumentar su influencia comercial en el Atlántico. Su fuerza militar y diplomática son claves para su expansión.', 1 FROM DUAL

@@ -19,8 +19,7 @@ export class NationService extends CrudService<Nation, AddNationDto, UpdateNatio
     @InjectRepository(Nation) nationService: Repository<Nation>,
     @InjectRepository(Photo) imageService: Repository<Photo>,
   ) {
-    // no photo fields: a nation is a name, a description and whether it can
-    // be picked
-    super(nationService, imageService, [], []);
+    const relationships = ["image"];
+    super(nationService, imageService, relationships, relationships);
   }
 }
