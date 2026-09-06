@@ -70,6 +70,11 @@ INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'spain-ico', 'spain-ico',
 INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'portugal', 'portugal', 'nations/portugal.webp' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'nations/portugal.webp');
 INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'spain', 'spain', 'nations/spain.webp' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'nations/spain.webp');
 
+INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'france-ico', 'france-ico', 'nations/iconos/france.webp' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'nations/iconos/france.webp');
+INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'holanda-ico', 'holanda-ico', 'nations/iconos/holanda.webp' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'nations/iconos/holanda.webp');
+INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'portugal-ico', 'portugal-ico', 'nations/iconos/portugal.webp' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'nations/iconos/portugal.webp');
+INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'tainos-ico', 'tainos-ico', 'nations/iconos/tainos.webp' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'nations/iconos/tainos.webp');
+
 -- ─── accounts, seeded already validated ────────────────────────────────────
 INSERT INTO `horizon-role` (`name`)
   SELECT 'Administrador' FROM DUAL
@@ -124,16 +129,16 @@ INSERT INTO `nations` (`name`, `imageId`, `iconId`, `description`, `playable`)
   SELECT 'España', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'nations/spain.webp' LIMIT 1) AS i), (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'nations/iconos/spain.webp' LIMIT 1) AS i), 'El imperio más grande del mundo, con vastos territorios en América, Filipinas y Europa. España controla minas de plata en el Nuevo Mundo y mantiene una poderosa flota, aunque se enfrenta a desafíos económicos y amenazas de piratas y rivales europeos.', 1 FROM DUAL
   WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `nations` WHERE `name` = 'España') AS x);
 INSERT INTO `nations` (`name`, `imageId`, `iconId`, `description`, `playable`)
-  SELECT 'Francia', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'nations/france.webp' LIMIT 1) AS i), NULL, 'Una potencia emergente con intereses coloniales en Canadá y el Caribe. Francia busca consolidar su posición en el Nuevo Mundo y aumentar su influencia comercial en el Atlántico. Su fuerza militar y diplomática son claves para su expansión.', 1 FROM DUAL
+  SELECT 'Francia', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'nations/france.webp' LIMIT 1) AS i), (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'nations/iconos/france.webp' LIMIT 1) AS i), 'Una potencia emergente con intereses coloniales en Canadá y el Caribe. Francia busca consolidar su posición en el Nuevo Mundo y aumentar su influencia comercial en el Atlántico. Su fuerza militar y diplomática son claves para su expansión.', 1 FROM DUAL
   WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `nations` WHERE `name` = 'Francia') AS x);
 INSERT INTO `nations` (`name`, `imageId`, `iconId`, `description`, `playable`)
-  SELECT 'Holanda', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'nations/holanda.webp' LIMIT 1) AS i), NULL, 'Una república mercantil en pleno auge, conocida por su poderosa flota comercial y sus compañías de comercio en Asia y América. Holanda compite ferozmente con otras potencias europeas por el control de las rutas comerciales y las colonias.', 1 FROM DUAL
+  SELECT 'Holanda', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'nations/holanda.webp' LIMIT 1) AS i), (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'nations/iconos/holanda.webp' LIMIT 1) AS i), 'Una república mercantil en pleno auge, conocida por su poderosa flota comercial y sus compañías de comercio en Asia y América. Holanda compite ferozmente con otras potencias europeas por el control de las rutas comerciales y las colonias.', 1 FROM DUAL
   WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `nations` WHERE `name` = 'Holanda') AS x);
 INSERT INTO `nations` (`name`, `imageId`, `iconId`, `description`, `playable`)
-  SELECT 'Portugal', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'nations/portugal.webp' LIMIT 1) AS i), NULL, 'Un imperio marítimo con enclaves estratégicos en África, Asia y América del Sur. Portugal busca mantener su monopolio sobre el comercio de especias y expandir sus rutas comerciales, enfrentando desafíos de sus vecinos y rivales europeos.', 1 FROM DUAL
+  SELECT 'Portugal', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'nations/portugal.webp' LIMIT 1) AS i), (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'nations/iconos/portugal.webp' LIMIT 1) AS i), 'Un imperio marítimo con enclaves estratégicos en África, Asia y América del Sur. Portugal busca mantener su monopolio sobre el comercio de especias y expandir sus rutas comerciales, enfrentando desafíos de sus vecinos y rivales europeos.', 1 FROM DUAL
   WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `nations` WHERE `name` = 'Portugal') AS x);
 INSERT INTO `nations` (`name`, `imageId`, `iconId`, `description`, `playable`)
-  SELECT 'Caribes y taínos en el Caribe', NULL, NULL, 'Aunque los taínos habían sido casi completamente sometidos tras la llegada de los españoles, los caribes aún habitaban algunas islas y luchaban contra la colonización. Eran conocidos por su feroz resistencia a la dominación europea', 0 FROM DUAL
+  SELECT 'Caribes y taínos en el Caribe', NULL, (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'nations/iconos/tainos.webp' LIMIT 1) AS i), 'Aunque los taínos habían sido casi completamente sometidos tras la llegada de los españoles, los caribes aún habitaban algunas islas y luchaban contra la colonización. Eran conocidos por su feroz resistencia a la dominación europea', 0 FROM DUAL
   WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `nations` WHERE `name` = 'Caribes y taínos en el Caribe') AS x);
 
 -- ─── resources ─────────────────────────────────────────────────────────────
