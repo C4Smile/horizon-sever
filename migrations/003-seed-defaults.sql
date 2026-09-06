@@ -61,7 +61,13 @@ INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'construccion-naval', 'co
 INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'artilleria', 'artilleria', 'techs/artilleria.webp' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'techs/artilleria.webp');
 INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'forja', 'forja', 'techs/forja.webp' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'techs/forja.webp');
 
+
 INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'england', 'england', 'nations/england.webp' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'nations/england.webp');
+INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'france', 'france', 'nations/france.webp' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'nations/france.webp');
+INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'holanda', 'holanda', 'nations/holanda.webp' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'nations/holanda.webp');
+INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'england-ico', 'england-ico', 'nations/iconos/england.webp' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'nations/iconos/england.webp');
+INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'spain-ico', 'spain-ico', 'nations/iconos/spain.webp' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'nations/iconos/spain.webp');
+INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'portugal', 'portugal', 'nations/portugal.webp' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'nations/portugal.webp');
 INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'spain', 'spain', 'nations/spain.webp' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'nations/spain.webp');
 
 -- ─── accounts, seeded already validated ────────────────────────────────────
@@ -111,23 +117,23 @@ INSERT INTO `tech-types` (`name`)
 -- european powers are playable; the caribs and taínos are there as a presence
 -- in the world, not as a choice. Inglaterra is spelled properly here.
 
-INSERT INTO `nations` (`name`, `imageId`, `description`, `playable`)
-  SELECT 'Inglaterra', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'nations/england.webp' LIMIT 1) AS i), 'Un reino en ascenso que busca expandir su influencia y riqueza a través del comercio marítimo y la colonización. Inglaterra está empezando a establecer sus primeras colonias en América del Norte y las Indias Occidentales, con una creciente flota naval y ambiciones comerciales.', 1 FROM DUAL
+INSERT INTO `nations` (`name`, `imageId`, `iconId`, `description`, `playable`)
+  SELECT 'Inglaterra', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'nations/england.webp' LIMIT 1) AS i), (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'nations/iconos/england.webp' LIMIT 1) AS i), 'Un reino en ascenso que busca expandir su influencia y riqueza a través del comercio marítimo y la colonización. Inglaterra está empezando a establecer sus primeras colonias en América del Norte y las Indias Occidentales, con una creciente flota naval y ambiciones comerciales.', 1 FROM DUAL
   WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `nations` WHERE `name` = 'Inglaterra') AS x);
-INSERT INTO `nations` (`name`, `imageId`, `description`, `playable`)
-  SELECT 'España', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'nations/spain.webp' LIMIT 1) AS i), 'El imperio más grande del mundo, con vastos territorios en América, Filipinas y Europa. España controla minas de plata en el Nuevo Mundo y mantiene una poderosa flota, aunque se enfrenta a desafíos económicos y amenazas de piratas y rivales europeos.', 1 FROM DUAL
+INSERT INTO `nations` (`name`, `imageId`, `iconId`, `description`, `playable`)
+  SELECT 'España', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'nations/spain.webp' LIMIT 1) AS i), (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'nations/iconos/spain.webp' LIMIT 1) AS i), 'El imperio más grande del mundo, con vastos territorios en América, Filipinas y Europa. España controla minas de plata en el Nuevo Mundo y mantiene una poderosa flota, aunque se enfrenta a desafíos económicos y amenazas de piratas y rivales europeos.', 1 FROM DUAL
   WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `nations` WHERE `name` = 'España') AS x);
-INSERT INTO `nations` (`name`, `description`, `playable`)
-  SELECT 'Francia', 'Una potencia emergente con intereses coloniales en Canadá y el Caribe. Francia busca consolidar su posición en el Nuevo Mundo y aumentar su influencia comercial en el Atlántico. Su fuerza militar y diplomática son claves para su expansión.', 1 FROM DUAL
+INSERT INTO `nations` (`name`, `imageId`, `iconId`, `description`, `playable`)
+  SELECT 'Francia', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'nations/france.webp' LIMIT 1) AS i), NULL, 'Una potencia emergente con intereses coloniales en Canadá y el Caribe. Francia busca consolidar su posición en el Nuevo Mundo y aumentar su influencia comercial en el Atlántico. Su fuerza militar y diplomática son claves para su expansión.', 1 FROM DUAL
   WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `nations` WHERE `name` = 'Francia') AS x);
-INSERT INTO `nations` (`name`, `description`, `playable`)
-  SELECT 'Holanda', 'Una república mercantil en pleno auge, conocida por su poderosa flota comercial y sus compañías de comercio en Asia y América. Holanda compite ferozmente con otras potencias europeas por el control de las rutas comerciales y las colonias.', 1 FROM DUAL
+INSERT INTO `nations` (`name`, `imageId`, `iconId`, `description`, `playable`)
+  SELECT 'Holanda', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'nations/holanda.webp' LIMIT 1) AS i), NULL, 'Una república mercantil en pleno auge, conocida por su poderosa flota comercial y sus compañías de comercio en Asia y América. Holanda compite ferozmente con otras potencias europeas por el control de las rutas comerciales y las colonias.', 1 FROM DUAL
   WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `nations` WHERE `name` = 'Holanda') AS x);
-INSERT INTO `nations` (`name`, `description`, `playable`)
-  SELECT 'Portugal', 'Un imperio marítimo con enclaves estratégicos en África, Asia y América del Sur. Portugal busca mantener su monopolio sobre el comercio de especias y expandir sus rutas comerciales, enfrentando desafíos de sus vecinos y rivales europeos.', 1 FROM DUAL
+INSERT INTO `nations` (`name`, `imageId`, `iconId`, `description`, `playable`)
+  SELECT 'Portugal', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'nations/portugal.webp' LIMIT 1) AS i), NULL, 'Un imperio marítimo con enclaves estratégicos en África, Asia y América del Sur. Portugal busca mantener su monopolio sobre el comercio de especias y expandir sus rutas comerciales, enfrentando desafíos de sus vecinos y rivales europeos.', 1 FROM DUAL
   WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `nations` WHERE `name` = 'Portugal') AS x);
-INSERT INTO `nations` (`name`, `description`, `playable`)
-  SELECT 'Caribes y taínos en el Caribe', 'Aunque los taínos habían sido casi completamente sometidos tras la llegada de los españoles, los caribes aún habitaban algunas islas y luchaban contra la colonización. Eran conocidos por su feroz resistencia a la dominación europea', 0 FROM DUAL
+INSERT INTO `nations` (`name`, `imageId`, `iconId`, `description`, `playable`)
+  SELECT 'Caribes y taínos en el Caribe', NULL, NULL, 'Aunque los taínos habían sido casi completamente sometidos tras la llegada de los españoles, los caribes aún habitaban algunas islas y luchaban contra la colonización. Eran conocidos por su feroz resistencia a la dominación europea', 0 FROM DUAL
   WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `nations` WHERE `name` = 'Caribes y taínos en el Caribe') AS x);
 
 -- ─── resources ─────────────────────────────────────────────────────────────

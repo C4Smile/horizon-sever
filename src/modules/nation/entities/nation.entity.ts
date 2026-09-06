@@ -13,9 +13,13 @@ export class Nation extends Model {
   @Column({ type: "text" })
   name: string = "";
 
-  // nullable: the flags arrive one at a time
+  // nullable, both of them: the art arrives one nation at a time, and not
+  // every nation flies a flag
   @Column({ type: "int", nullable: true })
   imageId: number;
+
+  @Column({ type: "int", nullable: true })
+  iconId: number;
 
   // no column default: mysql does not allow one on a text column
   @Column({ type: "text" })
@@ -26,4 +30,7 @@ export class Nation extends Model {
 
   @ManyToOne(() => Photo)
   image: Photo;
+
+  @ManyToOne(() => Photo)
+  icon: Photo;
 }

@@ -19,7 +19,7 @@ export class NationService extends CrudService<Nation, AddNationDto, UpdateNatio
     @InjectRepository(Nation) nationService: Repository<Nation>,
     @InjectRepository(Photo) imageService: Repository<Photo>,
   ) {
-    const relationships = ["image"];
+    const relationships = ["image", "icon"];
     super(nationService, imageService, relationships, relationships);
   }
 }
