@@ -278,10 +278,7 @@ export class GameService {
       delete rel.techId;
       return { ...rel, entityId };
     });
-    this.gameBasics.techTypes = techTypes.map(({ id, name, imageId }) => {
-      const urlImage = photos.find((img) => img.id === imageId);
-      return { image: urlImage.url, id, name };
-    });
+    this.gameBasics.techTypes = techTypes.map(({ id, name }) => ({ id, name }));
   }
 
   constructor(

@@ -19,7 +19,8 @@ export class TechTypeService extends CrudService<TechType, AddTechTypeDto, Updat
     @InjectRepository(TechType) techTypeService: Repository<TechType>,
     @InjectRepository(Photo) imageService: Repository<Photo>,
   ) {
-    const relationships = ["techs", "image"];
-    super(techTypeService, imageService, relationships);
+    const relationships = ["techs"];
+    // no photo fields: the type carries no picture of its own
+    super(techTypeService, imageService, relationships, []);
   }
 }

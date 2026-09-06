@@ -13,8 +13,9 @@
 --   * the names follow the art under public/images. The dump calls them
 --     Materiales, Riquezas and Campamentos de Leñadores; here they are
 --     Madera, Monedas and Aserradero, which is what the pictures show.
---   * the building types carry no image: the game paints those buttons
---     from its own assets.
+--   * neither kind of type carries an image. The game paints its building
+--     type buttons from its own assets and never asks for a tech type
+--     picture at all.
 
 -- ─── images ────────────────────────────────────────────────────────────────
 -- id 1 is the placeholder every entity falls back to, so it goes in first
@@ -53,8 +54,6 @@ INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'cultivos', 'cultivos', '
 INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'madera', 'madera', 'techs/madera.jpeg' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'techs/madera.jpeg');
 INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'comercio', 'comercio', 'techs/comercio.jpeg' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'techs/comercio.jpeg');
 INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'vivienda', 'vivienda', 'techs/vivienda.jpeg' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'techs/vivienda.jpeg');
-INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'mejora', 'mejora', 'techTypes/mejora.png' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'techTypes/mejora.png');
-INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'investigacion', 'investigacion', 'techTypes/investigacion.png' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'techTypes/investigacion.png');
 -- ─── accounts, seeded already validated ────────────────────────────────────
 INSERT INTO `horizon-role` (`name`)
   SELECT 'Administrador' FROM DUAL
@@ -90,11 +89,11 @@ INSERT INTO `building-types` (`name`)
 INSERT INTO `building-types` (`name`)
   SELECT 'Forja' FROM DUAL
   WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `building-types` WHERE `name` = 'Forja') AS x);
-INSERT INTO `tech-types` (`name`, `imageId`)
-  SELECT 'Mejora', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'techTypes/mejora.png' LIMIT 1) AS i) FROM DUAL
+INSERT INTO `tech-types` (`name`)
+  SELECT 'Mejora' FROM DUAL
   WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `tech-types` WHERE `name` = 'Mejora') AS x);
-INSERT INTO `tech-types` (`name`, `imageId`)
-  SELECT 'Investigación', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'techTypes/investigacion.png' LIMIT 1) AS i) FROM DUAL
+INSERT INTO `tech-types` (`name`)
+  SELECT 'Investigación' FROM DUAL
   WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `tech-types` WHERE `name` = 'Investigación') AS x);
 
 -- ─── resources ─────────────────────────────────────────────────────────────
