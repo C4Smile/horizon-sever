@@ -51,7 +51,7 @@ INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'galeon', 'galeon', 'ship
 INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'goleta', 'goleta', 'ships/iconos/goleta.png' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'ships/iconos/goleta.png');
 INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'navegacion', 'navegacion', 'skills/navegacion.jpeg' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'skills/navegacion.jpeg');
 INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'cultivos', 'cultivos', 'techs/cultivos.png' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'techs/cultivos.png');
-INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'silvicultura', 'silvicultura', 'techs/silvicultura.png' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'techs/silvicultura.png');
+INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'mulas', 'mulas', 'techs/mulas.png' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'techs/mulas.png');
 INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'comercio', 'comercio', 'techs/comercio.jpeg' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'techs/comercio.jpeg');
 INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'velas', 'velas', 'techs/velas.png' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'techs/velas.png');
 INSERT INTO `images` (`fileName`, `alt`, `url`) SELECT 'casco', 'casco', 'techs/casco.png' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM `images` WHERE `url` = 'techs/casco.png');
@@ -219,8 +219,8 @@ INSERT INTO `techs` (`name`, `imageId`, `typeId`, `creationTime`, `description`)
   SELECT 'Métodos Avanzados de Cultivo', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'techs/cultivos.png' LIMIT 1) AS i), (SELECT id FROM (SELECT id FROM `tech-types` WHERE `name` = 'Mejora' LIMIT 1) AS q), 15, '<p>Aumenta la productividad de las granjas mediante nuevas técnicas agrícolas, lo que permite una mayor cosecha de granos con el mismo espacio de cultivo.&nbsp;</p>\\n' FROM DUAL
   WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `techs` WHERE `name` = 'Métodos Avanzados de Cultivo') AS x);
 INSERT INTO `techs` (`name`, `imageId`, `typeId`, `creationTime`, `description`)
-  SELECT 'Técnicas de Silvicultura Eficiente', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'techs/silvicultura.png' LIMIT 1) AS i), (SELECT id FROM (SELECT id FROM `tech-types` WHERE `name` = 'Mejora' LIMIT 1) AS q), 12, '<p>Introduce métodos de cultivo y tala controlada que incrementan la cantidad de madera obtenida por los campamentos de leñadores sin dañar los bosques cercanos.&nbsp;</p>\\n' FROM DUAL
-  WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `techs` WHERE `name` = 'Técnicas de Silvicultura Eficiente') AS x);
+  SELECT 'Mulas de Tiro', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'techs/mulas.png' LIMIT 1) AS i), (SELECT id FROM (SELECT id FROM `tech-types` WHERE `name` = 'Mejora' LIMIT 1) AS q), 12, '<p>Recuas de mulas de tiro arrastran la madera desde el monte hasta el aserradero. Lo que antes bajaba a hombros baja ahora por carga, y la sierra no espera a que llegue el tronco.</p>\\n' FROM DUAL
+  WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `techs` WHERE `name` = 'Mulas de Tiro') AS x);
 INSERT INTO `techs` (`name`, `imageId`, `typeId`, `creationTime`, `description`)
   SELECT 'Desarrollo de Rutas Comerciales', (SELECT id FROM (SELECT id FROM `images` WHERE `url` = 'techs/comercio.jpeg' LIMIT 1) AS i), (SELECT id FROM (SELECT id FROM `tech-types` WHERE `name` = 'Mejora' LIMIT 1) AS q), 20, '<p>Desarrolla nuevas rutas comerciales y métodos para expandir la red de comercio, mejorando el flujo de riquezas en el mercado local y marítimo, aumentando la ganancia de recursos.&nbsp;</p>\\n' FROM DUAL
   WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `techs` WHERE `name` = 'Desarrollo de Rutas Comerciales') AS x);
@@ -569,17 +569,17 @@ INSERT INTO `tech-costs` (`techId`, `resourceId`, `factor`, `base`)
   WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `tech-costs`
     WHERE `techId` = (SELECT id FROM (SELECT id FROM `techs` WHERE `name` = 'Métodos Avanzados de Cultivo' LIMIT 1) AS q) AND `resourceId` = (SELECT id FROM (SELECT id FROM `resources` WHERE `name` = 'Monedas' LIMIT 1) AS q)) AS x);
 INSERT INTO `tech-costs` (`techId`, `resourceId`, `factor`, `base`)
-  SELECT (SELECT id FROM (SELECT id FROM `techs` WHERE `name` = 'Técnicas de Silvicultura Eficiente' LIMIT 1) AS q), (SELECT id FROM (SELECT id FROM `resources` WHERE `name` = 'Suministros' LIMIT 1) AS q), 0.5, 1 FROM DUAL
+  SELECT (SELECT id FROM (SELECT id FROM `techs` WHERE `name` = 'Mulas de Tiro' LIMIT 1) AS q), (SELECT id FROM (SELECT id FROM `resources` WHERE `name` = 'Suministros' LIMIT 1) AS q), 0.5, 1 FROM DUAL
   WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `tech-costs`
-    WHERE `techId` = (SELECT id FROM (SELECT id FROM `techs` WHERE `name` = 'Técnicas de Silvicultura Eficiente' LIMIT 1) AS q) AND `resourceId` = (SELECT id FROM (SELECT id FROM `resources` WHERE `name` = 'Suministros' LIMIT 1) AS q)) AS x);
+    WHERE `techId` = (SELECT id FROM (SELECT id FROM `techs` WHERE `name` = 'Mulas de Tiro' LIMIT 1) AS q) AND `resourceId` = (SELECT id FROM (SELECT id FROM `resources` WHERE `name` = 'Suministros' LIMIT 1) AS q)) AS x);
 INSERT INTO `tech-costs` (`techId`, `resourceId`, `factor`, `base`)
-  SELECT (SELECT id FROM (SELECT id FROM `techs` WHERE `name` = 'Técnicas de Silvicultura Eficiente' LIMIT 1) AS q), (SELECT id FROM (SELECT id FROM `resources` WHERE `name` = 'Poblacion' LIMIT 1) AS q), 0, 2 FROM DUAL
+  SELECT (SELECT id FROM (SELECT id FROM `techs` WHERE `name` = 'Mulas de Tiro' LIMIT 1) AS q), (SELECT id FROM (SELECT id FROM `resources` WHERE `name` = 'Poblacion' LIMIT 1) AS q), 0, 2 FROM DUAL
   WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `tech-costs`
-    WHERE `techId` = (SELECT id FROM (SELECT id FROM `techs` WHERE `name` = 'Técnicas de Silvicultura Eficiente' LIMIT 1) AS q) AND `resourceId` = (SELECT id FROM (SELECT id FROM `resources` WHERE `name` = 'Poblacion' LIMIT 1) AS q)) AS x);
+    WHERE `techId` = (SELECT id FROM (SELECT id FROM `techs` WHERE `name` = 'Mulas de Tiro' LIMIT 1) AS q) AND `resourceId` = (SELECT id FROM (SELECT id FROM `resources` WHERE `name` = 'Poblacion' LIMIT 1) AS q)) AS x);
 INSERT INTO `tech-costs` (`techId`, `resourceId`, `factor`, `base`)
-  SELECT (SELECT id FROM (SELECT id FROM `techs` WHERE `name` = 'Técnicas de Silvicultura Eficiente' LIMIT 1) AS q), (SELECT id FROM (SELECT id FROM `resources` WHERE `name` = 'Monedas' LIMIT 1) AS q), 0.5, 10 FROM DUAL
+  SELECT (SELECT id FROM (SELECT id FROM `techs` WHERE `name` = 'Mulas de Tiro' LIMIT 1) AS q), (SELECT id FROM (SELECT id FROM `resources` WHERE `name` = 'Monedas' LIMIT 1) AS q), 0.5, 10 FROM DUAL
   WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `tech-costs`
-    WHERE `techId` = (SELECT id FROM (SELECT id FROM `techs` WHERE `name` = 'Técnicas de Silvicultura Eficiente' LIMIT 1) AS q) AND `resourceId` = (SELECT id FROM (SELECT id FROM `resources` WHERE `name` = 'Monedas' LIMIT 1) AS q)) AS x);
+    WHERE `techId` = (SELECT id FROM (SELECT id FROM `techs` WHERE `name` = 'Mulas de Tiro' LIMIT 1) AS q) AND `resourceId` = (SELECT id FROM (SELECT id FROM `resources` WHERE `name` = 'Monedas' LIMIT 1) AS q)) AS x);
 INSERT INTO `tech-costs` (`techId`, `resourceId`, `factor`, `base`)
   SELECT (SELECT id FROM (SELECT id FROM `techs` WHERE `name` = 'Desarrollo de Rutas Comerciales' LIMIT 1) AS q), (SELECT id FROM (SELECT id FROM `resources` WHERE `name` = 'Suministros' LIMIT 1) AS q), 0.5, 2 FROM DUAL
   WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `tech-costs`
@@ -598,9 +598,9 @@ INSERT INTO `tech-produces` (`techId`, `resourceId`, `factor`, `base`)
   WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `tech-produces`
     WHERE `techId` = (SELECT id FROM (SELECT id FROM `techs` WHERE `name` = 'Métodos Avanzados de Cultivo' LIMIT 1) AS q) AND `resourceId` = (SELECT id FROM (SELECT id FROM `resources` WHERE `name` = 'Suministros' LIMIT 1) AS q)) AS x);
 INSERT INTO `tech-produces` (`techId`, `resourceId`, `factor`, `base`)
-  SELECT (SELECT id FROM (SELECT id FROM `techs` WHERE `name` = 'Técnicas de Silvicultura Eficiente' LIMIT 1) AS q), (SELECT id FROM (SELECT id FROM `resources` WHERE `name` = 'Madera' LIMIT 1) AS q), 0.5, 2 FROM DUAL
+  SELECT (SELECT id FROM (SELECT id FROM `techs` WHERE `name` = 'Mulas de Tiro' LIMIT 1) AS q), (SELECT id FROM (SELECT id FROM `resources` WHERE `name` = 'Madera' LIMIT 1) AS q), 0.5, 2 FROM DUAL
   WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `tech-produces`
-    WHERE `techId` = (SELECT id FROM (SELECT id FROM `techs` WHERE `name` = 'Técnicas de Silvicultura Eficiente' LIMIT 1) AS q) AND `resourceId` = (SELECT id FROM (SELECT id FROM `resources` WHERE `name` = 'Madera' LIMIT 1) AS q)) AS x);
+    WHERE `techId` = (SELECT id FROM (SELECT id FROM `techs` WHERE `name` = 'Mulas de Tiro' LIMIT 1) AS q) AND `resourceId` = (SELECT id FROM (SELECT id FROM `resources` WHERE `name` = 'Madera' LIMIT 1) AS q)) AS x);
 INSERT INTO `tech-produces` (`techId`, `resourceId`, `factor`, `base`)
   SELECT (SELECT id FROM (SELECT id FROM `techs` WHERE `name` = 'Desarrollo de Rutas Comerciales' LIMIT 1) AS q), (SELECT id FROM (SELECT id FROM `resources` WHERE `name` = 'Monedas' LIMIT 1) AS q), 0.3, 5 FROM DUAL
   WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `tech-produces`
@@ -611,9 +611,9 @@ INSERT INTO `tech-req-buildings` (`techId`, `buildingReqId`, `level`)
   WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `tech-req-buildings`
     WHERE `techId` = (SELECT id FROM (SELECT id FROM `techs` WHERE `name` = 'Métodos Avanzados de Cultivo' LIMIT 1) AS q) AND `buildingReqId` = (SELECT id FROM (SELECT id FROM `buildings` WHERE `name` = 'Academia' LIMIT 1) AS q)) AS x);
 INSERT INTO `tech-req-buildings` (`techId`, `buildingReqId`, `level`)
-  SELECT (SELECT id FROM (SELECT id FROM `techs` WHERE `name` = 'Técnicas de Silvicultura Eficiente' LIMIT 1) AS q), (SELECT id FROM (SELECT id FROM `buildings` WHERE `name` = 'Academia' LIMIT 1) AS q), 1 FROM DUAL
+  SELECT (SELECT id FROM (SELECT id FROM `techs` WHERE `name` = 'Mulas de Tiro' LIMIT 1) AS q), (SELECT id FROM (SELECT id FROM `buildings` WHERE `name` = 'Academia' LIMIT 1) AS q), 1 FROM DUAL
   WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `tech-req-buildings`
-    WHERE `techId` = (SELECT id FROM (SELECT id FROM `techs` WHERE `name` = 'Técnicas de Silvicultura Eficiente' LIMIT 1) AS q) AND `buildingReqId` = (SELECT id FROM (SELECT id FROM `buildings` WHERE `name` = 'Academia' LIMIT 1) AS q)) AS x);
+    WHERE `techId` = (SELECT id FROM (SELECT id FROM `techs` WHERE `name` = 'Mulas de Tiro' LIMIT 1) AS q) AND `buildingReqId` = (SELECT id FROM (SELECT id FROM `buildings` WHERE `name` = 'Academia' LIMIT 1) AS q)) AS x);
 INSERT INTO `tech-req-buildings` (`techId`, `buildingReqId`, `level`)
   SELECT (SELECT id FROM (SELECT id FROM `techs` WHERE `name` = 'Desarrollo de Rutas Comerciales' LIMIT 1) AS q), (SELECT id FROM (SELECT id FROM `buildings` WHERE `name` = 'Mercado' LIMIT 1) AS q), 1 FROM DUAL
   WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `tech-req-buildings`
@@ -627,9 +627,9 @@ INSERT INTO `tech-req-buildings` (`techId`, `buildingReqId`, `level`)
   WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `tech-req-buildings`
     WHERE `techId` = (SELECT id FROM (SELECT id FROM `techs` WHERE `name` = 'Métodos Avanzados de Cultivo' LIMIT 1) AS q) AND `buildingReqId` = (SELECT id FROM (SELECT id FROM `buildings` WHERE `name` = 'Granja' LIMIT 1) AS q)) AS x);
 INSERT INTO `tech-req-buildings` (`techId`, `buildingReqId`, `level`)
-  SELECT (SELECT id FROM (SELECT id FROM `techs` WHERE `name` = 'Técnicas de Silvicultura Eficiente' LIMIT 1) AS q), (SELECT id FROM (SELECT id FROM `buildings` WHERE `name` = 'Aserradero' LIMIT 1) AS q), 1 FROM DUAL
+  SELECT (SELECT id FROM (SELECT id FROM `techs` WHERE `name` = 'Mulas de Tiro' LIMIT 1) AS q), (SELECT id FROM (SELECT id FROM `buildings` WHERE `name` = 'Aserradero' LIMIT 1) AS q), 1 FROM DUAL
   WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `tech-req-buildings`
-    WHERE `techId` = (SELECT id FROM (SELECT id FROM `techs` WHERE `name` = 'Técnicas de Silvicultura Eficiente' LIMIT 1) AS q) AND `buildingReqId` = (SELECT id FROM (SELECT id FROM `buildings` WHERE `name` = 'Aserradero' LIMIT 1) AS q)) AS x);
+    WHERE `techId` = (SELECT id FROM (SELECT id FROM `techs` WHERE `name` = 'Mulas de Tiro' LIMIT 1) AS q) AND `buildingReqId` = (SELECT id FROM (SELECT id FROM `buildings` WHERE `name` = 'Aserradero' LIMIT 1) AS q)) AS x);
 
 -- cannons
 INSERT INTO `cannon-costs` (`cannonId`, `resourceId`, `factor`, `base`)
