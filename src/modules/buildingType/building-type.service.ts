@@ -23,7 +23,8 @@ export class BuildingTypeService extends CrudService<
     @InjectRepository(BuildingType) buildingTypeService: Repository<BuildingType>,
     @InjectRepository(Photo) imageService: Repository<Photo>,
   ) {
-    const relationships = ["buildings", "image"];
-    super(buildingTypeService, imageService, relationships);
+    const relationships = ["buildings"];
+    // no photo fields: the type carries no picture of its own
+    super(buildingTypeService, imageService, relationships, []);
   }
 }

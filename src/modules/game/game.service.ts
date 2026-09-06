@@ -164,10 +164,10 @@ export class GameService {
       delete rel.buildingId;
       return { ...rel, entityId };
     });
-    this.gameBasics.buildingTypes = buildingTypes.map(({ id, name, imageId }) => {
-      const urlImage = photos.find((img) => img.id === imageId);
-      return { image: urlImage.url, id, name };
-    });
+    this.gameBasics.buildingTypes = buildingTypes.map(({ id, name }) => ({
+      id,
+      name,
+    }));
     this.gameBasics.buildingUpkeeps = buildingUpkeeps.map((rel) => {
       const entityId = rel.buildingId;
       delete rel.buildingId;

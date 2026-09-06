@@ -81,20 +81,20 @@ INSERT INTO `horizon-user` (`name`, `username`, `phone`, `email`, `roleId`, `use
 -- Naval, Militar and Investigacion are named after those icons. Produccion and
 -- Civil are a guess at what the remaining buildings have in common: rename
 -- either and the buildings below follow, they look the type up by name.
-INSERT INTO `building-types` (`name`, `imageId`)
-  SELECT 'Naval', 1 FROM DUAL
+INSERT INTO `building-types` (`name`)
+  SELECT 'Naval' FROM DUAL
   WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `building-types` WHERE `name` = 'Naval') AS x);
-INSERT INTO `building-types` (`name`, `imageId`)
-  SELECT 'Militar', 1 FROM DUAL
+INSERT INTO `building-types` (`name`)
+  SELECT 'Militar' FROM DUAL
   WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `building-types` WHERE `name` = 'Militar') AS x);
-INSERT INTO `building-types` (`name`, `imageId`)
-  SELECT 'Investigacion', 1 FROM DUAL
+INSERT INTO `building-types` (`name`)
+  SELECT 'Investigacion' FROM DUAL
   WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `building-types` WHERE `name` = 'Investigacion') AS x);
-INSERT INTO `building-types` (`name`, `imageId`)
-  SELECT 'Produccion', 1 FROM DUAL
+INSERT INTO `building-types` (`name`)
+  SELECT 'Produccion' FROM DUAL
   WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `building-types` WHERE `name` = 'Produccion') AS x);
-INSERT INTO `building-types` (`name`, `imageId`)
-  SELECT 'Civil', 1 FROM DUAL
+INSERT INTO `building-types` (`name`)
+  SELECT 'Civil' FROM DUAL
   WHERE NOT EXISTS (SELECT 1 FROM (SELECT 1 FROM `building-types` WHERE `name` = 'Civil') AS x);
 INSERT INTO `tech-types` (`name`, `imageId`)
   SELECT 'Naval', 1 FROM DUAL
